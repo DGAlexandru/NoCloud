@@ -205,8 +205,8 @@ class DreameL10SUltraNoCloudRobot extends DreameGen2LidarNoCloudRobot {
                 piid: DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.PROPERTIES.MOP_DOCK_SETTINGS.PIID
             },
             { // Required for the water hookup test quirk
-                siid: DreameGen2ValetudoRobot.MIOT_SERVICES.VACUUM_2.SIID,
-                piid: DreameGen2ValetudoRobot.MIOT_SERVICES.VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID
+                siid: DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.SIID,
+                piid: DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID
             }
         ];
     }
