@@ -1,55 +1,10 @@
 const DreameGen2LidarNoCloudRobot = require("./DreameGen2LidarNoCloudRobot");
 const DreameGen2NoCloudRobot = require("./DreameGen2NoCloudRobot");
-const DreameMiotHelper = require("./DreameMiotHelper");
-const DreameUtils = require("./DreameUtils");
 const fs = require("fs");
-const Logger = require("../../Logger");
 
 class DreameGen4NoCloudRobot extends DreameGen2LidarNoCloudRobot {
     constructor(options) {
         super(options);
-
-        this.helper = new DreameMiotHelper({robot: this});
-    }
-
-    parseAndUpdateState(data) {
-        if (!Array.isArray(data)) {
-            Logger.error("Received non-array state", data);
-            return;
-        }
-
-        data.forEach(elem => {
-            switch (elem.siid) {
-                case DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.SIID: {
-                    switch (elem.piid) {
-                        case DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID: {
-                            const deserializedTunables = DreameUtils.DESERIALIZE_MISC_TUNABLES(elem.value);
-
-                            if (deserializedTunables.SmartHost > 0) {
-                                Logger.info("Disabling CleanGenius");
-                                // CleanGenius breaks most controls in NoCloud without any user feedback
-                                // Thus, we just automatically disable it instead of making every functionality aware of it
-
-                                this.helper.writeProperty(
-                                    DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.SIID,
-                                    DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID,
-                                    DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE({
-                                        SmartHost: 0
-                                    })
-                                ).catch(e => {
-                                    Logger.warn("Error while disabling CleanGenius", e);
-                                });
-                            }
-
-                            break;
-                        }
-                    }
-                    break;
-                }
-            }
-        });
-
-        return super.parseAndUpdateState(data);
     }
 
     getStatePropertiesToPoll() {
@@ -58,6 +13,7 @@ class DreameGen4NoCloudRobot extends DreameGen2LidarNoCloudRobot {
         return [
             ...superProps,
             { // Required so that we can automatically disable CleanGenius
+                // + the water hookup test quirk
                 siid: DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.SIID,
                 piid: DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID
             }

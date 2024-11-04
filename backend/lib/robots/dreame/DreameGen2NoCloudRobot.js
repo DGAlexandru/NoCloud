@@ -1,10 +1,12 @@
 const capabilities = require("./capabilities");
 
 const ConsumableMonitoringCapability = require("../../core/capabilities/ConsumableMonitoringCapability");
+const DreameConst = require("./DreameConst");
 const DreameMiotServices = require("./DreameMiotServices");
 const DreameUtils = require("./DreameUtils");
 const DreameNoCloudRobot = require("./DreameNoCloudRobot");
 const entities = require("../../entities");
+const ErrorStateNoCloudEvent = require("../../NoCloud_events/events/ErrorStateNoCloudEvent");
 const LinuxTools = require("../../utils/LinuxTools");
 const Logger = require("../../Logger");
 const MopAttachmentReminderNoCloudEvent = require("../../NoCloud_events/events/MopAttachmentReminderNoCloudEvent");
@@ -568,6 +570,49 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
                             }));
                             break;
                         }
+
+                        case DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID: {
+                            const deserializedTunables = DreameUtils.DESERIALIZE_MISC_TUNABLES(elem.value);
+
+                            if (deserializedTunables.SmartHost > 0) {
+                                Logger.info("Disabling CleanGenius");
+                                // CleanGenius breaks most controls in NoCloud without any user feedback
+                                // Thus, we just automatically disable it instead of making every functionality aware of it
+
+                                this.helper.writeProperty(
+                                    DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.SIID,
+                                    DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID,
+                                    DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE({
+                                        SmartHost: 0
+                                    })
+                                ).catch(e => {
+                                    Logger.warn("Error while disabling CleanGenius", e);
+                                });
+                            }
+
+                            if (deserializedTunables.FluctuationConfirmResult > 0) {
+                                if (deserializedTunables.FluctuationTestResult !== 6) { // 6 Means success
+                                    const errorString = DreameConst.WATER_HOOKUP_ERRORS[deserializedTunables.FluctuationTestResult];
+
+                                    this.NoCloudEventStore.raise(new ErrorStateNoCloudEvent({
+                                        message: `Water Hookup Error. ${errorString ?? "Unknown error " + deserializedTunables.FluctuationTestResult}`
+                                    }));
+                                }
+
+
+                                this.helper.writeProperty(
+                                    DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.SIID,
+                                    DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID,
+                                    DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE({
+                                        FluctuationConfirmResult: 0
+                                    })
+                                ).catch(e => {
+                                    Logger.warn("Error while confirming water hookup test result", e);
+                                });
+                            }
+
+                            break;
+                        }
                     }
                     break;
                 }
@@ -651,7 +696,7 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
             if (this.errorCode.includes(",")) {
                 let errorArray = this.errorCode.split(",");
 
-                errorArray = errorArray.filter(e => !["68", "114"].includes(e));
+                errorArray = errorArray.filter(e => !["68", "114", "122"].includes(e));
 
                 this.errorCode = errorArray[0] ?? "";
             }
@@ -668,13 +713,15 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
                     statusValue = stateAttrs.StatusStateAttribute.VALUE.DOCKED;
                 }
             } else {
-                if (this.errorCode === "68") { //Docked with mop still attached. For some reason, dreame decided to have this as an error
+                if (this.errorCode === "68") { // Docked with mop still attached. For some reason, dreame decided to have this as an error
                     statusValue = stateAttrs.StatusStateAttribute.VALUE.DOCKED;
 
                     if (!this.hasCapability(capabilities.DreameMopDockDryManualTriggerCapability.TYPE)) {
                         this.NoCloudEventStore.raise(new MopAttachmentReminderNoCloudEvent({}));
                     }
-                } else if (this.errorCode === "114") { //Reminder message to regularly clean the mop dock
+                } else if (this.errorCode === "114") { // Reminder message to regularly clean the mop dock
+                    statusValue = stateAttrs.StatusStateAttribute.VALUE.DOCKED;
+                } else if (this.errorCode === "122") { // Apparently just an info that the water hookup (kit) worked successfully?
                     statusValue = stateAttrs.StatusStateAttribute.VALUE.DOCKED;
                 } else {
                     statusValue = stateAttrs.StatusStateAttribute.VALUE.ERROR;
