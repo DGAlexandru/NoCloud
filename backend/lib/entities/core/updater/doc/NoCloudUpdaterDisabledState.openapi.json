@@ -1,0 +1,18 @@
+{
+  "components": {
+    "schemas": {
+      "NoCloudUpdaterDisabledState": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/NoCloudUpdaterState"
+          },
+          {
+            "type": "object",
+            "properties": {
+            }
+          }
+        ]
+      }
+    }
+  }
+}

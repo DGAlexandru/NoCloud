@@ -1,0 +1,99 @@
+{
+  "/api/v2/robot/capabilities/DoNotDisturbCapability": {
+    "get": {
+      "tags": [
+        "DoNotDisturbCapability"
+      ],
+      "summary": "Get do-not-disturb configuration",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NoCloudDNDConfiguration"
+              },
+              "examples": {
+                "getTimer": {
+                  "description": "Get the do not disturb timer configuration",
+                  "value": {
+                    "enabled": true,
+                    "start": {
+                      "hour": 22,
+                      "minute": 0
+                    },
+                    "end": {
+                      "hour": 8,
+                      "minute": 0
+                    },
+                    "metaData": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "tags": [
+        "DoNotDisturbCapability"
+      ],
+      "summary": "Set do-not-disturb configuration",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/NoCloudDNDConfiguration"
+            },
+            "examples": {
+              "setTimer": {
+                "description": "Set a do not disturb timer from 22:00 to 06:00",
+                "value": {
+                  "enabled": true,
+                  "start": {
+                    "hour": 22,
+                    "minute": 0
+                  },
+                  "end": {
+                    "hour": 8,
+                    "minute": 0
+                  },
+                  "metaData": {}
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "400": {
+          "$ref": "#/components/responses/400"
+        }
+      }
+    }
+  },
+  "/api/v2/robot/capabilities/DoNotDisturbCapability/properties": {
+    "get": {
+      "tags": [
+        "DoNotDisturbCapability"
+      ],
+      "summary": "Get various capability-related properties",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

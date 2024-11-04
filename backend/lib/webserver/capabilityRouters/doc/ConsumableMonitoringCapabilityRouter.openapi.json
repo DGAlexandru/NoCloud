@@ -1,0 +1,213 @@
+{
+  "/api/v2/robot/capabilities/ConsumableMonitoringCapability": {
+    "get": {
+      "tags": [
+        "ConsumableMonitoringCapability"
+      ],
+      "summary": "Get consumables status",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ConsumableStateAttribute"
+                }
+              },
+              "examples": {
+                "getConsumablesStatus": {
+                  "description": "Get the status of the consumables.",
+                  "value": 
+                    [
+                      {
+                        "__class": "ConsumableStateAttribute",
+                        "metaData": {},
+                        "type": "brush",
+                        "subType": "main",
+                        "remaining": {
+                          "value": 123456,
+                          "unit": "minutes"
+                        }
+                      },
+                      {
+                        "__class": "ConsumableStateAttribute",
+                        "metaData": {},
+                        "type": "brush",
+                        "subType": "side_right",
+                        "remaining": {
+                          "value": 1234,
+                          "unit": "minutes"
+                        }
+                      },
+                      {
+                        "__class": "ConsumableStateAttribute",
+                        "metaData": {},
+                        "type": "filter",
+                        "subType": "main",
+                        "remaining": {
+                          "value": 5432,
+                          "unit": "minutes"
+                        }
+                      },
+                      {
+                        "__class": "ConsumableStateAttribute",
+                        "metaData": {},
+                        "type": "sensor",
+                        "subType": "all",
+                        "remaining": {
+                          "value": 123,
+                          "unit": "minutes"
+                        }
+                      }
+                    ]
+                  
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/v2/robot/capabilities/ConsumableMonitoringCapability/{type}": {
+    "put": {
+      "tags": [
+        "ConsumableMonitoringCapability"
+      ],
+      "summary": "Reset consumable",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "type",
+          "description": "Consumable type",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "reset"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "400": {
+          "$ref": "#/components/responses/400"
+        }
+      }
+    }
+  },
+  "/api/v2/robot/capabilities/ConsumableMonitoringCapability/{type}/{sub_type}": {
+    "put": {
+      "tags": [
+        "ConsumableMonitoringCapability"
+      ],
+      "summary": "Reset consumable",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "type",
+          "description": "Consumable type",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "sub_type",
+          "description": "Consumable sub-type",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "reset"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "400": {
+          "$ref": "#/components/responses/400"
+        }
+      }
+    }
+  },
+  "/api/v2/robot/capabilities/ConsumableMonitoringCapability/properties": {
+    "get": {
+      "tags": [
+        "ConsumableMonitoringCapability"
+      ],
+      "summary": "Get various capability-related properties",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "availableConsumables": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string"
+                        },
+                        "subType": {
+                          "type": "string"
+                        },
+                        "unit": {
+                          "type": "string"
+                        },
+                        "maxValue": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

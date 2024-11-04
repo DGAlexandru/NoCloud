@@ -1,0 +1,160 @@
+{
+  "/api/v2/robot/capabilities/MapSegmentationCapability": {
+    "get": {
+      "tags": [
+        "MapSegmentationCapability"
+      ],
+      "summary": "Get available map segments",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/NoCloudMapSegment"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "tags": [
+        "MapSegmentationCapability"
+      ],
+      "summary": "Clean map segments",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "segment_ids"
+              ],
+              "properties": {
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "start_segment_action"
+                  ]
+                },
+                "segment_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "Segment IDs to clean",
+                    "minimum": 1
+                  }
+                },
+                "iterations": {
+                  "type": "number",
+                  "minimum": 1,
+                  "description": "The iteration value applies to all specified Segment IDs. Defaults to 1."
+                },
+                "customOrder": {
+                  "type": "boolean",
+                  "description": "Whether or not Segments should be cleaned in order of ID appearance in the Array. Defaults to false. (Needs firmware support)"
+                }
+              }
+            },
+            "examples": {
+              "Clean segments in default order": {
+                "description": "Clean selected segments in a order determined by the robot",
+                "value": {
+                  "action": "start_segment_action",
+                  "segment_ids": [
+                    "3",
+                    "2",
+                    "1"
+                  ],
+                  "iterations": 1
+                }
+              },
+              "Clean segments in custom order": {
+                "description": "Clean selected segments in order of appearance of the IDs provided in the segment_ids array. Check custom order support for your robot with the MapSegmentationCapability/properties endpoint",
+                "value": {
+                  "action": "start_segment_action",
+                  "segment_ids": [
+                    "3",
+                    "2",
+                    "1"
+                  ],
+                  "iterations": 1,
+                  "customOrder": true
+                }
+              },
+              "Clean segments with multiple iterations": {
+                "description": "Clean selected segments in custom order with multiple iterations. Check custom order support and maximum iterations for your robot with the MapSegmentationCapability/properties endpoint",
+                "value": {
+                  "action": "start_segment_action",
+                  "segment_ids": [
+                    "3",
+                    "2",
+                    "1"
+                  ],
+                  "iterations": 3,
+                  "customOrder": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "400": {
+          "$ref": "#/components/responses/400"
+        }
+      }
+    }
+  },
+  "/api/v2/robot/capabilities/MapSegmentationCapability/properties": {
+    "get": {
+      "tags": [
+        "MapSegmentationCapability"
+      ],
+      "summary": "Get various capability-related properties",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "iterationCount",
+                  "customOrderSupported"
+                ],
+                "properties": {
+                  "iterationCount": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "min": {
+                        "minimum": 1,
+                        "type": "number"
+                      },
+                      "max": {
+                        "minimum": 1,
+                        "type": "number"
+                      }
+                    }
+                  },
+                  "customOrderSupported": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

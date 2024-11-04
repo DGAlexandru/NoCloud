@@ -1,0 +1,124 @@
+name: Bug Report
+description: Please only open a bug report when you're sure that it is in fact a bug in NoCloud
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Hi, before you open a bug report, please remember that whatever issue it is that you experience, I do not experience, as otherwise, I would've already fixed it. Thus, if you have no clue how I could reproduce you issue, please save us both the time and don't open a bug report.
+        I can understand that that might be frustrating and that you might feel helpless, but it is simply not my responsibility to figure out your problems for you. It is highly unenjoyable work to do that, which takes up a ton of time and in the end most of the time it's user error anyway.
+
+        If you've found something and are able to reproduce it, good! Please let me know.
+
+        Though, before you do, make sure that it's not some super niche nonsense, as I do not care about that either. FOSS enables you do to whatever niche thing you want to do, but that doesn't mean that FOSS maintainers would be required to help you with that.
+
+        Thank you for understanding and sorry if this might've felt a bit intimidating.
+        I'm just trying to protect my sanity here.
+  - type: textarea
+    id: what-is-happening
+    attributes:
+      label: What is happening?
+      description: What behavior do you observe?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: broken-or-not-as-expected
+    attributes:
+      label: Broken or not as expected?
+      description: |
+        Do you believe that that is actually broken as in "Not behaving as it was obviously intended to behave",
+        or is it just not as expected as in "I've expected it to do X but it did do Y instead"?
+      options:
+        - Broken
+        - Not as expected
+      default: 1
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-should-be-happening
+    attributes:
+      label: What should be happening?
+      description: |
+        What would be the correct behavior?<br/>
+        If you've previously selected "Not as expected", why did you expect that? Is it reasonable to expect that?
+    validations:
+      required: true
+
+  - type: textarea
+    id: how-to-reproduce
+    attributes:
+      label: How to reproduce
+      description: Steps to reproduce the bug
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+
+  - type: dropdown
+    id: NoCloud-relation
+    attributes:
+      label: Is this NoCloud-related?
+      description: |
+        Since NoCloud is not a custom firmware but just a cloud replacement running on the robot,
+        are you sure that the issue you're seeing relates to **the code of NoCloud** and not the vendor firmware?
+      options:
+        - Certainly NoCloud-related
+        - Probably NoCloud-related
+        - Might be NoCloud-related
+        - Could be NoCloud-related
+        - Probably not NoCloud-related
+        - Certainly not NoCloud-related
+      default: 1
+    validations:
+      required: true
+
+  - type: input
+    id: NoCloud-version
+    attributes:
+      label: Please enter the NoCloud version you're using
+    validations:
+      required: true
+
+  - type: input
+    id: robot
+    attributes:
+      label: Please enter the vendor and model of robot you're using
+    validations:
+      required: true
+
+  - type: input
+    id: robot-firmware
+    attributes:
+      label: Please enter the robot's firmware version you're using
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: |
+        Anything else relevant to the situation.<br/>
+        Think: Browser, Phone, Home Assistant version, Wi-Fi access points, Etc.
+    validations:
+      required: true
+
+  - type: textarea
+    id: context-reflection
+    attributes:
+      label: Context reflection
+      description: Thinking about what you said above about your setup, do you see anything non-standard about it that might be troublesome and cause this?
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, please add screenshots here
+

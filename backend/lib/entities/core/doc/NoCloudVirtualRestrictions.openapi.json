@@ -1,0 +1,23 @@
+{
+  "components": {
+    "schemas": {
+      "NoCloudVirtualRestrictions": {
+        "type": "object",
+        "properties": {
+          "virtualWalls": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NoCloudVirtualWall"
+            }
+          },
+          "restrictedZones": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NoCloudRestrictedZone"
+            }
+          }
+        }
+      }
+    }
+  }
+}

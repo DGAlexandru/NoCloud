@@ -1,0 +1,32 @@
+{
+  "components": {
+    "schemas": {
+      "AttachmentStateAttribute": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/StateAttribute"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "$ref": "#/components/schemas/AttachmentStateAttributeType"
+              },
+              "attached": {
+                "type": "boolean"
+              }
+            }
+          }
+        ]
+      },
+      "AttachmentStateAttributeType": {
+        "type": "string",
+        "enum": [
+          "dustbin",
+          "watertank",
+          "mop"
+        ]
+      }
+    }
+  }
+}

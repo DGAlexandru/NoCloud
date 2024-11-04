@@ -1,0 +1,352 @@
+{
+  "/api/v2/NoCloud": {
+    "get": {
+      "tags": [
+        "NoCloud"
+      ],
+      "summary": "Get basic NoCloud info",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "embedded": {
+                    "type": "boolean"
+                  },
+                  "systemId": {
+                    "type": "string"
+                  },
+                  "welcomeDialogDismissed": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/v2/NoCloud/action": {
+    "put": {
+      "tags": [
+        "NoCloud"
+      ],
+      "summary": "Interact with NoCloud",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "dismissWelcomeDialog",
+                    "restoreDefaultConfiguration"
+                  ]
+                }
+              }
+            },
+            "examples": {
+              "dismiss_welcome_dialog": {
+                "description": "Dismiss the OOBE welcome dialog",
+                "value": {
+                  "action": "dismissWelcomeDialog"
+                }
+              },
+              "restore_default_configuration": {
+                "description": "Restore the default configuration",
+                "value": {
+                  "action": "restoreDefaultConfiguration"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "500": {
+          "$ref": "#/components/responses/500"
+        },
+        "404": {
+          "$ref": "#/components/responses/404"
+        }
+      }
+    }
+  },
+  "/api/v2/NoCloud/version": {
+    "get": {
+      "tags": [
+        "NoCloud"
+      ],
+      "summary": "Get NoCloud version",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "release": {
+                    "type": "string"
+                  },
+                  "commit": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/v2/NoCloud/log/content": {
+    "get": {
+      "tags": [
+        "NoCloud"
+      ],
+      "summary": "Get full log",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/v2/NoCloud/log/content/sse": {
+    "get": {
+      "tags": [
+        "NoCloud"
+      ],
+      "summary": "Get new log lines (SSE events)",
+      "description": "Retrieve new log lines.\n\nNote! This endpoint provides SSE events. Swagger does not support it.\nNote! This endpoint provides raw text, do not try to decode it as JSON.",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "text/event-stream": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/v2/NoCloud/log/level": {
+    "get": {
+      "tags": [
+        "NoCloud"
+      ],
+      "summary": "Get log level",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "current": {
+                    "type": "string"
+                  },
+                  "presets": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "tags": [
+        "NoCloud"
+      ],
+      "summary": "Set log level",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "level": {
+                  "type": "string",
+                  "enum": [
+                    "trace",
+                    "debug",
+                    "info",
+                    "warn",
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "description": "Log level retrieved from GET presets",
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        }
+      }
+    }
+  },
+  "/api/v2/NoCloud/config/interfaces/mqtt": {
+    "get": {
+      "tags": [
+        "NoCloud"
+      ],
+      "summary": "Get MQTT configuration",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MqttConfigDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "tags": [
+        "NoCloud"
+      ],
+      "summary": "Update MQTT configuration",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/MqttConfigDTO"
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        }
+      }
+    }
+  },
+  "/api/v2/NoCloud/config/interfaces/http/auth/basic": {
+    "get": {
+      "tags": [
+        "NoCloud"
+      ],
+      "summary": "Get HTTP basic auth configuration",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BasicAuthConfigDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "tags": [
+        "NoCloud"
+      ],
+      "summary": "Update HTTP basic auth configuration",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/BasicAuthConfigDTO"
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "400": {
+          "$ref": "#/components/responses/400"
+        }
+      }
+    }
+  },
+  "/api/v2/NoCloud/config/customizations": {
+    "get": {
+      "tags": [
+        "NoCloud"
+      ],
+      "summary": "Get NoCloud customizations",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NoCloudCustomizationsDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "tags": [
+        "NoCloud"
+      ],
+      "summary": "Update NoCloud customizations",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/NoCloudCustomizationsDTO"
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "400": {
+          "$ref": "#/components/responses/400"
+        }
+      }
+    }
+  }
+}

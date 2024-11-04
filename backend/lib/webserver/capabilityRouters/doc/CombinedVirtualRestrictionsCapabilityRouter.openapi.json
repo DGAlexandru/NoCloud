@@ -1,0 +1,130 @@
+{
+  "/api/v2/robot/capabilities/CombinedVirtualRestrictionsCapability": {
+    "get": {
+      "tags": [
+        "CombinedVirtualRestrictionsCapability"
+      ],
+      "summary": "Get virtual restrictions",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NoCloudVirtualRestrictions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "tags": [
+        "CombinedVirtualRestrictionsCapability"
+      ],
+      "summary": "Set virtual restrictions",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/NoCloudVirtualRestrictions"
+            },
+            "examples": {
+              "wall_regular_mop":{
+                "description": "Set virtual restrictions",
+                "value": {
+                  "virtualWalls": [
+                    {
+                      "points": {
+                        "pA": {
+                          "x": 3390,
+                          "y": 3330
+                        },
+                        "pB": {
+                          "x": 3538,
+                          "y": 3478
+                        }
+                      }
+                    }
+                  ],
+                  "restrictedZones": [
+                    {
+                      "type": "regular",
+                      "points": {
+                        "pA": {
+                          "x": 3175,
+                          "y": 2670
+                        },
+                        "pB": {
+                          "x": 3350,
+                          "y": 2670
+                        },
+                        "pC": {
+                          "x": 3350,
+                          "y": 2925
+                        },
+                        "pD": {
+                          "x": 3175,
+                          "y": 2925
+                        }
+                      }
+                    },
+                    {
+                      "type": "mop",
+                      "points": {
+                        "pA": {
+                          "x": 3140,
+                          "y": 3415
+                        },
+                        "pB": {
+                          "x": 3290,
+                          "y": 3415
+                        },
+                        "pC": {
+                          "x": 3290,
+                          "y": 3565
+                        },
+                        "pD": {
+                          "x": 3140,
+                          "y": 3565
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "400": {
+          "$ref": "#/components/responses/400"
+        }
+      }
+    }
+  },
+  "/api/v2/robot/capabilities/CombinedVirtualRestrictionsCapability/properties": {
+    "get": {
+      "tags": [
+        "CombinedVirtualRestrictionsCapability"
+      ],
+      "summary": "Get various capability-related properties",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

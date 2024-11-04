@@ -1,0 +1,15 @@
+{
+  "components": {
+    "schemas": {
+      "NoCloudManualControlMovementCommandType": {
+        "type": "string",
+        "enum": [
+          "forward",
+          "backward",
+          "rotate_clockwise",
+          "rotate_counterclockwise"
+        ]
+      }
+    }
+  }
+}

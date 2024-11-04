@@ -1,0 +1,268 @@
+{
+  "/api/v2/timers": {
+    "get": {
+      "tags": [
+        "Timers"
+      ],
+      "summary": "Get all timers",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Describing this structure requires OpenAPI 3.1 support in Swagger UI"
+              }
+            }
+          }
+        }
+      }
+    },
+    "post": {
+      "tags": [
+        "Timers"
+      ],
+      "summary": "Add new Timer",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/NoCloudTimer"
+            },
+            "examples": {
+              "full_cleanup": {
+                "description": "A timer scheduling a full cleanup every monday at 09:00 UTC",
+                "value": {
+                  "enabled": true,
+                  "dow": [1],
+                  "hour": 9,
+                  "minute": 0,
+                  "action": {
+                    "type": "full_cleanup",
+                    "params": {}
+                  }
+                }
+              },
+              "segment_cleanup": {
+                "description": "A timer scheduling a cleanup of first segment 7 and then 15 two times every weekday at 08:15 UTC",
+                "value": {
+                  "enabled": true,
+                  "dow": [1,2,3,4,5],
+                  "hour": 8,
+                  "minute": 15,
+                  "action": {
+                    "type": "segment_cleanup",
+                    "params": {
+                      "segment_ids": [
+                        "7",
+                        "15"
+                      ],
+                      "custom_order": true,
+                      "iterations": 2
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "400": {
+          "$ref": "#/components/responses/400"
+        }
+      }
+    }
+  },
+  "/api/v2/timers/{id}": {
+    "get": {
+      "tags": [
+        "Timers"
+      ],
+      "summary": "Get timer by ID",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "description": "Timer UUID",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NoCloudTimer"
+              }
+            }
+          }
+        },
+        "404": {
+          "$ref": "#/components/responses/404"
+        }
+      }
+    },
+    "delete": {
+      "tags": [
+        "Timers"
+      ],
+      "summary": "Delete Timer by ID",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "description": "Timer UUID",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "404": {
+          "$ref": "#/components/responses/404"
+        }
+      }
+    },
+    "put": {
+      "tags": [
+        "Timers"
+      ],
+      "summary": "Edit existing Timer by ID",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "description": "Timer UUID",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/NoCloudTimer"
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "400": {
+          "$ref": "#/components/responses/400"
+        },
+        "404": {
+          "$ref": "#/components/responses/404"
+        }
+      }
+    }
+  },
+  "/api/v2/timers/{id}/action": {
+    "put": {
+      "tags": [
+        "Timers"
+      ],
+      "summary": "Execute an action on an existing timer",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "description": "Timer UUID",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "execute_now"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "400": {
+          "$ref": "#/components/responses/400"
+        },
+        "404": {
+          "$ref": "#/components/responses/404"
+        }
+      }
+    }
+  },
+  "/api/v2/timers/properties": {
+    "get": {
+      "tags": [
+        "Timers"
+      ],
+      "summary": "Get various timer-related properties",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "supportedActions": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "full_cleanup",
+                        "segment_cleanup"
+                      ]
+                    }
+                  },
+                  "supportedPreActions": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "fan_speed_control",
+                        "water_usage_control",
+                        "operation_mode_control"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

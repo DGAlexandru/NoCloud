@@ -1,0 +1,112 @@
+{
+  "/api/v2/robot/capabilities/MapSegmentEditCapability": {
+    "put": {
+      "tags": [
+        "MapSegmentEditCapability"
+      ],
+      "summary": "Edit map segments",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "description": "join_segments action",
+                  "properties": {
+                    "action": {
+                      "type": "string",
+                      "enum": [
+                        "join_segments"
+                      ]
+                    },
+                    "segment_a_id": {
+                      "type": "string"
+                    },
+                    "segment_b_id": {
+                      "type": "string"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "description": "split_segment action",
+                  "properties": {
+                    "action": {
+                      "type": "string",
+                      "enum": [
+                        "split_segment"
+                      ]
+                    },
+                    "segment_id": {
+                      "type": "string"
+                    },
+                    "pA": {
+                      "$ref": "#/components/schemas/CoordinateDTO"
+                    },
+                    "pB": {
+                      "$ref": "#/components/schemas/CoordinateDTO"
+                    }
+                  }
+                }
+              ]
+            },
+            "examples": {
+              "split_segment":{
+                "description": "Split a segment along a line",
+                "value": {
+                  "action": "split_segment",
+                  "segment_id": "1",
+                  "pA": {
+                    "x": 3305,
+                    "y": 2905
+                  },
+                  "pB": {
+                    "x": 3305,
+                    "y": 3050
+                  }
+                }
+              },
+              "join_segments":{
+                "description": "Join two segments",
+                "value": {
+                  "action": "join_segments",
+                  "segment_a_id": "4",
+                  "segment_b_id": "5"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "400": {
+          "$ref": "#/components/responses/400"
+        }
+      }
+    }
+  },
+  "/api/v2/robot/capabilities/MapSegmentEditCapability/properties": {
+    "get": {
+      "tags": [
+        "MapSegmentEditCapability"
+      ],
+      "summary": "Get various capability-related properties",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

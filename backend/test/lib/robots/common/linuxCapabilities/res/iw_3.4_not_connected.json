@@ -1,0 +1,6 @@
+{
+  "__class": "NoCloudWifiStatus",
+  "metaData": {},
+  "state": "not_connected",
+  "details": {}
+}

@@ -1,0 +1,499 @@
+{
+  "components": {
+    "schemas": {
+      "Configuration": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "embedded": {
+            "type": "boolean",
+            "description": "Whether or not NoCloud is running on the robot itself.\nDetermines if we can do FS access and more."
+          },
+          "robot": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "implementation"
+            ],
+            "properties": {
+              "implementation": {
+                "type": "string",
+                "description": "The name of the implementation that should be used.\nUse \"auto\" to autodetect when embedded."
+              },
+              "implementationSpecificConfig": {
+                "type": "object"
+              }
+            }
+          },
+          "webserver": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "port",
+              "basicAuth"
+            ],
+            "properties": {
+              "port": {
+                "type": "number"
+              },
+              "basicAuth": {
+                "$ref": "#/components/schemas/BasicAuthConfigDTO"
+              },
+              "blockExternalAccess": {
+                "type": "boolean"
+              }
+            }
+          },
+          "mqtt": {
+            "$ref": "#/components/schemas/MqttConfigDTO"
+          },
+          "ntpClient": {
+            "$ref": "#/components/schemas/NTPClientConfigDTO"
+          },
+          "networkAdvertisement": {
+            "$ref": "#/components/schemas/NetworkAdvertisementConfigDTO"
+          },
+          "updater": {
+            "$ref": "#/components/schemas/UpdaterConfigDTO"
+          },
+          "timers": {
+            "type": "object"
+          },
+          "logLevel": {
+            "type": "string",
+            "enum": [
+              "trace",
+              "debug",
+              "info",
+              "warn",
+              "error"
+            ]
+          },
+          "debug": {
+            "type": "object"
+          },
+          "oobe": {
+            "type": "object",
+            "description": "Everything related to the Out-of-box experience",
+            "additionalProperties": false,
+            "properties": {
+              "welcomeDialogDismissed": {
+                "type": "boolean"
+              }
+            }
+          },
+          "NoCloud": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "customizations": {
+                "$ref": "#/components/schemas/NoCloudCustomizationsDTO"
+              }
+            }
+          },
+          "_version": {
+            "type": "string",
+            "description": "Used for migration purposes"
+          }
+        }
+      },
+      "NoCloudCustomizationsDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "friendlyName": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9 -]{0,24}$",
+            "description": "An optional user-defined friendly name for the NoCloud instance"
+          }
+        }
+      },
+      "MqttConfigDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "enabled",
+          "connection",
+          "identity",
+          "customizations",
+          "interfaces"
+        ],
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "connection": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "host",
+              "port"
+            ],
+            "properties": {
+              "host": {
+                "type": "string"
+              },
+              "port": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 65535
+              },
+              "tls": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "enabled"
+                ],
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  },
+                  "ca": {
+                    "type": "string",
+                    "description": "This may optionally contain a CA certificate as a multi-line string. Filesystem paths are not supported."
+                  },
+                  "ignoreCertificateErrors": {
+                    "type": "boolean",
+                    "description": "This option might be required when using a self-signed cert. Note that you will be exposing yourself to MITM attacks."
+                  }
+                }
+              },
+              "authentication": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "credentials": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "enabled"
+                    ],
+                    "properties": {
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "username": {
+                        "type": "string"
+                      },
+                      "password": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "clientCertificate": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "enabled"
+                    ],
+                    "properties": {
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "certificate": {
+                        "type": "string",
+                        "description": "The full certificate as a multi-line string. Filesystem paths are not supported."
+                      },
+                      "key": {
+                        "type": "string",
+                        "description": "The full key as a multi-line string. Filesystem paths are not supported."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "identity": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "identifier": {
+                "type": "string",
+                "description": "The desired machine-readable name of the robot. Used in MQTT topics. Defaults to the auto-generated machine ID"
+              }
+            }
+          },
+          "customizations": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "topicPrefix": {
+                "type": "string",
+                "description": "You can override the default \"NoCloud\" mqtt topic prefix if you e.g. prefer to group all your mqtt stuff by rooms/floors/protocols"
+              },
+              "provideMapData": {
+                "type": "boolean",
+                "description": "If for some reason you're not interested in receiving map data via MQTT, you can disable that here."
+              }
+            }
+          },
+          "interfaces": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "homie",
+              "homeassistant"
+            ],
+            "properties": {
+              "homie": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "enabled",
+                  "addICBINVMapProperty",
+                  "cleanAttributesOnShutdown"
+                ],
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  },
+                  "addICBINVMapProperty": {
+                    "type": "boolean",
+                    "description": "If true, adds Homie definitions for ICBINV's PNG map topic as that's not possible to add in ICBINV itself."
+                  },
+                  "cleanAttributesOnShutdown": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "homeassistant": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "enabled",
+                  "cleanAutoconfOnShutdown"
+                ],
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  },
+                  "cleanAutoconfOnShutdown": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          },
+          "optionalExposedCapabilities": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "ConsumableMonitoringCapability",
+                "CurrentStatisticsCapability",
+                "TotalStatisticsCapability",
+                "SpeakerVolumeControlCapability",
+                "KeyLockCapability",
+                "ObstacleAvoidanceControlCapability"
+              ]
+            }
+          }
+        }
+      },
+      "BasicAuthConfigDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "enabled",
+          "username",
+          "password"
+        ],
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "NTPClientConfigDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "enabled",
+          "server",
+          "port",
+          "interval",
+          "timeout"
+        ],
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "server": {
+            "type": "string",
+            "description": "Can be either an IP or a Domain Name"
+          },
+          "port": {
+            "type": "number"
+          },
+          "interval": {
+            "type": "number",
+            "description": "NTP Sync Interval in Milliseconds"
+          },
+          "timeout": {
+            "type": "number",
+            "description": "NTP Sync Timeout in Milliseconds"
+          }
+        }
+      },
+      "NetworkAdvertisementConfigDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "enabled"
+        ],
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          }
+        }
+      },
+      "UpdaterConfigDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "enabled"
+        ],
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "updateProvider": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "github",
+                  "github_nightly"
+                ]
+              },
+              "implementationSpecificConfig": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      },
+      "NoCloudTimer": {
+        "type": "object",
+        "description": "Everything time-related is in UTC",
+        "required": [
+          "enabled",
+          "dow",
+          "hour",
+          "minute",
+          "action"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "label": {
+            "type": "string",
+            "pattern": "^.{0,24}$",
+            "description": "An optional user-defined label for the timer"
+          },
+          "dow": {
+            "type": "array",
+            "description": "Day of Week\nSunday = 0, Monday = 1, ... Saturday = 6",
+            "items": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 6
+            }
+          },
+          "hour": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 23
+          },
+          "minute": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 59
+          },
+          "action": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "full_cleanup",
+                  "segment_cleanup"
+                ]
+              },
+              "params": {
+                "type": "object",
+                "description": "These vary depending on the Timer Type.",
+                "additionalProperties": false,
+                "properties": {
+                  "zone_id": {
+                    "type": "string"
+                  },
+                  "segment_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "goto_id": {
+                    "type": "string"
+                  },
+                  "iterations": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "custom_order": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          },
+          "pre_actions": {
+            "type": "array",
+            "description": "Actions to run before the main action (e.g. set fan speed to x)",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "fan_speed_control",
+                    "water_usage_control",
+                    "operation_mode_control"
+                  ]
+                },
+                "params": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

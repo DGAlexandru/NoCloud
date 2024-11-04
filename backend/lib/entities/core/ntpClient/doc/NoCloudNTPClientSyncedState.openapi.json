@@ -1,0 +1,22 @@
+{
+  "components": {
+    "schemas": {
+      "NoCloudNTPClientSyncedState": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/NoCloudNTPClientState"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "offset": {
+                "type": "number",
+                "description": "The offset of the previous time on sync"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

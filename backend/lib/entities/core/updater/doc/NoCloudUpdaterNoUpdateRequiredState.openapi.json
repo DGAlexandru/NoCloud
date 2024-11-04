@@ -1,0 +1,22 @@
+{
+  "components": {
+    "schemas": {
+      "NoCloudUpdaterNoUpdateRequiredState": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/NoCloudUpdaterState"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "currentVersion": {
+                "type": "string",
+                "description": "The currently running NoCloud version"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

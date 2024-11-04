@@ -1,0 +1,152 @@
+{
+  "/api/v2/updater/state": {
+    "get": {
+      "tags": [
+        "Updater"
+      ],
+      "summary": "Get Updater state",
+      "responses": {
+        "200": {
+          "description": "The Updaters current state.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/NoCloudUpdaterIdleState"
+                  },
+                  {
+                    "$ref": "#/components/schemas/NoCloudUpdaterErrorState"
+                  },
+                  {
+                    "$ref": "#/components/schemas/NoCloudUpdaterApprovalPendingState"
+                  },
+                  {
+                    "$ref": "#/components/schemas/NoCloudUpdaterDownloadingState"
+                  },
+                  {
+                    "$ref": "#/components/schemas/NoCloudUpdaterApplyPendingState"
+                  },
+                  {
+                    "$ref": "#/components/schemas/NoCloudUpdaterDisabledState"
+                  },
+                  {
+                    "$ref": "#/components/schemas/NoCloudUpdaterNoUpdateRequiredState"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/v2/updater": {
+    "put": {
+      "tags": [
+        "Updater"
+      ],
+      "summary": "Request and execute an update of NoCloud",
+      "description": "Please do keep in mind that this is a potentially dangerous operation.",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "check",
+                    "download",
+                    "apply"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "400": {
+          "$ref": "#/components/responses/400"
+        }
+      }
+    }
+  },
+  "/api/v2/updater/config": {
+    "get": {
+      "tags": [
+        "Updater"
+      ],
+      "summary": "Get Updater configuration",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "updateProvider": {
+                    "type": "string",
+                    "enum": [
+                      "github",
+                      "github_nightly"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "tags": [
+        "Updater"
+      ],
+      "summary": "Update Updater configuration",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "updateProvider": {
+                  "type": "string",
+                  "enum": [
+                    "github",
+                    "github_nightly"
+                  ]
+                }
+              }
+            },
+            "examples": {
+              "release":{
+                "description": "Use the Github Release update provider",
+                "value": {
+                  "updateProvider": "github"
+                }
+              },
+              "nightly":{
+                "description": "Use the Github Nightly update provider",
+                "value": {
+                  "updateProvider": "github_nightly"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        }
+      }
+    }
+  }
+}

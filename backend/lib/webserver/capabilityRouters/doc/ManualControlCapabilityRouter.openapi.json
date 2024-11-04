@@ -1,0 +1,135 @@
+{
+  "/api/v2/robot/capabilities/ManualControlCapability": {
+    "get": {
+      "tags": [
+        "ManualControlCapability"
+      ],
+      "summary": "Get manual control status",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "tags": [
+        "ManualControlCapability"
+      ],
+      "summary": "Control robot",
+      "description": "To perform manual control you must enable manual control mode by sending `action: \"enable\"` (and then\n`disable` when you're done).\n\nOnce in manual control mode you can send movement commands.\n\nThe amount of time taken to perform each movement and the exact movement types depend on the robot\nimplementation.\n",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "enable",
+                    "disable",
+                    "move"
+                  ]
+                },
+                "movementCommand": {
+                  "$ref": "#/components/schemas/NoCloudManualControlMovementCommandType"
+                }
+              }
+            },
+            "examples": {
+              "enable manual control":{
+                "description": "Enabling manual control",
+                "value": {
+                  "action": "enable"
+                }
+              },
+              "move forwards": {
+                "description": "Moving the robot forwards",
+                "value": {
+                  "action": "move",
+                  "movementCommand": "forward"
+                }
+              },
+              "move backwards": {
+                "description": "Moving the robot backwards",
+                "value": {
+                  "action": "move",
+                  "movementCommand": "backward"
+                }
+              },
+              "rotate clockwise": {
+                "description": "Rotating the robot clockwise",
+                "value": {
+                  "action": "move",
+                  "movementCommand": "rotate_clockwise"
+                }
+              },
+              "rotate counterclockwise": {
+                "description": "Rotating the robot counterclockwise",
+                "value": {
+                  "action": "move",
+                  "movementCommand": "rotate_counterclockwise"
+                }
+              },
+              "disable manual control": {
+                "description": "Disabling manual control",
+                "value": {
+                  "action": "disable"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "400": {
+          "$ref": "#/components/responses/400"
+        }
+      }
+    }
+  },
+  "/api/v2/robot/capabilities/ManualControlCapability/properties": {
+    "get": {
+      "tags": [
+        "ManualControlCapability"
+      ],
+      "summary": "Get various capability-related properties",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "supportedMovementCommands": {
+                    "type": "array",
+                    "description": "Supported movement commands",
+                    "items": {
+                      "$ref": "#/components/schemas/NoCloudManualControlMovementCommandType"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

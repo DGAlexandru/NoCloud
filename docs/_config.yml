@@ -1,0 +1,19 @@
+title: NoCloud
+description: >-
+  Cloud replacement for vacuum robots enabling local-only operation
+baseurl: ""
+url: https://NoCloud.cloud
+github_username: UnKn0wn
+
+plugins:
+  - jekyll-seo-tag
+collections:
+  pages:
+    output: true
+defaults:
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"

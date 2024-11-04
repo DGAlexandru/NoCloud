@@ -1,0 +1,13 @@
+{
+  "components": {
+    "schemas": {
+      "NoCloudNTPClientEnabledState": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/NoCloudNTPClientState"
+          }
+        ]
+      }
+    }
+  }
+}

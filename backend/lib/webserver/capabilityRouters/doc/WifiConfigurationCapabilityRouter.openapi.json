@@ -1,0 +1,87 @@
+{
+  "/api/v2/robot/capabilities/WifiConfigurationCapability": {
+    "get": {
+      "tags": [
+        "WifiConfigurationCapability"
+      ],
+      "summary": "Get current wireless radio status",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NoCloudWifiStatus"
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "tags": [
+        "WifiConfigurationCapability"
+      ],
+      "summary": "Set new wireless radio configuration",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/NoCloudWifiConfiguration"
+            },
+            "examples": {
+              "configure wifi": {
+                "description": "Configure Wifi",
+                "value": {
+                  "ssid": "MySSID",
+                  "credentials": {
+                    "type": "wpa2_psk",
+                    "typeSpecificSettings": {
+                      "password": "MyPassword"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "400": {
+          "$ref": "#/components/responses/400"
+        },
+        "500": {
+          "$ref": "#/components/responses/500"
+        }
+      }
+    }
+  },
+  "/api/v2/robot/capabilities/WifiConfigurationCapability/properties": {
+    "get": {
+      "tags": [
+        "WifiConfigurationCapability"
+      ],
+      "summary": "Get various capability-related properties",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "provisionedReconfigurationSupported": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

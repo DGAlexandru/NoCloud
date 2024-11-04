@@ -1,0 +1,12 @@
+{
+  "__class": "NoCloudWifiStatus",
+  "metaData": {},
+  "state": "connected",
+  "details": {
+    "bssid": "18:64:72:d6:dd:23",
+    "ssid": "Das_IotT",
+    "signal": -56,
+    "upspeed": 65,
+    "frequency": "2.4ghz"
+  }
+}

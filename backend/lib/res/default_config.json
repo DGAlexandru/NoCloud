@@ -1,0 +1,93 @@
+{
+    "embedded": true,
+    "robot": {
+        "implementation": "auto",
+        "implementationSpecificConfig": {
+            "ip": "127.0.0.1"
+        }
+    },
+    "webserver": {
+        "port": 80,
+        "basicAuth": {
+            "enabled": false,
+            "username": "NoCloud",
+            "password": "NoCloud"
+        },
+        "blockExternalAccess": true
+    },
+    "mqtt": {
+        "enabled": false,
+        "connection": {
+            "host": "foobar.example",
+            "port": 1883,
+            "tls": {
+                "enabled": false,
+                "ca": "",
+                "ignoreCertificateErrors": false
+            },
+            "authentication": {
+                "credentials": {
+                    "enabled": false,
+                    "username": "",
+                    "password": ""
+                },
+                "clientCertificate": {
+                    "enabled": false,
+                    "certificate": "",
+                    "key": ""
+                }
+            }
+        },
+        "identity": {
+            "identifier": ""
+        },
+        "interfaces": {
+            "homie": {
+                "enabled": true,
+                "addICBINVMapProperty": false,
+                "cleanAttributesOnShutdown": false
+            },
+            "homeassistant": {
+                "enabled": true,
+                "cleanAutoconfOnShutdown": false
+            }
+        },
+        "customizations": {
+            "topicPrefix": "",
+            "provideMapData": true
+        },
+        "optionalExposedCapabilities": []
+    },
+    "ntpClient": {
+        "enabled": true,
+        "server": "pool.ntp.org",
+        "port": 123,
+        "interval": 28800000,
+        "timeout": 10000
+    },
+    "timers": {},
+    "logLevel": "info",
+    "debug": {
+        "debugHassAnchors": false,
+        "storeRawFDSUploads": false
+    },
+    "networkAdvertisement": {
+        "enabled": true
+    },
+    "updater": {
+        "enabled": true,
+        "updateProvider": {
+            "type": "github",
+            "implementationSpecificConfig": {}
+        }
+    },
+    "oobe": {
+        "welcomeDialogDismissed": false
+    },
+    "NoCloud": {
+        "customizations": {
+            "friendlyName": "NoCloudHouseHoldVacuumC1"
+        }
+    },
+    "_version": ""
+}

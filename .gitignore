@@ -1,0 +1,19 @@
+# ignore node_modules if installed here (e.g. by npm install)
+node_modules/
+
+# ignore configuration files for local development
+/local/
+
+# binary compilation output
+build/
+
+# IntelliJ Idea project files
+.idea/
+
+# VSCode project files
+.vscode/
+
+/backend/lib/res/NoCloud.openapi.schema.json
+
+/docs/vendor
+/docs/_site

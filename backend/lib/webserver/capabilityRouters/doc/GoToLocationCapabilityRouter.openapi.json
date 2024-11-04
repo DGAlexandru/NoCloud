@@ -1,0 +1,62 @@
+{
+  "/api/v2/robot/capabilities/GoToLocationCapability": {
+    "put": {
+      "tags": [
+        "GoToLocationCapability"
+      ],
+      "summary": "Go to specified location",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "allOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "action": {
+                      "type": "string",
+                      "enum": [
+                        "goto"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "$ref": "#/components/schemas/NoCloudGoToLocation"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "400": {
+          "$ref": "#/components/responses/400"
+        }
+      }
+    }
+  },
+  "/api/v2/robot/capabilities/GoToLocationCapability/properties": {
+    "get": {
+      "tags": [
+        "GoToLocationCapability"
+      ],
+      "summary": "Get various capability-related properties",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

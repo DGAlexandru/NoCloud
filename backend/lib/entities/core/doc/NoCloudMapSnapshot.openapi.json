@@ -1,0 +1,24 @@
+{
+  "components": {
+    "schemas": {
+      "NoCloudMapSnapshot": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "Datetime in ISO8601 format"
+          },
+          "map": {
+            "$ref": "#/components/schemas/NoCloudMap"
+          },
+          "metaData": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

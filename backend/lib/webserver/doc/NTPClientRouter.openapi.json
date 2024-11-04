@@ -1,0 +1,96 @@
+{
+  "/api/v2/ntpclient/status": {
+    "get": {
+      "tags": [
+        "NTP"
+      ],
+      "summary": "Get NTPClient status",
+      "responses": {
+        "200": {
+          "description": "The NTPClient's current status.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "state": {
+                    "type": "object",
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/NoCloudNTPClientDisabledState"
+                      },
+                      {
+                        "$ref": "#/components/schemas/NoCloudNTPClientEnabledState"
+                      },
+                      {
+                        "$ref": "#/components/schemas/NoCloudNTPClientErrorState"
+                      },
+                      {
+                        "$ref": "#/components/schemas/NoCloudNTPClientSyncedState"
+                      }
+                    ]
+                  },
+                  "robotTime": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/v2/ntpclient/config": {
+    "get": {
+      "tags": [
+        "NTP"
+      ],
+      "summary": "Get NTPClient configuration",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NTPClientConfigDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "tags": [
+        "NTP"
+      ],
+      "summary": "Update NTPClient configuration",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/NTPClientConfigDTO"
+            },
+            "examples": {
+              "custom":{
+                "description": "Set custom NTP server",
+                "value": {
+                  "enabled": true,
+                  "server": "ntp_host_or_ip",
+                  "port": 123,
+                  "interval": 7200000,
+                  "timeout": 10000
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        }
+      }
+    }
+  }
+}
