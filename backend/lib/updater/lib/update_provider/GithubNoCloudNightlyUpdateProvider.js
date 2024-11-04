@@ -81,8 +81,8 @@ class GithubNoCloudNightlyUpdateProvider extends NoCloudUpdateProvider {
 
 GithubNoCloudNightlyUpdateProvider.TYPE = "github_nightly";
 
-GithubNoCloudNightlyUpdateProvider.REPO_URL = "https://api.github.com/repos/UnKn0wn/NoCloud-nightly-builds/branches/master";
-GithubNoCloudNightlyUpdateProvider.ASSET_BASE_URL = "https://raw.githubusercontent.com/UnKn0wn/NoCloud-nightly-builds/master/";
+GithubNoCloudNightlyUpdateProvider.REPO_URL = "https://api.github.com/repos/DGAlexandru/NoCloud-nightly-builds/branches/master";
+GithubNoCloudNightlyUpdateProvider.ASSET_BASE_URL = "https://raw.githubusercontent.com/DGAlexandru/NoCloud-nightly-builds/master/";
 GithubNoCloudNightlyUpdateProvider.MANIFEST_NAME = "NoCloud_release_manifest.json";
 
 GithubNoCloudNightlyUpdateProvider.BINARY_NAMES = {

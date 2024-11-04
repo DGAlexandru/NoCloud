@@ -100,7 +100,7 @@ class GithubNoCloudUpdateProvider extends NoCloudUpdateProvider {
 
 GithubNoCloudUpdateProvider.TYPE = "github";
 
-GithubNoCloudUpdateProvider.RELEASES_URL = "https://api.github.com/repos/UnKn0wn/NoCloud/releases";
+GithubNoCloudUpdateProvider.RELEASES_URL = "https://api.github.com/repos/DGAlexandru/NoCloud/releases";
 GithubNoCloudUpdateProvider.MANIFEST_NAME = "NoCloud_release_manifest.json";
 
 
