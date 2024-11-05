@@ -13,7 +13,7 @@ const {IMAGE_FILE_FORMAT} = require("../../utils/const");
 const stateAttrs = entities.state.attributes;
 
 class DreameL10SProUltraHeatNoCloudRobot extends DreameGen4NoCloudRobot {
-	
+
     /**
      *
      * @param {object} options
@@ -176,7 +176,7 @@ class DreameL10SProUltraHeatNoCloudRobot extends DreameGen4NoCloudRobot {
                 QuirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.CARPET_DETECTION_AUTO_DEEP_CLEANING),
                 QuirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_WATER_USAGE),
                 QuirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_CLEANING_PROCESS_TRIGGER),
-				QuirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.WATER_HOOKUP_TEST_TRIGGER),
+                QuirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.WATER_HOOKUP_TEST_TRIGGER),
             ]
         }));
 
