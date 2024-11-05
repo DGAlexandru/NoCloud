@@ -85,7 +85,7 @@ class Configuration {
 
                     // BEGIN migration code to be removed with the next version
                     if (parsedConfig.ntpClient.server === "pool.ntp.org") {
-                        parsedConfig.ntpClient.server = "NoCloud.pool.ntp.org";
+                        parsedConfig.ntpClient.server = "pool.ntp.org"; // NoCloud sticks to the global one
                     }
                     // END migration code to be removed with the next version
 
