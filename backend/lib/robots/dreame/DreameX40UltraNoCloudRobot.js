@@ -182,7 +182,7 @@ class DreameX40UltraNoCloudRobot extends DreameGen4NoCloudRobot {
                 QuirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.CAMERA_LIGHT),
                 QuirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.DETACH_MOPS),
                 QuirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_CLEANING_PROCESS_TRIGGER),
-				QuirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.WATER_HOOKUP_TEST_TRIGGER),
+                QuirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.WATER_HOOKUP_TEST_TRIGGER),
             ]
         }));
 
