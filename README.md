@@ -27,11 +27,11 @@ Furthermore, there's a **REST-interface** documented with **Swagger UI** as well
 With support for both **Homie** and **Home Assistant Autodiscovery** for MQTT, you should be able to connect NoCloud to
 the open-source smarthome software of your choice.
 
-For more information, check out the [newcomer guide](https://NoCloud.cloud/pages/general/newcomer-guide.html),
-the [getting started guide](https://NoCloud.cloud/pages/general/getting-started.html) 
-and also the docs in general at [https://NoCloud.cloud](https://NoCloud.cloud)
+For more information, check out the [newcomer guide](https://Valetudo.cloud/pages/general/newcomer-guide.html),
+the [getting started guide](https://Valetudo.cloud/pages/general/getting-started.html) 
+and also the docs in general at [https://Valetudo.cloud](https://Valetudo.cloud)
 
-There, you will find a list of [supported robots](https://NoCloud.cloud/pages/general/supported-robots.html).
+There, you will find a list of [supported robots](https://Valetudo.cloud/pages/general/supported-robots.html).
 
 ## Screenshots
 
