@@ -446,7 +446,7 @@ class DreameQuirkFactory {
                         }
                     }
                 });
-				case DreameQuirkFactory.KNOWN_QUIRKS.WATER_HOOKUP_TEST_TRIGGER:
+            case DreameQuirkFactory.KNOWN_QUIRKS.WATER_HOOKUP_TEST_TRIGGER:
                 return new Quirk({
                     id: id,
                     title: "Water Hookup Test",
