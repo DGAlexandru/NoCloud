@@ -41,8 +41,7 @@ class DreameNoCloudRobot extends MiioNoCloudRobot {
      */
     constructor(options) {
         super(options);
-		this.helper = new DreameMiotHelper({robot: this});
-
+        this.helper = new DreameMiotHelper({robot: this});
 
         this.operationModes = options.operationModes ?? {};
         this.miotServices = options.miotServices;
