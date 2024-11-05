@@ -13,7 +13,7 @@
         },
         {
           "name": "Count Lines of Code (tokei)",
-          "uses": "hypfer/tokei-action@master"
+          "uses": "DGAlexandru/tokei-action@master"
         },
         {
           "name": "Upload tokei output as a build artifact",

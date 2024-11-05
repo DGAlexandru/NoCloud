@@ -14,7 +14,7 @@
       'nightly_build':
         {
           'runs-on': 'ubuntu-latest',
-          'if': "github.repository_owner == 'UnKn0wn'",
+          'if': "github.repository_owner == 'DGAlexandru'",
           'steps':
             [
               {
@@ -56,7 +56,7 @@
               {
                 'name': 'Push binaries to nightly repo',
                 'id': 'push_directory',
-                'uses': 'hypfer/github-action-push-to-another-repository@v1.3',
+                'uses': 'DGAlexandru/github-action-push-to-another-repository@v1.3',
                 'env': {
                   'API_TOKEN_GITHUB': '${{ secrets.API_TOKEN_GITHUB }}'
                 },
@@ -64,8 +64,8 @@
                   'source-directory': 'build',
                   'destination-github-username': 'NoCloudBot',
                   'destination-repository-name': 'NoCloud-nightly-builds',
-                  'destination-repository-username': 'hypfer',
-                  'user-email': 'github_NoCloud_bot@hypfer.de',
+                  'destination-repository-username': 'DGAlexandru',
+                  'user-email': 'github_NoCloud_bot@DGAlexandru.yahoo.com',
                   'target-branch': 'master'
                 }
               }
