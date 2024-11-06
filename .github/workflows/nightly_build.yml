@@ -58,7 +58,7 @@
                 'id': 'push_directory',
                 'uses': 'DGAlexandru/github-action-push-to-another-repository@v1.3',
                 'env': {
-                  'API_TOKEN_GITHUB': '${{ secrets.API_TOKEN_GITHUB }}'
+                  'SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}'
                 },
                 'with': {
                   'source-directory': 'build',
