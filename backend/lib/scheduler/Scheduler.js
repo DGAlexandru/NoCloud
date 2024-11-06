@@ -1,7 +1,7 @@
 const Logger = require("../Logger");
+const Tools = require("../utils/Tools");
 const NoCloudFanSpeedControlTimerPreAction = require("./pre_actions/NoCloudFanSpeedControlTimerPreAction");
 const NoCloudFullCleanupTimerAction = require("./actions/NoCloudFullCleanupTimerAction");
-const NoCloudNTPClientDisabledState = require("../entities/core/ntpClient/NoCloudNTPClientDisabledState");
 const NoCloudNTPClientSyncedState = require("../entities/core/ntpClient/NoCloudNTPClientSyncedState");
 const NoCloudOperationModeControlTimerPreAction = require("./pre_actions/NoCloudOperationModeControlTimerPreAction");
 const NoCloudSegmentCleanupTimerAction = require("./actions/NoCloudSegmentCleanupTimerAction");
@@ -32,15 +32,23 @@ class Scheduler {
     }
 
     evaluateTimers() {
-        if (
-            !(
-                this.ntpClient.state instanceof NoCloudNTPClientSyncedState ||
-                this.ntpClient.state instanceof NoCloudNTPClientDisabledState
-            ) && this.config.get("embedded") === true
-        ) {
-            // Since some robots have no rtc, we absolutely require a synced time when embedded
-            // Therefore, we're aborting without it unless you explicitly disable the NTPClient
-            // In that case you're on your own to provide the correct time to the robot
+        const NTPClientStateIsValid = this.ntpClient.state instanceof NoCloudNTPClientSyncedState;
+        const isEmbedded = this.config.get("embedded") === true;
+        const hasBuildTimestamp = Tools.GET_BUILD_TIMESTAMP() > new Date(-1);
+        const timeIsPlausible = Tools.GET_BUILD_TIMESTAMP() < new Date();
+
+        let shouldEvaluateTimers;
+        if (isEmbedded) {
+            shouldEvaluateTimers = NTPClientStateIsValid || (hasBuildTimestamp && timeIsPlausible);
+        } else {
+            if (hasBuildTimestamp) {
+                shouldEvaluateTimers = timeIsPlausible;
+            } else { // Probably dev env
+                shouldEvaluateTimers = true;
+            }
+        }
+
+        if (!shouldEvaluateTimers) {
             return;
         }
 
