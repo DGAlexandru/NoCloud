@@ -58,14 +58,14 @@
                 'id': 'push_directory',
                 'uses': 'DGAlexandru/github-action-push-to-another-repository@v1.3',
                 'env': {
-                  'SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}'
+                  'SSH_DEPLOY_KEY': '${{ secrets.SSH_DEPLOY_KEY }}'
                 },
                 'with': {
                   'source-directory': 'build',
                   'destination-github-username': 'NoCloudBot',
                   'destination-repository-name': 'NoCloud-nightly-builds',
                   'destination-repository-username': 'DGAlexandru',
-                  'user-email': 'github_NoCloud_bot@DGAlexandru.yahoo.com',
+                  'user-email': 'github_NoCloud_Nightly@yahoo.com',
                   'target-branch': 'master'
                 }
               }
