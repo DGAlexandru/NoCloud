@@ -1,9 +1,9 @@
 # Automation of Nightly builds (similar to the release build) & upload to NoCloud nightly repository
 name: Nightly build
 on:
+  workflow_dispatch:
   schedule:
     - cron: 16 2 * * *
-  workflow_dispatch:
 jobs:
     nightly_build:
     runs-on: ubuntu-latest
@@ -24,15 +24,15 @@ jobs:
         run: npm ci
       - name: Generate OpenAPI Docs
         run: npm run build_openapi_schema
-      - name: Build NoCloud frontend
+      - name: Build NoCloud FrontEnd
         run: npm run build --workspace=frontend
-      - name: Build NoCloud
+      - name: Build NoCloud BackEnd
         run: npm run build --workspace=backend
       - name: UPX-compress NoCloud binaries
         run: npm run upx
-      - name: Generate changelog
+      - name: Generate Nightly ChangeLOG
         run: npm run generate_nightly_changelog
-      - name: Generate manifest
+      - name: Generate Manifest
         run: npm run build_release_manifest nightly
       - name: Push generated files to Nightly repository
         id: push_directory
