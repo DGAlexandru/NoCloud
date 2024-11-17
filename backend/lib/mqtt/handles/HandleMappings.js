@@ -19,7 +19,10 @@ const CAPABILITY_TYPE_TO_HANDLE_MAPPING = {
     [capabilities.TotalStatisticsCapability.TYPE]: capabilityHandles.TotalStatisticsCapabilityMqttHandle,
     [capabilities.SpeakerVolumeControlCapability.TYPE]: capabilityHandles.SpeakerVolumeControlCapabilityMqttHandle,
     [capabilities.KeyLockCapability.TYPE]: capabilityHandles.KeyLockCapabilityMqttHandle,
-    [capabilities.ObstacleAvoidanceControlCapability.TYPE]: capabilityHandles.ObstacleAvoidanceControlCapabilityMqttHandle
+    [capabilities.ObstacleAvoidanceControlCapability.TYPE]: capabilityHandles.ObstacleAvoidanceControlCapabilityMqttHandle,
+    [capabilities.PetObstacleAvoidanceControlCapability.TYPE]: capabilityHandles.PetObstacleAvoidanceControlCapabilityMqttHandle,
+    [capabilities.CarpetModeControlCapability.TYPE]: capabilityHandles.CarpetModeControlCapabilityMqttHandle,
+    [capabilities.CarpetSensorModeControlCapability.TYPE]: capabilityHandles.CarpetSensorModeControlCapabilityMqttHandle
 };
 
 const STATUS_ATTR_TO_HANDLE_MAPPING = [
@@ -34,6 +37,10 @@ const STATUS_ATTR_TO_HANDLE_MAPPING = [
     {
         matcher: {attributeClass: stateAttrs.StatusStateAttribute.name},
         handle: stateHandles.StatusStateMqttHandle
+    },
+    {
+        matcher: {attributeClass: stateAttrs.DockStatusStateAttribute.name},
+        handle: stateHandles.DockStatusStateMqttHandle
     }
 ];
 
