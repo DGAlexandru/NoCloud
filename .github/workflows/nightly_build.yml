@@ -3,7 +3,7 @@ name: Nightly build
 on:
   schedule:
     - cron: 16 2 * * *
-  workflow_dispatch: null
+  workflow_dispatch:
 jobs:
     nightly_build:
     runs-on: ubuntu-latest
