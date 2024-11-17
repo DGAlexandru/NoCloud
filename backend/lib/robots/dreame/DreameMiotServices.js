@@ -640,7 +640,7 @@ module.exports = {
                     PIID: 8
                 }
             }
-			},
+            },
         MISC_STATES: {
             SIID: 27,
             PROPERTIES: {

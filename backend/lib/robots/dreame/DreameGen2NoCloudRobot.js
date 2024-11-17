@@ -307,7 +307,7 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
                         case MIOT_SERVICES.SECONDARY_FILTER.SIID:
                         case MIOT_SERVICES.DETERGENT.SIID:
                         case MIOT_SERVICES.MOP_EXPANSION.SIID:
-						case MIOT_SERVICES.MISC_STATES.SIID:
+                        case MIOT_SERVICES.MISC_STATES.SIID:
                             this.parseAndUpdateState([e]);
                             break;
                         case MIOT_SERVICES.DEVICE.SIID:
@@ -368,7 +368,7 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
                 // ignore
                 return true;
             }
-			case "vendor_lic": {
+            case "vendor_lic": {
                 // ignore
                 return true;
             }
@@ -679,7 +679,7 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
                     }
                     break;
                 }
-				case MIOT_SERVICES.MISC_STATES.SIID: {
+                case MIOT_SERVICES.MISC_STATES.SIID: {
                     // Ignored for now
                     break;
                 }
