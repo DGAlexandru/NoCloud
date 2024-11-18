@@ -67,13 +67,12 @@ class NoCloudUpdaterCheckStep extends NoCloudUpdaterStep {
                     ].join()
                 );
             }
-        }
-        else if (!(statusAttribute && statusAttribute.value === stateAttrs.StatusStateAttribute.VALUE.IDLE)) {
+        } else if (!(statusAttribute && statusAttribute.value === stateAttrs.StatusStateAttribute.VALUE.IDLE)) {
             throw new NoCloudUpdaterError(
                 NoCloudUpdaterError.ERROR_TYPE.NOT_IDLE,
                 [
-                    `Updating NoCloud is only allowed if the Robot is Idle or Docked!`,
-                    `Current status: ${statusAttribute.value}`
+                    `Current status: ${statusAttribute.value}`,
+                    "Updating NoCloud is only allowed if the Robot is Idle or Docked!"
                 ].join()
             );
         }
