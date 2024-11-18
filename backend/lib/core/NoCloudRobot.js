@@ -132,7 +132,7 @@ class NoCloudRobot {
                 this.flags.hugeMap = true;
 
                 /*
-                    This will be displayed only once after a map larger than 120 m² has been uploaded to a new NoCloud process
+                    This will be displayed only once after a map larger than 145 m² has been uploaded to a new NoCloud process
                     
                     It should serve as an unobtrusive reminder that while you can use NoCloud in a commercial environment
                     without any limitations whatsoever, doing so and saving money because of that without giving anything

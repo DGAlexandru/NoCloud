@@ -1,4 +1,5 @@
-import {Box, Divider, Grid, styled} from "@mui/material";
+import {Box, Divider, styled} from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import ControlsBody from "./controls";
 import {useIsMobileView} from "./hooks";
 import {FullHeightGrid} from "./components/FullHeightGrid";
@@ -44,11 +45,11 @@ const HomePage = (): React.ReactElement => {
 
     return (
         <FullHeightGrid container direction="row" justifyContent="space-evenly">
-            <Grid item sm md lg xl>
+            <Grid size="grow">
                 <LiveMapPage/>
             </Grid>
             <Divider orientation="vertical"/>
-            <ScrollableGrid item sm={4} md={4} lg={4} xl={3}>
+            <ScrollableGrid size={{sm: 4, md: 4, lg: 4, xl: 3 }}>
                 <Box m={1}>
                     <ControlsBody/>
                 </Box>

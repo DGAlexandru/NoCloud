@@ -21,11 +21,11 @@ import {
     AccordionSummary,
     Box,
     Divider,
-    Grid,
     LinearProgress,
     Skeleton,
     Typography
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import React from "react";
 import {LoadingButton} from "@mui/lab";
 import ConfirmationDialog from "../components/ConfirmationDialog";
@@ -221,11 +221,10 @@ const UpdaterStateComponent : React.FunctionComponent<{ state: UpdaterState | un
     return (
         <>
             <Grid container alignItems="center" direction="column" style={{paddingBottom:"1rem"}}>
-                <Grid item style={{marginTop:"1rem"}}>
+                <Grid style={{marginTop:"1rem"}}>
                     {getIconForState()}
                 </Grid>
                 <Grid
-                    item
                     sx={{
                         maxWidth: "100% !important", //Why, MUI? Why?
                         wordWrap: "break-word"
@@ -254,7 +253,7 @@ const UpdaterControls : React.FunctionComponent<{ state: UpdaterState}> = ({
 }) => {
     return (
         <Grid container justifyContent="flex-end" direction="row" style={{paddingTop: "1rem", paddingBottom:"1rem"}}>
-            <Grid item>
+            <Grid>
                 {
                     (
                         state.__class === "NoCloudUpdaterIdleState" ||

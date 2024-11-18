@@ -27,6 +27,7 @@ NoCloudUpdaterError.ERROR_TYPE = Object.freeze({
     NO_RELEASE: "no_release",
     NO_MATCHING_BINARY: "no_matching_binary",
     INVALID_CHECKSUM: "invalid_checksum",
+    NOT_IDLE: "not_idle"
 });
 
 

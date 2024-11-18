@@ -1,10 +1,10 @@
 import {
-    Grid,
     LinearProgress,
     linearProgressClasses,
     styled,
     Typography,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import { green, red, yellow } from "@mui/material/colors";
 import React from "react";
 import {
@@ -92,18 +92,18 @@ const RobotStatus = (): React.ReactElement => {
 
         return batteries.map((battery, index) => {
             return (
-                <Grid item container direction="column" key={index}>
-                    <Grid item>
+                <Grid container direction="column" key={index}>
+                    <Grid>
                         <Typography
                             variant="overline"
                             style={{
                                 color: batteryLevelColors[getBatteryColor(battery.level)],
                             }}
                         >
-                            Battery{batteries.length > 1 ? ` ${index+1}`: ""}: {Math.round(battery.level)}%
+                            Battery{batteries.length > 1 ? ` ${index+1}`: ""}: {Math.round(battery.level)}% {battery.flag === "none" ? "" : ["(", battery.flag, ")"]}
                         </Typography>
                     </Grid>
-                    <Grid item sx={{ flexGrow: 1, minHeight: "1rem"}}>
+                    <Grid sx={{ flexGrow: 1, minHeight: "1rem"}}>
                         <BatteryProgress value={battery.level} variant="determinate" />
                     </Grid>
                 </Grid>
@@ -118,13 +118,13 @@ const RobotStatus = (): React.ReactElement => {
             isLoading={isPending}
         >
             <Grid container direction="column">
-                <Grid item container direction="row">
-                    <Grid item>
+                <Grid container direction="row">
+                    <Grid>
                         {stateDetails}
                     </Grid>
                 </Grid>
                 {batteries !== undefined && batteries.length > 0 && (
-                    <Grid item container direction="row" width="100%">
+                    <Grid container direction="row" width="100%">
                         {batteriesDetails}
                     </Grid>
                 )}

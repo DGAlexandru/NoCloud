@@ -1,12 +1,12 @@
 const Logger = require("../../../Logger");
+const NoCloudUpdaterError = require("../NoCloudUpdaterError");
+const NoCloudUpdaterStep = require("./NoCloudUpdaterStep");
 const path = require("path/posix");
 const stateAttrs = require("../../../entities/state/attributes");
 const States = require("../../../entities/core/updater");
 const Tools = require("../../../utils/Tools");
 const UpdaterUtils = require("../UpdaterUtils");
 const uuid = require("uuid");
-const NoCloudUpdaterError = require("../NoCloudUpdaterError");
-const NoCloudUpdaterStep = require("./NoCloudUpdaterStep");
 
 class NoCloudUpdaterCheckStep extends NoCloudUpdaterStep {
     /**
@@ -53,13 +53,30 @@ class NoCloudUpdaterCheckStep extends NoCloudUpdaterStep {
             stateAttrs.StatusStateAttribute
         );
 
-        if (!(statusAttribute && statusAttribute.value === stateAttrs.StatusStateAttribute.VALUE.DOCKED)) {
+        const batteryLevel = this.robot.state.getFirstMatchingAttributeByConstructor(
+            stateAttrs.BatteryStateAttribute
+        );
+
+        if ((Math.round(batteryLevel.level)) < 50) {
+            if (!(statusAttribute && statusAttribute.value === stateAttrs.StatusStateAttribute.VALUE.DOCKED)) {
+                throw new NoCloudUpdaterError(
+                    NoCloudUpdaterError.ERROR_TYPE.NOT_DOCKED,
+                    [
+                        `Current battery level: ${Math.round(batteryLevel.level)}`,
+                        "With battery level lower than 50% updating is permitted only while the robot is docked!"
+                    ].join()
+                );
+            }
+        }
+        else if (!(statusAttribute && statusAttribute.value === stateAttrs.StatusStateAttribute.VALUE.IDLE)) {
             throw new NoCloudUpdaterError(
-                NoCloudUpdaterError.ERROR_TYPE.NOT_DOCKED,
-                "Updating is only possible while the robot is docked"
+                NoCloudUpdaterError.ERROR_TYPE.NOT_IDLE,
+                [
+                    "Updating NoCloud is only allowed if the Robot is Idle or Docked!",
+                    `Current status: ${statusAttribute.value}`
+                ].join()
             );
         }
-
 
         const {
             requiresUPX,
@@ -67,7 +84,6 @@ class NoCloudUpdaterCheckStep extends NoCloudUpdaterStep {
         } = UpdaterUtils.storageSurvey(); //Also throws a NoCloudUpdaterError
 
         const requiredBinary = `NoCloud-${arch}${requiresLowmem ? "-lowmem" : ""}${requiresUPX ? ".upx" : ""}`;
-
 
         let releases;
         try {
