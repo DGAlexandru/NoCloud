@@ -57,24 +57,20 @@ class NoCloudUpdaterCheckStep extends NoCloudUpdaterStep {
             stateAttrs.BatteryStateAttribute
         );
 
-        if ((Math.round(batteryLevel.level)) < 50) {
-            if (!(statusAttribute && statusAttribute.value === stateAttrs.StatusStateAttribute.VALUE.DOCKED)) {
+        if (!(statusAttribute && statusAttribute.value === stateAttrs.StatusStateAttribute.VALUE.DOCKED)) {
+            if ((Math.round(batteryLevel.level)) >= 50) {
+                if (!(statusAttribute && statusAttribute.value === stateAttrs.StatusStateAttribute.VALUE.IDLE)) {
+                    throw new NoCloudUpdaterError(
+                        NoCloudUpdaterError.ERROR_TYPE.NOT_IDLE,
+                        `Updating NoCloud is allowed only if the Robot is Idle or Docked! Current status: ${statusAttribute.value}`
+                    );
+                }
+            } else {
                 throw new NoCloudUpdaterError(
                     NoCloudUpdaterError.ERROR_TYPE.NOT_DOCKED,
-                    [
-                        `Current battery level: ${Math.round(batteryLevel.level)}`,
-                        "With battery level lower than 50% updating is permitted only while the robot is docked!"
-                    ].join()
+                    `To update NoCloud with a battery level lower than 50% you need to Dock the Robot! Battery level: ${Math.round(batteryLevel.level)}%`
                 );
             }
-        } else if (!(statusAttribute && statusAttribute.value === stateAttrs.StatusStateAttribute.VALUE.IDLE)) {
-            throw new NoCloudUpdaterError(
-                NoCloudUpdaterError.ERROR_TYPE.NOT_IDLE,
-                [
-                    `Current status: ${statusAttribute.value}`,
-                    "Updating NoCloud is only allowed if the Robot is Idle or Docked!"
-                ].join()
-            );
         }
 
         const {
