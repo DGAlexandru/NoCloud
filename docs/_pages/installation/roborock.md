@@ -5,7 +5,7 @@ order: 11
 ---
 # Roborock rooting and installation
 
-Please check the [supported robots](https://NoCloud.cloud/pages/general/supported-robots.html) page to find out which method applies to your model of robot.
+Please check the [supported robots](https://Valetudo.Cloud/pages/general/supported-robots.html) page to find out which method applies to your model of robot.
 
 Also note that all rooting guides assume a factory-new robot that has never been connected to the vendor cloud.<br/>
 If you've used any vendor apps before, make sure to do a full factory-reset before starting with the rooting procedure.
@@ -43,7 +43,7 @@ The irony that this guide suggests using "the cloud" to uncloud your device is n
 
 ### Flashing the firmware image
 
-Flashing the firmware .pkg file can easily be done by using [NoCloud-helper-miioota](https://github.com/UnKn0wn/NoCloud-helper-miioota),
+Flashing the firmware .pkg file can easily be done by using [NoCloud-helper-miioota](https://github.com/DGAlexandru/NoCloud-helper-miioota),
 which is a standalone tool that does the right thing.
 
 Just connect your laptop to the robots Wi-Fi access point and use the tool to install the firmware.
@@ -76,7 +76,7 @@ Please keep the distance between your WiFi antenna and your robot as short as po
 After the successful transfer of the image to the robot, the robot will start flashing the image. This will take about 5~10 minutes.
 After the process is done, the robot will state that the update was successful.
 
-You can now return to the [getting started guide](https://NoCloud.cloud/pages/general/getting-started.html#joining_wifi).
+You can now return to the [getting started guide](https://Valetudo.Cloud/pages/general/getting-started.html#joining_wifi).
 
 #### Troubleshooting
 
@@ -168,7 +168,7 @@ For this root you will need:
 First, head over to the [Dustbuilder](https://builder.dontvacuum.me/) and request a rooted firmware image for your specific robot.
 Make sure to select the `Create FEL image (for initial rooting via USB)` option.
 
-Next, download the latest [NoCloud-armv7-lowmem.upx binary](https://github.com/UnKn0wn/NoCloud/releases/latest/download/NoCloud-armv7-lowmem.upx).
+Next, download the latest [NoCloud-armv7-lowmem.upx binary](https://github.com/DGAlexandru/NoCloud/releases/latest/download/NoCloud-armv7-lowmem.upx).
 
 
 With the dustbuilder now building your image, you can start the disassembly of the robot until you reach the mainboard.
@@ -314,6 +314,6 @@ After the robot has rebooted, connect to its Wi-Fi AP for the final time, wait f
 NoCloud Webinterface in your browser to connect the robot to your Wi-Fi network.<br/>
 For that, just browse to `http://192.168.8.1`.
 
-After reassembling the robot you can continue with the <a href="https://NoCloud.cloud/pages/general/getting-started.html#using-NoCloud">getting started guide</a>.
+After reassembling the robot you can continue with the <a href="https://Valetudo.Cloud/pages/general/getting-started.html#using-NoCloud">getting started guide</a>.
 
 </div>

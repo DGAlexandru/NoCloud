@@ -6,7 +6,7 @@ order: 7
 
 # Why not NoCloud?
 
-After having read through the [Why NoCloud?](https://NoCloud.cloud/pages/general/why-NoCloud.html) page,
+After having read through the [Why NoCloud?](https://Valetudo.Cloud/pages/general/why-NoCloud.html) page,
 you might also be wondering why you might **not** want to use NoCloud.
 To answer those questions, here's a list of a few common reasons in an attempt to reduce the amount of some incredibly exhausting discussions.
 

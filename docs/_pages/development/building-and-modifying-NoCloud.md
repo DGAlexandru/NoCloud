@@ -14,7 +14,7 @@ Please note that working with NoCloud requires at least NPM v7 and Nodejs v15.
 
 ```
 cd ~
-git clone https://github.com/UnKn0wn/NoCloud.git
+git clone https://github.com/DGAlexandru/NoCloud.git
 ```
 
 ### 2. Install dependencies
@@ -55,7 +55,7 @@ You need to edit the newly created file in order to be able to talk with your ro
 Setting embedded to `false` disables all functionality that assumes that NoCloud runs on the robot such as some file-system related things.
 
 For a list of possible values for `implementation` consult the robot implementations in
-[https://github.com/UnKn0wn/NoCloud/tree/master/backend/lib/robots](https://github.com/UnKn0wn/NoCloud/tree/master/backend/lib/robots).
+[https://github.com/DGAlexandru/NoCloud/tree/master/backend/lib/robots](https://github.com/DGAlexandru/NoCloud/tree/master/backend/lib/robots).
 NoCloud is also capable of running without a real robot. The `MockRobot` implementation provides a virtual robot
 that has a few basic capabilities. It requires no further implementation specific configuration.
 

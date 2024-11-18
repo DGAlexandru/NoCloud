@@ -9,7 +9,7 @@ body:
         This is _also_ **not** a place to receive emotional support.
         
         **Don't:**
-        - ask things that are already covered extensively by the docs on https://NoCloud.cloud
+        - ask things that are already covered extensively by the docs on https://Valetudo.Cloud
         - ask things you already know the answer to but
           - want things to be different
           - need someone else to tell you the same answer again so that
@@ -20,8 +20,8 @@ body:
         - ask for general linux support and step-by-step handholding
         - bargain
 
-        For more information on feature requests see here: [New Issue: Feature request](https://github.com/UnKn0wn/NoCloud/issues/new?assignees=&labels=request&projects=&template=feature_request.yml)
-        And for asking if a robot is or could be supported see here: [New Issue: Robot support request](https://github.com/UnKn0wn/NoCloud/issues/new?assignees=&labels=request&projects=&template=pls_support_robot.yml)
+        For more information on feature requests see here: [New Issue: Feature request](https://github.com/DGAlexandru/NoCloud/issues/new?assignees=&labels=request&projects=&template=feature_request.yml)
+        And for asking if a robot is or could be supported see here: [New Issue: Robot support request](https://github.com/DGAlexandru/NoCloud/issues/new?assignees=&labels=request&projects=&template=pls_support_robot.yml)
         
   - type: dropdown
     id: user-meta

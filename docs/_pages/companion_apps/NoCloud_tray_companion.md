@@ -12,4 +12,4 @@ Clicking on one of them will open its Webinterface in your default browser.
 
 It is available for Windows and Linux.
 
-Downloads, installation instructions and the sourcecode (Apache-2.0) can be found on GitHub: [https://github.com/UnKn0wn/NoCloud-tray-companion](https://github.com/UnKn0wn/NoCloud-tray-companion).
+Downloads, installation instructions and the sourcecode (Apache-2.0) can be found on GitHub: [https://github.com/DGAlexandru/NoCloud-tray-companion](https://github.com/DGAlexandru/NoCloud-tray-companion).

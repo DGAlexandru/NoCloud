@@ -2,8 +2,8 @@ title: NoCloud
 description: >-
   Cloud replacement for vacuum robots enabling local-only operation
 baseurl: ""
-url: https://NoCloud.cloud
-github_username: UnKn0wn
+url: https://Valetudo.Cloud
+github_username: DGAlexandru
 
 plugins:
   - jekyll-seo-tag

@@ -21,7 +21,7 @@ Unlike Home Assistant, openHAB does not come with a vacuum widget out of the box
 widgets for complex devices.
 
 A collection of custom widgets, rules and integrations for openHAB is available on GitHub:
-[github.com/UnKn0wn/NoCloud-Openhab](https://github.com/UnKn0wn/NoCloud-Openhab)
+[github.com/DGAlexandru/NoCloud-Openhab](https://github.com/DGAlexandru/NoCloud-Openhab)
 
 This document tries to explain in enough detail how to add a NoCloud robot to openHAB with the goal of minimizing
 inconsistencies between different users setups. This will make it easier to share custom integrations among the NoCloud
@@ -66,7 +66,7 @@ Homie must also be enabled in NoCloud.
    " %}
    
    {% include alert.html type="note" content="For channel Map you need
-[I Can't Believe It's Not NoCloud](https://github.com/UnKn0wn/ICantBelieveItsNotNoCloud) with \"mqtt.publishMapImage\" and \"mqtt.publishAsBase64\" set to \"true\". 
+[I Can't Believe It's Not NoCloud](https://github.com/DGAlexandru/ICantBelieveItsNotNoCloud) with \"mqtt.publishMapImage\" and \"mqtt.publishAsBase64\" set to \"true\". 
    " %}
    
    | Channel        | Type      | Category     | Semantic class | Semantic Property | Notes        |

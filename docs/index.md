@@ -7,18 +7,18 @@ Since it was started in 2018, it has matured to a reliable fire-and-forget solut
 
 NoCloud is made, managed, maintained and more by me,
 <a href="https://hypfer.de" rel="noopener" target="_blank">Sören Beye</a>, with occasional contributions by
-<a href="https://github.com/UnKn0wn/NoCloud/graphs/contributors" rel="noopener" target="_blank">these awesome people</a>.<br/>
+<a href="https://github.com/DGAlexandru/NoCloud/graphs/contributors" rel="noopener" target="_blank">these awesome people</a>.<br/>
 It would not exist without the ongoing work of <a href="https://dontvacuum.me/" rel="noopener" target="_blank">Dennis Giese</a>,
 who is constantly providing us with new ways of liberating and gaining actual ownership of our robots.
 
 As there is no telemetry built-in and no commercial interest to change that, I can't tell you how many users exactly are there,
 however judging by download counts and support group members, I'd guesstimate that there are a few thousand.
 
-If you want to learn more about why someone would want to use something like NoCloud, check out the [Why NoCloud?](https://NoCloud.cloud/pages/general/why-NoCloud.html) page.
+If you want to learn more about why someone would want to use something like NoCloud, check out the [Why NoCloud?](https://Valetudo.Cloud/pages/general/why-NoCloud.html) page.
 
-If you want to learn more about why someone would **not** want to use something like NoCloud, check out the [Why not NoCloud?](https://NoCloud.cloud/pages/general/why-not-NoCloud.html) page.
+If you want to learn more about why someone would **not** want to use something like NoCloud, check out the [Why not NoCloud?](https://Valetudo.Cloud/pages/general/why-not-NoCloud.html) page.
 
-To choose the right robot to buy, head over to [Buying supported robots](https://NoCloud.cloud/pages/general/buying-supported-robots.html).
+To choose the right robot to buy, head over to [Buying supported robots](https://Valetudo.Cloud/pages/general/buying-supported-robots.html).
 
 If you want to learn more about why I'm building NoCloud, the answer is actually pretty simple:<br/>
 When I was looking for a vacuum robot for myself, I didn't find anything that matched what I was looking for.<br/>
@@ -37,9 +37,9 @@ Please don't disappoint me. Thank you.
 These are the NoCloud Docs.
 Simply use the navigation menu on the left to find what you're looking for.
 
-The [getting started guide](https://NoCloud.cloud/pages/general/getting-started.html) is a good place to start.
+The [getting started guide](https://Valetudo.Cloud/pages/general/getting-started.html) is a good place to start.
 
-Also, make sure to check out the companion apps section.
+If you're looking to make content out of NoCloud, please read [Media & Content Creators](https://Valetudo.Cloud/pages/general/media.html).
 
 ### Screenshots
 
@@ -61,7 +61,7 @@ Also, make sure to check out the companion apps section.
 ![image](https://user-images.githubusercontent.com/974410/211155880-ff184776-86fe-4c2f-9556-4d556cfa12f4.png)
 
 ### Further questions?
-[NoCloud Telegram group](https://t.me/+WeKNL1pkmCA3ZTgy)
+[Valetudo Telegram group](https://t.me/+WeKNL1pkmCA3ZTgy)
 
 ### NoCloud is a garden <a id="garden"></a>
 This project is the hobby of some random guy on the internet. There is no intent to commercialize it, grow it

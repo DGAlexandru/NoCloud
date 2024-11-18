@@ -10,4 +10,4 @@ published back to MQTT as well.
 
 Useful for stuff like e.g. using home automation software to send a notification including the latest map image or if you're using FHEM or ioBroker.
 
-[https://github.com/UnKn0wn/IcantbelieveitsnotNoCloud](https://github.com/UnKn0wn/IcantbelieveitsnotNoCloud)
+[https://github.com/DGAlexandru/IcantbelieveitsnotNoCloud](https://github.com/DGAlexandru/IcantbelieveitsnotNoCloud)

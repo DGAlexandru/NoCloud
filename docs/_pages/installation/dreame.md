@@ -5,7 +5,7 @@ order: 10
 ---
 # Dreame rooting and installation
 
-Please check the [supported robots](https://NoCloud.cloud/pages/general/supported-robots.html) page to find out which method applies to your model of robot.
+Please check the [supported robots](https://Valetudo.Cloud/pages/general/supported-robots.html) page to find out which method applies to your model of robot.
 
 Also note that all rooting guides assume a factory-new robot that has never been connected to the vendor cloud.<br/>
 If you've used any vendor apps before, make sure to do a full factory-reset before starting with the rooting procedure.
@@ -16,7 +16,7 @@ If you've used any vendor apps before, make sure to do a full factory-reset befo
 
 To root using this method, you'll need:
 
-- The [Dreame Breakout PCB](https://github.com/UnKn0wn/NoCloud-dreameadapter)
+- The [Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter)
 - A 3.3V USB to TTL Serial UART Adapter (like CP2102 or Pl2303)
 - A FAT32 & MBR-formatted USB Stick preferably with an activity LED
 - Some dupont cables
@@ -33,7 +33,7 @@ a login shell on the UART accessible on the debug connector.
 The root password is calculated from the serial number that can be found on a sticker on the robot and the debug
 connector also provides access to USB-OTG-functionality. And that's **almost** it.
 
-**Almost**, because on some p-dreames (check the [supported robots](https://NoCloud.cloud/pages/general/supported-robots.html) page for more info), Dreame introduced a secure boot scheme 
+**Almost**, because on some p-dreames (check the [supported robots](https://Valetudo.Cloud/pages/general/supported-robots.html) page for more info), Dreame introduced a secure boot scheme 
 with a key burned into the SoC that then verifies the signature of the U-Boot bootloader, which in turn verifies the signature of the rootfs etc.
 
 On these robots, you **MUST** defeat the secure boot mechanism before making any modifications to the filesystem **or else you will brick your robot**.
@@ -83,7 +83,7 @@ For all round-shaped dreames, this means removing the top plastic cover with a p
 If your Dreame is the P2148 Ultra Slim, just remove the whole top cover.<br/>
 If your Dreame is a D-shaped Mop such as the W10, simply take out the dustbin and open the rubber flap in front of that port.
 
-Once you have access to the debug port, plug in your [Dreame Breakout PCB](https://github.com/UnKn0wn/NoCloud-dreameadapter) and then
+Once you have access to the debug port, plug in your [Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter) and then
 connect your USB to Serial UART adapter to the SoC breakout on the PCB. **Make sure your adapter is set to 3.3V**.
 You will only need 3 wires for this connection: (GND, RX, and TX).
 
@@ -128,7 +128,7 @@ Once logged in, build a patched firmware image for manual installation via the [
 **Make sure that both `Prepackage NoCloud` and `Patch DNS` are selected before clicking on `Create Job`.**
 You will receive an email once it's built. Download the `tar.gz` file from the link in that mail to your laptop.
 
-With the `tar.gz` downloaded, head over to <a href="https://github.com/UnKn0wn/NoCloud-helper-httpbridge" rel="noopener" target="_blank">https://github.com/UnKn0wn/NoCloud-helper-httpbridge</a>
+With the `tar.gz` downloaded, head over to <a href="https://github.com/DGAlexandru/NoCloud-helper-httpbridge" rel="noopener" target="_blank">https://github.com/DGAlexandru/NoCloud-helper-httpbridge</a>
 and download a matching binary for your laptops operating system.
 
 Now, connect the laptop to the Wi-Fi Access Point of the robot. If you can't see the robots Wi-Fi AP to connect to, it might have disabled itself because 30 minutes passed since the last boot.
@@ -197,7 +197,7 @@ If you see that MOTD, the rooting procedure was successful.
 
 You now have a rooted Dreame vacuum robot running NoCloud.
 
-Now continue with the [getting started guide](https://NoCloud.cloud/pages/general/getting-started.html#joining_wifi).
+Now continue with the [getting started guide](https://Valetudo.Cloud/pages/general/getting-started.html#joining_wifi).
 
 </div>
 
@@ -234,7 +234,7 @@ out security features that would otherwise prevent the root.
 #### Software preparation
 
 For this root, you need to set up your Laptop with Debian and install livesuit on it. To do that, head over to
-<a href="https://github.com/UnKn0wn/NoCloud-sunxi-livesuit" rel="noopener" target="_blank">https://github.com/UnKn0wn/NoCloud-sunxi-livesuit</a>
+<a href="https://github.com/DGAlexandru/NoCloud-sunxi-livesuit" rel="noopener" target="_blank">https://github.com/DGAlexandru/NoCloud-sunxi-livesuit</a>
 and follow the instructions in the readme.
 
 You can of course use any linux distribution you want, however, if you want to receive support, please stick with Debian.
@@ -509,12 +509,12 @@ Finally, run `fastboot reboot`. If it boots up normally, you have successfully r
 
 With the rooted firmware installed, we finish the procedure by installing NoCloud to it.
 
-For that, first, check the [Supported Robots](https://NoCloud.cloud/pages/general/supported-robots.html) page and look up which `NoCloud Binary` is the right one for your robot.
+For that, first, check the [Supported Robots](https://Valetudo.Cloud/pages/general/supported-robots.html) page and look up which `NoCloud Binary` is the right one for your robot.
 
 Once you know that, download the latest matching NoCloud binary to your laptop:
-`https://github.com/UnKn0wn/NoCloud/releases/latest/download/NoCloud-{armv7,armv7-lowmem,aarch64}`
+`https://github.com/DGAlexandru/NoCloud/releases/latest/download/NoCloud-{armv7,armv7-lowmem,aarch64}`
 
-With the NoCloud binary downloaded, head over to <a href="https://github.com/UnKn0wn/NoCloud-helper-httpbridge" rel="noopener" target="_blank">https://github.com/UnKn0wn/NoCloud-helper-httpbridge</a>
+With the NoCloud binary downloaded, head over to <a href="https://github.com/DGAlexandru/NoCloud-helper-httpbridge" rel="noopener" target="_blank">https://github.com/DGAlexandru/NoCloud-helper-httpbridge</a>
 and download a matching binary for your laptops operating system.
 
 Now, connect the laptop to the Wi-Fi Access Point of the robot.<br/>
@@ -575,6 +575,6 @@ chmod +x /data/_root_postboot.sh
 reboot
 ```
 
-Once the robot has rebooted, you can continue with the [getting started guide](https://NoCloud.cloud/pages/general/getting-started.html#joining_wifi).
+Once the robot has rebooted, you can continue with the [getting started guide](https://Valetudo.Cloud/pages/general/getting-started.html#joining_wifi).
 
 </div>

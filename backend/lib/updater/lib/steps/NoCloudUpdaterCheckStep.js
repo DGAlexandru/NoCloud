@@ -72,7 +72,7 @@ class NoCloudUpdaterCheckStep extends NoCloudUpdaterStep {
             throw new NoCloudUpdaterError(
                 NoCloudUpdaterError.ERROR_TYPE.NOT_IDLE,
                 [
-                    "Updating NoCloud is only allowed if the Robot is Idle or Docked!",
+                    `Updating NoCloud is only allowed if the Robot is Idle or Docked!`,
                     `Current status: ${statusAttribute.value}`
                 ].join()
             );

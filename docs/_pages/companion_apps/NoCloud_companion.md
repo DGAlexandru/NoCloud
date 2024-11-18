@@ -15,7 +15,7 @@ Note that this app is completely optional and only exists to make NoCloud more a
 This app will not provide any UI to interface with NoCloud during normal operation.
 Basically, you can think of it as an automatically updating bookmark + some wizard stuff.
 
-Its sourcecode is available on GitHub (Apache-2.0): [https://github.com/UnKn0wn/NoCloud-companion](https://github.com/UnKn0wn/NoCloud-companion)
+Its sourcecode is available on GitHub (Apache-2.0): [https://github.com/DGAlexandru/NoCloud-companion](https://github.com/DGAlexandru/NoCloud-companion)
 
 ## How to Install
 
@@ -26,11 +26,11 @@ the Play Store will in fact collect anonymous usage data. This applies to all Ap
 
 ## Screenshots
 
-[<img src="https://github.com/UnKn0wn/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-01.png" width=250>](https://github.com/UnKn0wn/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-01.png)
-[<img src="https://github.com/UnKn0wn/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-02.png" width=250>](https://github.com/UnKn0wn/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-02.png)
-[<img src="https://github.com/UnKn0wn/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-03.png" width=250>](https://github.com/UnKn0wn/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-03.png)
-[<img src="https://github.com/UnKn0wn/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-04.png" width=250>](https://github.com/UnKn0wn/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-04.png)
-[<img src="https://github.com/UnKn0wn/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-05.png" width=250>](https://github.com/UnKn0wn/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-05.png)
+[<img src="https://github.com/DGAlexandru/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-01.png" width=250>](https://github.com/DGAlexandru/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-01.png)
+[<img src="https://github.com/DGAlexandru/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-02.png" width=250>](https://github.com/DGAlexandru/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-02.png)
+[<img src="https://github.com/DGAlexandru/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-03.png" width=250>](https://github.com/DGAlexandru/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-03.png)
+[<img src="https://github.com/DGAlexandru/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-04.png" width=250>](https://github.com/DGAlexandru/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-04.png)
+[<img src="https://github.com/DGAlexandru/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-05.png" width=250>](https://github.com/DGAlexandru/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-05.png)
 
 ## Transparency
 

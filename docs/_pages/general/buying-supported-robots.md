@@ -5,7 +5,7 @@ order: 14
 ---
 # Buying Supported Robots
 
-The recommended source to buy a [supported robot](https://NoCloud.cloud/pages/general/supported-robots.html) is
+The recommended source to buy a [supported robot](https://Valetudo.Cloud/pages/general/supported-robots.html) is
 wherever it is cheapest. In general, when buying something, you should always use price comparison websites, shopping communities, check Aliexpress etc.
 
 ## Deciding on a Robot
@@ -26,11 +26,11 @@ Answering these questions should help you pick the right unit. If you require ad
 
 ## Affiliate links
 
-If you want to support the project, consider donating using [GitHub sponsors](https://github.com/sponsors/UnKn0wn) instead
+If you want to support the project, consider donating using [GitHub sponsors](https://github.com/sponsors/DGAlexandru) instead
 of using affiliate links as they are part of the advertising industry, which [some people might describe as bad](https://www.youtube.com/watch?v=tHEOGrkhDp0).
 
 If Amazon is something that you like to use, here are some affiliate links for it.<br/>
-The DE ones end up supporting me, UnKn0wn, while the non-DE ones fund Dennis' work.
+The DE ones end up supporting me, DGAlexandru, while the non-DE ones fund Dennis' work.
 Apparently it's easy for a US Amazon affiliate account to generate links on all the other Amazons but not the other way round.
 
 * Dreame X40 Master [DE](https://amzn.to/48wxPR2)

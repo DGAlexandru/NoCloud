@@ -10,7 +10,7 @@ A small and rather hackish script, which takes a NoCloudMap JSON and renders it 
 <img src="./img/NoCloud-minecraft-mapper.png" alt="image" width="817" height="531">
 
 
-[https://github.com/UnKn0wn/NoCloud-Minecraft-Mapper](https://github.com/UnKn0wn/NoCloud-Minecraft-Mapper)
+[https://github.com/DGAlexandru/NoCloud-Minecraft-Mapper](https://github.com/DGAlexandru/NoCloud-Minecraft-Mapper)
 
 # NoCloud-To-VMF
 
@@ -26,4 +26,4 @@ A script to convert NoCloud Mapdata (containing segments) to Source-Engine VMF M
 
 ## NoCloud_gamepad_experiments_v1.js 
 
-[https://gist.github.com/UnKn0wn/fcfa39996bd7522bbe2c5f18acb1fcf4](https://gist.github.com/UnKn0wn/fcfa39996bd7522bbe2c5f18acb1fcf4)
+[https://gist.github.com/DGAlexandru/fcfa39996bd7522bbe2c5f18acb1fcf4](https://gist.github.com/DGAlexandru/fcfa39996bd7522bbe2c5f18acb1fcf4)

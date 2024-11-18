@@ -148,7 +148,7 @@ class NoCloudRobot {
                     You're welcome
                  */
                 Logger.info("Based on your map size, it looks like you might be using NoCloud in a commercial environment.");
-                Logger.info("If NoCloud saves your business money, please consider giving some of those savings back to the project by donating: https://github.com/sponsors/UnKn0wn");
+                Logger.info("If NoCloud saves your business money, please consider giving some of those savings back to the project by donating: https://github.com/sponsors/Hypfer");
                 Logger.info("Thank you :)");
             }
         });

@@ -68,7 +68,7 @@ class SSDPRouter {
                         "manufacturer": this.robot.getManufacturer()
                     },
                     {
-                        "manufacturerURL": "https://NoCloud.cloud"
+                        "manufacturerURL": "https://Valetudo.Cloud"
                     },
                     {
                         "modelDescription": "NoCloud-enabled robot"
@@ -80,7 +80,7 @@ class SSDPRouter {
                         "modelNumber": Tools.GET_NoCloud_VERSION() + " (NoCloud)"
                     },
                     {
-                        "modelURL": "https://NoCloud.cloud"
+                        "modelURL": "https://Valetudo.Cloud"
                     },
                     {
                         "UDN": "uuid:" + Tools.GET_SYSTEM_ID()
