@@ -5,7 +5,7 @@
   "bin": "index.js",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=16"
+    "node": ">=20"
   },
   "pkg": {
     "assets": [
@@ -35,7 +35,7 @@
     "@destinationstransfers/ntp": "2.0.0",
     "ajv": "8.17.1",
     "async-mqtt": "2.6.3",
-    "axios": "0.27.2",
+    "axios": "^1.7.7",
     "bonjour-service": "1.2.1",
     "compression": "1.7.4",
     "crc": "4.3.2",

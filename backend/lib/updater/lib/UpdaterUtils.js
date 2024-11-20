@@ -2,7 +2,7 @@ const fs = require("fs");
 const LinuxTools = require("../../utils/LinuxTools");
 const os = require("os");
 const NoCloudUpdaterError = require("./NoCloudUpdaterError");
-const {default: axios} = require("axios");
+const {default: axios} = require('../../../../node_modules/axios/dist/node/axios.cjs');
 
 const SPACE_REQUIRED_REGULAR = 40 * 1024 * 1024;
 const SPACE_REQUIRED_UPX = 20 * 1024 * 1024;
