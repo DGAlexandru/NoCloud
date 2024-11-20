@@ -11,10 +11,8 @@
     "assets": [
       "../frontend/build",
       "../build_metadata.json",
-      "../node_modules/swagger-ui-dist/swagger-ui.css"
-    ],
-	"scripts": [
-	  "../node_modules/axios/dist/node/axios.cjs"
+      "../node_modules/swagger-ui-dist/swagger-ui.css",
+      "./node_modules/swagger-ui-dist/swagger-ui.css"
     ]
   },
   "scripts": {
