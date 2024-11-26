@@ -514,7 +514,7 @@ export interface UpdaterState {
     timestamp: string;
     metaData: UpdaterStateMetaData;
     busy: boolean;
-    type?: "unknown" | "not_embedded" | "not_docked" | "not_writable" | "not_enough_space" | "download_failed" | "no_matching_binary" | "missing_manifest" | "invalid_manifest" | "invalid_checksum";
+    type?: "unknown" | "not_embedded" | "not_docked" | "not_writable" | "not_enough_space" | "download_failed" | "no_matching_binary" | "missing_manifest" | "invalid_manifest" | "invalid_checksum" | "not_idle";
     message?: string;
     currentVersion?: string;
     version?: string;

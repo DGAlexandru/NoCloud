@@ -451,7 +451,7 @@ class DreameQuirkFactory {
                     id: id,
                     title: "Water Hookup Test",
                     description: "Test if the permanent water hookup has been installed correctly. " +
-                        "Listen to the robots' voice prompts for status updates. If errors should occur, they will be raised as ValetudoEvents.",
+                        "Listen to the robots' voice prompts for status updates. If errors should occur, they will be raised as NoCloudEvents.",
                     options: ["select_to_trigger", "trigger"],
                     getter: async () => {
                         return "select_to_trigger";

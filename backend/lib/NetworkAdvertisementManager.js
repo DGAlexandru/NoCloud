@@ -106,7 +106,7 @@ class NetworkAdvertisementManager {
         Logger.info("NoCloud can be reached via: " + Tools.GET_ZEROCONF_HOSTNAME());
 
         this.publishBonjourService(`NoCloud ${Tools.GET_HUMAN_READABLE_SYSTEM_ID()} Web`, "http");
-        this.publishBonjourService(`NoCloud ${Tools.GET_HUMAN_READABLE_SYSTEM_ID()}`, "NoCloud");
+        this.publishBonjourService(`NoCloud ${Tools.GET_HUMAN_READABLE_SYSTEM_ID()}`, "valetudo");
     }
 
     /**
