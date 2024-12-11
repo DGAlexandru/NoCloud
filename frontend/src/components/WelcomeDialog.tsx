@@ -74,7 +74,7 @@ const WelcomeDialog: FunctionComponent<{open: boolean, hide: () => void}> = ({
                     component="span"
                 >
                     <Typography>
-                        It looks like it might the first time that you&apos;re using NoCloud on this robot.
+                        It looks like it might be the first time that you&apos;re using NoCloud on this robot.
                     </Typography>
                     <br/>
                     <Typography>

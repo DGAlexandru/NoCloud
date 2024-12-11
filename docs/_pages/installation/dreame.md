@@ -287,7 +287,7 @@ As described in the high-level overview, we start by doing some reconnaissance o
 #### Get the config value
 
 Download the latest stage1 dustbuilder livesuit image for your robot:
-- <a href="https://builder.dontvacuum.me/nextgen/dust-livesuit-mr813-ddr4.img" rel="noopener" target="_blank">L10s Ultra, L10s Pro Ultra Heat, X40</a>
+- <a href="https://builder.dontvacuum.me/nextgen/dust-livesuit-mr813-ddr4.img" rel="noopener" target="_blank">L10s Ultra, L10s Pro Ultra Heat, X40 Ultra/Master, L40, Mova S20 Ultra</a>
 - <a href="https://builder.dontvacuum.me/nextgen/dust-livesuit-mr813-ddr3.img" rel="noopener" target="_blank">D10s Pro/Plus, W10 Pro</a>
 
 and select that as the Image in the LiveSuit tool.
@@ -302,6 +302,7 @@ Follow these steps to enter fastboot:
 Plug the Breakout PCB into your robot. Make sure that the USB OTG ID Jumper is **NOT** set and plug a cable into
 the Micro USB port.
 
+<img src="./img/dreame_breakout_breakout_fel.jpg" alt="Dreame Breakout90gr & Breakout PCB connected" width="1200" height="700">
 <img src="./img/dreame_breakout_fel.jpg" alt="Dreame Breakout PCB connected" width="1200" height="700">
 
 1. Press and hold the button on the PCB.
@@ -457,6 +458,7 @@ Here are the steps again:
 Plug the Breakout PCB into your robot. Make sure that the USB OTG ID Jumper is **NOT** set and plug a cable into
 the Micro USB port.
 
+<img src="./img/dreame_breakout_breakout_fel.jpg" alt="Dreame Breakout90gr & Breakout PCB connected" width="1200" height="700">
 <img src="./img/dreame_breakout_fel.jpg" alt="Dreame Breakout PCB connected" width="1200" height="700">
 
 1. Press and hold the button on the PCB.
