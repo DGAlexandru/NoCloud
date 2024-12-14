@@ -871,7 +871,12 @@ RoborockNoCloudRobot.MAP_ERROR_CODE = (vendorErrorCode) => {
             parameters.subsystem = NoCloudRobotError.SUBSYSTEM.SENSORS;
             parameters.message = "Wall sensor dirty";
             break;
-        //27?
+        case 27:
+            parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.TRANSIENT;
+            parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.CATASTROPHIC;
+            parameters.subsystem = NoCloudRobotError.SUBSYSTEM.ATTACHMENTS;
+            parameters.message = "Mop module stuck";
+            break;
         //28?
         case 29:
             parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.TRANSIENT;
@@ -891,6 +896,12 @@ RoborockNoCloudRobot.MAP_ERROR_CODE = (vendorErrorCode) => {
             parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.WARNING;
             parameters.subsystem = NoCloudRobotError.SUBSYSTEM.DOCK;
             parameters.message = "Auto-Empty Dock filter clogged";
+            break;
+        case 35:
+            parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.PERMANENT;
+            parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.WARNING;
+            parameters.subsystem = NoCloudRobotError.SUBSYSTEM.DOCK;
+            parameters.message = "Auto-Empty Dock voltage abnormal";
             break;
 
         case 38:
