@@ -1,0 +1,38 @@
+name: Pull Request
+on:
+  - pull_request
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version:
+          - 20.x
+    steps:
+      - uses: actions/checkout@v4
+      - name: 'Use Node.js ${{ matrix.node-version }}'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '${{ matrix.node-version }}'
+      - name: Install NPM
+        run: npm ci
+      - name: Generate OpenAPI Docs
+        run: npm run build_openapi_schema
+      - name: TypeScript Check
+        run: 'npm run ts-check --workspace={frontend,backend}'
+      - name: Code Lint
+        run: 'npm run lint --workspace={frontend,backend}'
+      - name: Build NoCloud FrontEnd
+        run: npm run build --workspace=frontend
+      - name: Build NoCloud BackEnd
+        run: npm run build --workspace=backend
+      - name: UPX-compress NoCloud binaries
+        run: npm run upx
+      - name: Test BackEnd
+        run: npm test --workspace=backend
+        env:
+          CI: true
+      - name: Generate Intermediate ChangeLOG
+        run: npm run generate_nightly_changelog
+      - name: Generate Manifest
+        run: npm run build_release_manifest

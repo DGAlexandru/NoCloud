@@ -1,16 +1,31 @@
-# Automation of Nightly builds (similar to the release build) & upload to NoCloud nightly repository
-name: Nightly build
+# Automation of Nightly Builds (similar to the Release Build) & upload to NoCloud nightly repository
+name: Nightly Build
 on:
   workflow_dispatch:
   schedule:
     - cron: 16 2 * * *
 jobs:
+  checkLR:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: octokit/request-action@v2.x
+      id: check_last_run
+      with:
+        route: GET /repos/${{github.repository}}/actions/workflows/nightly_build.yml/runs?per_page=1&status=completed
+      env:
+        GITHUB_TOKEN: '${{ secrets.MY_TOKEN }}'
+    - run: "echo Last Nightly build: ${{ fromJson(steps.check_last_run.outputs.data).workflow_runs[0].head_sha }}"
+    outputs:
+      last_sha: ${{ fromJson(steps.check_last_run.outputs.data).workflow_runs[0].head_sha }}
+
   nightly_build:
     runs-on: ubuntu-latest
+    needs: [checkLR]
     strategy:
       matrix:
         node-version:
           - 20.x
+    if: needs.checkLR.outputs.last_sha != github.sha
     if: github.repository_owner == 'DGAlexandru'
     steps:
       - uses: actions/checkout@v4
@@ -24,12 +39,20 @@ jobs:
         run: npm ci
       - name: Generate OpenAPI Docs
         run: npm run build_openapi_schema
+      - name: TypeScript Check
+        run: 'npm run ts-check --workspace={frontend,backend}'
+      - name: Code Lint
+        run: 'npm run lint --workspace={frontend,backend}'
       - name: Build NoCloud FrontEnd
         run: npm run build --workspace=frontend
       - name: Build NoCloud BackEnd
         run: npm run build --workspace=backend
       - name: UPX-compress NoCloud binaries
         run: npm run upx
+      - name: Test BackEnd
+        run: npm test --workspace=backend
+        env:
+          CI: true
       - name: Generate Nightly ChangeLOG
         run: npm run generate_nightly_changelog
       - name: Generate Manifest
@@ -46,4 +69,3 @@ jobs:
           destination-repository-username: DGAlexandru
           user-email: github_NoCloud_Nightly@yahoo.com
           target-branch: master
-
