@@ -220,8 +220,8 @@ const CONSUMABLE_TYPE_MAP = Object.freeze({
         [ConsumableStateAttribute.SUB_TYPE.MAIN]: "filter_work_time",
         [ConsumableStateAttribute.SUB_TYPE.DOCK]: "strainer_work_times"
     },
-    [ConsumableStateAttribute.TYPE.SENSOR]: {
-        [ConsumableStateAttribute.SUB_TYPE.ALL]: "sensor_dirty_time"
+    [ConsumableStateAttribute.TYPE.CLEANING]: {
+        [ConsumableStateAttribute.SUB_TYPE.SENSOR]: "sensor_dirty_time"
     },
     [ConsumableStateAttribute.TYPE.BIN]: {
         [ConsumableStateAttribute.SUB_TYPE.DOCK]: "dust_collection_work_times"

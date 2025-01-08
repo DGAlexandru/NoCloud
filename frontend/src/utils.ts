@@ -147,7 +147,7 @@ const consumableSubtypeMapping: Record<ConsumableSubType, string> = {
     "wheel": "Wheel"
 };
 
-export const getConsumableName = (type: ConsumableType, subType?: ConsumableType): string => {
+export const getConsumableName = (type: ConsumableType, subType?: ConsumableSubType): string => {
     let ret = "";
     if (subType && subType in consumableSubtypeMapping) {
         ret += consumableSubtypeMapping[subType] + " ";
