@@ -128,12 +128,15 @@ class RobotMqttHandle extends MqttHandle {
                 }));
             }
 
-            await this.deconfigure({
-                cleanHomie: false,
-                unsubscribe: false
-            });
-
-            await this.configure();
+            if (this.controller.isConnected) {
+                await this.deconfigure({
+                    cleanHomie: false,
+                    unsubscribe: false
+                });
+                await this.configure();
+            } else {
+                Logger.debug("Skipping (de)configure on robot status attribute discovery, as we're not connected to MQTT.");
+            }
         });
     }
 
