@@ -135,7 +135,7 @@ const consumableTypeMapping: Record<ConsumableType, string> = {
     "bin": "Bin"
 };
 
-const consumableSubtypeMapping: Record<ConsumableType, string> = {
+const consumableSubtypeMapping: Record<ConsumableSubType, string> = {
     "main": "Main",
     "secondary": "Secondary",
     "side_right": "Right",
