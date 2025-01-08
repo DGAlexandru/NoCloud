@@ -1,9 +1,13 @@
+const Tools = require("../../../utils/Tools");
 const NoCloudRelease = require("./NoCloudRelease");
 const NoCloudReleaseBinary = require("./NoCloudReleaseBinary");
 const NoCloudUpdateProvider = require("./NoCloudUpdateProvider");
 const {get} = require("../UpdaterUtils");
 
 class GithubNoCloudNightlyUpdateProvider extends NoCloudUpdateProvider {
+    getCurrentVersion() {
+        return Tools.GET_COMMIT_ID();
+    }
 
     /**
      * @return {Promise<Array<import("./NoCloudRelease")>>}
@@ -22,6 +26,7 @@ class GithubNoCloudNightlyUpdateProvider extends NoCloudUpdateProvider {
         }
 
         let changelog = rawBranchResponse.data.commit.commit.message;
+        let version = rawBranchResponse.data.commit.sha;
         let manifest;
 
         try {
@@ -30,13 +35,16 @@ class GithubNoCloudNightlyUpdateProvider extends NoCloudUpdateProvider {
             if (typeof manifest?.changelog === "string") {
                 changelog = manifest.changelog;
             }
+            if (typeof manifest?.version === "string") {
+                version = manifest.version;
+            }
         } catch (e) {
             // intentional
         }
 
         return [
             new NoCloudRelease({
-                version: rawBranchResponse.data.commit.sha,
+                version: version,
                 releaseTimestamp: new Date(rawBranchResponse.data.commit.commit.committer.date),
                 changelog: changelog,
             })

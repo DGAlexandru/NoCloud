@@ -1,8 +1,17 @@
 const NotImplementedError = require("../../../core/NotImplementedError");
+const Tools = require("../../../utils/Tools");
 
 class NoCloudUpdateProvider {
     constructor() {
         //intentional
+    }
+
+    /**
+     * This allows checking for updates based on either the NoCloud version, the commit id or something else entirely
+     * @return {string}
+     */
+    getCurrentVersion() {
+        return Tools.GET_NoCloud_VERSION();
     }
 
     /**

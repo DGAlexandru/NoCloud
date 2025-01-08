@@ -4,7 +4,6 @@ const NoCloudUpdateProvider = require("./NoCloudUpdateProvider");
 const {get} = require("../UpdaterUtils");
 
 class GithubNoCloudUpdateProvider extends NoCloudUpdateProvider {
-
     /**
      * @return {Promise<Array<import("./NoCloudRelease")>>}
      */
