@@ -575,7 +575,7 @@ class MqttController {
         return this.client && this.client.connected === true && this.client.disconnecting !== true;
     }
 
-	/**
+    /**
      * Set device state
      *
      * @private
@@ -666,9 +666,10 @@ class MqttController {
             // we must never exit reconfigure in the READY state if we are in fact not READY
             if (reconfOptions.targetState === HomieCommonAttributes.STATE.READY && !this.isConnected) {
                 Logger.debug(`Overriding reconfigure target state '${reconfOptions.targetState}' with '${previousState}' since we're not connected.`);
+
                 reconfOptions.targetState = previousState;
             }
-			
+
             await this.setState(reconfOptions.targetState);
 
             this.mutexes.reconfigure.leave();
@@ -979,7 +980,6 @@ module.exports = MqttController;
  *
  * @property {object} interfaces.homie
  * @property {boolean} interfaces.homie.enabled
- * @property {boolean} interfaces.homie.addICBINVMapProperty
  * @property {boolean} interfaces.homie.cleanAttributesOnShutdown
  *
  * @property {object} interfaces.homeassistant

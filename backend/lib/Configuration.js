@@ -83,11 +83,11 @@ class Configuration {
                 if (parsedConfig._version !== Tools.GET_NoCloud_VERSION()) {
                     Logger.info(`Migrating config from ${parsedConfig._version} to ${Tools.GET_NoCloud_VERSION()}`);
 
-                    // BEGIN migration code to be removed with the next version
-                    if (parsedConfig.ntpClient.server === "pool.ntp.org") {
+                    // BEGIN code for Valetudo to NoCloud migration - NTP configuration
+                    if (parsedConfig.ntpClient.server === "valetudo.ntp.org") {
                         parsedConfig.ntpClient.server = "pool.ntp.org"; // NoCloud sticks to the global one
                     }
-                    // END migration code to be removed with the next version
+                    // END code for Valetudo to NoCloud migration - NTP configuration
 
                     parsedConfig._version = Tools.GET_NoCloud_VERSION();
                 }
