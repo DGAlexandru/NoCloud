@@ -2,7 +2,7 @@ const NoCloudUpdateProvider = require("./NoCloudUpdateProvider");
 
 class NullUpdateProvider extends NoCloudUpdateProvider {
     /**
-		* @return {Promise<Array<import("./NoCloudRelease")>>}
+     * @return {Promise<Array<import("./NoCloudRelease")>>}
      */
     async fetchReleases() {
         return [];
