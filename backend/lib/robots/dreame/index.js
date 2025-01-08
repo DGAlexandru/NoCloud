@@ -13,6 +13,7 @@ module.exports = {
     "DreameL10SUltraNoCloudRobot": require("./DreameL10SUltraNoCloudRobot"),
     "DreameL10UltraNoCloudRobot": require("./DreameL10UltraNoCloudRobot"),
     "DreameL40UltraNoCloudRobot": require("./DreameL40UltraNoCloudRobot"),
+    "DreameMovaP10ProUltraNoCloudRobot": require("./DreameMovaP10ProUltraNoCloudRobot"),
     "DreameMovaS20UltraNoCloudRobot": require("./DreameMovaS20UltraNoCloudRobot"),
     "DreameMovaZ500NoCloudRobot": require("./DreameMovaZ500NoCloudRobot"),
     "DreameP2148NoCloudRobot": require("./DreameP2148NoCloudRobot"),
@@ -24,5 +25,5 @@ module.exports = {
     "DreameX10PlusNoCloudRobot": require("./DreameX10PlusNoCloudRobot"),
     "DreameX40MasterNoCloudRobot": require("./DreameX40MasterNoCloudRobot"),
     "DreameX40UltraNoCloudRobot": require("./DreameX40UltraNoCloudRobot"),
-    "DreameZ10ProNoCloudRobot": require("./DreameZ10ProNoCloudRobot"),
+    "DreameZ10ProNoCloudRobot": require("./DreameZ10ProNoCloudRobot")
 };
