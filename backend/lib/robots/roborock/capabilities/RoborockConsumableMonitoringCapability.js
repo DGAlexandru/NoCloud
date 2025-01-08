@@ -52,8 +52,8 @@ class RoborockConsumableMonitoringCapability extends ConsumableMonitoringCapabil
                 }
             }),
             new ConsumableStateAttribute({
-                type: ConsumableStateAttribute.TYPE.SENSOR,
-                subType: ConsumableStateAttribute.SUB_TYPE.ALL,
+                type: ConsumableStateAttribute.TYPE.CLEANING,
+                subType: ConsumableStateAttribute.SUB_TYPE.SENSOR,
                 remaining: {
                     value: CONVERT_TO_MINUTES_REMAINING(data[0].sensor_dirty_time, 30),
                     unit: ConsumableStateAttribute.UNITS.MINUTES
@@ -155,8 +155,8 @@ class RoborockConsumableMonitoringCapability extends ConsumableMonitoringCapabil
                 maxValue: 150 * 60
             },
             {
-                type: ConsumableStateAttribute.TYPE.SENSOR,
-                subType: ConsumableStateAttribute.SUB_TYPE.ALL,
+                type: ConsumableStateAttribute.TYPE.CLEANING,
+                subType: ConsumableStateAttribute.SUB_TYPE.SENSOR,
                 unit: ConsumableStateAttribute.UNITS.MINUTES,
                 maxValue: 30 * 60
             }
