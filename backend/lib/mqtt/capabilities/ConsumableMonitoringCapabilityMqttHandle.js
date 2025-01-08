@@ -211,7 +211,8 @@ const SUBTYPE_MAPPING = Object.freeze({
     [stateAttrs.ConsumableStateAttribute.SUB_TYPE.ALL]: "",
     [stateAttrs.ConsumableStateAttribute.SUB_TYPE.NONE]: "",
     [stateAttrs.ConsumableStateAttribute.SUB_TYPE.DOCK]: "Dock",
-    [stateAttrs.ConsumableStateAttribute.SUB_TYPE.SENSOR]: "Sensor"
+    [stateAttrs.ConsumableStateAttribute.SUB_TYPE.SENSOR]: "Sensor",
+    [stateAttrs.ConsumableStateAttribute.SUB_TYPE.WHEEL]: "Wheel"
 });
 
 ConsumableMonitoringCapabilityMqttHandle.OPTIONAL = true;
