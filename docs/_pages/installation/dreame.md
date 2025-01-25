@@ -322,9 +322,9 @@ To verify that, open a new terminal and run `fastboot devices`.
 If you see your robot, continue with `fastboot getvar dustversion`
 
 ```
-root@T420:/home/hypfer# fastboot devices 
+root@Debian:/Dreame# fastboot devices 
 Android Fastboot        fastboot 
-root@T420:/home/hypfer# fastboot getvar dustversion 
+root@Debian:/Dreame# fastboot getvar dustversion 
 dustversion: 2024.07.00 
 Finished. Total time: 0.003s 
 ```
@@ -339,7 +339,7 @@ Finished. Total time: 0.003s
 If everything is fine so far, next step is to collect the config value:
 
 ```
-root@T420:/home/hypfer# fastboot getvar config 
+root@Debian:/Dreame# fastboot getvar config 
 config: 836064ae31f4806c844f708ab8398367 
 Finished. Total time: 0.215s
 ```
@@ -365,23 +365,23 @@ This will create a file named `dustx100.bin` in the current directory.
 Ensure that it is about 400MB in size using `du -h dustx100.bin`.
 
 ```
-root@T420:/home/hypfer# fastboot get_staged dustx100.bin 
+root@Debian:/Dreame# fastboot get_staged dustx100.bin 
 Uploading 'dustx100.bin'                           OKAY [ 37.898s] 
 Finished. Total time: 37.898s 
-root@T420:/home/hypfer# du -h dustx100.bin  
+root@Debian:/Dreame# du -h dustx100.bin  
 400M    dustx100.bin 
 ```
 
 If it is, continue to the next step with `fastboot oem stage1` and `fastboot get_staged dustx101.bin`
 
 ```
-root@T420:/home/hypfer# fastboot oem stage1 
+root@Debian:/Dreame# fastboot oem stage1 
                                                    OKAY [  0.000s] 
 Finished. Total time: 0.000s 
-root@T420:/home/hypfer# fastboot get_staged dustx101.bin 
+root@Debian:/Dreame# fastboot get_staged dustx101.bin 
 Uploading 'dustx101.bin'                           OKAY [ 38.173s] 
 Finished. Total time: 38.173s 
-root@T420:/home/hypfer# du -h dustx101.bin  
+root@Debian:/Dreame# du -h dustx101.bin  
 399M    dustx101.bin 
 ```
 
@@ -391,10 +391,13 @@ As you can see in the example, it being only 399MB is okay. It should be _around
 Then, finally, run `fastboot oem stage2` and `fastboot get_staged dustx102.bin`
 
 ```
-root@T420:/home/hypfer# fastboot get_staged dustx102.bin 
+root@Debian:/Dreame# fastboot oem stage2 
+                                                   OKAY [  0.000s] 
+Finished. Total time: 0.000s 
+root@Debian:/Dreame# fastboot get_staged dustx102.bin 
 Uploading 'dustx102.bin'                           OKAY [ 37.992s] 
 Finished. Total time: 37.992s 
-root@T420:/home/hypfer# du -h dustx102.bin  
+root@Debian:/Dreame# du -h dustx102.bin  
 399M    dustx102.bin 
 ```
 
@@ -403,11 +406,11 @@ Same check for being ~400MB in size applies here as well.
 With that done, zip up everything and store the file in a safe place
 
 ```
-root@T420:/home/hypfer# zip dreame_rxxxx_samples.zip dustx100.bin dustx101.bin dustx102.bin  
+root@Debian:/Dreame# zip dreame_rxxxx_samples.zip dustx100.bin dustx101.bin dustx102.bin  
   adding: dustx100.bin (deflated 0%) 
   adding: dustx101.bin (deflated 0%) 
   adding: dustx102.bin (deflated 0%) 
-root@T420:/home/hypfer# du -h dreame_rxxxx_samples.zip  
+root@Debian:/Dreame# du -h dreame_rxxxx_samples.zip  
 1.2G    dreame_rxxxx_samples.zip
 ```
 
@@ -519,8 +522,9 @@ Once you know that, download the latest matching NoCloud binary to your laptop:
 With the NoCloud binary downloaded, head over to <a href="https://github.com/DGAlexandru/NoCloud-helper-httpbridge" rel="noopener" target="_blank">https://github.com/DGAlexandru/NoCloud-helper-httpbridge</a>
 and download a matching binary for your laptops operating system.
 
-Now, connect the laptop to the Wi-Fi Access Point of the robot.<br/>
-You should be able to connect to it via ssh. Do that now and keep the shell open: `ssh -i ./your/keyfile root@192.168.5.1`
+Now, connect the laptop to the Wi-Fi Access Point of the robot. If you can't see the robots Wi-Fi AP to connect to, it might have disabled itself.
+In that case, press and hold the two outer buttons until it starts talking to you.
+Once connected via Wi-Fi, you should be able to connect to it using ssh. Do that now and keep the shell open: `ssh -i ./your/keyfile root@192.168.5.1`
 
 The next step is to start the utility webserver. Open a new terminal and run the `./NoCloud-helper-httpbridge-amd64` binary **Don't close that window until you're done.**
 The server will create a new `www` directory right next to itself as well as print out a few sample commands explaining how to download from and upload to it.
