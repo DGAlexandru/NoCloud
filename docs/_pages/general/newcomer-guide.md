@@ -124,4 +124,4 @@ In general and especially if you're new to open source, It's strongly recommende
 
 Generally speaking, the best way to contribute to NoCloud is to support other NoCloud users.
 
-For anything beyond that, make sure to familiarize yourself with the [CONTRIBUTING.md](https://github.com/DGAlexandru/NoCloud/blob/master/CONTRIBUTING.md)
+For anything beyond that, make sure to familiarize yourself with the [CONTRIBUTING.md](https://github.com/DGAlexandru/NoCloud/blob/main/CONTRIBUTING.md)

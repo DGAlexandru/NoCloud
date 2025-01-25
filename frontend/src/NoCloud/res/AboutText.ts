@@ -13,7 +13,7 @@ We're all standing on the shoulders of giants. (<a href="https://xkcd.com/2347/"
 
 ### License
 
-NoCloud is licensed under <a href="https://github.com/DGAlexandru/NoCloud/blob/master/LICENSE" rel="noopener" target="_blank">the Apache-2.0 license</a>,
+NoCloud is licensed under <a href="https://github.com/DGAlexandru/NoCloud/blob/main/LICENSE" rel="noopener" target="_blank">the Apache-2.0 license</a>,
 but I will spare you the boring wall of text that you won't read anyways, as honestly, the license doesn't really matter that much.
 All relevant open-source licenses basically boil down to "no warranty/no liability" and "don't act in bad faith" with various ways of trying to enforce the latter.
 

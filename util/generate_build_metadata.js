@@ -26,8 +26,8 @@ function GET_COMMIT_ID() {
         const rootDirectory = path.resolve(__dirname, "..");
         commitId = fs.readFileSync(rootDirectory + "/.git/HEAD", {"encoding": "utf-8"}).trim();
 
-        if (commitId.match(/^ref: refs\/heads\/master$/) !== null) {
-            commitId = fs.readFileSync(rootDirectory + "/.git/refs/heads/master", {"encoding": "utf-8"}).trim();
+        if (commitId.match(/^ref: refs\/heads\/main$/) !== null) {
+            commitId = fs.readFileSync(rootDirectory + "/.git/refs/heads/main", {"encoding": "utf-8"}).trim();
         }
     } catch (e) {
         //intentional
