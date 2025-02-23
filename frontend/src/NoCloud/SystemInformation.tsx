@@ -8,7 +8,6 @@ import {
     DialogContent,
     DialogTitle,
     Divider,
-    Grid,
     Paper,
     Skeleton,
     Stack,
@@ -20,6 +19,7 @@ import {
     TableRow,
     Typography,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import React from "react";
 import {
     useRobotInformationQuery,
@@ -105,7 +105,7 @@ const SystemRuntimeInfo = (): React.ReactElement => {
                 <Grid container spacing={2}>
                     {topItems.map(([header, body]) => {
                         return (
-                            <Grid item key={header}>
+                            <Grid key={header}>
                                 <Typography variant="caption" color="textSecondary">
                                     {header}
                                 </Typography>
@@ -135,13 +135,13 @@ const SystemRuntimeInfo = (): React.ReactElement => {
                     <DialogContent dividers>
                         <Stack spacing={2}>
                             <Grid container spacing={2}>
-                                <Grid item>
+                                <Grid>
                                     <Typography variant="caption" color="textSecondary">
                                         execPath
                                     </Typography>
                                     <Typography variant="body2">{systemRuntimeInfo.execPath}</Typography>
                                 </Grid>
-                                <Grid item>
+                                <Grid>
                                     <Typography variant="caption" color="textSecondary">
                                         execArgv
                                     </Typography>
@@ -340,19 +340,19 @@ const SystemInformation = (): React.ReactElement => {
 
         return (
             <Grid container spacing={2}>
-                <Grid item>
+                <Grid>
                     <Typography variant="caption" color="textSecondary">
                         Hostname
                     </Typography>
                     <Typography variant="body2">{systemHostInfo.hostname}</Typography>
                 </Grid>
-                <Grid item>
+                <Grid>
                     <Typography variant="caption" color="textSecondary">
                         Arch
                     </Typography>
                     <Typography variant="body2">{systemHostInfo.arch}</Typography>
                 </Grid>
-                <Grid item>
+                <Grid>
                     <Typography variant="caption" color="textSecondary">
                         Uptime
                     </Typography>
@@ -360,7 +360,7 @@ const SystemInformation = (): React.ReactElement => {
                         {convertSecondsToHumans(systemHostInfo.uptime)}
                     </Typography>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid size={{xs: 12}}>
                     <Typography variant="caption" color="textSecondary">
                         System Memory (RAM)
                     </Typography>
@@ -394,7 +394,7 @@ const SystemInformation = (): React.ReactElement => {
                     />
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid size={{xs: 12}}>
                     <Typography variant="caption" color="textSecondary">
                         CPU Usage
                     </Typography>
@@ -436,7 +436,6 @@ const SystemInformation = (): React.ReactElement => {
                 spacing={2}
             >
                 <Grid
-                    item
                     style={{flexGrow: 1}}
                 >
                     <Card
@@ -452,7 +451,6 @@ const SystemInformation = (): React.ReactElement => {
                     </Card>
                 </Grid>
                 <Grid
-                    item
                     style={{flexGrow: 1}}
                 >
                     <Card
@@ -468,7 +466,6 @@ const SystemInformation = (): React.ReactElement => {
                     </Card>
                 </Grid>
                 <Grid
-                    item
                     style={{flexGrow: 1}}
                 >
                     <ReloadableCard title="System Host Information" loading={systemHostInfoFetching}
@@ -480,7 +477,6 @@ const SystemInformation = (): React.ReactElement => {
                     </ReloadableCard>
                 </Grid>
                 <Grid
-                    item
                     style={{flexGrow: 1}}
                 >
                     <SystemRuntimeInfo/>

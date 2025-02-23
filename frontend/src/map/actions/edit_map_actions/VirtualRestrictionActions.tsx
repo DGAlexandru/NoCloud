@@ -7,7 +7,8 @@ import {
     NoCloudRestrictedZoneType
 } from "../../../api";
 import React from "react";
-import {Box, Button, CircularProgress, Container, Grid, Typography} from "@mui/material";
+import {Box, Button, CircularProgress, Container, Typography} from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import {ActionButton} from "../../Styled";
 import VirtualWallClientStructure from "../../structures/client_structures/VirtualWallClientStructure";
 import NoGoAreaClientStructure from "../../structures/client_structures/NoGoAreaClientStructure";
@@ -173,7 +174,7 @@ const VirtualRestrictionActions = (
             {
                 canEdit &&
 
-                <Grid item>
+                <Grid>
                     <ActionButton
                         disabled={restrictionsSaving}
                         color="inherit"
@@ -189,7 +190,7 @@ const VirtualRestrictionActions = (
             {
                 canEdit &&
 
-                <Grid item>
+                <Grid>
                     <ActionButton
                         color="inherit"
                         size="medium"
@@ -205,7 +206,7 @@ const VirtualRestrictionActions = (
                 canEdit &&
                 combinedVirtualRestrictionsProperties.supportedRestrictedZoneTypes.includes(NoCloudRestrictedZoneType.Regular) &&
 
-                <Grid item>
+                <Grid>
                     <ActionButton
                         color="inherit"
                         size="medium"
@@ -221,7 +222,7 @@ const VirtualRestrictionActions = (
                 canEdit &&
                 combinedVirtualRestrictionsProperties.supportedRestrictedZoneTypes.includes(NoCloudRestrictedZoneType.Mop) &&
 
-                <Grid item>
+                <Grid>
                     <ActionButton
                         color="inherit"
                         size="medium"
@@ -236,7 +237,7 @@ const VirtualRestrictionActions = (
             {
                 canEdit &&
 
-                <Grid item>
+                <Grid>
                     <ActionButton
                         color="inherit"
                         size="medium"
@@ -252,7 +253,7 @@ const VirtualRestrictionActions = (
             {
                 canEdit &&
 
-                <Grid item>
+                <Grid>
                     <ActionButton
                         color="inherit"
                         size="medium"
@@ -266,7 +267,7 @@ const VirtualRestrictionActions = (
             }
             {
                 !canEdit &&
-                <Grid item>
+                <Grid>
                     <Typography variant="caption" color="textSecondary">
                         Editing virtual restrictions requires the robot to be docked
                     </Typography>

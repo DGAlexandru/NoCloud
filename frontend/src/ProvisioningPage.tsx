@@ -6,7 +6,6 @@ import {
     DialogTitle,
     Divider,
     FormControl,
-    Grid,
     IconButton,
     Input,
     InputAdornment,
@@ -21,6 +20,7 @@ import {
     TextField,
     Typography
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import {ReactComponent as Logo} from "./assets/icons/NoCloud_logo_with_name.svg";
 import React from "react";
 import {
@@ -237,7 +237,7 @@ const ProvisioningPage = (): React.ReactElement => {
             <Grid container direction="row" sx={{padding: "1rem", justifyContent: "space-around"}}>
                 {items.map(([header, body]) => {
                     return (
-                        <Grid item key={header}>
+                        <Grid key={header}>
                             <Typography variant="caption" color="textSecondary">
                                 {header}
                             </Typography>
@@ -266,7 +266,7 @@ const ProvisioningPage = (): React.ReactElement => {
                     container
                     direction="row"
                 >
-                    <Grid item>
+                    <Grid>
                         <Box px={2} pt={2} pb={1}>
                             <Logo
                                 style={{
@@ -306,8 +306,8 @@ const ProvisioningPage = (): React.ReactElement => {
                     </>
                 }
 
-                <Grid item container sx={{padding: "1rem"}} direction="column">
-                    <Grid item sx={{paddingLeft: "1rem", paddingRight: "1rem"}}>
+                <Grid container sx={{padding: "1rem"}} direction="column">
+                    <Grid sx={{paddingLeft: "1rem", paddingRight: "1rem"}}>
                         <TextField
                             label="SSID/Wi-Fi name"
                             variant="standard"
@@ -319,7 +319,7 @@ const ProvisioningPage = (): React.ReactElement => {
                         />
                     </Grid>
 
-                    <Grid item sx={{paddingLeft: "1rem", paddingRight: "1rem"}}>
+                    <Grid sx={{paddingLeft: "1rem", paddingRight: "1rem"}}>
                         <FormControl style={{width: "100%"}} variant="standard">
                             <InputLabel htmlFor="standard-adornment-password">PSK/Password</InputLabel>
                             <Input
@@ -349,7 +349,7 @@ const ProvisioningPage = (): React.ReactElement => {
                         </FormControl>
                     </Grid>
 
-                    <Grid item sx={{marginLeft: "auto", marginTop: "0.75rem"}}>
+                    <Grid sx={{marginLeft: "auto", marginTop: "0.75rem"}}>
                         <LoadingButton
                             loading={wifiConfigurationUpdating}
                             variant="outlined"

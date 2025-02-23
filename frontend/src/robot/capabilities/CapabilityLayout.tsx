@@ -1,5 +1,6 @@
 import React from "react";
-import {Grid, useMediaQuery, useTheme} from "@mui/material";
+import {useMediaQuery, useTheme} from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import Masonry from "@mui/lab/Masonry";
 import ReloadableCard from "../../components/ReloadableCard";
 
@@ -56,7 +57,7 @@ export const CapabilityItem: React.FunctionComponent<
         return content;
     } else {
         return (
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid size={{xs: 12, sm: 6, md: 4}}>
                 {content}
             </Grid>
         );

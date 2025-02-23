@@ -92,7 +92,7 @@ const RobotStatus = (): React.ReactElement => {
 
         return batteries.map((battery, index) => {
             return (
-                <Grid container direction="column" key={index}>
+                <Grid size="grow" container direction="column" key={index}>
                     <Grid>
                         <Typography
                             variant="overline"
@@ -117,14 +117,14 @@ const RobotStatus = (): React.ReactElement => {
             title="Robot"
             isLoading={isPending}
         >
-            <Grid container direction="column">
+            <Grid size="grow" container direction="column">
                 <Grid container direction="row">
                     <Grid>
                         {stateDetails}
                     </Grid>
                 </Grid>
                 {batteries !== undefined && batteries.length > 0 && (
-                    <Grid container direction="row" width="100%">
+                    <Grid size="grow" container direction="row" width="100%">
                         {batteriesDetails}
                     </Grid>
                 )}

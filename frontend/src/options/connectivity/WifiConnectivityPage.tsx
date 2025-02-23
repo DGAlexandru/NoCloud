@@ -8,7 +8,6 @@ import {
     DialogTitle,
     Divider,
     FormControl,
-    Grid,
     IconButton,
     Input,
     InputAdornment,
@@ -18,6 +17,7 @@ import {
     Typography,
     useTheme
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import React from "react";
 import {
     useWifiConfigurationMutation,
@@ -147,11 +147,10 @@ const WifiStatusComponent: React.FunctionComponent<{
 
     return (
         <Grid container alignItems="center" direction="column" style={{paddingBottom: "1rem"}}>
-            <Grid item style={{marginTop: "1rem"}}>
+            <Grid style={{marginTop: "1rem"}}>
                 {getIconForState()}
             </Grid>
             <Grid
-                item
                 sx={{
                     maxWidth: "100% !important", //Why, MUI? Why?
                     wordWrap: "break-word",
@@ -220,7 +219,7 @@ const WifiConnectivity = (): React.ReactElement => {
             {
                 properties.provisionedReconfigurationSupported &&
                 <Grid container spacing={1} sx={{mb: 1}} direction="row">
-                    <Grid item xs="auto" style={{flexGrow: 1}}>
+                    <Grid style={{flexGrow: 1}}>
                         <TextField
                             style={{width: "100%"}}
                             label="SSID/Wi-Fi name"
@@ -232,7 +231,7 @@ const WifiConnectivity = (): React.ReactElement => {
                             }}
                         />
                     </Grid>
-                    <Grid item xs="auto" style={{flexGrow: 1}}>
+                    <Grid style={{flexGrow: 1}}>
                         <FormControl style={{width: "100%"}} variant="standard">
                             <InputLabel htmlFor="standard-adornment-password">PSK/Password</InputLabel>
                             <Input
@@ -291,7 +290,7 @@ const WifiConnectivity = (): React.ReactElement => {
             {
                 properties.provisionedReconfigurationSupported &&
                 <Grid container>
-                    <Grid item style={{marginLeft: "auto"}}>
+                    <Grid style={{marginLeft: "auto"}}>
                         <LoadingButton
                             loading={configurationUpdating}
                             color="primary"

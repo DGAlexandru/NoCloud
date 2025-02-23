@@ -3,11 +3,11 @@ import {
     Checkbox,
     Divider,
     FormControlLabel,
-    Grid,
     Skeleton,
     TextField,
     Typography,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import React from "react";
 import {
     NTPClientStatus,
@@ -91,11 +91,10 @@ const NTPClientStatusComponent: React.FunctionComponent<{
 
     return (
         <Grid container alignItems="center" direction="column" style={{paddingBottom: "1rem"}}>
-            <Grid item style={{marginTop: "1rem"}}>
+            <Grid style={{marginTop: "1rem"}}>
                 {getIconForState()}
             </Grid>
             <Grid
-                item
                 sx={{
                     maxWidth: "100% !important", //Why, MUI? Why?
                     wordWrap: "break-word",
@@ -106,7 +105,6 @@ const NTPClientStatusComponent: React.FunctionComponent<{
                 {getContentForState()}
             </Grid>
             <Grid
-                item
                 sx={{
                     maxWidth: "100% !important", //Why, MUI? Why?
                     wordWrap: "break-word",
@@ -186,7 +184,7 @@ const NTPConnectivity = (): React.ReactElement => {
                 sx={{mb: 1}}
             />
             <Grid container spacing={1} sx={{mb: 2}}>
-                <Grid item xs="auto" style={{flexGrow: 1}}>
+                <Grid style={{flexGrow: 1}}>
                     <TextField
                         style={{width: "100%"}}
                         label="Server"
@@ -199,7 +197,7 @@ const NTPConnectivity = (): React.ReactElement => {
                         }}
                     />
                 </Grid>
-                <Grid item xs="auto" style={{flexGrow: 1}}>
+                <Grid style={{flexGrow: 1}}>
                     <TextField
                         style={{width: "100%"}}
                         label="Port"
@@ -214,7 +212,7 @@ const NTPConnectivity = (): React.ReactElement => {
                         }}
                     />
                 </Grid>
-                <Grid item xs="auto" style={{flexGrow: 1}}>
+                <Grid style={{flexGrow: 1}}>
                     <TextField
                         style={{width: "100%"}}
                         label="Interval (hours)"
@@ -230,7 +228,7 @@ const NTPConnectivity = (): React.ReactElement => {
                         }}
                     />
                 </Grid>
-                <Grid item xs="auto" style={{flexGrow: 1}}>
+                <Grid style={{flexGrow: 1}}>
                     <TextField
                         style={{width: "100%"}}
                         label="Timeout (seconds)"
@@ -264,7 +262,7 @@ const NTPConnectivity = (): React.ReactElement => {
 
             <Divider sx={{mt: 1}} style={{marginBottom: "1rem"}}/>
             <Grid container>
-                <Grid item style={{marginLeft: "auto"}}>
+                <Grid style={{marginLeft: "auto"}}>
                     <LoadingButton
                         loading={configurationUpdating}
                         color="primary"

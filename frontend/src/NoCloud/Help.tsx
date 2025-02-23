@@ -1,5 +1,6 @@
 import PaperContainer from "../components/PaperContainer";
-import {Box, Grid} from "@mui/material";
+import {Box} from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import {Help as HelpIcon} from "@mui/icons-material";
 import React from "react";
 import ReactMarkdown from "react-markdown";

@@ -1,5 +1,6 @@
 import React from "react";
-import {Grid, Paper} from "@mui/material";
+import {Paper} from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import {Announcement} from "@mui/icons-material";
 
 const InfoBox = (props: { boxShadow: number, style?: React.CSSProperties, children: React.ReactNode}): React.ReactElement => {
@@ -11,7 +12,6 @@ const InfoBox = (props: { boxShadow: number, style?: React.CSSProperties, childr
         >
             <Grid container direction="row" alignItems="center" style={{padding: "1rem"}}>
                 <Grid
-                    item
                     style={{
                         marginLeft: "auto",
                         marginRight: "auto"
@@ -20,7 +20,6 @@ const InfoBox = (props: { boxShadow: number, style?: React.CSSProperties, childr
                     <Announcement fontSize={"large"} color={"info"}/>
                 </Grid>
                 <Grid
-                    item
                     style={{
                         width: "90%",
                         marginLeft: "auto",

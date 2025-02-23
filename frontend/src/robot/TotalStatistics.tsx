@@ -6,12 +6,12 @@ import {
     CardMedia,
     Dialog, DialogActions, DialogContent,
     DialogTitle,
-    Grid,
     IconButton,
     Skeleton,
     Typography,
     useTheme,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import {Capability, useTotalStatisticsQuery, NoCloudDataPoint} from "../api";
 import {useCapabilitiesSupported} from "../CapabilitiesProvider";
 import PaperContainer from "../components/PaperContainer";
@@ -53,11 +53,10 @@ const StatisticsGridItem: React.FunctionComponent<{ dataPoint: NoCloudDataPoint}
 
     return (
         <>
-            <Grid item xs={12} sm={4} style={{userSelect: "none"}}>
+            <Grid size={{xs: 12, sm: 4}} style={{userSelect: "none"}}>
                 <Card style={{height: "100%"}}>
                     <Grid container style={{height: "100%"}}>
                         <Grid
-                            item
                             style={{
                                 marginLeft: "auto",
                                 marginRight: "auto"
@@ -69,7 +68,7 @@ const StatisticsGridItem: React.FunctionComponent<{ dataPoint: NoCloudDataPoint}
                                 achieved={mostRecentAchievement !== undefined}
                             />
                         </Grid>
-                        <Grid item style={{alignSelf: "flex-end", width: "100%"}}>
+                        <Grid style={{alignSelf: "flex-end", width: "100%"}}>
                             <CardContent style={{paddingBottom: "16px"}}>
                                 {<Typography variant="body1" mb={2}>
                                     {mostRecentAchievement?.description || "No achievement yet"}
@@ -77,7 +76,6 @@ const StatisticsGridItem: React.FunctionComponent<{ dataPoint: NoCloudDataPoint}
 
                                 <Grid container>
                                     <Grid
-                                        item
                                         style={{
                                             flexGrow: 3
                                         }}
@@ -90,7 +88,6 @@ const StatisticsGridItem: React.FunctionComponent<{ dataPoint: NoCloudDataPoint}
                                         </Typography>
                                     </Grid>
                                     <Grid
-                                        item
                                         style={{marginTop: "auto"}}
                                     >
                                         <IconButton
@@ -130,11 +127,10 @@ const StatisticsGridItem: React.FunctionComponent<{ dataPoint: NoCloudDataPoint}
                             const achievementToDisplay = dataPoint.value >= achievement.value ? achievement : notYetAchievedAchievement;
 
                             return (
-                                <Grid item xs={12} sm={4} style={{userSelect: "none"}} key={`${dataPoint.type}_overview_${i}`}>
+                                <Grid size={{xs: 12, sm: 4}} style={{userSelect: "none"}} key={`${dataPoint.type}_overview_${i}`}>
                                     <Card style={{height: "100%"}}>
                                         <Grid container style={{height: "100%"}}>
                                             <Grid
-                                                item
                                                 style={{
                                                     marginLeft: "auto",
                                                     marginRight: "auto"
@@ -146,7 +142,7 @@ const StatisticsGridItem: React.FunctionComponent<{ dataPoint: NoCloudDataPoint}
                                                     achieved={achievementToDisplay === achievement}
                                                 />
                                             </Grid>
-                                            <Grid item style={{alignSelf: "flex-end", width: "100%"}}>
+                                            <Grid style={{alignSelf: "flex-end", width: "100%"}}>
                                                 <CardContent style={{paddingBottom: "16px"}}>
                                                     {<Typography variant="body1" mb={2}>
                                                         {achievementToDisplay.description}

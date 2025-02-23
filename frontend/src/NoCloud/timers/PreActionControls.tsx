@@ -5,12 +5,12 @@ import {
     CircularProgress,
     FormControl,
     FormControlLabel,
-    Grid,
     InputLabel,
     MenuItem,
     Select,
     Typography
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import {Capability, PresetSelectionState, usePresetSelectionsQuery} from "../../api";
 import {presetFriendlyNames, sortPresets} from "../../presetUtils";
 
@@ -62,7 +62,7 @@ const PresetSelectionPreActionControl: FunctionComponent<{
 
     if (presetsPending) {
         return (
-            <Grid item>
+            <Grid>
                 <CircularProgress size={20} />
             </Grid>
         );
@@ -70,7 +70,7 @@ const PresetSelectionPreActionControl: FunctionComponent<{
 
     if (presetLoadError) {
         return (
-            <Grid item>
+            <Grid>
                 <Typography color="error">Error loading {capability}</Typography>
             </Grid>
         );
@@ -86,7 +86,7 @@ const PresetSelectionPreActionControl: FunctionComponent<{
                 padding: "0.5rem"
             }}
         >
-            <Grid item sx={{minWidth: "9rem"}}>
+            <Grid sx={{minWidth: "9rem"}}>
                 <FormControlLabel
                     sx={{userSelect: "none"}}
                     control={
@@ -107,7 +107,7 @@ const PresetSelectionPreActionControl: FunctionComponent<{
                     label={label}
                 />
             </Grid>
-            <Grid item sx={{flexGrow: 1, marginLeft: "1rem"}}>
+            <Grid sx={{flexGrow: 1, marginLeft: "1rem"}}>
                 <FormControl sx={{width: "100%"}}>
                     <InputLabel id={"FanSpeedControlPreActionControl_presets_label"}>Preset</InputLabel>
                     <Select

@@ -3,11 +3,11 @@ import {
     Checkbox,
     Divider,
     FormControlLabel,
-    Grid,
     Skeleton,
     TextField,
     Typography
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import React from "react";
 import {
     useNetworkAdvertisementConfigurationMutation,
@@ -78,7 +78,7 @@ const NetworkAdvertisementSettings = (): React.ReactElement => {
                 sx={{mb: 1, marginTop: "1rem", userSelect: "none"}}
             />
             <Grid container spacing={1} sx={{mb: 1, mt: "1rem"}} direction="row">
-                <Grid item xs="auto" style={{flexGrow: 1}}>
+                <Grid style={{flexGrow: 1}}>
                     <TextField
                         style={{width: "100%"}}
                         label="Zeroconf Hostname"
@@ -111,7 +111,7 @@ const NetworkAdvertisementSettings = (): React.ReactElement => {
 
             <Divider sx={{mt: 1}} style={{marginBottom: "1rem"}}/>
             <Grid container>
-                <Grid item style={{marginLeft: "auto"}}>
+                <Grid style={{marginLeft: "auto"}}>
                     <LoadingButton
                         loading={configurationUpdating}
                         color="primary"

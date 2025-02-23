@@ -5,7 +5,8 @@ import {
     useZonePropertiesQuery,
 } from "../../../api";
 import React from "react";
-import {Box, Button, CircularProgress, Container, Grid, Typography} from "@mui/material";
+import {Box, Button, CircularProgress, Container, Typography} from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import { useLongPress } from "use-long-press";
 import {ActionButton} from "../../Styled";
 import ZoneClientStructure from "../../structures/client_structures/ZoneClientStructure";
@@ -157,7 +158,7 @@ const ZoneActions = (
     return (
         <>
             <Grid container spacing={1} direction="row-reverse" flexWrap="wrap-reverse">
-                <Grid item>
+                <Grid>
                     <ActionButton
                         disabled={!didSelectZones || cleanTemporaryZonesIsExecuting || !canClean}
                         color="inherit"
@@ -178,7 +179,7 @@ const ZoneActions = (
                 </Grid>
                 {
                     zoneProperties.iterationCount.max > 1 &&
-                    <Grid item>
+                    <Grid>
                         <ActionButton
                             color="inherit"
                             size="medium"
@@ -193,7 +194,7 @@ const ZoneActions = (
                         </ActionButton>
                     </Grid>
                 }
-                <Grid item>
+                <Grid>
                     <ActionButton
                         disabled={zones.length === zoneProperties.zoneCount.max || cleanTemporaryZonesIsExecuting}
                         color="inherit"
@@ -207,7 +208,7 @@ const ZoneActions = (
                 </Grid>
                 {
                     didSelectZones &&
-                    <Grid item>
+                    <Grid>
                         <ActionButton
                             disabled={cleanTemporaryZonesIsExecuting}
                             color="inherit"
@@ -222,7 +223,7 @@ const ZoneActions = (
                 }
                 {
                     (didSelectZones && !canClean) &&
-                    <Grid item>
+                    <Grid>
                         <Typography variant="caption" color="textSecondary">
                             Cannot start zone cleaning while the robot is busy
                         </Typography>

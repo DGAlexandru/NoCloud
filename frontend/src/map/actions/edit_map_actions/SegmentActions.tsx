@@ -13,10 +13,10 @@ import {
     DialogContent,
     DialogContentText,
     DialogTitle,
-    Grid,
     TextField,
     Typography
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import {ActionButton} from "../../Styled";
 import CuttingLineClientStructure from "../../structures/client_structures/CuttingLineClientStructure";
 import {PointCoordinates} from "../../utils/types";
@@ -134,7 +134,7 @@ const SegmentActions = (
                 (selectedSegmentIds.length === 1 || selectedSegmentIds.length === 2) &&
                 cuttingLine === undefined &&
 
-                <Grid item>
+                <Grid>
                     <ActionButton
                         disabled={joinSegmentsExecuting || !canEdit || selectedSegmentIds.length !== 2}
                         color="inherit"
@@ -159,7 +159,7 @@ const SegmentActions = (
                 selectedSegmentIds.length === 1 &&
                 cuttingLine !== undefined &&
 
-                <Grid item>
+                <Grid>
                     <ActionButton
                         disabled={splitSegmentExecuting || !canEdit}
                         color="inherit"
@@ -184,7 +184,7 @@ const SegmentActions = (
                 selectedSegmentIds.length === 1 &&
                 cuttingLine === undefined &&
 
-                <Grid item>
+                <Grid>
                     <ActionButton
                         disabled={renameSegmentExecuting || !canEdit}
                         color="inherit"
@@ -205,7 +205,7 @@ const SegmentActions = (
                 selectedSegmentIds.length === 1 &&
                 cuttingLine === undefined &&
 
-                <Grid item>
+                <Grid>
                     <ActionButton
                         disabled={joinSegmentsExecuting || !canEdit}
                         color="inherit"
@@ -224,7 +224,7 @@ const SegmentActions = (
                     cuttingLine !== undefined
                 ) &&
 
-                <Grid item>
+                <Grid>
                     <ActionButton
                         color="inherit"
                         size="medium"
@@ -238,7 +238,7 @@ const SegmentActions = (
             }
             {
                 !canEdit &&
-                <Grid item>
+                <Grid>
                     <Typography variant="caption" color="textSecondary">
                         Editing segments requires the robot to be docked
                     </Typography>
@@ -247,7 +247,7 @@ const SegmentActions = (
             {
                 canEdit &&
                 selectedSegmentIds.length === 0 &&
-                <Grid item>
+                <Grid>
                     <Typography variant="caption" color="textSecondary" style={{fontSize: "1em"}}>
                         Please select a segment to start editing
                     </Typography>

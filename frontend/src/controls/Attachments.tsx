@@ -2,7 +2,8 @@ import {
     RobotAttributeClass,
     useRobotAttributeQuery,
 } from "../api";
-import {Grid, Typography, ToggleButton, ToggleButtonGroup} from "@mui/material";
+import {Typography, ToggleButton, ToggleButtonGroup} from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import React from "react";
 import ControlsCard from "./ControlsCard";
 import {Extension} from "@mui/icons-material";
@@ -32,8 +33,8 @@ const Attachments = (): React.ReactElement | null => {
         }
 
         return (
-            <Grid container direction="row" alignItems="center" pt={1}>
-                <Grid item sx={{flexGrow: 1}}>
+            <Grid size="grow" container direction="row" alignItems="center" pt={1}>
+                <Grid size="grow" sx={{flexGrow: 1}}>
                     <ToggleButtonGroup size="small" fullWidth>
                         {attachments.map(({ type, attached }) => {
                             return (

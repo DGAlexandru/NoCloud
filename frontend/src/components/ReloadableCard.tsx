@@ -1,4 +1,5 @@
-import {Card, CardContent, Divider, Grid, IconButton, styled, Typography} from "@mui/material";
+import {Card, CardContent, Divider, IconButton, styled, Typography} from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import React, {FunctionComponent} from "react";
 import {Help as HelpIcon, Refresh as RefreshIcon} from "@mui/icons-material";
 import {LoadingButton} from "@mui/lab";
@@ -47,16 +48,15 @@ const ReloadableCard: FunctionComponent<ReloadableCardProps> = ({
                         alignItems="center"
                         justifyContent="space-between"
                     >
-                        <Grid item>
+                        <Grid>
                             <Typography variant="h6" gutterBottom>
                                 {title}
                             </Typography>
                         </Grid>
-                        <Grid item>
+                        <Grid>
                             <Grid container>
                                 {helpText && (
                                     <Grid
-                                        item
                                         style={{marginTop:"-0.125rem"}} //:(
                                     >
                                         <IconButton
@@ -70,7 +70,7 @@ const ReloadableCard: FunctionComponent<ReloadableCardProps> = ({
                                     </Grid>
                                 )}
                                 {reloadButton || (onReload && (
-                                    <Grid item>
+                                    <Grid>
                                         <TopRightIconButton loading={loading} onClick={onReload} title="Refresh">
                                             <RefreshIcon/>
                                         </TopRightIconButton>

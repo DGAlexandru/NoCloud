@@ -3,11 +3,11 @@ import {
     Button,
     ButtonGroup,
     DialogContentText,
-    Grid,
     Paper,
     Skeleton,
     Typography,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import {
     BasicControlCommand,
     StatusState,
@@ -59,7 +59,7 @@ const BasicControls = (): React.ReactElement => {
 
     if (statusPending) {
         return (
-            <Grid item>
+            <Grid>
                 <Paper>
                     <Box p={1}>
                         <Skeleton height="4rem" />
@@ -71,7 +71,7 @@ const BasicControls = (): React.ReactElement => {
 
     if (status === undefined) {
         return (
-            <Grid item>
+            <Grid>
                 <Paper>
                     <Box p={1}>
                         <Typography color="error">Error loading basic controls</Typography>
@@ -112,11 +112,11 @@ const BasicControls = (): React.ReactElement => {
 
     return (
         <>
-            <Grid item>
+            <Grid>
                 <Paper>
                     <Box p={1.5}>
-                        <Grid item container direction="column">
-                            <Grid item>
+                        <Grid container direction="column">
+                            <Grid>
                                 <ButtonGroup
                                     fullWidth
                                     variant="outlined"

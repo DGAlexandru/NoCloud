@@ -10,7 +10,6 @@ import {
     FormControlLabel,
     FormGroup,
     FormHelperText,
-    Grid,
     IconButton,
     Input,
     InputAdornment,
@@ -21,6 +20,7 @@ import {
     Typography,
     useTheme,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import {
     ArrowUpward,
     Visibility as VisibilityIcon,
@@ -155,11 +155,10 @@ const MQTTStatusComponent: React.FunctionComponent<{
 
     return (
         <Grid container alignItems="center" direction="column" style={{paddingBottom: "1rem"}}>
-            <Grid item style={{marginTop: "1rem"}}>
+            <Grid style={{marginTop: "1rem"}}>
                 {getIconForState()}
             </Grid>
             <Grid
-                item
                 sx={{
                     maxWidth: "100% !important", //Why, MUI? Why?
                     wordWrap: "break-word",
@@ -170,13 +169,11 @@ const MQTTStatusComponent: React.FunctionComponent<{
                 {getContentForState()}
             </Grid>
             <Grid
-                item
                 container
                 direction="row"
                 style={{marginTop: "1rem"}}
             >
                 <Grid
-                    item
                     style={{flexGrow: 1}}
                     p={1}
                 >
@@ -193,7 +190,6 @@ const MQTTStatusComponent: React.FunctionComponent<{
                     </Card>
                 </Grid>
                 <Grid
-                    item
                     style={{flexGrow: 1}}
                     p={1}
                 >
@@ -829,7 +825,7 @@ const MQTTConnectivity = (): React.ReactElement => {
             <Divider sx={{mt: 1}} style={{marginBottom: "1rem"}}/>
 
             <Grid container>
-                <Grid item style={{marginLeft: "auto"}}>
+                <Grid style={{marginLeft: "auto"}}>
                     <LoadingButton
                         disabled={!configurationModified}
                         loading={mqttConfigurationUpdating}

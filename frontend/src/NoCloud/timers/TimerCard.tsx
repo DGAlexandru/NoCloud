@@ -11,10 +11,10 @@ import {
     DialogTitle,
     Divider,
     FormControlLabel,
-    Grid,
     IconButton,
     Typography,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import { Delete as DeleteIcon, Edit as EditIcon, PlayArrow as ExecNowIcon } from "@mui/icons-material";
 import React, { FunctionComponent } from "react";
 import {Timer, TimerProperties, NoCloudTimerActionType} from "../../api";
@@ -93,7 +93,6 @@ const TimerCard: FunctionComponent<TimerCardProps> = ({
 
                     return (
                         <Grid
-                            item
                             key={day.label}
                         >
                             <Typography
@@ -175,7 +174,7 @@ const TimerCard: FunctionComponent<TimerCardProps> = ({
                     justifyContent="space-between"
                     sx={{minWidth: "16rem"}}
                 >
-                    <Grid item>
+                    <Grid>
                         <FormControlLabel
                             control={
                                 <Checkbox
@@ -196,7 +195,7 @@ const TimerCard: FunctionComponent<TimerCardProps> = ({
                             }
                         />
                     </Grid>
-                    <Grid item>
+                    <Grid>
                         <IconButton
                             onClick={() => {
                                 setDeleteDialogOpen(true);

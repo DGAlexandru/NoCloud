@@ -1,6 +1,7 @@
 import {Capability, useCleanSegmentsMutation, useMapSegmentationPropertiesQuery, useRobotStatusQuery} from "../../../api";
 import React from "react";
-import {Box, Button, CircularProgress, Container, Grid, Typography} from "@mui/material";
+import {Box, Button, CircularProgress, Container, Typography} from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import {ActionButton} from "../../Styled";
 import IntegrationHelpDialog from "../../../components/IntegrationHelpDialog";
 import {useLongPress} from "use-long-press";
@@ -125,7 +126,7 @@ const SegmentActions = (
     return (
         <>
             <Grid container spacing={1} direction="row-reverse" flexWrap="wrap-reverse">
-                <Grid item>
+                <Grid>
                     <ActionButton
                         disabled={!didSelectSegments || segmentActionExecuting || !canClean}
                         color="inherit"
@@ -146,7 +147,7 @@ const SegmentActions = (
                 </Grid>
                 {
                     mapSegmentationProperties.iterationCount.max > 1 &&
-                    <Grid item>
+                    <Grid>
                         <ActionButton
                             color="inherit"
                             size="medium"
@@ -163,7 +164,7 @@ const SegmentActions = (
                 }
                 {
                     didSelectSegments &&
-                    <Grid item>
+                    <Grid>
                         <ActionButton
                             color="inherit"
                             size="medium"
@@ -177,7 +178,7 @@ const SegmentActions = (
                 }
                 {
                     (didSelectSegments && !canClean) &&
-                    <Grid item>
+                    <Grid>
                         <Typography variant="caption" color="textSecondary">
                             Cannot start segment cleaning while the robot is busy
                         </Typography>

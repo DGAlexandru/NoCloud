@@ -1,4 +1,5 @@
-import {Divider, Grid, IconButton, styled, Typography} from "@mui/material";
+import {Divider, IconButton, styled, Typography} from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import React, {FunctionComponent} from "react";
 import {
     Help as HelpIcon,
@@ -32,22 +33,21 @@ const DetailPageHeaderRow: FunctionComponent<DetailPageHeaderRowProps> = ({
 
     return (
         <>
-            <Grid item container alignItems="center" spacing={1} justifyContent="space-between">
-                <Grid item style={{display:"flex"}}>
-                    <Grid item style={{paddingRight: "8px"}}>
+            <Grid container alignItems="center" spacing={1} justifyContent="space-between">
+                <Grid style={{display:"flex"}}>
+                    <Grid style={{paddingRight: "8px"}}>
                         {icon}
                     </Grid>
-                    <Grid item>
+                    <Grid>
                         <Typography>{title}</Typography>
                     </Grid>
                 </Grid>
-                <Grid item>
+                <Grid>
                     <Grid container>
                         {
                             helpText !== undefined &&
                             <>
                                 <Grid
-                                    item
                                     style={{marginTop:"-0.125rem"}} //:(
                                 >
                                     <IconButton
@@ -72,7 +72,7 @@ const DetailPageHeaderRow: FunctionComponent<DetailPageHeaderRowProps> = ({
 
                         {
                             onRefreshClick !== undefined &&
-                            <Grid item>
+                            <Grid>
                                 <TopRightRefreshButton
                                     loading={isRefreshing ?? false}
                                     onClick={onRefreshClick}

@@ -1,5 +1,6 @@
 import {ReactComponent as SplashLogo} from "../assets/icons/NoCloud_splash.svg";
-import {CircularProgress, Grid} from "@mui/material";
+import {CircularProgress} from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import React from "react";
 
 const NoCloudSplash = (): React.ReactElement => {
@@ -21,7 +22,6 @@ const NoCloudSplash = (): React.ReactElement => {
             justifyContent="center"
         >
             <Grid
-                item
             >
                 <SplashLogo
                     style={{
@@ -31,7 +31,6 @@ const NoCloudSplash = (): React.ReactElement => {
                 />
             </Grid>
             <Grid
-                item
                 sx={{marginTop: "3em"}}
             >
                 <CircularProgress/>

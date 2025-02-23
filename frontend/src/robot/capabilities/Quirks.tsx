@@ -3,13 +3,13 @@ import {
     Box,
     Divider,
     FormControl,
-    Grid,
     MenuItem,
     Paper,
     Select,
     SelectChangeEvent,
     Typography
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import {
     Quirk,
     useQuirksQuery,
@@ -36,7 +36,6 @@ const QuirkControl: FunctionComponent<{ quirk: Quirk, style?: React.CSSPropertie
 
     return (
         <Grid
-            item
             style={props.style}
             sx={{
                 width: {

@@ -4,7 +4,6 @@ import {
     Divider,
     FormControl,
     FormControlLabel,
-    Grid,
     IconButton,
     Input,
     InputAdornment,
@@ -13,6 +12,7 @@ import {
     TextField,
     Typography
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import React from "react";
 import {useHTTPBasicAuthConfigurationMutation, useHTTPBasicAuthConfigurationQuery} from "../../api";
 import {LoadingButton} from "@mui/lab";
@@ -75,7 +75,7 @@ const AuthSettings = (): React.ReactElement => {
                 sx={{mb: 1}}
             />
             <Grid container spacing={1} sx={{mb: 1}} direction="row">
-                <Grid item xs="auto" style={{flexGrow: 1}}>
+                <Grid size="grow" style={{flexGrow: 1}}>
                     <TextField
                         style={{width: "100%"}}
                         label="Username"
@@ -88,7 +88,7 @@ const AuthSettings = (): React.ReactElement => {
                         }}
                     />
                 </Grid>
-                <Grid item xs="auto" style={{flexGrow: 1}}>
+                <Grid size="grow" style={{flexGrow: 1}}>
                     <FormControl style={{width: "100%"}} variant="standard">
                         <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                         <Input
@@ -146,7 +146,7 @@ const AuthSettings = (): React.ReactElement => {
 
             <Divider sx={{mt: 1}} style={{marginBottom: "1rem"}}/>
             <Grid container>
-                <Grid item style={{marginLeft: "auto"}}>
+                <Grid style={{marginLeft: "auto"}}>
                     <LoadingButton
                         loading={configurationUpdating}
                         color="primary"

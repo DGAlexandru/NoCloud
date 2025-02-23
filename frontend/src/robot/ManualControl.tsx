@@ -3,13 +3,13 @@ import {
     Box,
     Button,
     FormControlLabel,
-    Grid,
     Stack,
     Switch,
     Typography,
     styled,
     Skeleton,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import {
     Capability,
     ManualControlCommand,
@@ -136,7 +136,7 @@ const ManualControlInternal: React.FunctionComponent = (): React.ReactElement =>
     return React.useMemo(() => {
         return (
             <FullHeightGrid container direction="column">
-                <Grid item flexGrow={1}>
+                <Grid flexGrow={1}>
                     <Box>
                         {
                             loading &&

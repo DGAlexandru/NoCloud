@@ -9,7 +9,6 @@ import {
     Divider,
     FormControl,
     FormControlLabel,
-    Grid,
     InputLabel,
     MenuItem,
     Select,
@@ -19,6 +18,7 @@ import {
     useMediaQuery,
     useTheme,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import React, { FunctionComponent } from "react";
 import {Timer, TimerProperties, NoCloudTimerActionType, NoCloudTimerPreActionType} from "../../api";
 import { deepCopy } from "../../utils";
@@ -200,7 +200,6 @@ const TimerEditDialog: FunctionComponent<TimerDialogProps> = ({
                     direction="column"
                 >
                     <Grid
-                        item
                         sx={{paddingLeft: "0.5rem"}}
                     >
                         <FormControlLabel
@@ -219,7 +218,6 @@ const TimerEditDialog: FunctionComponent<TimerDialogProps> = ({
                     </Grid>
 
                     <Grid
-                        item
                         sx={{paddingLeft: "0.5rem", marginTop: "0.5rem"}}
                     >
                         <TextField

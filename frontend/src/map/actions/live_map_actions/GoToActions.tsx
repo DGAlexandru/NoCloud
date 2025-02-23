@@ -3,7 +3,8 @@ import {
     useRobotStatusQuery
 } from "../../../api";
 import React from "react";
-import {CircularProgress, Grid, Typography} from "@mui/material";
+import {CircularProgress, Typography} from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import {ActionButton} from "../../Styled";
 import GoToTargetClientStructure from "../../structures/client_structures/GoToTargetClientStructure";
 import IntegrationHelpDialog from "../../../components/IntegrationHelpDialog";
@@ -79,7 +80,7 @@ const GoToActions = (
     return (
         <>
             <Grid container spacing={1} direction="row-reverse" flexWrap="wrap-reverse">
-                <Grid item>
+                <Grid>
                     <ActionButton
                         disabled={goToIsExecuting || !canGo || !goToTarget}
                         color="inherit"
@@ -98,7 +99,7 @@ const GoToActions = (
                         )}
                     </ActionButton>
                 </Grid>
-                <Grid item>
+                <Grid>
                     {
                         goToTarget &&
                         <ActionButton
@@ -114,7 +115,7 @@ const GoToActions = (
                 </Grid>
                 {
                     !canGo &&
-                    <Grid item>
+                    <Grid>
                         <Typography variant="caption" color="textSecondary">
                             Cannot go to point while the robot is busy
                         </Typography>

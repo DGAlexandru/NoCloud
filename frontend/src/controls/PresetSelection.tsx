@@ -1,6 +1,5 @@
 import {
     Box,
-    Grid,
     Icon,
     Paper,
     Skeleton,
@@ -9,6 +8,7 @@ import {
     styled,
     Typography,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import {Mark} from "@mui/base";
 import React from "react";
 import {
@@ -122,7 +122,7 @@ const PresetSelectionControl = (props: PresetSelectionProps): React.ReactElement
     const body = React.useMemo(() => {
         if (presetsPending) {
             return (
-                <Grid item>
+                <Grid>
                     <Skeleton height={"3rem"} />
                 </Grid>
             );
@@ -130,7 +130,7 @@ const PresetSelectionControl = (props: PresetSelectionProps): React.ReactElement
 
         if (presetLoadError || preset === undefined) {
             return (
-                <Grid item>
+                <Grid>
                     <Typography color="error">Error loading {capability}</Typography>
                 </Grid>
             );
@@ -164,12 +164,11 @@ const PresetSelectionControl = (props: PresetSelectionProps): React.ReactElement
     ]);
 
     return (
-        <Grid item>
+        <Grid>
             <Paper sx={{minHeight: "2.5em"}}>
                 <Grid container direction="column">
                     <Box px={1.5} pt={1}>
                         <Grid
-                            item
                             container
                             alignItems="center"
                             spacing={1}
@@ -178,19 +177,18 @@ const PresetSelectionControl = (props: PresetSelectionProps): React.ReactElement
                             }}
                             style={{cursor: "pointer"}}
                         >
-                            <Grid item>{icon}</Grid>
-                            <Grid item sx={{marginTop: "-8px" /* ugh */}}>
+                            <Grid>{icon}</Grid>
+                            <Grid sx={{marginTop: "-8px" /* ugh */}}>
                                 <Typography variant="subtitle1" id={`${capability}-slider-label`}>
                                     {label}
                                 </Typography>
                             </Grid>
-                            <Grid item>
+                            <Grid>
                                 <LoadingFade in={pending}
                                     transitionDelay={pending ? "500ms" : "0ms"}
                                     size={20}/>
                             </Grid>
                             <Grid
-                                item
                                 sx={{
                                     marginLeft: "auto"
                                 }}
@@ -198,7 +196,7 @@ const PresetSelectionControl = (props: PresetSelectionProps): React.ReactElement
                                 <Grid container>
                                     {
                                         !pending &&
-                                        <Grid item sx={{marginTop: "-2px" /* ugh */}}>
+                                        <Grid sx={{marginTop: "-2px" /* ugh */}}>
                                             <Typography variant="subtitle1" sx={{paddingRight: "8px"}}>
                                                 {preset?.value ? presetFriendlyNames[preset.value] : ""}
                                             </Typography>
@@ -206,7 +204,6 @@ const PresetSelectionControl = (props: PresetSelectionProps): React.ReactElement
                                     }
 
                                     <Grid
-                                        item
                                         sx={{
                                             marginLeft: "auto"
                                         }}
@@ -217,7 +214,7 @@ const PresetSelectionControl = (props: PresetSelectionProps): React.ReactElement
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item sx={{
+                        <Grid sx={{
                             display: presetSelectionSliderOpen ? "inherit" : "none",
                             minHeight: "3.75rem"
                         }}>

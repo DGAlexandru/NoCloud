@@ -1,10 +1,10 @@
 import {
     Fab,
-    Grid,
     IconButton,
     Skeleton,
     Typography,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import AddIcon from "@mui/icons-material/Add";
 import React from "react";
 import {
@@ -80,7 +80,7 @@ const Timers = (): React.ReactElement => {
             };
 
             return (
-                <Grid item key={id}>
+                <Grid size="grow" key={id}>
                     <TimerCard
                         onDelete={onDelete}
                         onSave={onSave}
@@ -116,17 +116,7 @@ const Timers = (): React.ReactElement => {
     return (
         <PaperContainer>
             <Grid container>
-                <Grid item sx={{marginLeft: "auto", height: "4rem"}}>
-                    <IconButton
-                        onClick={() => {
-                            return setHelpDialogOpen(true);
-                        }}
-                        title="Help"
-                    >
-                        <HelpIcon/>
-                    </IconButton>
-                </Grid>
-                <Grid item container spacing={2} sx={{justifyContent: "center"}}>
+                <Grid size={(timerCards?.length ?? 0) > 0 ? "auto" : "grow"} container spacing={2} sx={{justifyContent: "center"}}>
                     {
                         timerCards && timerCards.length > 0 ?
                             timerCards :
@@ -136,6 +126,16 @@ const Timers = (): React.ReactElement => {
                                 You currently don&apos;t have any timers configured in NoCloud.
                             </Typography>
                     }
+                </Grid>
+                <Grid sx={{marginLeft: "auto", height: "4rem"}}>
+                    <IconButton
+                        onClick={() => {
+                            return setHelpDialogOpen(true);
+                        }}
+                        title="Help"
+                    >
+                        <HelpIcon/>
+                    </IconButton>
                 </Grid>
             </Grid>
 
@@ -161,7 +161,6 @@ const Timers = (): React.ReactElement => {
                 }}
             >
                 <Grid
-                    item
                     style={{
                         marginLeft: "auto"
                     }}

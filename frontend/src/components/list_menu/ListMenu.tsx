@@ -1,4 +1,5 @@
-import {Divider, Grid, IconButton, List, ListItemText} from "@mui/material";
+import {Divider, IconButton, List, ListItemText} from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import React from "react";
 import {SpacerListMenuItem} from "./SpacerListMenuItem";
 import HelpDialog from "../HelpDialog";
@@ -30,7 +31,6 @@ export const ListMenu: React.FunctionComponent<{
                 subheader={
                     <Grid container>
                         <Grid
-                            item
                             style={{
                                 maxWidth: helpText ? "84%" : undefined //Unfortunately, 85% does not fit next to the help on an iphone 5
                             }}
@@ -48,7 +48,6 @@ export const ListMenu: React.FunctionComponent<{
                         </Grid>
                         {helpText && (
                             <Grid
-                                item
                                 style={{marginLeft: "auto", marginRight: "0.5rem"}}
                             >
                                 <IconButton

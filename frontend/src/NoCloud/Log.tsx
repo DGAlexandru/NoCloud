@@ -1,7 +1,6 @@
 import {
     alpha,
     FormControl,
-    Grid,
     InputBase,
     InputLabel,
     MenuItem,
@@ -9,6 +8,7 @@ import {
     styled,
     Typography,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import {Refresh as RefreshIcon, FilterAlt as FilterAltIcon} from "@mui/icons-material";
 import React from "react";
 import styles from "./Log.module.css";
@@ -125,7 +125,6 @@ const Log = (): React.ReactElement => {
         return (
             <Grid container>
                 <Grid
-                    item
                     container
                     alignItems={"center"}
                     columnSpacing={1}
@@ -133,10 +132,11 @@ const Log = (): React.ReactElement => {
                     columns={{xs: 4, sm: 12}}
                     sx={{
                         mb: 2,
+						width: "100%",
                         userSelect: "none"
                     }}
                 >
-                    <Grid item xs={4} sm={9}>
+                    <Grid size={{xs: 4, sm: 9}}>
                         <Search>
                             <SearchIconWrapper>
                                 <FilterAltIcon/>
@@ -153,7 +153,7 @@ const Log = (): React.ReactElement => {
                             />
                         </Search>
                     </Grid>
-                    <Grid item xs={3} sm={2}>
+                    <Grid size={{xs: 3, sm:2}}>
                         <FormControl fullWidth>
                             <InputLabel id="log-level-selector">Current Level</InputLabel>
                             <Select
@@ -172,7 +172,7 @@ const Log = (): React.ReactElement => {
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={1} sm={1}>
+                    <Grid size={{xs: 1, sm: 1}}>
                         <LoadingButton
                             loading={logDataFetching}
                             onClick={() => {
@@ -192,7 +192,6 @@ const Log = (): React.ReactElement => {
                     </Grid>
                 </Grid>
                 <Grid
-                    item
                     sx={{
                         width: "100%"
                     }}

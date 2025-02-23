@@ -1,5 +1,6 @@
 import React from "react";
-import {Grid, Typography} from "@mui/material";
+import {Typography} from "@mui/material";
+import Grid from "@mui/material/Grid2";
 
 const TextInformationGrid: React.FunctionComponent<{ items: Array<{ header: string, body: string }> }> = ({
     items
@@ -12,7 +13,7 @@ const TextInformationGrid: React.FunctionComponent<{ items: Array<{ header: stri
         >
             {items.map((item) => {
                 return (
-                    <Grid item key={item.header}>
+                    <Grid key={item.header}>
                         <Typography variant="caption" color="textSecondary">
                             {item.header}
                         </Typography>
