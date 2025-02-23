@@ -8,7 +8,8 @@ import {
     useRobotStatusQuery
 } from "../api";
 import {useCapabilitiesSupported} from "../CapabilitiesProvider";
-import {Button, Grid, Icon, styled, Typography} from "@mui/material";
+import {Button, Icon, styled, Typography} from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import {
     RestoreFromTrash as EmptyIcon,
     Villa as DockIcon,
@@ -85,65 +86,70 @@ const Dock = (): React.ReactElement => {
         const { value: robotState } = robotStatus;
 
         return (
-            <Grid container direction="row" alignItems="center" spacing={1} pt={1}>
-                {
-                    mopDockCleanTriggerSupported &&
-                    <Grid item xs>
-                        <Button
-                            disabled={feedbackPending || commandIsExecuting || !["idle", "cleaning", "pause"].includes(dockState) || robotState !== "docked" || !mopAttachmentAttached}
-                            variant="outlined"
-                            size="medium"
-                            color="inherit"
-                            onClick={() => {
-                                const command = dockState === "cleaning" ? "stop" : "start";
+            <>
+                <Typography variant="overline">
+                    {dockState}
+                </Typography>
+                <Grid container direction="row" alignItems="center" sx={{flex: 1}} spacing={1} pt={1} wrap={"wrap"}>
+                    {
+                        mopDockCleanTriggerSupported &&
+                        <Grid sx={{flex: 1, minWidth: "min-content"}}>
+                            <Button
+                                disabled={feedbackPending || commandIsExecuting || !["idle", "cleaning", "pause"].includes(dockState) || robotState !== "docked" || !mopAttachmentAttached}
+                                variant="outlined"
+                                size="medium"
+                                color="inherit"
+                                onClick={() => {
+                                    const command = dockState === "cleaning" ? "stop" : "start";
 
-                                triggerMopDockCleanCommand(command);
-                                setFeedbackPending(true);
-                            }}
-                            sx={{width: "100%"}}
-                        >
-                            <StyledIcon as={CleanMopIcon} /> { dockState === "cleaning" ? "Stop" : "Clean" }
-                        </Button>
-                    </Grid>
-                }
-                {
-                    mopDockDryTriggerSupported &&
-                    <Grid item xs>
-                        <Button
-                            disabled={feedbackPending || commandIsExecuting || !["idle", "drying", "pause"].includes(dockState) || robotState !== "docked" || !mopAttachmentAttached}
-                            variant="outlined"
-                            size="medium"
-                            color="inherit"
-                            onClick={() => {
-                                const command = dockState === "drying" ? "stop" : "start";
+                                    triggerMopDockCleanCommand(command);
+                                    setFeedbackPending(true);
+                                }}
+                                sx={{width: "100%"}}
+                            >
+                                <StyledIcon as={CleanMopIcon} /> { dockState === "cleaning" ? "Stop" : "Clean" }
+                            </Button>
+                        </Grid>
+                    }
+                    {
+                        mopDockDryTriggerSupported &&
+                        <Grid sx={{flex: 1, minWidth: "min-content"}}>
+                            <Button
+                                disabled={feedbackPending || commandIsExecuting || !["idle", "drying", "pause"].includes(dockState) || robotState !== "docked" || !mopAttachmentAttached}
+                                variant="outlined"
+                                size="medium"
+                                color="inherit"
+                                onClick={() => {
+                                    const command = dockState === "drying" ? "stop" : "start";
 
-                                triggerMopDockDryCommand(command);
-                                setFeedbackPending(true);
-                            }}
-                            sx={{width: "100%"}}
-                        >
-                            <StyledIcon as={DryMopIcon} /> { dockState === "drying" ? "Stop" : "Dry" }
-                        </Button>
-                    </Grid>
-                }
-                {
-                    triggerEmptySupported &&
-                    <Grid item xs>
-                        <Button
-                            disabled={commandIsExecuting || robotState !== "docked"}
-                            variant="outlined"
-                            size="medium"
-                            color="inherit"
-                            onClick={() => {
-                                triggerDockEmpty();
-                            }}
-                            sx={{width: "100%"}}
-                        >
-                            <StyledIcon as={EmptyIcon} /> Empty
-                        </Button>
-                    </Grid>
-                }
-            </Grid>
+                                    triggerMopDockDryCommand(command);
+                                    setFeedbackPending(true);
+                                }}
+                                sx={{width: "100%"}}
+                            >
+                                <StyledIcon as={DryMopIcon} /> { dockState === "drying" ? "Stop" : "Dry" }
+                            </Button>
+                        </Grid>
+                    }
+                    {
+                        triggerEmptySupported &&
+                        <Grid sx={{flex: 1, minWidth: "min-content"}}>
+                            <Button
+                                disabled={commandIsExecuting || robotState !== "docked"}
+                                variant="outlined"
+                                size="medium"
+                                color="inherit"
+                                onClick={() => {
+                                    triggerDockEmpty();
+                                }}
+                                sx={{width: "100%"}}
+                            >
+                                <StyledIcon as={EmptyIcon} /> Empty
+                            </Button>
+                        </Grid>
+                    }
+                </Grid>
+            </>
         );
     }, [
         StyledIcon,
