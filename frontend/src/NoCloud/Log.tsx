@@ -132,7 +132,7 @@ const Log = (): React.ReactElement => {
                     columns={{xs: 4, sm: 12}}
                     sx={{
                         mb: 2,
-						width: "100%",
+                        width: "100%",
                         userSelect: "none"
                     }}
                 >
