@@ -251,7 +251,8 @@ class DreameMovaS20UltraNoCloudRobot extends DreameGen4NoCloudRobot {
         const deviceConf = MiioNoCloudRobot.READ_DEVICE_CONF(DreameNoCloudRobot.DEVICE_CONF_PATH);
 
         return [
-            "dreame.vacuum.r2385a",
+            "dreame.vacuum.r2385", // US
+            "dreame.vacuum.r2385a", // EU
         ].includes(deviceConf?.model);
     }
 }
