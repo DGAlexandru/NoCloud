@@ -80,7 +80,7 @@ const Timers = (): React.ReactElement => {
             };
 
             return (
-                <Grid size="grow" key={id}>
+                <Grid key={id}>
                     <TimerCard
                         onDelete={onDelete}
                         onSave={onSave}
@@ -115,18 +115,7 @@ const Timers = (): React.ReactElement => {
 
     return (
         <PaperContainer>
-            <Grid container>
-                <Grid size={(timerCards?.length ?? 0) > 0 ? "auto" : "grow"} container spacing={2} sx={{justifyContent: "center"}}>
-                    {
-                        timerCards && timerCards.length > 0 ?
-                            timerCards :
-                            <Typography
-                                sx={{padding:"1rem", textAlign: "center", marginTop: "10vh", marginBottom: "5vh"}}
-                            >
-                                You currently don&apos;t have any timers configured in NoCloud.
-                            </Typography>
-                    }
-                </Grid>
+            <Grid container direction="column">
                 <Grid sx={{marginLeft: "auto", height: "4rem"}}>
                     <IconButton
                         onClick={() => {
@@ -137,6 +126,17 @@ const Timers = (): React.ReactElement => {
                         <HelpIcon/>
                     </IconButton>
                 </Grid>
+                <Grid2 container spacing={2} sx={{justifyContent: "center"}}>
+                    {
+                        timerCards && timerCards.length > 0 ?
+                            timerCards :
+                            <Typography
+                                sx={{padding:"1rem", textAlign: "center", marginTop: "10vh", marginBottom: "5vh"}}
+                            >
+                                You currently don&apos;t have any timers configured in NoCloud.
+                            </Typography>
+                    }
+                </Grid2>
             </Grid>
 
             {
