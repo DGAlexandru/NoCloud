@@ -126,7 +126,7 @@ const Timers = (): React.ReactElement => {
                         <HelpIcon/>
                     </IconButton>
                 </Grid>
-                <Grid2 container spacing={2} sx={{justifyContent: "center"}}>
+                <Grid container spacing={2} sx={{justifyContent: "center"}}>
                     {
                         timerCards && timerCards.length > 0 ?
                             timerCards :
@@ -136,7 +136,7 @@ const Timers = (): React.ReactElement => {
                                 You currently don&apos;t have any timers configured in NoCloud.
                             </Typography>
                     }
-                </Grid2>
+                </Grid>
             </Grid>
 
             {
