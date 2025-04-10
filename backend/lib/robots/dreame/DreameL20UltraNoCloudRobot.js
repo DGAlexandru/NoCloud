@@ -13,7 +13,7 @@ const {IMAGE_FILE_FORMAT} = require("../../utils/const");
 
 const stateAttrs = entities.state.attributes;
 
-class DreameL20SUltraNoCloudRobot extends DreameGen4NoCloudRobot {
+class DreameL20UltraNoCloudRobot extends DreameGen4NoCloudRobot {
 
     /**
      *
