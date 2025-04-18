@@ -255,7 +255,8 @@ class DreameL20UltraNoCloudRobot extends DreameGen4NoCloudRobot {
         const deviceConf = MiioNoCloudRobot.READ_DEVICE_CONF(DreameNoCloudRobot.DEVICE_CONF_PATH);
 
         return [
-            "dreame.vacuum.r2394", // EU
+            "dreame.vacuum.r2390", // OEM internal name
+            "dreame.vacuum.r2394", // as seen on SN and also OEM internal references
         ].includes(deviceConf?.model);
     }
 }
