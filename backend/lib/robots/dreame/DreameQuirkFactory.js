@@ -70,7 +70,7 @@ class DreameQuirkFactory {
                     id: id,
                     title: "Tight Mop Pattern",
                     description: "Enabling this makes your robot move in a much tighter pattern when mopping.",
-                    options: ["on", "off"],
+                    options: ["On", "Off"],
                     getter: async () => {
                         const res = await this.helper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
@@ -79,9 +79,9 @@ class DreameQuirkFactory {
 
                         switch (res) {
                             case 1:
-                                return "on";
+                                return "On";
                             case 0:
-                                return "off";
+                                return "Off";
                             default:
                                 throw new Error(`Received invalid value ${res}`);
                         }
@@ -90,10 +90,10 @@ class DreameQuirkFactory {
                         let val;
 
                         switch (value) {
-                            case "on":
+                            case "On":
                                 val = 1;
                                 break;
-                            case "off":
+                            case "Off":
                                 val = 0;
                                 break;
                             default:
@@ -112,7 +112,7 @@ class DreameQuirkFactory {
                     id: id,
                     title: "Mop Only",
                     description: "Disable the vacuum functionality when the mop pads are attached.",
-                    options: ["on", "off"],
+                    options: ["On", "Off"],
                     getter: async () => {
                         const res = await this.helper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
@@ -123,9 +123,9 @@ class DreameQuirkFactory {
 
                         switch (deserializedResponse.operationMode) {
                             case 1:
-                                return "on";
+                                return "On";
                             case 0:
-                                return "off";
+                                return "Off";
                             default:
                                 throw new Error(`Received invalid value ${deserializedResponse.operationMode}`);
                         }
@@ -134,10 +134,10 @@ class DreameQuirkFactory {
                         let val;
 
                         switch (value) {
-                            case "on":
+                            case "On":
                                 val = 1;
                                 break;
-                            case "off":
+                            case "Off":
                                 val = 0;
                                 break;
                             default:
@@ -240,7 +240,7 @@ class DreameQuirkFactory {
                     id: id,
                     title: "Wastewater UV Treatment",
                     description: "Disinfect the waste water tank after each successful cleanup using the in-built UV-C light.",
-                    options: ["on", "off"],
+                    options: ["On", "Off"],
                     getter: async () => {
                         const res = await this.helper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
@@ -249,9 +249,9 @@ class DreameQuirkFactory {
 
                         switch (res) {
                             case 1:
-                                return "on";
+                                return "On";
                             case 0:
-                                return "off";
+                                return "Off";
                             default:
                                 throw new Error(`Received invalid value ${res}`);
                         }
@@ -260,10 +260,10 @@ class DreameQuirkFactory {
                         let val;
 
                         switch (value) {
-                            case "on":
+                            case "On":
                                 val = 1;
                                 break;
-                            case "off":
+                            case "Off":
                                 val = 0;
                                 break;
                             default:
@@ -281,8 +281,8 @@ class DreameQuirkFactory {
                 return new Quirk({
                     id: id,
                     title: "Mop Drying Time",
-                    description: "Define how long the mop should be dried after a cleanup",
-                    options: ["2h", "3h", "4h"],
+                    description: "Define how long the mop should be dried after finishing a cleanup",
+                    options: ["1h", "2h", "3h", "4h"],
                     getter: async () => {
                         const res = await this.helper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
@@ -290,6 +290,8 @@ class DreameQuirkFactory {
                         );
 
                         switch (res) {
+                            case 1:
+                                return "1h";
                             case 2:
                                 return "2h";
                             case 3:
@@ -304,6 +306,9 @@ class DreameQuirkFactory {
                         let val;
 
                         switch (value) {
+                            case "1h":
+                                val = 1;
+                                break;
                             case "2h":
                                 val = 2;
                                 break;
@@ -329,7 +334,7 @@ class DreameQuirkFactory {
                     id: id,
                     title: "Detergent",
                     description: "Select if the Dock should automatically add detergent to the water",
-                    options: ["on", "off", "Missing detergent cartridge"],
+                    options: ["On", "Off", "Missing detergent cartridge"],
                     getter: async () => {
                         const res = await this.helper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
@@ -338,9 +343,9 @@ class DreameQuirkFactory {
 
                         switch (res) {
                             case 0:
-                                return "off";
+                                return "Off";
                             case 1:
-                                return "on";
+                                return "On";
                             case 2:
                                 return "Missing detergent cartridge";
                             case 3: {
@@ -354,7 +359,7 @@ class DreameQuirkFactory {
                                     1
                                 );
 
-                                return "on";
+                                return "On";
                             }
 
                             default:
@@ -365,10 +370,10 @@ class DreameQuirkFactory {
                         let val;
 
                         switch (value) {
-                            case "off":
+                            case "Off":
                                 val = 0;
                                 break;
-                            case "on":
+                            case "On":
                                 val = 1;
                                 break;
                             case "Missing detergent cartridge":
@@ -470,8 +475,8 @@ class DreameQuirkFactory {
                 return new Quirk({
                     id: id,
                     title: "Mop Auto drying",
-                    description: "Select if the dock should automatically dry the mop after a cleanup",
-                    options: ["on", "off"],
+                    description: "Select if the dock should automatically dry the mop after a finished cleanup",
+                    options: ["On", "Off"],
                     getter: async () => {
                         const res = await this.helper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
@@ -481,9 +486,9 @@ class DreameQuirkFactory {
                         const deserializedResponse = DreameUtils.DESERIALIZE_MISC_TUNABLES(res);
                         switch (deserializedResponse.AutoDry) {
                             case 0:
-                                return "off";
+                                return "Off";
                             case 1:
-                                return "on";
+                                return "On";
                             default:
                                 throw new Error(`Received invalid value ${deserializedResponse.AutoDry}`);
                         }
@@ -492,10 +497,10 @@ class DreameQuirkFactory {
                         let val;
 
                         switch (value) {
-                            case "off":
+                            case "Off":
                                 val = 0;
                                 break;
-                            case "on":
+                            case "On":
                                 val = 1;
                                 break;
                             default:
@@ -518,7 +523,7 @@ class DreameQuirkFactory {
                     description: "Enhance mopping coverage at the outlines by rotating the robot. " +
                         "Greatly increases the cleanup duration. " +
                         "Settings other than \"each_cleanup\" or \"off\" will only apply to full cleanups.",
-                    options: ["each_cleanup", "every_7_days", "off"],
+                    options: ["off", "each_cleanup", "every_7_days"],
                     getter: async () => {
                         const res = await this.helper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
@@ -594,7 +599,7 @@ class DreameQuirkFactory {
                     id: id,
                     title: "Edge Extension: Mop",
                     description: "Enhance mopping coverage at the outlines by moving the mop outwards.",
-                    options: ["automatic", "each_cleanup", "every_7_days", "off"],
+                    options: ["off", "automatic", "each_cleanup", "every_7_days"],
                     getter: async () => {
                         const res = await this.helper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
@@ -651,7 +656,7 @@ class DreameQuirkFactory {
                     id: id,
                     title: "Edge Extension: Mop and twist",
                     description: "When \"Edge Extension: Mop\" is enabled, twist the robot to further reach below furniture with overhangs.",
-                    options: ["on", "off"],
+                    options: ["On", "Off"],
                     getter: async () => {
                         const res = await this.helper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
@@ -661,9 +666,9 @@ class DreameQuirkFactory {
                         const deserializedResponse = DreameUtils.DESERIALIZE_MISC_TUNABLES(res);
                         switch (deserializedResponse.LacuneMopScalable) {
                             case 1:
-                                return "on";
+                                return "On";
                             case 0:
-                                return "off";
+                                return "Off";
                             default:
                                 throw new Error(`Received invalid value ${deserializedResponse.LacuneMopScalable}`);
                         }
@@ -672,10 +677,10 @@ class DreameQuirkFactory {
                         let val;
 
                         switch (value) {
-                            case "on":
+                            case "On":
                                 val = 1;
                                 break;
-                            case "off":
+                            case "Off":
                                 val = 0;
                                 break;
                             default:
@@ -696,7 +701,7 @@ class DreameQuirkFactory {
                     id: id,
                     title: "Edge Extension: Mop for furniture legs",
                     description: "When \"Edge Extension: Mop\" is enabled, also use it to better clean around small pillars like table legs.",
-                    options: ["on", "off"],
+                    options: ["On", "Off"],
                     getter: async () => {
                         const res = await this.helper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
@@ -706,9 +711,9 @@ class DreameQuirkFactory {
                         const deserializedResponse = DreameUtils.DESERIALIZE_MISC_TUNABLES(res);
                         switch (deserializedResponse.MopScalable2) {
                             case 1:
-                                return "on";
+                                return "On";
                             case 0:
-                                return "off";
+                                return "Off";
                             default:
                                 throw new Error(`Received invalid value ${deserializedResponse.MopScalable2}`);
                         }
@@ -717,10 +722,10 @@ class DreameQuirkFactory {
                         let val;
 
                         switch (value) {
-                            case "on":
+                            case "On":
                                 val = 1;
                                 break;
-                            case "off":
+                            case "Off":
                                 val = 0;
                                 break;
                             default:
@@ -741,7 +746,7 @@ class DreameQuirkFactory {
                     id: id,
                     title: "Mop Dock Water Heater",
                     description: "When enabled, the dock will heat the water used to rinse the mop pads.",
-                    options: ["on", "off"],
+                    options: ["On", "Off"],
                     getter: async () => {
                         const res = await this.helper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
@@ -751,9 +756,9 @@ class DreameQuirkFactory {
                         const deserializedResponse = DreameUtils.DESERIALIZE_MISC_TUNABLES(res);
                         switch (deserializedResponse.HotWash) {
                             case 1:
-                                return "on";
+                                return "On";
                             case 0:
-                                return "off";
+                                return "Off";
                             default:
                                 throw new Error(`Received invalid value ${deserializedResponse.HotWash}`);
                         }
@@ -762,10 +767,10 @@ class DreameQuirkFactory {
                         let val;
 
                         switch (value) {
-                            case "on":
+                            case "On":
                                 val = 1;
                                 break;
-                            case "off":
+                            case "Off":
                                 val = 0;
                                 break;
                             default:
@@ -786,7 +791,7 @@ class DreameQuirkFactory {
                     id: id,
                     title: "Mop Dock Water Heater",
                     description: "Select if and how much the dock should heat the water used to rinse the mop pads.",
-                    options: ["high", "medium", "low", "off"],
+                    options: ["off", "low", "medium", "high"],
                     getter: async () => {
                         const res = await this.helper.readProperty(
                             DreameMiotServices["GEN2"].MOP_EXPANSION.SIID,
@@ -888,7 +893,7 @@ class DreameQuirkFactory {
                     id: id,
                     title: "Deep carpet cleaning",
                     description: "When enabled, the robot will automatically clean detected carpets with two slowly cleanup passes in alternating directions.",
-                    options: ["on", "off"],
+                    options: ["On", "Off"],
                     getter: async () => {
                         const res = await this.helper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
@@ -898,9 +903,9 @@ class DreameQuirkFactory {
                         const deserializedResponse = DreameUtils.DESERIALIZE_MISC_TUNABLES(res);
                         switch (deserializedResponse.CarpetFineClean) {
                             case 1:
-                                return "on";
+                                return "On";
                             case 0:
-                                return "off";
+                                return "Off";
                             default:
                                 throw new Error(`Received invalid value ${deserializedResponse.CarpetFineClean}`);
                         }
@@ -909,10 +914,10 @@ class DreameQuirkFactory {
                         let val;
 
                         switch (value) {
-                            case "on":
+                            case "On":
                                 val = 1;
                                 break;
-                            case "off":
+                            case "Off":
                                 val = 0;
                                 break;
                             default:
@@ -980,7 +985,7 @@ class DreameQuirkFactory {
                     id: id,
                     title: "Edge Extension: Side Brush",
                     description: "Automatically extend the side brush to further reach into corners or below furniture",
-                    options: ["on", "off"],
+                    options: ["On", "Off"],
                     getter: async () => {
                         const res = await this.helper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
@@ -990,9 +995,9 @@ class DreameQuirkFactory {
                         const deserializedResponse = DreameUtils.DESERIALIZE_MISC_TUNABLES(res);
                         switch (deserializedResponse.SbrushExtrSwitch) {
                             case 1:
-                                return "on";
+                                return "On";
                             case 0:
-                                return "off";
+                                return "Off";
                             default:
                                 throw new Error(`Received invalid value ${deserializedResponse.SbrushExtrSwitch}`);
                         }
@@ -1001,10 +1006,10 @@ class DreameQuirkFactory {
                         let val;
 
                         switch (value) {
-                            case "on":
+                            case "On":
                                 val = 1;
                                 break;
-                            case "off":
+                            case "Off":
                                 val = 0;
                                 break;
                             default:
@@ -1025,7 +1030,7 @@ class DreameQuirkFactory {
                     id: id,
                     title: "Edge Extension: Mop",
                     description: "Enhance mopping coverage at the outlines by moving the mop outwards.",
-                    options: ["on", "off"],
+                    options: ["On", "Off"],
                     getter: async () => {
                         const res = await this.helper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
@@ -1036,9 +1041,9 @@ class DreameQuirkFactory {
 
                         switch (deserializedResponse.MopExtrSwitch) {
                             case 0:
-                                return "off";
+                                return "Off";
                             case 1: {
-                                return "on";
+                                return "On";
                             }
                             default:
                                 throw new Error(`Received invalid value ${deserializedResponse.MopExtrSwitch}`);
@@ -1048,10 +1053,10 @@ class DreameQuirkFactory {
                         let val;
 
                         switch (value) {
-                            case "on":
+                            case "On":
                                 val = 1;
                                 break;
-                            case "off":
+                            case "Off":
                                 val = 0;
                                 break;
                             default:
@@ -1072,7 +1077,7 @@ class DreameQuirkFactory {
                     id: id,
                     title: "Camera light",
                     description: "Use the inbuilt LED light to help the AI obstacle avoidance in low light conditions",
-                    options: ["on", "off"],
+                    options: ["On", "Off"],
                     getter: async () => {
                         const res = await this.helper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
@@ -1082,9 +1087,9 @@ class DreameQuirkFactory {
                         const deserializedResponse = DreameUtils.DESERIALIZE_MISC_TUNABLES(res);
                         switch (deserializedResponse.FillinLight) {
                             case 1:
-                                return "on";
+                                return "On";
                             case 0:
-                                return "off";
+                                return "Off";
                             default:
                                 throw new Error(`Received invalid value ${deserializedResponse.FillinLight}`);
                         }
@@ -1093,10 +1098,10 @@ class DreameQuirkFactory {
                         let val;
 
                         switch (value) {
-                            case "on":
+                            case "On":
                                 val = 1;
                                 break;
-                            case "off":
+                            case "Off":
                                 val = 0;
                                 break;
                             default:
@@ -1117,7 +1122,7 @@ class DreameQuirkFactory {
                     id: id,
                     title: "Detach Mops",
                     description: "When enabled, the robot will leave the mop pads in the dock when running a vacuum-only cleanup",
-                    options: ["on", "off"],
+                    options: ["On", "Off"],
                     getter: async () => {
                         const res = await this.helper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
@@ -1126,9 +1131,9 @@ class DreameQuirkFactory {
 
                         switch (res) {
                             case 1:
-                                return "on";
+                                return "On";
                             case 0:
-                                return "off";
+                                return "Off";
                             default:
                                 throw new Error(`Received invalid value ${res}`);
                         }
@@ -1137,10 +1142,10 @@ class DreameQuirkFactory {
                         let val;
 
                         switch (value) {
-                            case "on":
+                            case "On":
                                 val = 1;
                                 break;
-                            case "off":
+                            case "Off":
                                 val = 0;
                                 break;
                             default:
@@ -1234,7 +1239,7 @@ class DreameQuirkFactory {
                     id: id,
                     title: "Clean Route",
                     description: "Trade speed for thoroughness and vice-versa. \"Intensive\" and \"Deep\" only apply when mopping.",
-                    options: ["Quick", "Standard", "Intensive", "Deep"],
+                    options: ["Standard", "Intensive", "Deep", "Quick"],
                     getter: async () => {
                         const res = await this.helper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
@@ -1333,35 +1338,35 @@ class DreameQuirkFactory {
 }
 
 DreameQuirkFactory.KNOWN_QUIRKS = {
-    CARPET_MODE_SENSITIVITY: "f8cb91ab-a47a-445f-b300-0aac0d4937c0",
-    TIGHT_MOP_PATTERN: "8471c118-f1e1-4866-ad2e-3c11865a5ba8",
-    MOP_DOCK_MOP_ONLY_MODE: "6afbb882-c4c4-4672-b008-887454e6e0d1",
-    MOP_DOCK_MOP_CLEANING_FREQUENCY: "a6709b18-57af-4e11-8b4c-8ae33147ab34",
-    MOP_DOCK_UV_TREATMENT: "7f97b603-967f-44f0-9dfb-35bcdc21f433",
-    MOP_DRYING_TIME: "516a1025-9c56-46e0-ac9b-a5007088d24a",
-    MOP_DOCK_DETERGENT: "a2a03d42-c710-45e5-b53a-4bc62778589f",
-    MOP_DOCK_WET_DRY_SWITCH: "66adac0f-0a16-4049-b6ac-080ef702bb39",
-    MOP_DOCK_AUTO_REPAIR_TRIGGER: "ae753798-aa4f-4b35-a60c-91e7e5ae76f3",
-    MOP_DOCK_AUTO_DRYING: "6efc4d62-b5a4-474e-b353-5746a99ee8f9",
-    EDGE_MOPPING: "7c71db1b-72b6-402e-89a4-d66c72cb9c8c",
-    DRAIN_INTERNAL_WATER_TANK: "3e1b0851-3a5a-4943-bea6-dea3d7284bff",
-    MOP_EXTEND_EDGE_MOPPING: "5e1bbac8-78d1-433e-9868-4229463e2761",
-    MOP_EXTEND_EDGE_MOPPING_V2: "0c6dd70d-4a42-4400-a9ea-d4743015edbd",
-    MOP_EXTEND_EDGE_MOPPING_TWIST: "3759ae19-3723-4aad-a55e-4f9d8078185d",
-    MOP_EXTEND_EDGE_MOPPING_FURNITURE_LEGS: "08658d53-5d7b-4bfd-a179-25ceb3c70fe2",
-    MOP_DOCK_WATER_HEATER: "d6f07d8a-5708-478e-925f-42db1b58d016",
-    MOP_DOCK_HIGH_RES_WATER_HEATER: "68c10990-8e38-4d79-8ef4-84a506752b0e",
-    CARPET_DETECTION_AUTO_DEEP_CLEANING: "9450a668-88d7-4ff3-9455-a78b485fb33b",
-    MOP_DOCK_WATER_USAGE: "2d4ce805-ebf7-4dcf-b919-c5fe4d4f2de3",
-    SIDE_BRUSH_EXTEND: "e560d60c-76de-4ccc-8c01-8ccbcece850e",
-    EDGE_EXTENSION_FREQUENCY: "8f6a7013-794e-40d9-9bbe-8fdeed7c0b9d",
     CAMERA_LIGHT: "bba079c2-293b-4ad5-99b8-4102a1220b12",
-    DETACH_MOPS: "4a52e16b-3c73-479d-b308-7f0bbdde0884",
-    MOP_DOCK_CLEANING_PROCESS_TRIGGER: "42c7db4b-2cad-4801-a526-44de8944a41f",
-    WATER_HOOKUP_TEST_TRIGGER: "86094736-d66e-40c3-807c-3f5ef33cbf09",
+    CARPET_DETECTION_AUTO_DEEP_CLEANING: "9450a668-88d7-4ff3-9455-a78b485fb33b",
+    CARPET_MODE_SENSITIVITY: "f8cb91ab-a47a-445f-b300-0aac0d4937c0",
     CLEAN_ROUTE: "ce44b688-f8bc-43a4-b44d-6db0d003c859",
     CLEAN_ROUTE_WITH_QUICK: "924c82a8-1c3f-4363-9303-e6158e0ca41c",
+    DETACH_MOPS: "4a52e16b-3c73-479d-b308-7f0bbdde0884",
+    DRAIN_INTERNAL_WATER_TANK: "3e1b0851-3a5a-4943-bea6-dea3d7284bff",
+    EDGE_EXTENSION_FREQUENCY: "8f6a7013-794e-40d9-9bbe-8fdeed7c0b9d",
+    EDGE_MOPPING: "7c71db1b-72b6-402e-89a4-d66c72cb9c8c",
+    MOP_DOCK_AUTO_DRYING: "6efc4d62-b5a4-474e-b353-5746a99ee8f9",
+    MOP_DOCK_AUTO_REPAIR_TRIGGER: "ae753798-aa4f-4b35-a60c-91e7e5ae76f3",
+    MOP_DOCK_CLEANING_PROCESS_TRIGGER: "42c7db4b-2cad-4801-a526-44de8944a41f",
+    MOP_DOCK_DETERGENT: "a2a03d42-c710-45e5-b53a-4bc62778589f",
+    MOP_DOCK_HIGH_RES_WATER_HEATER: "68c10990-8e38-4d79-8ef4-84a506752b0e",
+    MOP_DOCK_MOP_CLEANING_FREQUENCY: "a6709b18-57af-4e11-8b4c-8ae33147ab34",
+    MOP_DOCK_MOP_ONLY_MODE: "6afbb882-c4c4-4672-b008-887454e6e0d1",
+    MOP_DOCK_UV_TREATMENT: "7f97b603-967f-44f0-9dfb-35bcdc21f433",
+    MOP_DOCK_WATER_HEATER: "d6f07d8a-5708-478e-925f-42db1b58d016",
+    MOP_DOCK_WATER_USAGE: "2d4ce805-ebf7-4dcf-b919-c5fe4d4f2de3",
+    MOP_DOCK_WET_DRY_SWITCH: "66adac0f-0a16-4049-b6ac-080ef702bb39",
+    MOP_DRYING_TIME: "516a1025-9c56-46e0-ac9b-a5007088d24a",
+    MOP_EXTEND_EDGE_MOPPING: "5e1bbac8-78d1-433e-9868-4229463e2761",
+    MOP_EXTEND_EDGE_MOPPING_FURNITURE_LEGS: "08658d53-5d7b-4bfd-a179-25ceb3c70fe2",
+    MOP_EXTEND_EDGE_MOPPING_TWIST: "3759ae19-3723-4aad-a55e-4f9d8078185d",
+    MOP_EXTEND_EDGE_MOPPING_V2: "0c6dd70d-4a42-4400-a9ea-d4743015edbd",
+    SIDE_BRUSH_EXTEND: "e560d60c-76de-4ccc-8c01-8ccbcece850e",
     SIDE_BRUSH_ON_CARPET: "d23d7e7e-ef74-42a6-8a0a-4163742e437b",
+    TIGHT_MOP_PATTERN: "8471c118-f1e1-4866-ad2e-3c11865a5ba8",
+    WATER_HOOKUP_TEST_TRIGGER: "86094736-d66e-40c3-807c-3f5ef33cbf09",
 };
 
 module.exports = DreameQuirkFactory;
