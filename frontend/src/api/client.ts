@@ -829,6 +829,7 @@ export const fetchCollisionAvoidantNavigationControlState = async (): Promise<Si
 
 export const sendCollisionAvoidantNavigationControlState = async (enable: boolean): Promise<void> => {
     await sendToggleMutation(Capability.CollisionAvoidantNavigation, enable);
+    await fetchCollisionAvoidantNavigationControlState(); //force status update; TODO: why do we need this for this one???
 };
 
 
