@@ -426,6 +426,13 @@ DreameNoCloudRobot.MAP_ERROR_CODE = (vendorErrorCode) => {
     };
 
     switch (vendorErrorCode) {
+      case "-2":
+            parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.TRANSIENT;
+            parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.WARNING;
+            parameters.subsystem = NoCloudRobotError.SUBSYSTEM.NAVIGATION;
+            parameters.message = "Stuck inside restricted area";
+            break;
+
         case "0":
             parameters.message = "No error";
             break;
@@ -555,7 +562,7 @@ DreameNoCloudRobot.MAP_ERROR_CODE = (vendorErrorCode) => {
             parameters.subsystem = NoCloudRobotError.SUBSYSTEM.POWER;
             parameters.message = "Charging error";
             break;
-        //22
+//        case "22":
         case "23":
             parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.UNKNOWN;
             parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.UNKNOWN;
@@ -826,7 +833,7 @@ DreameNoCloudRobot.MAP_ERROR_CODE = (vendorErrorCode) => {
             parameters.subsystem = NoCloudRobotError.SUBSYSTEM.NAVIGATION;
             parameters.message = "Cannot reach target";
             break;
-        // 68: Not an Error. "Docked but mop is still attached. Please remove the mop"
+//        case "68":: Not an Error. "Docked but mop is still attached. Please remove the mop"
         case "69":
             parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.TRANSIENT;
             parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.ERROR;
@@ -839,7 +846,6 @@ DreameNoCloudRobot.MAP_ERROR_CODE = (vendorErrorCode) => {
             parameters.subsystem = NoCloudRobotError.SUBSYSTEM.ATTACHMENTS;
             parameters.message = "Lost mop pad";
             break;
-
         case "71":
             parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.PERMANENT;
             parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.CATASTROPHIC;
@@ -853,14 +859,19 @@ DreameNoCloudRobot.MAP_ERROR_CODE = (vendorErrorCode) => {
             parameters.message = "Mop motor current abnormal";
             break;
 
-
-        case "-2":
+        case "91":
             parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.TRANSIENT;
             parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.WARNING;
             parameters.subsystem = NoCloudRobotError.SUBSYSTEM.NAVIGATION;
-            parameters.message = "Stuck inside restricted area";
+            parameters.message = "Cannot reach target";
             break;
 
+        case "96":
+            parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.TRANSIENT;
+            parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.WARNING;
+            parameters.subsystem = NoCloudRobotError.SUBSYSTEM.NAVIGATION;
+            parameters.message = "Cannot reach target";
+            break;
 
         case "101":
             parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.PERMANENT;
@@ -886,9 +897,6 @@ DreameNoCloudRobot.MAP_ERROR_CODE = (vendorErrorCode) => {
             parameters.subsystem = NoCloudRobotError.SUBSYSTEM.DOCK;
             parameters.message = "Auto-Empty Dock dust bag full or dust duct clogged";
             break;
-
-
-
         case "105":
             parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.PERMANENT;
             parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.WARNING;
@@ -937,7 +945,9 @@ DreameNoCloudRobot.MAP_ERROR_CODE = (vendorErrorCode) => {
             parameters.subsystem = NoCloudRobotError.SUBSYSTEM.DOCK;
             parameters.message = "Mop Dock Tray full of water";
             break;
-        // 114: Not an Error. "Please remember to clean the mop tray"
+//        case "113":
+//        case "114": Not an Error. "Please remember to clean the mop tray"
+//        case "115":
         case "116":
             parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.PERMANENT;
             parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.WARNING;
@@ -962,6 +972,7 @@ DreameNoCloudRobot.MAP_ERROR_CODE = (vendorErrorCode) => {
             parameters.subsystem = NoCloudRobotError.SUBSYSTEM.DOCK;
             parameters.message = "Mop Dock Tray full of water";
             break;
+//        case "120":
         case "121":
             parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.PERMANENT;
             parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.WARNING;
