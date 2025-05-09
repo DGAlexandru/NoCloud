@@ -30,27 +30,20 @@ First, make sure to do a full factory reset before continuing with the guide or 
 See [https://github.com/dgiese/dustcloud/wiki/Xiaomi-Vacuum-Robots-Factory-Reset](https://github.com/dgiese/dustcloud/wiki/Xiaomi-Vacuum-Robots-Factory-Reset) for instructions on how to do that.
 
 ### Building the Firmware Image
-It is recommended to use the Dustbuilder to build your firmware image.
-It can be found here: <a href="https://builder.dontvacuum.me" rel="noopener" target="_blank">https://builder.dontvacuum.me</a>
 
-In DustBuilder, make sure to use the "Build update package" option, as it is the only file type supported by NoCloud-helper-miioota.
-
-The service is provided by Dennis who is also the reason, why NoCloud can exist in the first place.
-
-The reason this guide switched to Dustbuilder only is that it provides a controlled environment, which eliminates common support issues.
-The irony that this guide suggests using "the cloud" to uncloud your device is not lost on me.
-
+To build the firmware, head over to the [Dustbuilder](https://builder.dontvacuum.me/) and request a rooted firmware image for your specific robot.
+Make sure to select the `Build update package (for installation via local OTA)` option.
 
 ### Flashing the firmware image
 
-Flashing the firmware .pkg file can easily be done by using [NoCloud-helper-miioota](https://github.com/DGAlexandru/NoCloud-helper-miioota),
-which is a standalone tool that does the right thing.
+To flash the rooted firmware `.pkg`, there's an all-in-one tool that just does the right thing:
+[valetudo-helper-miioota](https://github.com/Hypfer/valetudo-helper-miioota).
 
-Just connect your laptop to the robots Wi-Fi access point and use the tool to install the firmware.
+Just download the binary from the releases section, connect your laptop to the robots Wi-Fi access point and use it to install the `.pkg`.
 A successful run should look similar to this:
 
 ```
-./NoCloud-helper-miioota install-firmware v11_2034.pkg 
+./valetudo-helper-miioota install-firmware v11_2034.pkg 
 Starting installer.
 If you experience issues, make sure to disable your firewall and/or VPN.
 Also, make sure that the robot is docked during the firmware update procedure.
@@ -314,6 +307,6 @@ After the robot has rebooted, connect to its Wi-Fi AP for the final time, wait f
 NoCloud Webinterface in your browser to connect the robot to your Wi-Fi network.<br/>
 For that, just browse to `http://192.168.8.1`.
 
-After reassembling the robot you can continue with the <a href="https://Valetudo.Cloud/pages/general/getting-started.html#using-NoCloud">getting started guide</a>.
+After reassembling the robot you can continue with the <a href="https://Valetudo.Cloud/pages/general/getting-started.html#using-valetudo">getting started guide</a>.
 
 </div>
