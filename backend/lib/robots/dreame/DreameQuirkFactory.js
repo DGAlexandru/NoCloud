@@ -111,9 +111,9 @@ class DreameQuirkFactory {
             case DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_MOP_ONLY_MODE:
                 return new Quirk({
                     id: id,
-                    title: "Mop Only",
-                    description: "Disable the vacuum functionality when the mop pads are attached.",
-                    options: ["On", "Off"],
+                    title: "Cleaning Type (ori: Mop Only)",
+                    description: "Set default cleaning type. (ori: Disable the vacuum functionality when the mop pads are attached.)",
+                    options: ["Vacuum and Mop", "Mop only", "Vacuum only", "Vacuum then Mop"],
                     getter: async () => {
                         const res = await this.helper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
@@ -123,10 +123,14 @@ class DreameQuirkFactory {
                         const deserializedResponse = DreameUtils.DESERIALIZE_MOP_DOCK_SETTINGS(res);
 
                         switch (deserializedResponse.operationMode) {
+                            case 3:
+                                return "Vacuum then Mop";
+                            case 2:
+                                return "Vacuum only";
                             case 1:
-                                return "On";
+                                return "Mop only";
                             case 0:
-                                return "Off";
+                                return "Vacuum and Mop";
                             default:
                                 throw new Error(`Received invalid value ${deserializedResponse.operationMode}`);
                         }
@@ -135,10 +139,16 @@ class DreameQuirkFactory {
                         let val;
 
                         switch (value) {
-                            case "On":
+                            case "Vacuum then Mop":
+                                val = 3;
+                                break;
+                            case "Vacuum only":
+                                val = 2;
+                                break;
+                            case "Mop only":
                                 val = 1;
                                 break;
-                            case "Off":
+                            case "Vacuum and Mop":
                                 val = 0;
                                 break;
                             default:
