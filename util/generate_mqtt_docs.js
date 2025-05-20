@@ -28,7 +28,7 @@ const NoCloudEventStore = require("NoCloud-backend/lib/NoCloudEventStore");
 
 
 function jekyllAlert(type, content) {
-    return "{% include alert.html type=\"" + type + "\" content=\"" + content.replace(/"/g, "\\\"") + "\" %}\n\n";
+    return "{% include alert.html type=\"" + type + "\" content=\"" + content.replace(/\\/g, "\\\\").replace(/"/g, "\\\"") + "\" %}\n\n";
 }
 
 const markdownPreamble = `---
