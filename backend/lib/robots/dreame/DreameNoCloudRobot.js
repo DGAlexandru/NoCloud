@@ -859,6 +859,13 @@ DreameNoCloudRobot.MAP_ERROR_CODE = (vendorErrorCode) => {
             parameters.message = "Mop motor current abnormal";
             break;
 
+        case "74":
+            parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.TRANSIENT;
+            parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.ERROR;
+            parameters.subsystem = NoCloudRobotError.SUBSYSTEM.ATTACHMENTS;
+            parameters.message = "Failed to attach mop pads";
+            break;
+
         case "91":
             parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.TRANSIENT;
             parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.WARNING;
