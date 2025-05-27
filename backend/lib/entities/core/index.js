@@ -1,6 +1,7 @@
 module.exports = {
     NoCloudDNDConfiguration: require("./NoCloudDNDConfiguration"),
     NoCloudDataPoint: require("./NoCloudDataPoint"),
+    NoCloudManualMovementVector: require("./NoCloudManualMovementVector"),
     NoCloudMapSegment: require("./NoCloudMapSegment"),
     NoCloudMapSnapshot: require("./NoCloudMapSnapshot"),
     NoCloudRestrictedZone: require("./NoCloudRestrictedZone"),
