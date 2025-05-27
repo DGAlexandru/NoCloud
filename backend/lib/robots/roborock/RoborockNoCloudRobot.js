@@ -60,17 +60,16 @@ class RoborockNoCloudRobot extends MiioNoCloudRobot {
 
         [
             capabilities.RoborockBasicControlCapability,
-            capabilities.RoborockZoneCleaningCapability,
+            capabilities.RoborockCarpetModeControlCapability,
+            capabilities.RoborockCurrentStatisticsCapability,
+            capabilities.RoborockDoNotDisturbCapability,
             capabilities.RoborockGoToLocationCapability,
             capabilities.RoborockLocateCapability,
-            capabilities.RoborockDoNotDisturbCapability,
-            capabilities.RoborockCarpetModeControlCapability,
-            capabilities.RoborockSpeakerVolumeControlCapability,
             capabilities.RoborockSpeakerTestCapability,
-            capabilities.RoborockVoicePackManagementCapability,
-            capabilities.RoborockManualControlCapability,
+            capabilities.RoborockSpeakerVolumeControlCapability,
             capabilities.RoborockTotalStatisticsCapability,
-            capabilities.RoborockCurrentStatisticsCapability,
+            capabilities.RoborockVoicePackManagementCapability,
+            capabilities.RoborockZoneCleaningCapability,
         ].forEach(capability => {
             this.registerCapability(new capability({robot: this}));
         });
@@ -145,8 +144,8 @@ class RoborockNoCloudRobot extends MiioNoCloudRobot {
 
                 return true;
             // Roborock does not use the common presigned URL implementation, it requires this specific format.
-            case "_sync.gen_tmp_presigned_url":
             case "_sync.gen_presigned_url":
+            case "_sync.gen_tmp_presigned_url":
             case "_sync.batch_gen_room_up_url": {
                 const filename = msg.method === "_sync.batch_gen_room_up_url" ? "room_map" : "map";
 
@@ -203,21 +202,21 @@ class RoborockNoCloudRobot extends MiioNoCloudRobot {
 
                 return true;
             case "event.back_to_dock":
-            case "event.error_code":
-            case "event.relocate_failed_back":
-            case "event.goto_target_succ":
-            case "event.target_not_reachable":
-            case "event.consume_material_notify":
             case "event.clean_complete":
-            case "event.segment_clean_succ":
-            case "event.segment_clean_part_done":
-            case "event.zoned_clean_succ":
-            case "event.zoned_clean_partial_done":
-            case "event.zoned_clean_failed":
-            case "event.relocate_fail":
+            case "event.consume_material_notify":
+            case "event.error_code":
             case "event.fan_power_reduced":
+            case "event.goto_target_succ":
             case "event.low_power_back": //If the robot is currently cleaning and the battery drops below 20% it drives home to charge
+            case "event.relocate_fail":
+            case "event.relocate_failed_back":
+            case "event.segment_clean_part_done":
+            case "event.segment_clean_succ":
             case "event.start_with_water_box":
+            case "event.target_not_reachable":
+            case "event.zoned_clean_failed":
+            case "event.zoned_clean_partial_done":
+            case "event.zoned_clean_succ":
                 this.sendCloud({id: msg.id, "result":"ok"}).catch((err) => {
                     Logger.warn("Error while sending cloud ack", err);
                 });

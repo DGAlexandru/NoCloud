@@ -1,3 +1,4 @@
+const capabilities = require("./capabilities");
 const entities = require("../../entities");
 const MiioNoCloudRobot = require("../MiioNoCloudRobot");
 const RoborockNoCloudRobot = require("./RoborockNoCloudRobot");
@@ -13,6 +14,12 @@ class RoborockV1NoCloudRobot extends RoborockNoCloudRobot {
      */
     constructor(options) {
         super(Object.assign({}, options, {fanSpeeds: FAN_SPEEDS}));
+
+
+        this.registerCapability(new capabilities.RoborockHighResolutionManualControlCapability({
+            robot: this,
+            velocityLimit: 0.29
+        }));
     }
 
     getModelName() {

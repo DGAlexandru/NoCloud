@@ -44,11 +44,12 @@ class RoborockS6MaxVNoCloudRobot extends RoborockNoCloudRobot {
         }));
 
         [
-            capabilities.RoborockMultiMapPersistentMapControlCapability,
-            capabilities.RoborockMultiMapMapResetCapability,
-            capabilities.RoborockMapSegmentationCapability,
+            capabilities.RoborockHighResolutionManualControlCapability,
             capabilities.RoborockMapSegmentEditCapability,
-            capabilities.RoborockMapSegmentRenameCapability
+            capabilities.RoborockMapSegmentRenameCapability,
+            capabilities.RoborockMapSegmentationCapability,
+            capabilities.RoborockMultiMapMapResetCapability,
+            capabilities.RoborockMultiMapPersistentMapControlCapability,
         ].forEach(capability => {
             this.registerCapability(new capability({robot: this}));
         });

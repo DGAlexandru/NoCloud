@@ -15,13 +15,14 @@ class RoborockM1SNoCloudRobot extends RoborockNoCloudRobot {
         super(Object.assign({}, options, {fanSpeeds: FAN_SPEEDS}));
 
         [
-            capabilities.RoborockMapSnapshotCapability,
             capabilities.RoborockCombinedVirtualRestrictionsCapability,
-            capabilities.RoborockPersistentMapControlCapability,
+            capabilities.RoborockHighResolutionManualControlCapability,
             capabilities.RoborockMapResetCapability,
-            capabilities.RoborockMapSegmentSimpleCapability,
             capabilities.RoborockMapSegmentEditCapability,
-            capabilities.RoborockMapSegmentRenameCapability
+            capabilities.RoborockMapSegmentRenameCapability,
+            capabilities.RoborockMapSegmentSimpleCapability,
+            capabilities.RoborockMapSnapshotCapability,
+            capabilities.RoborockPersistentMapControlCapability,
         ].forEach(capability => {
             this.registerCapability(new capability({robot: this}));
         });
