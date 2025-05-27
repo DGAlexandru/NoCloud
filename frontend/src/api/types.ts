@@ -14,6 +14,7 @@ export enum Capability {
     DoNotDisturb = "DoNotDisturbCapability",
     FanSpeedControl = "FanSpeedControlCapability",
     GoToLocation = "GoToLocationCapability",
+    HighResolutionManualControl = "HighResolutionManualControlCapability",
     KeyLock = "KeyLockCapability",
     Locate = "LocateCapability",
     ManualControl = "ManualControlCapability",
@@ -23,12 +24,14 @@ export enum Capability {
     MapSegmentation = "MapSegmentationCapability",
     MapSnapshot = "MapSnapshotCapability",
     MappingPass = "MappingPassCapability",
-    ObstacleAvoidanceControl = "ObstacleAvoidanceControlCapability",
-    PetObstacleAvoidanceControl = "PetObstacleAvoidanceControlCapability",
     MopDockCleanManualTrigger = "MopDockCleanManualTriggerCapability",
     MopDockDryManualTrigger = "MopDockDryManualTriggerCapability",
+    ObstacleAvoidanceControl = "ObstacleAvoidanceControlCapability",
+    ObstacleImages = "ObstacleImagesCapability",
     OperationModeControl = "OperationModeControlCapability",
     PersistentMapControl = "PersistentMapControlCapability",
+    PetObstacleAvoidanceControl = "PetObstacleAvoidanceControlCapability",
+    Quirks = "QuirksCapability",
     SpeakerTest = "SpeakerTestCapability",
     SpeakerVolumeControl = "SpeakerVolumeControlCapability",
     TotalStatistics = "TotalStatisticsCapability",
@@ -37,8 +40,6 @@ export enum Capability {
     WifiConfiguration = "WifiConfigurationCapability",
     WifiScan = "WifiScanCapability",
     ZoneCleaning = "ZoneCleaningCapability",
-    Quirks = "QuirksCapability",
-    ObstacleImages = "ObstacleImagesCapability"
 }
 
 export type Point = {
@@ -469,6 +470,16 @@ export interface ManualControlProperties {
 export interface ManualControlInteraction {
     action: ManualControlAction;
     movementCommand?: ManualControlCommand;
+}
+
+export interface NoCloudManualMovementVector {
+    velocity: number;
+    angle: number;
+}
+
+export interface HighResolutionManualControlInteraction {
+    action: ManualControlAction;
+    vector?: NoCloudManualMovementVector;
 }
 
 export enum NoCloudRestrictedZoneType {

@@ -18,30 +18,30 @@ import {
 import React from "react";
 import {
     AccessTime as TimeIcon,
-    Equalizer as StatisticsIcon,
-    DarkMode as DarkModeIcon,
-    Map as MapManagementIcon,
-    Home as HomeIcon,
-    Article as LogIcon,
-    Menu as MenuIcon,
     ArrowBack as BackIcon,
-    PendingActions as PendingActionsIcon,
-    Hub as ConnectivityIcon,
-    SystemUpdateAlt as UpdaterIcon,
-    SettingsRemote as SettingsRemoteIcon,
-    Wysiwyg as SystemInformationIcon,
-    Info as AboutIcon,
+    Article as LogIcon,
+    DarkMode as DarkModeIcon,
+    Equalizer as StatisticsIcon,
     Help as HelpIcon,
-    SvgIconComponent
+    Home as HomeIcon,
+    Hub as ConnectivityIcon,
+    Info as AboutIcon,
+    Map as MapManagementIcon,
+    Menu as MenuIcon,
+    PendingActions as PendingActionsIcon,
+    SettingsRemote as SettingsRemoteIcon,
+    SvgIconComponent,
+    SystemUpdateAlt as UpdaterIcon,
+    Wysiwyg as SystemInformationIcon,
 } from "@mui/icons-material";
 import {Link, useLocation} from "react-router-dom";
 import NoCloudEvents from "./NoCloudEvents";
 import {Capability} from "../api";
 import {useCapabilitiesSupported} from "../CapabilitiesProvider";
 import {
+    NoCloudMonochromeIcon,
     RobotMonochromeIcon,
     SwaggerUIIcon,
-    NoCloudMonochromeIcon
 } from "./CustomIcons";
 
 interface MenuEntry {
@@ -101,8 +101,8 @@ const menuTree: Array<MenuEntry | MenuSubEntry | MenuSubheader> = [
         menuIcon: SettingsRemoteIcon,
         menuText: "Manual control",
         requiredCapabilities: {
-            capabilities: [Capability.ManualControl],
-            type: "allof"
+            capabilities: [Capability.ManualControl, Capability.HighResolutionManualControl],
+            type: "anyof"
         }
     },
     {

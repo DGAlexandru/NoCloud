@@ -1,6 +1,6 @@
 import axios from "axios";
 import { RawMapData } from "./RawMapData";
-import {PresetSelectionState, PresetValue, RobotAttribute} from "./RawRobotState";
+import { PresetSelectionState, PresetValue, RobotAttribute } from "./RawRobotState";
 import {
     AutoEmptyDockAutoEmptyInterval,
     AutoEmptyDockAutoEmptyIntervalPayload,
@@ -16,21 +16,29 @@ import {
     ConsumableState,
     DoNotDisturbConfiguration,
     HTTPBasicAuthConfiguration,
+    HighResolutionManualControlInteraction,
     LogLevelResponse,
-    ManualControlInteraction,
-    ManualControlProperties,
-    MapSegmentationActionRequestParameters,
-    MapSegmentationProperties,
-    MapSegmentEditJoinRequestParameters,
-    MapSegmentEditSplitRequestParameters,
-    MapSegmentRenameRequestParameters,
     MQTTConfiguration,
     MQTTProperties,
     MQTTStatus,
-    NetworkAdvertisementConfiguration,
-    NetworkAdvertisementProperties,
+    ManualControlInteraction,
+    ManualControlProperties,
+    MapSegmentEditJoinRequestParameters,
+    MapSegmentEditSplitRequestParameters,
+    MapSegmentRenameRequestParameters,
+    MapSegmentationActionRequestParameters,
+    MapSegmentationProperties,
     NTPClientConfiguration,
     NTPClientStatus,
+    NetworkAdvertisementConfiguration,
+    NetworkAdvertisementProperties,
+    NoCloudCustomizations,
+    NoCloudDataPoint,
+    NoCloudEvent,
+    NoCloudEventInteractionContext,
+    NoCloudInformation,
+    NoCloudVersion,
+    NoCloudWifiNetwork,
     ObstacleImagesProperties,
     Point,
     Quirk,
@@ -49,23 +57,16 @@ import {
     TimerProperties,
     UpdaterConfiguration,
     UpdaterState,
-    NoCloudCustomizations,
-    NoCloudDataPoint,
-    NoCloudEvent,
-    NoCloudEventInteractionContext,
-    NoCloudInformation,
-    NoCloudVersion,
-    NoCloudWifiNetwork,
     VoicePackManagementCommand,
     VoicePackManagementStatus,
     WifiConfiguration,
     WifiConfigurationProperties,
     WifiStatus,
     ZoneActionRequestParameters,
-    ZoneProperties,
+    ZoneProperties
 } from "./types";
 import { floorObject } from "./utils";
-import {preprocessMap} from "./mapUtils";
+import { preprocessMap } from "./mapUtils";
 import ReconnectingEventSource from "reconnecting-eventsource";
 
 export const NoCloudAPIBaseURL = "./api/v2";
@@ -908,6 +909,24 @@ export const sendManualControlInteraction = async (interaction: ManualControlInt
         .then(({ status }) => {
             if (status !== 200) {
                 throw new Error("Could not send manual control interaction");
+            }
+        });
+};
+
+export const fetchHighResolutionManualControlState = async (): Promise<SimpleToggleState> => {
+    return NoCloudAPI
+        .get<SimpleToggleState>(`/robot/capabilities/${Capability.HighResolutionManualControl}`)
+        .then(({ data }) => {
+            return data;
+        });
+};
+
+export const sendHighResolutionManualControlInteraction = async (interaction: HighResolutionManualControlInteraction): Promise<void> => {
+    await NoCloudAPI
+        .put(`/robot/capabilities/${Capability.HighResolutionManualControl}`, interaction)
+        .then(({ status }) => {
+            if (status !== 200) {
+                throw new Error("Could not send high resolution manual control interaction");
             }
         });
 };
