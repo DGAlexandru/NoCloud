@@ -21,7 +21,7 @@ class HighResolutionManualControlCapabilityRouter extends CapabilityRouter {
                         res.sendStatus(200);
                     } catch (e) {
                         this.sendErrorResponse(req, res, e);
-                    }n
+                    }
                     break;
                 case "disable":
                     try {
