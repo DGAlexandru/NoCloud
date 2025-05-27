@@ -2,7 +2,7 @@ import React from "react";
 import {Container, Paper} from "@mui/material";
 import styles from "./PaperContainer.module.css";
 
-const PaperContainer = (props: {
+export const PaperContainer = (props: {
     containerStyle?: React.CSSProperties,
     paperStyle?: React.CSSProperties,
     paperBoxShadow?: number,

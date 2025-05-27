@@ -1,6 +1,6 @@
 {
   "name": "NoCloud",
-  "version": "2025.01.1",
+  "version": "2025.05.27",
   "description": "Self-contained control webinterface for vacuum robots",
   "license": "Apache-2.0",
   "engines": {
@@ -25,21 +25,21 @@
     "generate_eslintrc_flavors": "node util/generate_eslintrc_flavors.js"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "6.15.0",
-    "@typescript-eslint/experimental-utils": "5.62.0",
-    "@typescript-eslint/parser": "6.15.0",
-    "auto-changelog": "2.5.0",
-    "eslint": "8.56.0",
-    "eslint-plugin-jsdoc": "50.2.4",
-    "eslint-plugin-node": "11.1.0",
-    "eslint-plugin-react": "7.36.1",
-    "eslint-plugin-react-hooks": "4.6.2",
-    "eslint-plugin-regexp": "2.6.0",
-    "eslint-plugin-sort-keys-fix": "1.1.2",
+    "@typescript-eslint/eslint-plugin": "~6.15.0",
+    "@typescript-eslint/experimental-utils": "~5.62.0",
+    "@typescript-eslint/parser": "~6.15.0",
+    "auto-changelog": "~2.5.0",
+    "eslint": "~8.56.0",
+    "eslint-plugin-jsdoc": "~50.2.4",
+    "eslint-plugin-node": "~11.1.0",
+    "eslint-plugin-react": "~7.36.1",
+    "eslint-plugin-react-hooks": "~4.6.2",
+    "eslint-plugin-regexp": "~2.6.0",
+    "eslint-plugin-sort-keys-fix": "~1.1.2",
     "eslint-plugin-sort-requires": "git+https://npm@github.com/Hypfer/eslint-plugin-sort-requires.git#2.1.1",
     "swagger-jsdoc": "git+https://npm@github.com/Hypfer/swagger-jsdoc.git#7.0.0-rc.6-noyaml-monorepo-fix",
-    "swagger-parser": "10.0.3",
-    "typescript": "4.8.4",
+    "swagger-parser": "~10.0.3",
+    "typescript": "~4.8.4",
     "upx": "git+https://npm@github.com/DGAlexandru/upx#1.0.11"
   }
 }

@@ -201,7 +201,7 @@ enum QueryKey {
     NoCloudVersion = "NoCloud_version",
     ObstacleAvoidance = "obstacle_avoidance",
     ObstacleImages = "obstacle_image",
-    ObstacleImagesProperties = "obstacle_image_properties"
+    ObstacleImagesProperties = "obstacle_image_properties",
     PersistentMap = "persistent_map",
     PetObstacleAvoidance = "pet_obstacle_avoidance",
     PresetSelections = "preset_selections",

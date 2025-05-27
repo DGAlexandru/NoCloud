@@ -7,6 +7,10 @@ node_modules/
 # binary compilation output
 build/
 
+# build dependencies binary files experimental
+build_dependencies/pkg/v3.5/node-v*
+build_dependencies/pkg/v3.5/fetched-v*
+
 # IntelliJ Idea project files
 .idea/
 

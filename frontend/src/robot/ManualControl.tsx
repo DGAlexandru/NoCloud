@@ -1,3 +1,4 @@
+import Grid from "@mui/material/Grid2";
 import React, { useEffect, useRef, useCallback } from "react";
 import {
     Box,
@@ -22,7 +23,6 @@ import {
 import { useCapabilitiesSupported } from "../CapabilitiesProvider";
 import { useTheme } from "@mui/material/styles";
 import { FullHeightGrid } from "../components/FullHeightGrid";
-import { Grid } from "@mui/material/Grid2";
 import {
     ArrowDownward as ArrowDownwardIcon,
     ArrowUpward as ArrowUpwardIcon,
@@ -137,7 +137,7 @@ const ManualControlInternal: React.FunctionComponent = (): React.ReactElement =>
 
     return (
         <FullHeightGrid container direction="column">
-            <Grid2 flexGrow={1}>
+            <Grid flexGrow={1}>
                 <Box>
                     {
                         loading ?
@@ -153,7 +153,7 @@ const ManualControlInternal: React.FunctionComponent = (): React.ReactElement =>
                             )
                     }
                 </Box>
-            </Grid2>
+            </Grid>
         </FullHeightGrid>
     );
 };
@@ -272,7 +272,7 @@ const HighResolutionManualControlInternal: React.FunctionComponent = (): React.R
 
     return (
         <FullHeightGrid container direction="column">
-            <Grid2 flexGrow={1}>
+            <Grid flexGrow={1}>
                 <Box>
                     {
                         stateLoading ? (
@@ -287,7 +287,7 @@ const HighResolutionManualControlInternal: React.FunctionComponent = (): React.R
                         )
                     }
                 </Box>
-            </Grid2>
+            </Grid>
         </FullHeightGrid>
     );
 };
