@@ -1,10 +1,11 @@
 /* eslint-disable */
 const fs = require("fs");
 const UPX = require("upx");
+const glob = require("glob");
 
 const binaries = {
     armv7: {
-        base: "./build_dependencies/pkg/v3.5/built-v20.10.0-linuxstatic-armv7",
+        base: glob.sync("./build_dependencies/pkg/v3.5/fetched-*-linuxstatic-armv7")[0] ? glob.sync("./build_dependencies/pkg/v3.5/fetched-*-linuxstatic-armv7")[0] : "./build_dependencies/pkg/v3.5/built-v20.10.0-linuxstatic-armv7",
         built: "./build/armv7/NoCloud",
         out: "./build/armv7/NoCloud.upx",
         upx: UPX({
@@ -16,7 +17,7 @@ const binaries = {
         })
     },
     armv7_lowmem: {
-        base: "./build_dependencies/pkg/v3.5/built-v20.10.0-linuxstatic-armv7",
+        base: glob.sync("./build_dependencies/pkg/v3.5/fetched-*-linuxstatic-armv7")[0] ? glob.sync("./build_dependencies/pkg/v3.5/fetched-*-linuxstatic-armv7")[0] : "./build_dependencies/pkg/v3.5/built-v20.10.0-linuxstatic-armv7",
         built: "./build/armv7/NoCloud-lowmem",
         out: "./build/armv7/NoCloud-lowmem.upx",
         upx: UPX({
@@ -28,7 +29,7 @@ const binaries = {
         })
     },
     aarch64: {
-        base: "./build_dependencies/pkg/v3.5/built-v20.10.0-linuxstatic-arm64",
+        base: glob.sync("./build_dependencies/pkg/v3.5/fetched-*-linuxstatic-arm64")[0] ? glob.sync("./build_dependencies/pkg/v3.5/fetched-*-linuxstatic-arm64")[0] : "./build_dependencies/pkg/v3.5/built-v20.10.0-linuxstatic-arm64",
         built: "./build/aarch64/NoCloud",
         out: "./build/aarch64/NoCloud.upx",
         upx: UPX({
