@@ -260,7 +260,7 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
 
         [
             capabilities.DreameVoicePackManagementCapability,
-            capabilities.DreameManualControlCapability,
+            capabilities.DreameHighResolutionManualControlCapability,
             capabilities.DreameDoNotDisturbCapability
         ].forEach(capability => {
             this.registerCapability(new capability({robot: this}));
