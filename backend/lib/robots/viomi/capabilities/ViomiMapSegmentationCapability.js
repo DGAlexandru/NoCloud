@@ -40,7 +40,7 @@ class ViomiMapSegmentationCapability extends MapSegmentationCapability {
                 min: 1,
                 max: 2
             },
-            customOrderSupport: false
+            customOrderSupported: false
         };
     }
 }

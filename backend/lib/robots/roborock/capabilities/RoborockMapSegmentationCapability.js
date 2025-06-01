@@ -35,7 +35,7 @@ class RoborockMapSegmentationCapability extends MapSegmentationCapability {
                 min: 1,
                 max: 3
             },
-            customOrderSupport: true
+            customOrderSupported: true
         };
     }
 }

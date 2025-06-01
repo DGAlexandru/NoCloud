@@ -219,7 +219,7 @@ export const SegmentCleanupActionControls: FunctionComponent<TimerActionControlP
             </FormControl>
             <Box pt={1} />
 
-            {segmentationProps.customOrderSupport && (
+            {segmentationProps.customOrderSupported && (
                 <FormControlLabel
                     sx={{userSelect: "none"}}
                     control={

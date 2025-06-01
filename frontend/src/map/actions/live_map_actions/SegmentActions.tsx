@@ -53,7 +53,7 @@ const SegmentActions = (
         executeSegmentAction({
             segment_ids: segments,
             iterations: iterationCount,
-            customOrder: mapSegmentationProperties?.customOrderSupport
+            customOrder: mapSegmentationProperties?.customOrderSupported
         });
     }, [canClean, didSelectSegments, executeSegmentAction, segments, iterationCount, mapSegmentationProperties]);
 
@@ -62,7 +62,7 @@ const SegmentActions = (
             action: "start_segment_action",
             segment_ids: segments,
             iterations: iterationCount ?? 1,
-            customOrder: mapSegmentationProperties?.customOrderSupport ?? false
+            customOrder: mapSegmentationProperties?.customOrderSupported ?? false
         }, null, 2));
 
         setIntegrationHelpDialogOpen(true);

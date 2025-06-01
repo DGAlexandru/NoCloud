@@ -25,7 +25,7 @@ class MockMapSegmentationCapability extends MapSegmentationCapability {
                 min: 1,
                 max: 2
             },
-            customOrderSupport: true
+            customOrderSupported: true
         };
     }
 

@@ -96,7 +96,7 @@ class DreameMapSegmentationCapability extends MapSegmentationCapability {
                 min: 1,
                 max: this.iterationsSupported
             },
-            customOrderSupport: this.customOrderSupported
+            customOrderSupported: this.customOrderSupported
         };
     }
 }

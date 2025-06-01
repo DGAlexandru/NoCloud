@@ -36,7 +36,7 @@ class MapSegmentationCapability extends Capability {
                 min: 1,
                 max: 1
             },
-            customOrderSupport: false
+            customOrderSupported: false
         };
     }
 
@@ -56,5 +56,5 @@ module.exports = MapSegmentationCapability;
  * @property {number} iterationCount.min
  * @property {number} iterationCount.max
  * 
- * @property {boolean} customOrderSupport
+ * @property {boolean} customOrderSupported
  */

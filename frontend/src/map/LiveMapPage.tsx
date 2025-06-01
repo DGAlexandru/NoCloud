@@ -91,7 +91,7 @@ const LiveMapPage = (props: Record<string, never> ): React.ReactElement => {
     return <LiveMap
         rawMap={mapData}
         theme={theme}
-        trackSegmentSelectionOrder={mapSegmentationProperties ? mapSegmentationProperties.customOrderSupport : false}
+        trackSegmentSelectionOrder={mapSegmentationProperties ? mapSegmentationProperties.customOrderSupported : false}
 
         supportedCapabilities={{
             [Capability.MapSegmentation]: mapSegmentationCapabilitySupported,
