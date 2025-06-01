@@ -4,14 +4,21 @@ class NoCloudDataPoint extends SerializableEntity {
     /**
      * @param {object} options
      * @param {object} [options.metaData]
-     * @param {Date} [options.timestamp]
+     * @param {string|Date} [options.timestamp] // Accepts string or Date
      * @param {NoCloudDataPointType} options.type
      * @param {number} options.value
      */
     constructor(options) {
         super(options);
 
-        this.timestamp = options.timestamp ?? new Date();
+        // Ensure timestamp is stored as a string in ISO8601 format
+        if (typeof options.timestamp === "string") {
+            this.timestamp = options.timestamp;
+        } else if (options.timestamp instanceof Date) {
+            this.timestamp = options.timestamp.toISOString();
+        } else {
+            this.timestamp = new Date().toISOString();
+        }
 
         this.type = options.type;
         this.value = options.value;

@@ -41,31 +41,34 @@ class DreameCurrentStatisticsCapability extends CurrentStatisticsCapability {
         }));
 
         if (response) {
-            return response.filter(elem => {
-                return elem?.code === 0;
-            })
-                .map(elem => {
-                    return this.parseTotalStatisticsMessage(elem);
-                })
-                .filter(elem => {
-                    return elem instanceof NoCloudDataPoint;
-                });
+            return response
+                .filter(elem => elem?.code === 0)
+                .map(elem => this.parseTotalStatisticsMessage(elem))
+                .filter(elem => elem instanceof NoCloudDataPoint);
         } else {
             throw new Error("Failed to fetch total statistics");
         }
     }
 
-
+    /**
+     * @param {object} msg
+     * @return {NoCloudDataPoint|undefined}
+     */
     parseTotalStatisticsMessage(msg) {
+        // Use current time as timestamp; if msg has a timestamp, use it instead (make sure to convert to string if necessary)
+        const timestamp = new Date().toISOString();
+
         if (msg.siid === this.miot_properties.time.siid && msg.piid === this.miot_properties.time.piid) {
             return new NoCloudDataPoint({
                 type: NoCloudDataPoint.TYPES.TIME,
-                value: msg.value * 60
+                value: msg.value * 60,
+                timestamp: timestamp
             });
         } else if (msg.siid === this.miot_properties.area.siid && msg.piid === this.miot_properties.area.piid) {
             return new NoCloudDataPoint({
                 type: NoCloudDataPoint.TYPES.AREA,
-                value: msg.value * 10000
+                value: msg.value * 10000,
+                timestamp: timestamp
             });
         } else {
             Logger.warn("Unhandled current statistics message", msg);
