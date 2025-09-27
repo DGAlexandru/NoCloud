@@ -1,7 +1,31 @@
 /* eslint-disable */
 const fs = require("fs");
+const path = require("path");
 const UPX = require("upx");
 const glob = require("glob");
+
+const upxBinDir = path.join(process.cwd(), "node_modules", "upx", "bin");
+
+// Ensure UPX bundled binaries are executable (important on CI Linux runners)
+try {
+  if (fs.existsSync(upxBinDir)) {
+    const upxFiles = fs.readdirSync(upxBinDir);
+    upxFiles.forEach(f => {
+      const p = path.join(upxBinDir, f);
+      try {
+        // 0o755 should be enough; original 0o777 is "too much"
+        fs.chmodSync(p, 0o755);
+      } catch (err) {
+        console.warn(`Warning: failed to chmod ${p}: ${err.message}`);
+      }
+    });
+    console.log(`Set exec bit on ${upxFiles.length} upx files in ${upxBinDir}`);
+  } else {
+    console.warn(`UPX bin dir not found at ${upxBinDir}`);
+  }
+} catch (err) {
+  console.warn("Could not ensure UPX binary is executable:", err.message);
+}
 
 const binaries = {
     armv7: {
@@ -43,17 +67,26 @@ const binaries = {
 };
 
 /**
- * There is absolutely no error handling in here. Great :)
+ * Added some error handling.
  *
- * Note that this only works with patched base binaries
+ * Also, as UPX version has been updated, it should also work with non-patched NodeJS base binaries
  */
 console.log("Starting UPX compression");
 
-Object.values(binaries).forEach(async (b,i) => {
+(async () => {
+  for (const [name, b] of Object.entries(binaries)) {
     console.log("Compressing " + b.built);
-    const name = Object.keys(binaries)[i];
-
     console.time(name);
+
+    // defensive checks
+    if (!fs.existsSync(b.base)) {
+      console.error(`Base file not found: ${b.base}`);
+      continue;
+    }
+    if (!fs.existsSync(b.built)) {
+      console.error(`Built file not found: ${b.built}`);
+      continue;
+    }
 
     const baseSize = fs.readFileSync(b.base).length;
     const built = fs.readFileSync(b.built);
@@ -61,21 +94,27 @@ Object.values(binaries).forEach(async (b,i) => {
     const runtime = built.subarray(0, baseSize);
     const payload = built.subarray(baseSize);
 
-    // UPX will reject files without the executable bit on linux. Also, default mode is 666
-    fs.writeFileSync(b.out + "_runtime", runtime, {mode: 0o777});
+    // UPX will reject files without the executable bit on linux. Default mode is 0o666
+    const runtimePath = b.out + "_runtime";
+    fs.writeFileSync(runtimePath, runtime, { mode: 0o755 });
 
-    const upxResult = await b.upx(b.out + "_runtime").start();
+    try {
+      const upxResult = await b.upx(runtimePath).start();
 
-    console.log("Compressed " + b.built + " from " + upxResult.fileSize.before + " to " + upxResult.fileSize.after + ". Ratio: " + upxResult.ratio);
+      console.log("Compressed " + b.built + " from " + upxResult.fileSize.before + " to " + upxResult.fileSize.after + ". Ratio: " + upxResult.ratio);
 
-    const compressedRuntime = fs.readFileSync(b.out + "_runtime");
-    fs.unlinkSync(b.out + "_runtime");
+      const compressedRuntime = fs.readFileSync(runtimePath);
+      try { fs.unlinkSync(runtimePath); } catch (e) { /* ignore */ }
 
-    const fullNewBinary = Buffer.concat([compressedRuntime, payload]);
+      const fullNewBinary = Buffer.concat([compressedRuntime, payload]);
 
-    fs.writeFileSync(b.out, fullNewBinary, {mode: 0o777});
+      fs.writeFileSync(b.out, fullNewBinary, { mode: 0o755 });
 
-    console.log("Successfully wrote " + b.out);
-    console.timeEnd(name);
-});
-
+      console.log("Successfully wrote " + b.out);
+    } catch (err) {
+      console.error("UPX compression failed for", b.built, ":", err && err.message ? err.message : err);
+    } finally {
+      console.timeEnd(name);
+    }
+  }
+})();
