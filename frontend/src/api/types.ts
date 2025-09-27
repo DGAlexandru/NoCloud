@@ -77,7 +77,7 @@ export interface MapSegmentationProperties {
         min: number;
         max: number;
     };
-    customOrderSupport: boolean;
+    customOrderSupported: boolean;
 }
 
 export interface Segment {
