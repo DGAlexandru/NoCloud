@@ -65,6 +65,7 @@
     "@types/react": "~18.3.8",
     "@types/react-dom": "~18.3.0",
     "@types/uuid": "~10.0.0",
+    "ajv": "^8.17.1",
     "tsutils": "~3.21.0",
     "cra-build-watch": "git+https://npm@github.com/DGAlexandru/cra-build-watch.git#5.0.0"
   },
