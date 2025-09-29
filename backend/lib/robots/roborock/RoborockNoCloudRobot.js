@@ -13,7 +13,6 @@ const MiioDummycloudNotConnectedError = require("../../miio/MiioDummycloudNotCon
 const MiioNoCloudRobot = require("../MiioNoCloudRobot");
 const PendingMapChangeNoCloudEvent = require("../../NoCloud_events/events/PendingMapChangeNoCloudEvent");
 const NoCloudMap = require("../../entities/map/NoCloudMap");
-const NoCloudRobot = require("../../core/NoCloudRobot");
 const NoCloudRobotError = require("../../entities/core/NoCloudRobotError");
 const NoCloudSelectionPreset = require("../../entities/core/NoCloudSelectionPreset");
 
@@ -485,7 +484,7 @@ class RoborockNoCloudRobot extends MiioNoCloudRobot {
                     repollSeconds += 1;
                 } else {
                     // This fixes the map not being available on boot for another 60 seconds
-                    repollSeconds = MiioNoCloudRobot.MAP_POLLING_INTERVALS.ACTIVE;
+                    repollSeconds = RoborockNoCloudRobot.MAP_POLLING_INTERVALS.ACTIVE;
                 }
             }
         }
@@ -596,7 +595,7 @@ class RoborockNoCloudRobot extends MiioNoCloudRobot {
             const firmwareVersion = this.getFirmwareVersion();
 
             if (firmwareVersion) {
-                ourProps[NoCloudRobot.WELL_KNOWN_PROPERTIES.FIRMWARE_VERSION] = firmwareVersion;
+                ourProps[RoborockNoCloudRobot.WELL_KNOWN_PROPERTIES.FIRMWARE_VERSION] = firmwareVersion;
             }
         }
 

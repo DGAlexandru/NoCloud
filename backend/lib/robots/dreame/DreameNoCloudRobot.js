@@ -17,7 +17,6 @@ const MiioNoCloudRobot = require("../MiioNoCloudRobot");
 const MopAttachmentReminderNoCloudEvent = require("../../NoCloud_events/events/MopAttachmentReminderNoCloudEvent");
 const PendingMapChangeNoCloudEvent = require("../../NoCloud_events/events/PendingMapChangeNoCloudEvent");
 const NoCloudMap = require("../../entities/map/NoCloudMap");
-const NoCloudRobot = require("../../core/NoCloudRobot");
 const NoCloudRobotError = require("../../entities/core/NoCloudRobotError");
 
 const stateAttrs = entities.state.attributes;
@@ -283,7 +282,7 @@ class DreameNoCloudRobot extends MiioNoCloudRobot {
             const firmwareVersion = this.getFirmwareVersion();
 
             if (firmwareVersion.valid) {
-                ourProps[NoCloudRobot.WELL_KNOWN_PROPERTIES.FIRMWARE_VERSION] = firmwareVersion.arm;
+                ourProps[DreameNoCloudRobot.WELL_KNOWN_PROPERTIES.FIRMWARE_VERSION] = firmwareVersion.arm;
             }
         }
 

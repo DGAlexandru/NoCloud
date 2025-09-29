@@ -7,7 +7,6 @@ const Logger = require("../../Logger");
 const miioCapabilities = require("../common/miioCapabilities");
 const MiioNoCloudRobot = require("../MiioNoCloudRobot");
 const ThreeIRobotixMapParser = require("../3irobotix/ThreeIRobotixMapParser");
-const NoCloudRobot = require("../../core/NoCloudRobot");
 const NoCloudRobotError = require("../../entities/core/NoCloudRobotError");
 const NoCloudSelectionPreset = require("../../entities/core/NoCloudSelectionPreset");
 
@@ -561,7 +560,7 @@ class ViomiNoCloudRobot extends MiioNoCloudRobot {
             const firmwareVersion = this.getFirmwareVersion();
 
             if (firmwareVersion) {
-                ourProps[NoCloudRobot.WELL_KNOWN_PROPERTIES.FIRMWARE_VERSION] = firmwareVersion;
+                ourProps[ViomiNoCloudRobot.WELL_KNOWN_PROPERTIES.FIRMWARE_VERSION] = firmwareVersion;
             }
         }
 

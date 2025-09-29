@@ -94,7 +94,7 @@ class MockRobot extends NoCloudRobot {
     getProperties() {
         const superProps = super.getProperties();
         const ourProps = {
-            [NoCloudRobot.WELL_KNOWN_PROPERTIES.FIRMWARE_VERSION]: Tools.GET_NoCloud_VERSION()
+            [MockRobot.WELL_KNOWN_PROPERTIES.FIRMWARE_VERSION]: Tools.GET_NoCloud_VERSION()
         };
 
         return Object.assign(

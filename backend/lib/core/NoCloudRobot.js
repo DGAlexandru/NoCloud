@@ -7,9 +7,13 @@ const entities = require("../entities");
 const ErrorStateNoCloudEvent = require("../NoCloud_events/events/ErrorStateNoCloudEvent");
 const Logger = require("../Logger");
 const NotImplementedError = require("./NotImplementedError");
+const Semaphore = require("semaphore");
 const Tools = require("../utils/Tools");
 const {ConsumableStateAttribute, StatusStateAttribute} = require("../entities/state/attributes");
 
+/**
+ * @abstract
+ */
 class NoCloudRobot {
     /**
      *
@@ -32,6 +36,10 @@ class NoCloudRobot {
             lowmemHost: this.config.get("embedded") === true && Tools.IS_LOWMEM_HOST(),
             hugeMap: false
         };
+
+        this.mapPollMutex = Semaphore(1);
+        this.mapPollTimeout = undefined;
+        this.postActiveStateMapPollCooldownCredits = 0;
 
         this.initInternalSubscriptions();
     }
@@ -164,6 +172,86 @@ class NoCloudRobot {
         //intentional
     }
 
+    /**
+     *
+     * @protected
+     * @abstract
+     * @returns {Promise<any>}
+     */
+    async executeMapPoll() {
+        throw new NotImplementedError();
+    }
+
+    /**
+     * @protected
+     * @param {any} pollResponse Implementation specific
+     * @return {number} seconds
+     */
+    determineNextMapPollInterval(pollResponse) {
+        let repollSeconds = NoCloudRobot.MAP_POLLING_INTERVALS.DEFAULT;
+
+        let statusStateAttribute = this.state.getFirstMatchingAttribute({
+            attributeClass: StatusStateAttribute.name
+        });
+
+
+        let isActive = false;
+
+        if (statusStateAttribute && statusStateAttribute.isActiveState) {
+            isActive = true;
+            this.postActiveStateMapPollCooldownCredits = 3;
+        }
+
+        if (!isActive && this.postActiveStateMapPollCooldownCredits > 0) {
+            // Pretend that we're still in an active state to ensure that we catch map updates e.g. after docking
+            isActive = true;
+            this.postActiveStateMapPollCooldownCredits--;
+        }
+
+
+        if (isActive) {
+            repollSeconds = NoCloudRobot.MAP_POLLING_INTERVALS.ACTIVE;
+
+            if (this.flags.lowmemHost) {
+                repollSeconds *= 2;
+            }
+            if (this.flags.hugeMap) {
+                repollSeconds *= 2;
+            }
+        }
+
+        return repollSeconds;
+    }
+
+    /**
+     * @public
+     * @returns {void}
+     */
+    pollMap() {
+        this.mapPollMutex.take(() => {
+            let repollSeconds = NoCloudRobot.MAP_POLLING_INTERVALS.DEFAULT;
+
+            // Clear pending timeout, since we’re starting a new poll right now.
+            if (this.mapPollTimeout) {
+                clearTimeout(this.mapPollTimeout);
+
+                this.mapPollTimeout = undefined;
+            }
+
+            this.executeMapPoll().then((response) => {
+                repollSeconds = this.determineNextMapPollInterval(response);
+            }).catch(() => {
+                repollSeconds = NoCloudRobot.MAP_POLLING_INTERVALS.ERROR;
+            }).finally(() => {
+                this.mapPollTimeout = setTimeout(() => {
+                    this.pollMap();
+                }, repollSeconds * 1000);
+
+                this.mapPollMutex.leave();
+            });
+        });
+    }
+
 
     async shutdown() {
         //intentional
@@ -283,6 +371,13 @@ NoCloudRobot.WELL_KNOWN_PROPERTIES = {
     FIRMWARE_VERSION: "firmwareVersion"
 };
 
-const HUGE_MAP_THRESHOLD = 145 * 10000; //145m² in cm²
+NoCloudRobot.MAP_POLLING_INTERVALS = Object.freeze({
+    DEFAULT: 60,
+    ACTIVE: 2,
+    ERROR: 30
+});
+
+
+const HUGE_MAP_THRESHOLD = 145 * 10_000; //145m² in cm²
 
 module.exports = NoCloudRobot;
