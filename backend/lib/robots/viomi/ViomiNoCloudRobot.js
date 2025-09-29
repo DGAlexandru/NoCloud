@@ -509,8 +509,6 @@ class ViomiNoCloudRobot extends MiioNoCloudRobot {
         this.ephemeralState.vendorMapId = 0;
 
         super.clearNoCloudMap();
-
-        this.emitMapUpdated();
     }
 
     getManufacturer() {
