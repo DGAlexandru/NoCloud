@@ -288,7 +288,10 @@ class DreameL10SProUltraHeatNoCloudRobot extends DreameGen4NoCloudRobot {
     static IMPLEMENTATION_AUTO_DETECTION_HANDLER() {
         const deviceConf = MiioNoCloudRobot.READ_DEVICE_CONF(DreameNoCloudRobot.DEVICE_CONF_PATH);
 
-        return !!(deviceConf && deviceConf.model === "dreame.vacuum.r2338a");
+        return [
+            "dreame.vacuum.r2338a",
+            "dreame.vacuum.r2338",
+        ].includes(deviceConf?.model);
     }
 }
 
