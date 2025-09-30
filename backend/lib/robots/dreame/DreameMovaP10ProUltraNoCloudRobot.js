@@ -38,6 +38,28 @@ class DreameMovaP10ProUltraNoCloudRobot extends DreameGen4NoCloudRobot {
             )
         );
 
+        this.registerCapability(new capabilities.DreameMapSegmentationCapability({
+            robot: this,
+            miot_actions: {
+                start: {
+                    siid: DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.SIID,
+                    aiid: DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.ACTIONS.START.AIID
+                }
+            },
+            miot_properties: {
+                mode: {
+                    piid: DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.PROPERTIES.MODE.PIID
+                },
+                additionalCleanupParameters: {
+                    piid: DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.PROPERTIES.ADDITIONAL_CLEANUP_PROPERTIES.PIID
+                }
+            },
+            segmentCleaningModeId: 18,
+            iterationsSupported: 4,
+            customOrderSupported: true,
+            newOrder: true
+        }));
+
         const quirkFactory = new DreameQuirkFactory({
             robot: this
         });
