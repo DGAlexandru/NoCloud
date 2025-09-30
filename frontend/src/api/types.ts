@@ -5,6 +5,7 @@ export enum Capability {
     AutoEmptyDockAutoEmptyIntervalControl = "AutoEmptyDockAutoEmptyIntervalControlCapability",
     AutoEmptyDockManualTrigger = "AutoEmptyDockManualTriggerCapability",
     BasicControl = "BasicControlCapability",
+    CameraLightControl = "CameraLightControlCapability",
     CarpetModeControl = "CarpetModeControlCapability",
     CarpetSensorModeControl = "CarpetSensorModeControlCapability",
     CollisionAvoidantNavigation = "CollisionAvoidantNavigationControlCapability",

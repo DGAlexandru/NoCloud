@@ -1082,6 +1082,18 @@ export const sendMopExtensionControlState = async (enable: boolean): Promise<voi
     await fetchMopExtensionControlState(); //force status update; TODO: why do we need this???
 };
 
+export const fetchCameraLightControlState = async (): Promise<SimpleToggleState> => {
+    return NoCloudAPI
+        .get<SimpleToggleState>(`/robot/capabilities/${Capability.CameraLightControl}`)
+        .then(({ data }) => {
+            return data;
+        });
+};
+
+export const sendCameraLightControlState = async (enable: boolean): Promise<void> => {
+    await sendToggleMutation(Capability.CameraLightControl, enable);
+};
+
 export const fetchNoCloudCustomizations = async (): Promise<NoCloudCustomizations> => {
     return NoCloudAPI
         .get<NoCloudCustomizations>("/NoCloud/config/customizations")
@@ -1099,7 +1111,6 @@ export const sendNoCloudCustomizations = async (customizations: NoCloudCustomiza
             }
         });
 };
-
 
 export const sendCarpetSensorMode = async (payload: CarpetSensorModePayload): Promise<void> => {
     return NoCloudAPI

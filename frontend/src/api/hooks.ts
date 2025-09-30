@@ -17,6 +17,7 @@ import {
     fetchAutoEmptyDockAutoEmptyControlState,
     fetchAutoEmptyDockAutoEmptyInterval,
     fetchAutoEmptyDockAutoEmptyIntervalProperties,
+    fetchCameraLightControlState,
     fetchCapabilities,
     fetchCarpetModeState,
     fetchCarpetSensorMode,
@@ -78,6 +79,7 @@ import {
     sendAutoEmptyDockAutoEmptyInterval,
     sendAutoEmptyDockManualTriggerCommand,
     sendBasicControlCommand,
+    sendCameraLightControlState,
     sendCarpetModeEnable,
     sendCarpetSensorMode,
     sendCleanSegmentsCommand,
@@ -170,6 +172,7 @@ enum QueryKey {
     AutoEmptyDockAutoEmpty = "auto_empty_dock_auto_empty",
     AutoEmptyDockAutoEmptyInterval = "auto_empty_dock_auto_empty_interval",
     AutoEmptyDockAutoEmptyIntervalProperties = "auto_empty_dock_auto_empty_interval_properties",
+    CameraLightControl = "camera_light_control",
     Capabilities = "capabilities",
     CarpetMode = "carpet_mode",
     CarpetSensorMode = "carpet_sensor_mode",
@@ -1456,6 +1459,25 @@ export const useMopExtensionControlMutation = () => {
             return sendMopExtensionControlState(enable).then(fetchMopExtensionControlState);
         },
         onError: useOnCommandError(Capability.MopExtensionControl)
+    });
+};
+
+export const useCameraLightControlQuery = () => {
+    return useQuery( {
+        queryKey: [QueryKey.CameraLightControl],
+        queryFn: fetchCameraLightControlState,
+
+        staleTime: Infinity
+    });
+};
+
+export const useCameraLightControlMutation = () => {
+    return useNoCloudFetchingMutation({
+        queryKey: [QueryKey.CameraLightControl],
+        mutationFn: (enable: boolean) => {
+            return sendCameraLightControlState(enable).then(fetchCameraLightControlState);
+        },
+        onError: useOnCommandError(Capability.CameraLightControl)
     });
 };
 
