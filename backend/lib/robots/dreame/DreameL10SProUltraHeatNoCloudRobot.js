@@ -253,6 +253,10 @@ class DreameL10SProUltraHeatNoCloudRobot extends DreameGen4NoCloudRobot {
             }),
 
             {
+                siid: DreameGen2NoCloudRobot.MIOT_SERVICES.AUTO_EMPTY_DOCK.SIID,
+                piid: DreameGen2NoCloudRobot.MIOT_SERVICES.AUTO_EMPTY_DOCK.PROPERTIES.STATE.PIID
+            },
+            {
                 siid: DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.SIID,
                 piid: DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.PROPERTIES.MOP_DOCK_STATUS.PIID
             },

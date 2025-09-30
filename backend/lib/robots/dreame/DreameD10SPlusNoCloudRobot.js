@@ -152,6 +152,22 @@ class DreameD10SPlusNoCloudRobot extends DreameGen2LidarNoCloudRobot {
             type: entities.state.attributes.AttachmentStateAttribute.TYPE.MOP,
             attached: false
         }));
+
+        this.state.upsertFirstMatchingAttribute(new entities.state.attributes.DockStatusStateAttribute({
+            value: entities.state.attributes.DockStatusStateAttribute.VALUE.IDLE
+        }));
+    }
+
+    getStatePropertiesToPoll() {
+        const superProps = super.getStatePropertiesToPoll();
+
+        return [
+            ...superProps,
+            {
+                siid: DreameGen2NoCloudRobot.MIOT_SERVICES.AUTO_EMPTY_DOCK.SIID,
+                piid: DreameGen2NoCloudRobot.MIOT_SERVICES.AUTO_EMPTY_DOCK.PROPERTIES.STATE.PIID
+            }
+        ];
     }
 
     getModelName() {

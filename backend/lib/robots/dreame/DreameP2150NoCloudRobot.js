@@ -153,6 +153,11 @@ class DreameP2150NoCloudRobot extends DreameGen2LidarNoCloudRobot {
 
         return [
             ...superProps,
+
+            {
+                siid: DreameGen2NoCloudRobot.MIOT_SERVICES.AUTO_EMPTY_DOCK.SIID,
+                piid: DreameGen2NoCloudRobot.MIOT_SERVICES.AUTO_EMPTY_DOCK.PROPERTIES.STATE.PIID
+            },
             {
                 siid: DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.SIID,
                 piid: DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.PROPERTIES.MOP_DOCK_SETTINGS.PIID
