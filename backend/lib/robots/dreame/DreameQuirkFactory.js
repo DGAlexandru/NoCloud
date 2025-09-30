@@ -345,7 +345,7 @@ class DreameQuirkFactory {
                     id: id,
                     title: "Detergent",
                     description: "Select if the Dock should automatically add detergent to the water",
-                    options: ["On", "Off", "Missing detergent cartridge"],
+                    options: ["On", "Off", "Missing detergent cartridge", "You first need to dock the robot"],
                     getter: async () => {
                         const res = await this.helper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
@@ -372,7 +372,8 @@ class DreameQuirkFactory {
 
                                 return "On";
                             }
-
+                            case 6:
+                                return "You first need to dock the robot";
                             default:
                                 throw new Error(`Received invalid value ${res}`);
                         }
@@ -388,6 +389,8 @@ class DreameQuirkFactory {
                                 val = 1;
                                 break;
                             case "Missing detergent cartridge":
+                                throw new Error("This informational message is not a user-selectable option");
+                            case "You first need to dock the robot":
                                 throw new Error("This informational message is not a user-selectable option");
                             default:
                                 throw new Error(`Received invalid value ${value}`);
@@ -605,7 +608,7 @@ class DreameQuirkFactory {
                         }
                     }
                 });
-            case DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING:
+/*            case DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING:
                 return new Quirk({
                     id: id,
                     title: "Edge Extension: Mop",
@@ -661,12 +664,12 @@ class DreameQuirkFactory {
                             })
                         );
                     }
-                });
+                }); */
             case DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING_TWIST:
                 return new Quirk({
                     id: id,
                     title: "Edge Extension: Mop and twist",
-                    description: "When \"Edge Extension: Mop\" is enabled, twist the robot to further reach below furniture with overhangs.",
+                    description: "When \"Mop Extension\" is enabled, twist the robot to further reach below furniture with overhangs.",
                     options: ["On", "Off"],
                     getter: async () => {
                         const res = await this.helper.readProperty(
@@ -711,7 +714,7 @@ class DreameQuirkFactory {
                 return new Quirk({
                     id: id,
                     title: "Edge Extension: Mop for furniture legs",
-                    description: "When \"Edge Extension: Mop\" is enabled, also use it to better clean around small pillars like table legs.",
+                    description: "When \"Mop Extension\" is enabled, also use it to better clean around small pillars like table legs.",
                     options: ["On", "Off"],
                     getter: async () => {
                         const res = await this.helper.readProperty(
@@ -1036,7 +1039,7 @@ class DreameQuirkFactory {
                         );
                     }
                 });
-            case DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING_V2:
+/*            case DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING_V2:
                 return new Quirk({
                     id: id,
                     title: "Edge Extension: Mop",
@@ -1082,7 +1085,7 @@ class DreameQuirkFactory {
                             })
                         );
                     }
-                });
+                }); */
             case DreameQuirkFactory.KNOWN_QUIRKS.CAMERA_LIGHT:
                 return new Quirk({
                     id: id,
@@ -1383,10 +1386,10 @@ DreameQuirkFactory.KNOWN_QUIRKS = {
     MOP_DOCK_WATER_USAGE: "2d4ce805-ebf7-4dcf-b919-c5fe4d4f2de3",
     MOP_DOCK_WET_DRY_SWITCH: "66adac0f-0a16-4049-b6ac-080ef702bb39",
     MOP_DRYING_TIME: "516a1025-9c56-46e0-ac9b-a5007088d24a",
-    MOP_EXTEND_EDGE_MOPPING: "5e1bbac8-78d1-433e-9868-4229463e2761",
+    //MOP_EXTEND_EDGE_MOPPING: "5e1bbac8-78d1-433e-9868-4229463e2761",
     MOP_EXTEND_EDGE_MOPPING_FURNITURE_LEGS: "08658d53-5d7b-4bfd-a179-25ceb3c70fe2",
     MOP_EXTEND_EDGE_MOPPING_TWIST: "3759ae19-3723-4aad-a55e-4f9d8078185d",
-    MOP_EXTEND_EDGE_MOPPING_V2: "0c6dd70d-4a42-4400-a9ea-d4743015edbd",
+    //MOP_EXTEND_EDGE_MOPPING_V2: "0c6dd70d-4a42-4400-a9ea-d4743015edbd",
     SIDE_BRUSH_EXTEND: "e560d60c-76de-4ccc-8c01-8ccbcece850e",
     SIDE_BRUSH_ON_CARPET: "d23d7e7e-ef74-42a6-8a0a-4163742e437b",
     TIGHT_MOP_PATTERN: "8471c118-f1e1-4866-ad2e-3c11865a5ba8",

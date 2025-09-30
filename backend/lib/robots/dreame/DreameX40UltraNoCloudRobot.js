@@ -171,6 +171,7 @@ class DreameX40UltraNoCloudRobot extends DreameGen4NoCloudRobot {
             capabilities.DreameKeyLockCapability,
             capabilities.DreameMopDockCleanManualTriggerCapability,
             capabilities.DreameMopDockDryManualTriggerCapability,
+            capabilities.DreameMopExtensionControlCapabilityV2,
             capabilities.DreamePetObstacleAvoidanceControlCapability,
         ].forEach(capability => {
             this.registerCapability(new capability({robot: this}));
@@ -182,7 +183,7 @@ class DreameX40UltraNoCloudRobot extends DreameGen4NoCloudRobot {
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.CAMERA_LIGHT),							//"bba079c2-293b-4ad5-99b8-4102a1220b12" : ["On", "Off"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.CARPET_DETECTION_AUTO_DEEP_CLEANING),		//"9450a668-88d7-4ff3-9455-a78b485fb33b" : ["On", "Off"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.CARPET_MODE_SENSITIVITY),					//"f8cb91ab-a47a-445f-b300-0aac0d4937c0" : ["low", "medium", "high"]
-                //QuirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.CLEAN_ROUTE),								//"ce44b688-f8bc-43a4-b44d-6db0d003c859" : ["Standard", "Intensive", "Deep"]
+                //quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.CLEAN_ROUTE),								//"ce44b688-f8bc-43a4-b44d-6db0d003c859" : ["Standard", "Intensive", "Deep"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.CLEAN_ROUTE_WITH_QUICK),					//"924c82a8-1c3f-4363-9303-e6158e0ca41c" : ["Standard", "Intensive", "Deep", "Quick"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.DETACH_MOPS),								//"4a52e16b-3c73-479d-b308-7f0bbdde0884" : ["On", "Off"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.DRAIN_INTERNAL_WATER_TANK),				//"3e1b0851-3a5a-4943-bea6-dea3d7284bff" : ["select_to_trigger", "trigger"]
@@ -195,15 +196,15 @@ class DreameX40UltraNoCloudRobot extends DreameGen4NoCloudRobot {
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_HIGH_RES_WATER_HEATER),			//"68c10990-8e38-4d79-8ef4-84a506752b0e" : ["off", "low", "medium", "high"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_MOP_CLEANING_FREQUENCY),			//"a6709b18-57af-4e11-8b4c-8ae33147ab34" : ["every_segment", "every_5_m2", "every_10_m2", "every_15_m2", "every_20_m2", "every_25_m2"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_MOP_ONLY_MODE),					//"6afbb882-c4c4-4672-b008-887454e6e0d1" : ["Vacuum and Mop", "Mop only", "Vacuum only", "Vacuum then Mop"]
-                //QuirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_UV_TREATMENT),					//"7f97b603-967f-44f0-9dfb-35bcdc21f433" : ["On", "Off"]
-                //QuirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_WATER_HEATER),					//"d6f07d8a-5708-478e-925f-42db1b58d016" : ["On", "Off"]
+                //quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_UV_TREATMENT),					//"7f97b603-967f-44f0-9dfb-35bcdc21f433" : ["On", "Off"]
+                //quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_WATER_HEATER),					//"d6f07d8a-5708-478e-925f-42db1b58d016" : ["On", "Off"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_WATER_USAGE),					//"2d4ce805-ebf7-4dcf-b919-c5fe4d4f2de3" : ["low", "medium", "high"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_WET_DRY_SWITCH),					//"66adac0f-0a16-4049-b6ac-080ef702bb39" : ["Wet", "Dry"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DRYING_TIME),							//"516a1025-9c56-46e0-ac9b-a5007088d24a" : ["1h", "2h", "3h", "4h"]
-                //QuirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING),					//"5e1bbac8-78d1-433e-9868-4229463e2761" : ["off", "automatic", "each_cleanup", "every_7_days"]
+                //quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING),					//"5e1bbac8-78d1-433e-9868-4229463e2761" : ["off", "automatic", "each_cleanup", "every_7_days"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING_FURNITURE_LEGS),	//"08658d53-5d7b-4bfd-a179-25ceb3c70fe2" : ["On", "Off"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING_TWIST),			//"3759ae19-3723-4aad-a55e-4f9d8078185d" : ["On", "Off"]
-                quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING_V2),				//"0c6dd70d-4a42-4400-a9ea-d4743015edbd" : ["On", "Off"]
+                //quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING_V2),				//"0c6dd70d-4a42-4400-a9ea-d4743015edbd" : ["On", "Off"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.SIDE_BRUSH_EXTEND),						//"e560d60c-76de-4ccc-8c01-8ccbcece850e" : ["On", "Off"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.SIDE_BRUSH_ON_CARPET),					//"d23d7e7e-ef74-42a6-8a0a-4163742e437b" : ["On", "Off"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.TIGHT_MOP_PATTERN),						//"8471c118-f1e1-4866-ad2e-3c11865a5ba8" : ["On", "Off"]
@@ -280,6 +281,7 @@ class DreameX40UltraNoCloudRobot extends DreameGen4NoCloudRobot {
         const deviceConf = MiioNoCloudRobot.READ_DEVICE_CONF(DreameNoCloudRobot.DEVICE_CONF_PATH);
 
         return [
+            "dreame.vacuum.r2416",  // International / Base X40 Ultra model
             "dreame.vacuum.r2416a", // EU X40 Ultra
             "dreame.vacuum.r2416c", // US X40 Ultra
             "dreame.vacuum.r2416h", // X40 Ultra
