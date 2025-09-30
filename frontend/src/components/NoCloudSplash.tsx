@@ -10,23 +10,26 @@ const NoCloudSplash = (): React.ReactElement => {
             container
             sx={{
                 width: "90%",
-                height: "50%",
-                margin: "auto",
-                marginTop: "25%",
-                marginBottom: "25%",
+                height: "100vh",
+                margin: "0 auto",
                 maxWidth: "600px",
-                minHeight: "90%",
             }}
             direction="column"
             alignItems="center"
-            justifyContent="center"
+            justifyContent="flex-start"
+            paddingTop="20vh"
         >
             <Grid
+                sx={{
+                    width: "90%",
+                    maxWidth: "270px"
+                }}
             >
                 <SplashLogo
                     style={{
-                        width: "90%",
-                        marginLeft: "5%"
+                        width: "100%",
+                        height: "auto",
+                        display: "block"
                     }}
                 />
             </Grid>
