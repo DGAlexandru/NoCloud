@@ -201,6 +201,8 @@ class RoborockNoCloudRobot extends MiioNoCloudRobot {
 
                 return true;
             case "event.back_to_dock":
+            case "event.back_to_origin_fail":
+            case "event.back_to_origin_succ":
             case "event.clean_complete":
             case "event.consume_material_notify":
             case "event.error_code":
