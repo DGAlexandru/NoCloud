@@ -1069,6 +1069,19 @@ export const sendMopDockDryManualTriggerCommand = async (
     );
 };
 
+export const fetchMopExtensionControlState = async (): Promise<SimpleToggleState> => {
+    return NoCloudAPI
+        .get<SimpleToggleState>(`/robot/capabilities/${Capability.MopExtensionControl}`)
+        .then(({ data }) => {
+            return data;
+        });
+};
+
+export const sendMopExtensionControlState = async (enable: boolean): Promise<void> => {
+    await sendToggleMutation(Capability.MopExtensionControl, enable);
+    await fetchMopExtensionControlState(); //force status update; TODO: why do we need this???
+};
+
 export const fetchNoCloudCustomizations = async (): Promise<NoCloudCustomizations> => {
     return NoCloudAPI
         .get<NoCloudCustomizations>("/NoCloud/config/customizations")

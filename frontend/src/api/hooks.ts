@@ -38,6 +38,7 @@ import {
     fetchManualControlState,
     fetchMap,
     fetchMapSegmentationProperties,
+    fetchMopExtensionControlState,
     fetchNTPClientConfiguration,
     fetchNTPClientStatus,
     fetchNetworkAdvertisementConfiguration,
@@ -97,6 +98,7 @@ import {
     sendMapReset,
     sendMopDockCleanManualTriggerCommand,
     sendMopDockDryManualTriggerCommand,
+    sendMopExtensionControlState,
     sendNTPClientConfiguration,
     sendNetworkAdvertisementConfiguration,
     sendNoCloudCustomizations,
@@ -191,6 +193,7 @@ enum QueryKey {
     ManualControlProperties = "manual_control_properties",
     Map = "map",
     MapSegmentationProperties = "map_segmentation_properties",
+    MopExtensionControl = "mop_extension_control",
     NTPClientConfiguration = "ntp_client_configuration",
     NTPClientStatus = "ntp_client_status",
     NetworkAdvertisementConfiguration = "network_advertisement_configuration",
@@ -1434,6 +1437,25 @@ export const useMopDockDryManualTriggerMutation = () => {
                 updatedAt: Date.now(),
             });
         },
+    });
+};
+
+export const useMopExtensionControlQuery = () => {
+    return useQuery( {
+        queryKey: [QueryKey.MopExtensionControl],
+        queryFn: fetchMopExtensionControlState,
+
+        staleTime: Infinity
+    });
+};
+
+export const useMopExtensionControlMutation = () => {
+    return useNoCloudFetchingMutation({
+        queryKey: [QueryKey.MopExtensionControl],
+        mutationFn: (enable: boolean) => {
+            return sendMopExtensionControlState(enable).then(fetchMopExtensionControlState);
+        },
+        onError: useOnCommandError(Capability.MopExtensionControl)
     });
 };
 

@@ -26,6 +26,7 @@ export enum Capability {
     MappingPass = "MappingPassCapability",
     MopDockCleanManualTrigger = "MopDockCleanManualTriggerCapability",
     MopDockDryManualTrigger = "MopDockDryManualTriggerCapability",
+    MopExtensionControl = "MopExtensionControlCapability",
     ObstacleAvoidanceControl = "ObstacleAvoidanceControlCapability",
     ObstacleImages = "ObstacleImagesCapability",
     OperationModeControl = "OperationModeControlCapability",
