@@ -608,7 +608,7 @@ class DreameQuirkFactory {
                         }
                     }
                 });
-/*            case DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING:
+            /*case DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING:
                 return new Quirk({
                     id: id,
                     title: "Edge Extension: Mop",
@@ -1039,7 +1039,7 @@ class DreameQuirkFactory {
                         );
                     }
                 });
-/*            case DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING_V2:
+            /*case DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING_V2:
                 return new Quirk({
                     id: id,
                     title: "Edge Extension: Mop",
@@ -1086,7 +1086,7 @@ class DreameQuirkFactory {
                         );
                     }
                 }); */
-/*            case DreameQuirkFactory.KNOWN_QUIRKS.CAMERA_LIGHT:
+            /*case DreameQuirkFactory.KNOWN_QUIRKS.CAMERA_LIGHT:
                 return new Quirk({
                     id: id,
                     title: "Camera light",

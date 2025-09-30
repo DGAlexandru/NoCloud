@@ -36,7 +36,7 @@ class DreameMovaS20UltraNoCloudRobot extends DreameGen4NoCloudRobot {
                 },
                 options,
             )
-       );
+        );
 
         this.registerCapability(new capabilities.DreameMapSegmentationCapability({
             robot: this,
