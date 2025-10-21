@@ -1,12 +1,12 @@
 <div align="center">
-    <img src="https://github.com/DGAlexandru/NoCloud/blob/master/assets/logo/NoCloud_logo_with_name.svg" width="800" alt="NoCloud">
+    <img src="https://github.com/DGAlexandru/NoCloud/blob/main/assets/logo/NoCloud_logo_with_name.svg" width="800" alt="NoCloud">
     <p align="center"><h2>Free your vacuum from the cloud</h2></p>
 </div>
 
 NoCloud is a cloud replacement for vacuum robots enabling local-only operation. It is not a custom firmware.<br/>
 Here's a diagram illustrating the core operation principle:
 
-[<img src="https://github.com/DGAlexandru/NoCloud/raw/master/docs/_pages/general/img/operation_principle.png" height=450>](https://github.com/DGAlexandru/NoCloud/raw/master/docs/_pages/general/img/operation_principle.png)
+[<img src="https://github.com/DGAlexandru/NoCloud/raw/main/docs/_pages/general/img/operation_principle.png" height=450>](https://github.com/DGAlexandru/NoCloud/raw/main/docs/_pages/general/img/operation_principle.png)
 
 Because NoCloud is not a custom firmware, it cannot change anything about how the robot operates.<br/>
 What it can do however is protect your data and enable you to connect your robot
@@ -79,7 +79,14 @@ When it comes to software development, _everyone_ has access to infinite plots o
 Therefore, a garden being build with a specific vision does not take away the ability for anyone else to build their own garden with a different vision.
 
 ## Further questions?
-[Valetudo Telegram group](https://t.me/+2MsKV8kILxJhNDAy)
+1. [dust_announce - Very low frequency updates about Valetudo and Rooting](https://t.me/dust_announce)
+
+2. [Valetudo Telegram group](https://t.me/+2MsKV8kILxJhNDAy)
+
+Be aware that there is an automod active on Telegram that will automatically kick users without a username and/or a screen name with less than 2 characters.
+If you're unable to join, make sure that your account passes those requirements, as they are necessary for the moderation tools to work.
+
+Any other mediums such as IRC, Matrix or Reddit are unofficial channels not connected to the project and might contain incorrect or outdated information.
 
 ## Contributing
 
