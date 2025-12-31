@@ -755,7 +755,7 @@ class DreameQuirkFactory {
                         );
                     }
                 });
-            /*case DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_WATER_HEATER:
+                /*case DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_WATER_HEATER:
                 return new Quirk({
                     id: id,
                     title: "Mop Dock Water Heater",
