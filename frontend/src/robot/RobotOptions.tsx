@@ -634,12 +634,6 @@ const RobotOptions = (): React.ReactElement => {
             );
         }
 
-        if (mopDockMopWashTemperatureControlSupported) {
-            items.push(
-                <MopDockMopWashTemperatureControlCapabilitySelectListMenuItem key={"mopDockMopWashTemperatureControl"}/>
-            );
-        }
-
         if (mopExtensionControlCapabilitySupported) {
             items.push(
                 <MopExtensionControlCapabilitySwitchListMenuItem key={"mopExtensionControl"}/>
@@ -652,7 +646,6 @@ const RobotOptions = (): React.ReactElement => {
         carpetModeControlCapabilitySupported,
         carpetSensorModeControlCapabilitySupported,
         collisionAvoidantNavigationControlCapabilitySupported,
-        mopDockMopWashTemperatureControlSupported,
         mopExtensionControlCapabilitySupported,
         obstacleAvoidanceControlCapabilitySupported,
         obstacleImagesSupported,
@@ -668,9 +661,16 @@ const RobotOptions = (): React.ReactElement => {
             );
         }
 
+        if (mopDockMopWashTemperatureControlSupported) {
+            items.push(
+                <MopDockMopWashTemperatureControlCapabilitySelectListMenuItem key={"mopDockMopWashTemperatureControl"}/>
+            );
+        }
+
         return items;
     }, [
-        autoEmptyDockAutoEmptyIntervalControlCapabilitySupported
+        autoEmptyDockAutoEmptyIntervalControlCapabilitySupported,
+        mopDockMopWashTemperatureControlSupported,
     ]);
 
     const miscListItems = React.useMemo(() => {
