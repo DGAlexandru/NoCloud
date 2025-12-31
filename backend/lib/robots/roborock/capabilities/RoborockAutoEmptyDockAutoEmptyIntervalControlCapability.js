@@ -1,7 +1,7 @@
 const AutoEmptyDockAutoEmptyIntervalControlCapability = require("../../../core/capabilities/AutoEmptyDockAutoEmptyIntervalControlCapability");
 
 /**
- * @extends AutoEmptyDockAutoEmptyIntervalControlCapability<import("../RoborockValetudoRobot")>
+ * @extends AutoEmptyDockAutoEmptyIntervalControlCapability<import("../RoborockNoCloudRobot")>
  */
 class RoborockAutoEmptyDockAutoEmptyIntervalControlCapability extends AutoEmptyDockAutoEmptyIntervalControlCapability {
     async getInterval() {
