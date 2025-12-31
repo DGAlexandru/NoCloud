@@ -47,6 +47,13 @@
     "@typescript-eslint/no-non-null-assertion": "off",
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "brace-style": [
+      "error",
+      "1tbs",
+      {
+	    "allowSingleLine": true
+      }
+    ]
   }
 }

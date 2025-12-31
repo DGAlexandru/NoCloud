@@ -50,7 +50,10 @@
     "react/prop-types": "off",
     "brace-style": [
       "error",
-      "1tbs"
+      "1tbs",
+      {
+	    "allowSingleLine": true
+      }
     ],
     "no-trailing-spaces": [
       "error",
