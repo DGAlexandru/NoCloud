@@ -9,7 +9,7 @@ order: 8
 This page shall help you start using NoCloud. Make sure that you've read the [newcomer guide](https://Valetudo.Cloud/pages/general/newcomer-guide.html).
 If you haven't done that already please do so and then come back here.
 
-You may also want to read the [Why NoCloud?](https://Valetudo.Cloud/pages/general/why-NoCloud.html) and [Why not NoCloud?](https://Valetudo.Cloud/pages/general/why-not-NoCloud.html)
+You may also want to read the [Why NoCloud?](https://Valetudo.Cloud/pages/general/why-NoCloud.html) and [Why not NoCloud?](https://Valetudo.Cloud/pages/general/why-not-Valetudo.html)
 pages before continuing with this guide.
 
 ## Table of Contents
@@ -60,10 +60,10 @@ and follow the instructions there after pressing the + button on the bottom righ
 With your NoCloud-enabled robot being connected to your home network, you can now start using it by simply opening
 its webinterface in the browser of your choice unless your choice is the Internet Explorer.
 
-If you don't know how to find said Webinterface, you can use the [android companion app](https://Valetudo.Cloud/pages/companion_apps/NoCloud_companion.html),
+If you don't know how to find said Webinterface, you can use the [android companion app](https://Valetudo.Cloud/pages/companion_apps/Valetudo_companion.html),
 which will autodiscover NoCloud instances on your network.
 
-[<img src="https://github.com/DGAlexandru/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-02.png" width=250>](https://github.com/DGAlexandru/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-02.png)
+[<img src="https://github.com/DGAlexandru/NoCloud-companion/raw/main/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-02.png" width=250>](https://github.com/DGAlexandru/NoCloud-companion/raw/main/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-02.png)
 
 If you're using a computer running Microsoft Windows, you can also open the explorer and navigate to "Network" where your new robot should also be autodiscovered.
 

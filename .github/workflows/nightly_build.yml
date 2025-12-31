@@ -67,4 +67,4 @@ jobs:
           destination-repository-name: NoCloud-nightly-builds
           destination-repository-username: DGAlexandru
           user-email: github_NoCloud_Nightly@yahoo.com
-          target-branch: master
+          target-branch: main
