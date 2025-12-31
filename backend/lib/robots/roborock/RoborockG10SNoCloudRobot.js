@@ -52,7 +52,7 @@ class RoborockG10SNoCloudRobot extends RoborockGen4NoCloudRobot {
         }));
 
         [
-            capabilities.RoborockAutoEmptyDockAutoEmptyControlCapability,
+            capabilities.RoborockAutoEmptyDockAutoEmptyIntervalControlCapability,
             capabilities.RoborockAutoEmptyDockManualTriggerCapability,
             capabilities.RoborockMopDockCleanManualTriggerCapability,
             capabilities.RoborockMopDockDryManualTriggerCapability,

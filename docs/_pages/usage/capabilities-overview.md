@@ -11,9 +11,9 @@ To support a growing list of robots with different sub- as well as supersets of 
 Although the names should be fairly self-explanatory, this page documents what each of them does.
 Your robot will probably have multiple but not all of these.
 
-## AutoEmptyDockAutoEmptyControlCapability <a id="AutoEmptyDockAutoEmptyControlCapability"></a>
+## AutoEmptyDockAutoEmptyIntervalControlCapability <a id="AutoEmptyDockAutoEmptyIntervalControlCapability"></a>
 
-This capability enables you to control if the robot should automatically auto-empty its dustbin into the auto-empty-dock
+This capability enables you to control if and how frequent the robot should automatically auto-empty its dustbin into the auto-empty-dock
 after a finished cleanup.
 
 ## AutoEmptyDockManualTriggerCapability <a id="AutoEmptyDockManualTriggerCapability"></a>

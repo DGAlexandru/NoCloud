@@ -51,7 +51,7 @@ class RoborockS7ProUltraNoCloudRobot extends RoborockGen4NoCloudRobot {
         }));
 
         [
-            capabilities.RoborockAutoEmptyDockAutoEmptyControlCapability,
+            capabilities.RoborockAutoEmptyDockAutoEmptyIntervalControlCapability,
             capabilities.RoborockAutoEmptyDockManualTriggerCapability,
             capabilities.RoborockMopDockCleanManualTriggerCapability,
             capabilities.RoborockKeyLockCapability,

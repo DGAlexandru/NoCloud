@@ -165,7 +165,6 @@ class DreameL10SProUltraHeatNoCloudRobot extends DreameGen4NoCloudRobot {
             capabilities.DreameAICameraGoToLocationCapability,
             capabilities.DreameAICameraLineLaserObstacleAvoidanceControlCapability,
             //capabilities.DreameAICameraObstacleAvoidanceControlCapability,
-            capabilities.DreameAutoEmptyDockAutoEmptyControlCapability,
             capabilities.DreameAutoEmptyDockAutoEmptyIntervalControlCapabilityV2,
             capabilities.DreameAutoEmptyDockManualTriggerCapability,
             capabilities.DreameCarpetModeControlCapability,

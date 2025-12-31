@@ -185,7 +185,6 @@ class DreameFullNoCloudRobot extends DreameGen4NoCloudRobot {
             capabilities.DreameAICameraGoToLocationCapability,
             capabilities.DreameAICameraLineLaserObstacleAvoidanceControlCapability,
             //capabilities.DreameAICameraObstacleAvoidanceControlCapability,
-            capabilities.DreameAutoEmptyDockAutoEmptyControlCapability,
             capabilities.DreameAutoEmptyDockAutoEmptyIntervalControlCapabilityV2,
             capabilities.DreameAutoEmptyDockManualTriggerCapability,
             capabilities.DreameCameraLightControlCapability,
@@ -194,6 +193,7 @@ class DreameFullNoCloudRobot extends DreameGen4NoCloudRobot {
             capabilities.DreameKeyLockCapability,
             capabilities.DreameMopDockCleanManualTriggerCapability,
             capabilities.DreameMopDockDryManualTriggerCapability,
+            capabilities.DreameMopDockMopWashTemperatureControlCapabilityV2,
             capabilities.DreameMopExtensionControlCapabilityV1,
             capabilities.DreameMopExtensionControlCapabilityV2,
             capabilities.DreamePetObstacleAvoidanceControlCapability,
@@ -217,7 +217,7 @@ class DreameFullNoCloudRobot extends DreameGen4NoCloudRobot {
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_AUTO_REPAIR_TRIGGER),			//"ae753798-aa4f-4b35-a60c-91e7e5ae76f3" : ["select_to_trigger", "trigger"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_CLEANING_PROCESS_TRIGGER),		//"42c7db4b-2cad-4801-a526-44de8944a41f" : ["select_to_trigger", "trigger"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_DETERGENT),						//"a2a03d42-c710-45e5-b53a-4bc62778589f" : ["On", "Off", "Missing detergent cartridge"]
-                quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_HIGH_RES_WATER_HEATER),			//"68c10990-8e38-4d79-8ef4-84a506752b0e" : ["off", "low", "medium", "high"]
+                //quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_HIGH_RES_WATER_HEATER),			//"68c10990-8e38-4d79-8ef4-84a506752b0e" : ["off", "low", "medium", "high"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_MOP_CLEANING_FREQUENCY),			//"a6709b18-57af-4e11-8b4c-8ae33147ab34" : ["every_segment", "every_5_m2", "every_10_m2", "every_15_m2", "every_20_m2", "every_25_m2"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_MOP_ONLY_MODE),					//"6afbb882-c4c4-4672-b008-887454e6e0d1" : ["Vacuum and Mop", "Mop only", "Vacuum only", "Vacuum then Mop"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_UV_TREATMENT),					//"7f97b603-967f-44f0-9dfb-35bcdc21f433" : ["On", "Off"]

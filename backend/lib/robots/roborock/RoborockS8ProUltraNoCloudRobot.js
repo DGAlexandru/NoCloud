@@ -52,7 +52,7 @@ class RoborockS8ProUltraNoCloudRobot extends RoborockGen4NoCloudRobot {
         }));
 
         [
-            capabilities.RoborockAutoEmptyDockAutoEmptyControlCapability,
+            capabilities.RoborockAutoEmptyDockAutoEmptyIntervalControlCapability,
             capabilities.RoborockAutoEmptyDockManualTriggerCapability,
             capabilities.RoborockMopDockDryManualTriggerCapability,
             capabilities.RoborockKeyLockCapability,

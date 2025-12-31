@@ -70,7 +70,6 @@ Don't take this as "Everything listed here will be 100% available and work all t
 
 Capability | <a href='#dreame_1c'>1C</a> | <a href='#dreame_1t'>1T</a> | <a href='#dreame_d10splus'>D10S Plus</a> | <a href='#dreame_d10spro'>D10S Pro</a> | <a href='#dreame_d9pro'>D9 Pro</a> | <a href='#dreame_d9'>D9</a> | <a href='#dreame_f9'>F9</a> | <a href='#dreame_l10pro'>L10 Pro</a> | <a href='#dreame_l10sproultraheat'>L10S Pro Ultra Heat</a> | <a href='#dreame_l10sultra'>L10S Ultra</a> | <a href='#dreame_l40ultra'>L40 Ultra</a> | <a href='#dreame_movap10proultra'>MOVA P10 Pro Ultra</a> | <a href='#dreame_movas20ultra'>MOVA S20 Ultra</a> | <a href='#dreame_movaz500'>MOVA Z500</a> | <a href='#dreame_p2148'>P2148</a> | <a href='#dreame_p2150'>P2150</a> | <a href='#dreame_w10pro'>W10 Pro</a> | <a href='#dreame_w10'>W10</a> | <a href='#dreame_x10'>X10+</a> | <a href='#dreame_x40master'>X40 Master</a> | <a href='#dreame_x40ultra'>X40 Ultra</a> | <a href='#dreame_z10pro'>Z10 Pro</a> | <a href='#roborock_g10s'>G10S</a> | <a href='#roborock_q7max'>Q7 Max</a> | <a href='#roborock_s4max'>S4 Max</a> | <a href='#roborock_s4'>S4</a> | <a href='#roborock_s5max'>S5 Max</a> | <a href='#roborock_s5'>S5</a> | <a href='#roborock_s6pure'>S6 Pure</a> | <a href='#roborock_s6'>S6</a> | <a href='#roborock_s7proultra'>S7 Pro Ultra</a> | <a href='#roborock_s7'>S7</a> | <a href='#roborock_s8proultra'>S8 Pro Ultra</a> | <a href='#roborock_s8'>S8</a> | <a href='#roborock_v1'>V1</a> | <a href='#viomi_v6'>V6</a> | <a href='#viomi_v7'>V7</a> | <a href='#viomi_v8'>V8</a>
 ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ----
-[AutoEmptyDockAutoEmptyControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyControlCapability) | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:green;">Yes</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:green;">Yes</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span>
 [AutoEmptyDockAutoEmptyIntervalControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyIntervalControlCapability) | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:green;">Yes</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:green;">Yes</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span>
 [AutoEmptyDockManualTriggerCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockManualTriggerCapability) | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:green;">Yes</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:green;">Yes</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span> | <span style="color:red;">No</span>
 [BasicControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#BasicControlCapability) | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span> | <span style="color:green;">Yes</span>
@@ -170,7 +169,6 @@ Capability | <a href='#dreame_1c'>1C</a> | <a href='#dreame_1t'>1T</a> | <a href
 ### D10S Plus<a id="dreame_d10splus"></a>
 
 #### This model supports the following capabilities:
-  - [AutoEmptyDockAutoEmptyControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyControlCapability)
   - [AutoEmptyDockAutoEmptyIntervalControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyIntervalControlCapability)
   - [AutoEmptyDockManualTriggerCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockManualTriggerCapability)
   - [BasicControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#BasicControlCapability)
@@ -354,7 +352,6 @@ Capability | <a href='#dreame_1c'>1C</a> | <a href='#dreame_1t'>1T</a> | <a href
 ### L10S Pro Ultra Heat<a id="dreame_l10sproultraheat"></a>
 
 #### This model supports the following capabilities:
-  - [AutoEmptyDockAutoEmptyControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyControlCapability)
   - [AutoEmptyDockAutoEmptyIntervalControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyIntervalControlCapability)
   - [AutoEmptyDockManualTriggerCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockManualTriggerCapability)
   - [BasicControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#BasicControlCapability)
@@ -395,7 +392,6 @@ Capability | <a href='#dreame_1c'>1C</a> | <a href='#dreame_1t'>1T</a> | <a href
 ### L10S Ultra<a id="dreame_l10sultra"></a>
 
 #### This model supports the following capabilities:
-  - [AutoEmptyDockAutoEmptyControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyControlCapability)
   - [AutoEmptyDockAutoEmptyIntervalControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyIntervalControlCapability)
   - [AutoEmptyDockManualTriggerCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockManualTriggerCapability)
   - [BasicControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#BasicControlCapability)
@@ -436,7 +432,6 @@ Capability | <a href='#dreame_1c'>1C</a> | <a href='#dreame_1t'>1T</a> | <a href
 ### L40 Ultra<a id="dreame_l40ultra"></a>
 
 #### This model supports the following capabilities:
-  - [AutoEmptyDockAutoEmptyControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyControlCapability)
   - [AutoEmptyDockAutoEmptyIntervalControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyIntervalControlCapability)
   - [AutoEmptyDockManualTriggerCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockManualTriggerCapability)
   - [BasicControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#BasicControlCapability)
@@ -477,7 +472,6 @@ Capability | <a href='#dreame_1c'>1C</a> | <a href='#dreame_1t'>1T</a> | <a href
 ### MOVA P10 Pro Ultra<a id="dreame_movap10proultra"></a>
 
 #### This model supports the following capabilities:
-  - [AutoEmptyDockAutoEmptyControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyControlCapability)
   - [AutoEmptyDockAutoEmptyIntervalControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyIntervalControlCapability)
   - [AutoEmptyDockManualTriggerCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockManualTriggerCapability)
   - [BasicControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#BasicControlCapability)
@@ -518,7 +512,6 @@ Capability | <a href='#dreame_1c'>1C</a> | <a href='#dreame_1t'>1T</a> | <a href
 ### MOVA S20 Ultra<a id="dreame_movas20ultra"></a>
 
 #### This model supports the following capabilities:
-  - [AutoEmptyDockAutoEmptyControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyControlCapability)
   - [AutoEmptyDockAutoEmptyIntervalControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyIntervalControlCapability)
   - [AutoEmptyDockManualTriggerCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockManualTriggerCapability)
   - [BasicControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#BasicControlCapability)
@@ -613,7 +606,6 @@ Capability | <a href='#dreame_1c'>1C</a> | <a href='#dreame_1t'>1T</a> | <a href
 ### P2150<a id="dreame_p2150"></a>
 
 #### This model supports the following capabilities:
-  - [AutoEmptyDockAutoEmptyControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyControlCapability)
   - [AutoEmptyDockAutoEmptyIntervalControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyIntervalControlCapability)
   - [AutoEmptyDockManualTriggerCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockManualTriggerCapability)
   - [BasicControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#BasicControlCapability)
@@ -714,7 +706,6 @@ Capability | <a href='#dreame_1c'>1C</a> | <a href='#dreame_1t'>1T</a> | <a href
 ### X10+<a id="dreame_x10"></a>
 
 #### This model supports the following capabilities:
-  - [AutoEmptyDockAutoEmptyControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyControlCapability)
   - [AutoEmptyDockAutoEmptyIntervalControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyIntervalControlCapability)
   - [AutoEmptyDockManualTriggerCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockManualTriggerCapability)
   - [BasicControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#BasicControlCapability)
@@ -753,7 +744,6 @@ Capability | <a href='#dreame_1c'>1C</a> | <a href='#dreame_1t'>1T</a> | <a href
 ### X40 Master<a id="dreame_x40master"></a>
 
 #### This model supports the following capabilities:
-  - [AutoEmptyDockAutoEmptyControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyControlCapability)
   - [AutoEmptyDockAutoEmptyIntervalControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyIntervalControlCapability)
   - [AutoEmptyDockManualTriggerCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockManualTriggerCapability)
   - [BasicControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#BasicControlCapability)
@@ -794,7 +784,6 @@ Capability | <a href='#dreame_1c'>1C</a> | <a href='#dreame_1t'>1T</a> | <a href
 ### X40 Ultra<a id="dreame_x40ultra"></a>
 
 #### This model supports the following capabilities:
-  - [AutoEmptyDockAutoEmptyControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyControlCapability)
   - [AutoEmptyDockAutoEmptyIntervalControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyIntervalControlCapability)
   - [AutoEmptyDockManualTriggerCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockManualTriggerCapability)
   - [BasicControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#BasicControlCapability)
@@ -835,7 +824,6 @@ Capability | <a href='#dreame_1c'>1C</a> | <a href='#dreame_1t'>1T</a> | <a href
 ### Z10 Pro<a id="dreame_z10pro"></a>
 
 #### This model supports the following capabilities:
-  - [AutoEmptyDockAutoEmptyControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyControlCapability)
   - [AutoEmptyDockAutoEmptyIntervalControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyIntervalControlCapability)
   - [AutoEmptyDockManualTriggerCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockManualTriggerCapability)
   - [BasicControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#BasicControlCapability)
@@ -871,7 +859,6 @@ Capability | <a href='#dreame_1c'>1C</a> | <a href='#dreame_1t'>1T</a> | <a href
 ### G10S<a id="roborock_g10s"></a>
 
 #### This model supports the following capabilities:
-  - [AutoEmptyDockAutoEmptyControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyControlCapability)
   - [AutoEmptyDockManualTriggerCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockManualTriggerCapability)
   - [BasicControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#BasicControlCapability)
   - [CarpetModeControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#CarpetModeControlCapability)
@@ -909,7 +896,6 @@ Capability | <a href='#dreame_1c'>1C</a> | <a href='#dreame_1t'>1T</a> | <a href
 ### Q7 Max<a id="roborock_q7max"></a>
 
 #### This model supports the following capabilities:
-  - [AutoEmptyDockAutoEmptyControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyControlCapability)
   - [AutoEmptyDockManualTriggerCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockManualTriggerCapability)
   - [BasicControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#BasicControlCapability)
   - [CarpetModeControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#CarpetModeControlCapability)
@@ -1106,7 +1092,6 @@ Capability | <a href='#dreame_1c'>1C</a> | <a href='#dreame_1t'>1T</a> | <a href
 ### S7 Pro Ultra<a id="roborock_s7proultra"></a>
 
 #### This model supports the following capabilities:
-  - [AutoEmptyDockAutoEmptyControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyControlCapability)
   - [AutoEmptyDockManualTriggerCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockManualTriggerCapability)
   - [BasicControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#BasicControlCapability)
   - [CarpetModeControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#CarpetModeControlCapability)
@@ -1140,7 +1125,6 @@ Capability | <a href='#dreame_1c'>1C</a> | <a href='#dreame_1t'>1T</a> | <a href
 ### S7<a id="roborock_s7"></a>
 
 #### This model supports the following capabilities:
-  - [AutoEmptyDockAutoEmptyControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyControlCapability)
   - [AutoEmptyDockManualTriggerCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockManualTriggerCapability)
   - [BasicControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#BasicControlCapability)
   - [CarpetModeControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#CarpetModeControlCapability)
@@ -1173,7 +1157,6 @@ Capability | <a href='#dreame_1c'>1C</a> | <a href='#dreame_1t'>1T</a> | <a href
 ### S8 Pro Ultra<a id="roborock_s8proultra"></a>
 
 #### This model supports the following capabilities:
-  - [AutoEmptyDockAutoEmptyControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyControlCapability)
   - [AutoEmptyDockManualTriggerCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockManualTriggerCapability)
   - [BasicControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#BasicControlCapability)
   - [CarpetModeControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#CarpetModeControlCapability)
@@ -1210,7 +1193,6 @@ Capability | <a href='#dreame_1c'>1C</a> | <a href='#dreame_1t'>1T</a> | <a href
 ### S8<a id="roborock_s8"></a>
 
 #### This model supports the following capabilities:
-  - [AutoEmptyDockAutoEmptyControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockAutoEmptyControlCapability)
   - [AutoEmptyDockManualTriggerCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#AutoEmptyDockManualTriggerCapability)
   - [BasicControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#BasicControlCapability)
   - [CarpetModeControlCapability](https://Valetudo.Cloud/pages/usage/capabilities-overview.html#CarpetModeControlCapability)

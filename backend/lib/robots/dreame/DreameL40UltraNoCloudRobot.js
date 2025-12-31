@@ -169,7 +169,6 @@ class DreameL40UltraNoCloudRobot extends DreameGen4NoCloudRobot {
         [
             capabilities.DreameAICameraGoToLocationCapability,
             capabilities.DreameAICameraLineLaserObstacleAvoidanceControlCapability,
-            capabilities.DreameAutoEmptyDockAutoEmptyControlCapability,
             capabilities.DreameAutoEmptyDockAutoEmptyIntervalControlCapabilityV2,
             capabilities.DreameAutoEmptyDockManualTriggerCapability,
             capabilities.DreameCameraLightControlCapability,

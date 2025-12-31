@@ -124,7 +124,6 @@ class DreameZ10ProNoCloudRobot extends DreameGen2LidarNoCloudRobot {
         [
             capabilities.DreameCarpetModeControlCapability,
             capabilities.DreameKeyLockCapability,
-            capabilities.DreameAutoEmptyDockAutoEmptyControlCapability,
             capabilities.DreameAutoEmptyDockManualTriggerCapability,
             capabilities.DreameLineLaserObstacleAvoidanceControlCapability,
             capabilities.DreameAutoEmptyDockAutoEmptyIntervalControlCapabilityV1

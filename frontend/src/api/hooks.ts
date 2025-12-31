@@ -12,7 +12,6 @@ import {
 import {
     BasicControlCommand,
     deleteTimer,
-    fetchAutoEmptyDockAutoEmptyControlState,
     fetchAutoEmptyDockAutoEmptyInterval,
     fetchAutoEmptyDockAutoEmptyIntervalProperties,
     fetchCameraLightControlState,
@@ -77,7 +76,6 @@ import {
     fetchZoneProperties,
     MopDockCleanManualTriggerCommand,
     MopDockDryManualTriggerCommand,
-    sendAutoEmptyDockAutoEmptyControlEnable,
     sendAutoEmptyDockAutoEmptyInterval,
     sendAutoEmptyDockManualTriggerCommand,
     sendBasicControlCommand,
@@ -173,7 +171,6 @@ import type { MutationFunction } from "@tanstack/query-core";
 
 enum QueryKey {
     Attributes = "attributes",
-    AutoEmptyDockAutoEmpty = "auto_empty_dock_auto_empty",
     AutoEmptyDockAutoEmptyInterval = "auto_empty_dock_auto_empty_interval",
     AutoEmptyDockAutoEmptyIntervalProperties = "auto_empty_dock_auto_empty_interval_properties",
     CameraLightControl = "camera_light_control",
@@ -1110,26 +1107,6 @@ export const usePetObstacleAvoidanceControlMutation = () => {
             return sendPetObstacleAvoidanceControlState(enable).then(fetchPetObstacleAvoidanceControlState);
         },
         onError: useOnCommandError(Capability.PetObstacleAvoidanceControl)
-    });
-};
-
-
-export const useAutoEmptyDockAutoEmptyControlQuery = () => {
-    return useQuery( {
-        queryKey: [QueryKey.AutoEmptyDockAutoEmpty],
-        queryFn: fetchAutoEmptyDockAutoEmptyControlState,
-
-        staleTime: Infinity
-    });
-};
-
-export const useAutoEmptyDockAutoEmptyControlMutation = () => {
-    return useNoCloudFetchingMutation({
-        queryKey: [QueryKey.AutoEmptyDockAutoEmpty],
-        mutationFn: (enable: boolean) => {
-            return sendAutoEmptyDockAutoEmptyControlEnable(enable).then(fetchAutoEmptyDockAutoEmptyControlState);
-        },
-        onError: useOnCommandError(Capability.AutoEmptyDockAutoEmptyControl)
     });
 };
 
