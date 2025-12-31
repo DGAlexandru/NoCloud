@@ -28,6 +28,9 @@ import {
     MapSegmentRenameRequestParameters,
     MapSegmentationActionRequestParameters,
     MapSegmentationProperties,
+    MopDockMopWashTemperature,
+    MopDockMopWashTemperaturePayload,
+    MopDockMopWashTemperatureProperties,
     NTPClientConfiguration,
     NTPClientStatus,
     NetworkAdvertisementConfiguration,
@@ -1184,6 +1187,34 @@ export const fetchObstacleImagesProperties = async (): Promise<ObstacleImagesPro
     return NoCloudAPI
         .get<ObstacleImagesProperties>(`/robot/capabilities/${Capability.ObstacleImages}/properties`)
         .then(({ data }) => {
+            return data;
+        });
+};
+
+export const sendMopDockMopWashTemperature = async (payload: MopDockMopWashTemperaturePayload): Promise<void> => {
+    return NoCloudAPI
+        .put(`/robot/capabilities/${Capability.MopDockMopWashTemperatureControl}`, payload)
+        .then(({status}) => {
+            if (status !== 200) {
+                throw new Error("Could not send mop dock mop wash temperature");
+            }
+        });
+};
+
+export const fetchMopDockMopWashTemperature = async (): Promise<MopDockMopWashTemperature> => {
+    return NoCloudAPI
+        .get<MopDockMopWashTemperaturePayload>(`/robot/capabilities/${Capability.MopDockMopWashTemperatureControl}`)
+        .then(({data}) => {
+            return data.temperature;
+        });
+};
+
+export const fetchMopDockMopWashTemperatureProperties = async (): Promise<MopDockMopWashTemperatureProperties> => {
+    return NoCloudAPI
+        .get<MopDockMopWashTemperatureProperties>(
+            `/robot/capabilities/${Capability.MopDockMopWashTemperatureControl}/properties`
+        )
+        .then(({data}) => {
             return data;
         });
 };

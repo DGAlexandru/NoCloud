@@ -5,6 +5,7 @@ import {
     AutoEmptyDockAutoEmptyInterval,
     Capability,
     CarpetSensorMode,
+    MopDockMopWashTemperature,
     useAutoEmptyDockAutoEmptyControlMutation,
     useAutoEmptyDockAutoEmptyControlQuery,
     useAutoEmptyDockAutoEmptyIntervalMutation,
@@ -22,6 +23,9 @@ import {
     useKeyLockStateMutation,
     useKeyLockStateQuery,
     useLocateMutation,
+    useMopDockMopWashTemperatureMutation,
+    useMopDockMopWashTemperaturePropertiesQuery,
+    useMopDockMopWashTemperatureQuery,
     useMopExtensionControlMutation,
     useMopExtensionControlQuery,
     useObstacleAvoidanceControlMutation,
@@ -38,6 +42,7 @@ import {
     AutoDelete as AutoEmptyIntervalControlIcon,
     Cable as ObstacleAvoidanceControlIcon,
     Delete as AutoEmptyControlIcon,
+    DeviceThermostat as MopDockMopWashTemperatureControlIcon,
     FlashlightOn as CameraLightControlIcon,
     Lock as KeyLockIcon,
     MiscellaneousServices as MiscIcon,
@@ -477,55 +482,126 @@ const CameraLightControlCapabilitySwitchListMenuItem = () => {
     );
 };
 
+const MopDockMopWashTemperatureControlCapabilitySelectListMenuItem = () => {
+    const SORT_ORDER: Record<MopDockMopWashTemperature, number> = {
+        "cold": 1,
+        "warm": 2,
+        "hot": 3,
+        "scalding": 4,
+        "boiling": 5,
+    };
+
+    const {
+        data: mopDockMopWashTemperatureProperties,
+        isPending: mopDockMopWashTemperaturePropertiesPending,
+        isError: mopDockMopWashTemperaturePropertiesError
+    } = useMopDockMopWashTemperaturePropertiesQuery();
+
+    const options: Array<SelectListMenuItemOption> = (
+        mopDockMopWashTemperatureProperties?.supportedTemperatures ?? []
+    ).sort((a, b) => {
+        const aMapped = SORT_ORDER[a] ?? 10;
+        const bMapped = SORT_ORDER[b] ?? 10;
+
+        return aMapped - bMapped;
+    }).map((val: MopDockMopWashTemperature) => {
+        let label;
+
+        switch (val) {
+            case "cold":
+                label = "Cold";
+                break;
+            case "warm":
+                label = "Warm";
+                break;
+            case "hot":
+                label = "Hot";
+                break;
+            case "scalding":
+                label = "Scalding";
+                break;
+            case "boiling":
+                label = "Boiling";
+                break;
+        }
+
+        return {
+            value: val,
+            label: label
+        };
+    });
+
+    const {
+        data: data,
+        isPending: isPending,
+        isFetching: isFetching,
+        isError: isError,
+    } = useMopDockMopWashTemperatureQuery();
+
+    const {mutate: mutate, isPending: isChanging} = useMopDockMopWashTemperatureMutation();
+    const loading = isFetching || isChanging;
+    const disabled = loading || isChanging || isError;
+
+    const currentValue = options.find(mode => {
+        return mode.value === data;
+    }) ?? {value: "", label: ""};
+
+    return (
+        <SelectListMenuItem
+            options={options}
+            currentValue={currentValue}
+            setValue={(e) => {
+                mutate(e.value as MopDockMopWashTemperature);
+            }}
+            disabled={disabled}
+            loadingOptions={mopDockMopWashTemperaturePropertiesPending || isPending}
+            loadError={mopDockMopWashTemperaturePropertiesError}
+            primaryLabel="Mop Wash Temperature"
+            secondaryLabel="Select if and/or how much the dock should heat the water used to rinse the mop pads."
+            icon={<MopDockMopWashTemperatureControlIcon/>}
+        />
+    );
+};
+
 const RobotOptions = (): React.ReactElement => {
     const [
-        locateCapabilitySupported,
-
-        obstacleAvoidanceControlCapabilitySupported,
-        petObstacleAvoidanceControlCapabilitySupported,
-        cameraLightControlSupported,
-        obstacleImagesSupported,
-        collisionAvoidantNavigationControlCapabilitySupported,
-        carpetModeControlCapabilitySupported,
-        carpetSensorModeControlCapabilitySupported,
-
-        mopExtensionControlCapabilitySupported,
-
         autoEmptyDockAutoEmptyControlCapabilitySupported,
         autoEmptyDockAutoEmptyIntervalControlCapabilitySupported,
-
-        keyLockControlCapabilitySupported,
-
-        speakerVolumeControlCapabilitySupported,
-        speakerTestCapabilitySupported,
-        voicePackManagementCapabilitySupported,
+        cameraLightControlSupported,
+        carpetModeControlCapabilitySupported,
+        carpetSensorModeControlCapabilitySupported,
+        collisionAvoidantNavigationControlCapabilitySupported,
         doNotDisturbCapabilitySupported,
-
+        keyLockControlCapabilitySupported,
+        locateCapabilitySupported,
+        mopDockMopWashTemperatureControlSupported,
+        mopExtensionControlCapabilitySupported,
+        obstacleAvoidanceControlCapabilitySupported,
+        obstacleImagesSupported,
+        petObstacleAvoidanceControlCapabilitySupported,
         quirksCapabilitySupported,
+        speakerTestCapabilitySupported,
+        speakerVolumeControlCapabilitySupported,
+        voicePackManagementCapabilitySupported,
     ] = useCapabilitiesSupported(
-        Capability.Locate,
-
-        Capability.ObstacleAvoidanceControl,
-        Capability.PetObstacleAvoidanceControl,
-        Capability.CameraLightControl,
-        Capability.ObstacleImages,
-        Capability.CollisionAvoidantNavigation,
-        Capability.CarpetModeControl,
-        Capability.CarpetSensorModeControl,
-
-        Capability.MopExtensionControl,
-
         Capability.AutoEmptyDockAutoEmptyControl,
         Capability.AutoEmptyDockAutoEmptyIntervalControl,
-
-        Capability.KeyLock,
-
-        Capability.SpeakerVolumeControl,
-        Capability.SpeakerTest,
-        Capability.VoicePackManagement,
+        Capability.CameraLightControl,
+        Capability.CarpetModeControl,
+        Capability.CarpetSensorModeControl,
+        Capability.CollisionAvoidantNavigation,
         Capability.DoNotDisturb,
-
-        Capability.Quirks
+        Capability.KeyLock,
+        Capability.Locate,
+        Capability.MopDockMopWashTemperatureControl,
+        Capability.MopExtensionControl,
+        Capability.ObstacleAvoidanceControl,
+        Capability.ObstacleImages,
+        Capability.PetObstacleAvoidanceControl,
+        Capability.Quirks,
+        Capability.SpeakerTest,
+        Capability.SpeakerVolumeControl,
+        Capability.VoicePackManagement,
     );
 
 
@@ -585,6 +661,12 @@ const RobotOptions = (): React.ReactElement => {
             );
         }
 
+        if (mopDockMopWashTemperatureControlSupported) {
+            items.push(
+                <MopDockMopWashTemperatureControlCapabilitySelectListMenuItem key={"mopDockMopWashTemperatureControl"}/>
+            );
+        }
+
         if (mopExtensionControlCapabilitySupported) {
             items.push(
                 <MopExtensionControlCapabilitySwitchListMenuItem key={"mopExtensionControl"}/>
@@ -593,14 +675,15 @@ const RobotOptions = (): React.ReactElement => {
 
         return items;
     }, [
-        obstacleAvoidanceControlCapabilitySupported,
-        petObstacleAvoidanceControlCapabilitySupported,
         cameraLightControlSupported,
-        obstacleImagesSupported,
-        collisionAvoidantNavigationControlCapabilitySupported,
         carpetModeControlCapabilitySupported,
         carpetSensorModeControlCapabilitySupported,
-        mopExtensionControlCapabilitySupported
+        collisionAvoidantNavigationControlCapabilitySupported,
+        mopDockMopWashTemperatureControlSupported,
+        mopExtensionControlCapabilitySupported,
+        obstacleAvoidanceControlCapabilitySupported,
+        obstacleImagesSupported,
+        petObstacleAvoidanceControlCapabilitySupported,
     ]);
 
     const dockListItems = React.useMemo(() => {
