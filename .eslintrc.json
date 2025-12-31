@@ -70,7 +70,7 @@
 
 
     "no-empty": "off",
-    "brace-style": "off",
+    "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
     "no-trailing-spaces": "off",
     "keyword-spacing": "off",
     "eol-last": "off",

@@ -1,6 +1,6 @@
 {
   "rules": {
-    "brace-style": ["error", "1tbs"],
+    "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
     "no-trailing-spaces": ["error", { "ignoreComments": true }],
     "keyword-spacing": "error",
     "eol-last": ["error", "always"],
