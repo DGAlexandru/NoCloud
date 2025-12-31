@@ -1,12 +1,12 @@
 const SpeakerVolumeControlCapability = require("../../../core/capabilities/SpeakerVolumeControlCapability");
 
 /**
- * @extends SpeakerVolumeControlCapability<import("../MockRobot")>
+ * @extends SpeakerVolumeControlCapability<import("../MockNoCloudRobot")>
  */
 class MockSpeakerVolumeControlCapability extends SpeakerVolumeControlCapability {
     /**
      * @param {object} options
-     * @param {import("../MockRobot")} options.robot
+     * @param {import("../MockNoCloudRobot")} options.robot
      */
     constructor(options) {
         super(options);

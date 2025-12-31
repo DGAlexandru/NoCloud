@@ -6,7 +6,7 @@ function getRandomRSSI() {
 }
 
 /**
- * @extends WifiScanCapability<import("../MockRobot")>
+ * @extends WifiScanCapability<import("../MockNoCloudRobot")>
  */
 class MockWifiScanCapability extends WifiScanCapability {
     async scan() {

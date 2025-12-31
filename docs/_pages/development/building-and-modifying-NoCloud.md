@@ -56,7 +56,7 @@ Setting embedded to `false` disables all functionality that assumes that NoCloud
 
 For a list of possible values for `implementation` consult the robot implementations in
 [https://github.com/DGAlexandru/NoCloud/tree/main/backend/lib/robots](https://github.com/DGAlexandru/NoCloud/tree/main/backend/lib/robots).
-NoCloud is also capable of running without a real robot. The `MockRobot` implementation provides a virtual robot
+NoCloud is also capable of running without a real robot. The `MockNoCloudRobot` implementation provides a virtual robot
 that has a few basic capabilities. It requires no further implementation specific configuration.
 
 The config key `robot` specifies the NoCloudRobot implementation NoCloud should use as well as some implementation-specific configuration parameters.

@@ -4,12 +4,12 @@ const NoCloudSelectionPreset = require("../../../entities/core/NoCloudSelectionP
 const stateAttrs = entities.state.attributes;
 
 /**
- * @extends FanSpeedControlCapability<import("../MockRobot")>
+ * @extends FanSpeedControlCapability<import("../MockNoCloudRobot")>
  */
 class MockFanSpeedControlCapability extends FanSpeedControlCapability {
     /**
      * @param {object} options
-     * @param {import("../MockRobot")} options.robot
+     * @param {import("../MockNoCloudRobot")} options.robot
      */
     constructor(options) {
         let presets = [

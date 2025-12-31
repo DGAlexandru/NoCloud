@@ -2,12 +2,12 @@ const CurrentStatisticsCapability = require("../../../core/capabilities/CurrentS
 const NoCloudDataPoint = require("../../../entities/core/NoCloudDataPoint");
 
 /**
- * @extends CurrentStatisticsCapability<import("../MockRobot")>
+ * @extends CurrentStatisticsCapability<import("../MockNoCloudRobot")>
  */
 class MockCurrentStatisticsCapability extends CurrentStatisticsCapability {
     /**
      * @param {object} options
-     * @param {import("../MockRobot")} options.robot
+     * @param {import("../MockNoCloudRobot")} options.robot
      */
     constructor(options) {
         super(options);

@@ -2,12 +2,12 @@ const NoCloudVoicePackOperationStatus = require("../../../entities/core/NoCloudV
 const VoicePackManagementCapability = require("../../../core/capabilities/VoicePackManagementCapability");
 
 /**
- * @extends VoicePackManagementCapability<import("../MockRobot")>
+ * @extends VoicePackManagementCapability<import("../MockNoCloudRobot")>
  */
 class MockVoicePackManagementCapability extends VoicePackManagementCapability {
     /**
      * @param {object} options
-     * @param {import("../MockRobot")} options.robot
+     * @param {import("../MockNoCloudRobot")} options.robot
      */
     constructor(options) {
         super(options);

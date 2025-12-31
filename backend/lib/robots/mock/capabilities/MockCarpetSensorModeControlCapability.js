@@ -1,13 +1,13 @@
 const CarpetSensorModeControlCapability = require("../../../core/capabilities/CarpetSensorModeControlCapability");
 
 /**
- * @extends CarpetSensorModeControlCapability<import("../MockRobot")>
+ * @extends CarpetSensorModeControlCapability<import("../MockNoCloudRobot")>
  */
 class MockCarpetSensorModeControlCapability extends CarpetSensorModeControlCapability {
 
     /**
      * @param {object} options
-     * @param {import("../MockRobot")} options.robot
+     * @param {import("../MockNoCloudRobot")} options.robot
      */
     constructor(options) {
         super(options);

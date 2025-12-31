@@ -4,12 +4,12 @@ const NoCloudSelectionPreset = require("../../../entities/core/NoCloudSelectionP
 const stateAttrs = entities.state.attributes;
 
 /**
- * @extends OperationModeControlCapability<import("../MockRobot")>
+ * @extends OperationModeControlCapability<import("../MockNoCloudRobot")>
  */
 class MockOperationModeControlCapability extends OperationModeControlCapability {
     /**
      * @param {object} options
-     * @param {import("../MockRobot")} options.robot
+     * @param {import("../MockNoCloudRobot")} options.robot
      */
     constructor(options) {
         let presets = [

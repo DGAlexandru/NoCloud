@@ -1,7 +1,7 @@
 const PendingMapChangeHandlingCapability = require("../../../core/capabilities/PendingMapChangeHandlingCapability");
 
 /**
- * @extends PendingMapChangeHandlingCapability<import("../MockRobot")>
+ * @extends PendingMapChangeHandlingCapability<import("../MockNoCloudRobot")>
  */
 class MockPendingMapChangeHandlingCapability extends PendingMapChangeHandlingCapability {
     /**

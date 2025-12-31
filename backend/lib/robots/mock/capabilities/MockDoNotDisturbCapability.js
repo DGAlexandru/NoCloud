@@ -2,12 +2,12 @@ const DoNotDisturbCapability = require("../../../core/capabilities/DoNotDisturbC
 const NoCloudDNDConfiguration = require("../../../entities/core/NoCloudDNDConfiguration");
 
 /**
- * @extends DoNotDisturbCapability<import("../MockRobot")>
+ * @extends DoNotDisturbCapability<import("../MockNoCloudRobot")>
  */
 class MockDoNotDisturbCapability extends DoNotDisturbCapability {
     /**
      * @param {object} options
-     * @param {import("../MockRobot")} options.robot
+     * @param {import("../MockNoCloudRobot")} options.robot
      */
     constructor(options) {
         super(options);

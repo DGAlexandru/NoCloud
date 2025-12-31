@@ -2,12 +2,12 @@ const NoCloudWifiStatus = require("../../../entities/core/NoCloudWifiStatus");
 const WifiConfigurationCapability = require("../../../core/capabilities/WifiConfigurationCapability");
 
 /**
- * @extends WifiConfigurationCapability<import("../MockRobot")>
+ * @extends WifiConfigurationCapability<import("../MockNoCloudRobot")>
  */
 class MockWifiConfigurationCapability extends WifiConfigurationCapability {
     /**
      * @param {object} options
-     * @param {import("../MockRobot")} options.robot
+     * @param {import("../MockNoCloudRobot")} options.robot
      */
     constructor(options) {
         super(Object.assign({}, options, {networkInterface: "wlan0"}));

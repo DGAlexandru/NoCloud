@@ -9,7 +9,7 @@ const NoCloudRobot = require("../../core/NoCloudRobot");
 const { MapLayer, PointMapEntity, NoCloudMap } = require("../../entities/map");
 const stateAttrs = entities.state.attributes;
 
-class MockRobot extends NoCloudRobot {
+class MockNoCloudRobot extends NoCloudRobot {
     /**
      *
      * @param {object} options
@@ -71,7 +71,7 @@ class MockRobot extends NoCloudRobot {
     }
 
     getModelName() {
-        return "MockRobot";
+        return "MockNoCloudRobot";
     }
 
     getModelDetails() {
@@ -94,7 +94,7 @@ class MockRobot extends NoCloudRobot {
     getProperties() {
         const superProps = super.getProperties();
         const ourProps = {
-            [MockRobot.WELL_KNOWN_PROPERTIES.FIRMWARE_VERSION]: Tools.GET_NoCloud_VERSION()
+            [MockNoCloudRobot.WELL_KNOWN_PROPERTIES.FIRMWARE_VERSION]: Tools.GET_NoCloud_VERSION()
         };
 
         return Object.assign(
@@ -210,4 +210,4 @@ class MockRobot extends NoCloudRobot {
     }
 }
 
-module.exports = MockRobot;
+module.exports = MockNoCloudRobot;

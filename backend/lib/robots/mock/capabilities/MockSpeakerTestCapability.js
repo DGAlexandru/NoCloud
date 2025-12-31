@@ -2,7 +2,7 @@ const Logger = require("../../../Logger");
 const SpeakerTestCapability = require("../../../core/capabilities/SpeakerTestCapability");
 
 /**
- * @extends SpeakerTestCapability<import("../MockRobot")>
+ * @extends SpeakerTestCapability<import("../MockNoCloudRobot")>
  */
 class MockSpeakerTestCapability extends SpeakerTestCapability {
     /**

@@ -1,7 +1,7 @@
 const MapResetCapability = require("../../../core/capabilities/MapResetCapability");
 
 /**
- * @extends MapResetCapability<import("../MockRobot")>
+ * @extends MapResetCapability<import("../MockNoCloudRobot")>
  */
 class MockMapResetCapability extends MapResetCapability {
     /**

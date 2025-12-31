@@ -1,5 +1,5 @@
 /* eslint-disable */
-const MockRobot = require("../backend/lib/robots/mock/MockRobot");
+const MockNoCloudRobot = require("../backend/lib/robots/mock/MockNoCloudRobot");
 const RobotMqttHandle = require("../backend/lib/mqtt/handles/RobotMqttHandle");
 const MqttController = require("../backend/lib/mqtt/MqttController");
 const CapabilityMqttHandle = require("../backend/lib/mqtt/capabilities/CapabilityMqttHandle");
@@ -136,7 +136,7 @@ ConsumableMonitoringCapabilityMqttHandle.prototype.genConsumableFriendlyName = (
 class FakeMqttController extends MqttController {
     // @ts-ignore
     constructor() {
-        const robot = new MockRobot({config: fakeConfig, NoCloudEventStore: eventStore});
+        const robot = new MockNoCloudRobot({config: fakeConfig, NoCloudEventStore: eventStore});
 
         robot.capabilities[ConsumableMonitoringCapability.TYPE].getProperties = () => {
             return {

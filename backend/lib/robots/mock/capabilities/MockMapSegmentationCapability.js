@@ -2,7 +2,7 @@ const MapSegmentationCapability = require("../../../core/capabilities/MapSegment
 const NoCloudMapSegment = require("../../../entities/core/NoCloudMapSegment");
 
 /**
- * @extends MapSegmentationCapability<import("../MockRobot")>
+ * @extends MapSegmentationCapability<import("../MockNoCloudRobot")>
  */
 class MockMapSegmentationCapability extends MapSegmentationCapability {
     /**

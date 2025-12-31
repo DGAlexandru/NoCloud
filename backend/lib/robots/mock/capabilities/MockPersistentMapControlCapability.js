@@ -1,12 +1,12 @@
 const PersistentMapControlCapability = require("../../../core/capabilities/PersistentMapControlCapability");
 
 /**
- * @extends PersistentMapControlCapability<import("../MockRobot")>
+ * @extends PersistentMapControlCapability<import("../MockNoCloudRobot")>
  */
 class MockPersistentMapControlCapability extends PersistentMapControlCapability {
     /**
      * @param {object} options
-     * @param {import("../MockRobot")} options.robot
+     * @param {import("../MockNoCloudRobot")} options.robot
      */
     constructor(options) {
         super(options);

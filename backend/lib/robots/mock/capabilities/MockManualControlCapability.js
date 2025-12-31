@@ -2,12 +2,12 @@ const ManualControlCapability = require("../../../core/capabilities/ManualContro
 const PointMapEntity = require("../../../entities/map/PointMapEntity");
 
 /**
- * @extends ManualControlCapability<import("../MockRobot")>
+ * @extends ManualControlCapability<import("../MockNoCloudRobot")>
  */
 class MockManualControlCapability extends ManualControlCapability {
     /**
      * @param {object} options
-     * @param {import("../MockRobot")} options.robot
+     * @param {import("../MockNoCloudRobot")} options.robot
      * @class
      */
     constructor(options) {

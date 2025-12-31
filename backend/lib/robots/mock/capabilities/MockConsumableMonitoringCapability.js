@@ -32,12 +32,12 @@ const MOCKED_CONSUMABLES = Object.freeze([
 ]);
 
 /**
- * @extends ConsumableMonitoringCapability<import("../MockRobot")>
+ * @extends ConsumableMonitoringCapability<import("../MockNoCloudRobot")>
  */
 class MockConsumableMonitoringCapability extends ConsumableMonitoringCapability {
     /**
      * @param {object} options
-     * @param {import("../MockRobot")} options.robot
+     * @param {import("../MockNoCloudRobot")} options.robot
      */
     constructor(options) {
         super(options);

@@ -1,12 +1,12 @@
 const CollisionAvoidantNavigationControlCapability = require("../../../core/capabilities/CollisionAvoidantNavigationControlCapability");
 
 /**
- * @extends CollisionAvoidantNavigationControlCapability<import("../MockRobot")>
+ * @extends CollisionAvoidantNavigationControlCapability<import("../MockNoCloudRobot")>
  */
 class MockCollisionAvoidantNavigationControlCapability extends CollisionAvoidantNavigationControlCapability {
     /**
      * @param {object} options
-     * @param {import("../MockRobot")} options.robot
+     * @param {import("../MockNoCloudRobot")} options.robot
      */
     constructor(options) {
         super(options);
