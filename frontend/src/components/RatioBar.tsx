@@ -1,16 +1,16 @@
-import React, {CSSProperties, FunctionComponent} from "react";
+import React, { FunctionComponent, useMemo, memo } from "react";
 import styles from "./RatioBar.module.css";
-import {darken, lighten, useTheme} from "@mui/material";
+import { darken, lighten, useTheme } from "@mui/material";
 
 type RatioBarPartition = {
     label: string;
     valueLabel?: string;
     value: number;
-    color: NonNullable<CSSProperties["color"]>;
+    color: NonNullable<React.CSSProperties["color"]>;
 };
 
 type RatioBarProps = {
-    style?: React.CSSProperties,
+    style?: React.CSSProperties;
     total: number;
     totalLabel?: string;
     partitions: Array<RatioBarPartition>;
@@ -18,31 +18,63 @@ type RatioBarProps = {
     noneLegendLabel?: string;
 };
 
-//Mostly adapted from the Material-UI LinearProgress bar https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/LinearProgress/LinearProgress.js
+type LegendItem = {
+    label: string;
+    color: React.CSSProperties["color"];
+};
+
+// Mostly adapted from the Material-UI LinearProgress bar https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/LinearProgress/LinearProgress.js
 const RatioBar: FunctionComponent<RatioBarProps> = (props) => {
     const theme = useTheme();
-    const {total, partitions} = props;
+    const { total, partitions } = props;
+    const safeTotal = total > 0 ? total : 1;
 
-    let totalPercent = 0;
+    const mappedPartitions = useMemo(() => {
+        let runningTotal = 0;
 
-    const mappedPartitions = partitions.map((p: RatioBarPartition) => {
-        const percent = (p.value / total) * 100;
+        return partitions.map((p) => {
+            const percent = (p.value / safeTotal) * 100;
+            runningTotal += percent;
 
-        totalPercent += percent;
+            return {
+                label: p.label,
+                valueLabel: p.valueLabel,
+                color: p.color,
+                percent: percent,
+                totalPercent: runningTotal,
+            };
+        });
+    }, [partitions, safeTotal]);
 
-        return {
-            label: p.label,
-            valueLabel: p.valueLabel,
-            color: p.color,
-            percent: percent,
-            totalPercent: totalPercent,
-        };
-    });
+    const reversedPartitions = useMemo(
+        () => [...mappedPartitions].reverse(),
+        [mappedPartitions]
+    );
 
     // See https://github.com/mui-org/material-ui/blob/v5.0.1/packages/mui-material/src/LinearProgress/LinearProgress.js#L93
-    const progressBackgroundColor = theme.palette.mode === "light" ?
-        lighten(theme.palette.primary.main, 0.62) :
-        darken(theme.palette.primary.main, 0.5);
+    const progressBackgroundColor = useMemo(() => {
+        return theme.palette.mode === "light" ?
+            lighten(theme.palette.primary.main, 0.62) :
+            darken(theme.palette.primary.main, 0.5);
+    }, [theme.palette.mode, theme.palette.primary.main]);
+
+    const legendItems: LegendItem[] = useMemo(() => {
+        const base: LegendItem[] = reversedPartitions.map((p) => ({
+            label: p.label,
+            color: p.color,
+        }));
+
+        if (props.noneLegendLabel) {
+            base.push({
+                label: props.noneLegendLabel,
+                color: progressBackgroundColor,
+            });
+        }
+
+        return base;
+    }, [reversedPartitions, props.noneLegendLabel, progressBackgroundColor]);
+
+
     return (
         <>
             <span
@@ -53,46 +85,37 @@ const RatioBar: FunctionComponent<RatioBarProps> = (props) => {
                 }}
                 title={props.totalLabel}
             >
-                {mappedPartitions.reverse().map((mp, i) => {
-                    return (
-                        <span
-                            key={"bar." + i}
-                            className={styles.ratioBarContent}
-                            style={{
-                                transform: `translateX(${-100 + mp.totalPercent}%)`,
-                                backgroundColor: mp.color,
-                            }}
-                            title={mp.valueLabel}
-                        >
-                        </span>
-                    );
-                })}
+                {reversedPartitions.map((mp, i) => (
+                    <span
+                        key={`bar.${i}`}
+                        className={styles.ratioBarContent}
+                        style={{
+                            transform: `translateX(${-100 + mp.totalPercent}%)`,
+                            backgroundColor: mp.color,
+                        }}
+                        title={mp.valueLabel}
+                    />
+                ))}
             </span>
-            {
-                props.hideLegend !== true &&
+
+            {props.hideLegend !== true && (
                 <span>
-                    {
-                        [
-                            ...mappedPartitions.reverse(),
-                            props.noneLegendLabel ? { color: progressBackgroundColor, label: props.noneLegendLabel} : undefined
-                        ].filter(e => e !== undefined).map((mp, i) => {
-                            return (
-                                <span
-                                    key={"legend." + i}
-                                    style={{
-                                        paddingRight: "5px",
-                                        fontSize: "0.75rem",
-                                        color: theme.palette.text.secondary,
-                                    }}
-                                >
-                                    <span style={{color: mp!.color}}>●</span> {mp!.label}
-                                </span>
-                            );
-                        })}
+                    {legendItems.map((mp, i) => (
+                        <span
+                            key={`legend.${i}`}
+                            style={{
+                                paddingRight: "5px",
+                                fontSize: "0.75rem",
+                                color: theme.palette.text.secondary,
+                            }}
+                        >
+                            <span style={{ color: mp.color }}>●</span> {mp.label}
+                        </span>
+                    ))}
                 </span>
-            }
+            )}
         </>
     );
 };
 
-export default RatioBar;
+export default memo(RatioBar);
