@@ -1,5 +1,5 @@
-const TotalStatisticsCapability = require("../../../core/capabilities/TotalStatisticsCapability");
 const NoCloudDataPoint = require("../../../entities/core/NoCloudDataPoint");
+const TotalStatisticsCapability = require("../../../core/capabilities/TotalStatisticsCapability");
 
 /**
  * @extends TotalStatisticsCapability<import("../RoborockNoCloudRobot")>

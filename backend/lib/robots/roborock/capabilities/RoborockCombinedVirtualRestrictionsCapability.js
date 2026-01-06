@@ -4,8 +4,8 @@
 
 const CombinedVirtualRestrictionsCapability = require("../../../core/capabilities/CombinedVirtualRestrictionsCapability");
 
-const RoborockMapParser = require("../RoborockMapParser");
 const NoCloudRestrictedZone = require("../../../entities/core/NoCloudRestrictedZone");
+const RoborockMapParser = require("../RoborockMapParser");
 
 /**
  * @extends CombinedVirtualRestrictionsCapability<import("../RoborockNoCloudRobot")>

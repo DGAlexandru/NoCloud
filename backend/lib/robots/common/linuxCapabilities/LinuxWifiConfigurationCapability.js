@@ -1,7 +1,7 @@
+const NoCloudWifiStatus = require("../../../entities/core/NoCloudWifiStatus");
 const NotImplementedError = require("../../../core/NotImplementedError");
 const spawnSync = require("child_process").spawnSync;
 const Tools = require("../../../utils/Tools");
-const NoCloudWifiStatus = require("../../../entities/core/NoCloudWifiStatus");
 const WifiConfigurationCapability = require("../../../core/capabilities/WifiConfigurationCapability");
 
 /**

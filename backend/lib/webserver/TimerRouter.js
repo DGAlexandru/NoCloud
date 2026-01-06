@@ -3,8 +3,8 @@ const express = require("express");
 const FanSpeedControlCapability = require("../core/capabilities/FanSpeedControlCapability");
 const Logger = require("../Logger");
 const MapSegmentationCapability = require("../core/capabilities/MapSegmentationCapability");
-const OperationModeControlCapability = require("../core/capabilities/OperationModeControlCapability");
 const NoCloudTimer = require("../entities/core/NoCloudTimer");
+const OperationModeControlCapability = require("../core/capabilities/OperationModeControlCapability");
 const WaterUsageControlCapability = require("../core/capabilities/WaterUsageControlCapability");
 
 class TimerRouter {

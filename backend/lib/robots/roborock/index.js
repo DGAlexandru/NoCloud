@@ -7,11 +7,11 @@ module.exports = {
     "RoborockS5MaxNoCloudRobot": require("./RoborockS5MaxNoCloudRobot"),
     "RoborockS5NoCloudRobot": require("./RoborockS5NoCloudRobot"),
     "RoborockS6MaxVNoCloudRobot": require("./RoborockS6MaxVNoCloudRobot"),
-    "RoborockS6PureNoCloudRobot": require("./RoborockS6PureNoCloudRobot"),
     "RoborockS6NoCloudRobot": require("./RoborockS6NoCloudRobot"),
-    "RoborockS7ProUltraNoCloudRobot": require("./RoborockS7ProUltraNoCloudRobot"),
+    "RoborockS6PureNoCloudRobot": require("./RoborockS6PureNoCloudRobot"),
     "RoborockS7NoCloudRobot": require("./RoborockS7NoCloudRobot"),
-    "RoborockS8ProUltraNoCloudRobot": require("./RoborockS8ProUltraNoCloudRobot"),
+    "RoborockS7ProUltraNoCloudRobot": require("./RoborockS7ProUltraNoCloudRobot"),
     "RoborockS8NoCloudRobot": require("./RoborockS8NoCloudRobot"),
+    "RoborockS8ProUltraNoCloudRobot": require("./RoborockS8ProUltraNoCloudRobot"),
     "RoborockV1NoCloudRobot": require("./RoborockV1NoCloudRobot")
 };

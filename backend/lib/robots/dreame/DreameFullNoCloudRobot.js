@@ -2,13 +2,13 @@ const capabilities = require("./capabilities");
 const DreameGen2NoCloudRobot = require("./DreameGen2NoCloudRobot");
 const DreameGen4NoCloudRobot = require("./DreameGen4NoCloudRobot");
 
-const DreameQuirkFactory = require("./DreameQuirkFactory");
 const DreameNoCloudRobot = require("./DreameNoCloudRobot");
+const DreameQuirkFactory = require("./DreameQuirkFactory");
 const entities = require("../../entities");
 const Logger = require("../../Logger");
 const MiioNoCloudRobot = require("../MiioNoCloudRobot");
-const QuirksCapability = require("../../core/capabilities/QuirksCapability");
 const NoCloudSelectionPreset = require("../../entities/core/NoCloudSelectionPreset");
+const QuirksCapability = require("../../core/capabilities/QuirksCapability");
 const {IMAGE_FILE_FORMAT} = require("../../utils/const");
 
 const stateAttrs = entities.state.attributes;

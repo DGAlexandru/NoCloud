@@ -11,9 +11,9 @@ const Dummycloud = require("../miio/Dummycloud");
 const Logger = require("../Logger");
 const MiioDummycloudNotConnectedError = require("../miio/MiioDummycloudNotConnectedError");
 const MiioSocket = require("../miio/MiioSocket");
+const NoCloudRobot = require("../core/NoCloudRobot");
 const NotImplementedError = require("../core/NotImplementedError");
 const RetryWrapper = require("../miio/RetryWrapper");
-const NoCloudRobot = require("../core/NoCloudRobot");
 
 /**
  * @abstract

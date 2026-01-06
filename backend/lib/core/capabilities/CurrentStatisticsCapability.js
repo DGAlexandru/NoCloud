@@ -1,6 +1,6 @@
 const Capability = require("./Capability");
-const NotImplementedError = require("../NotImplementedError");
 const NoCloudDataPoint = require("../../entities/core/NoCloudDataPoint");
+const NotImplementedError = require("../NotImplementedError");
 
 /**
  * @template {import("../NoCloudRobot")} T

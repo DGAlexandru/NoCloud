@@ -1,7 +1,7 @@
 const should = require("should");
 
-const UpdaterUtils = require("../../../../lib/updater/lib/UpdaterUtils");
 const NoCloudRelease = require("../../../../lib/updater/lib/update_provider/NoCloudRelease");
+const UpdaterUtils = require("../../../../lib/updater/lib/UpdaterUtils");
 
 should.config.checkProtoEql = false;
 

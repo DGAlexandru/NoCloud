@@ -1,5 +1,4 @@
 const Logger = require("../Logger");
-const Tools = require("../utils/Tools");
 const NoCloudFanSpeedControlTimerPreAction = require("./pre_actions/NoCloudFanSpeedControlTimerPreAction");
 const NoCloudFullCleanupTimerAction = require("./actions/NoCloudFullCleanupTimerAction");
 const NoCloudNTPClientSyncedState = require("../entities/core/ntpClient/NoCloudNTPClientSyncedState");
@@ -7,6 +6,7 @@ const NoCloudOperationModeControlTimerPreAction = require("./pre_actions/NoCloud
 const NoCloudSegmentCleanupTimerAction = require("./actions/NoCloudSegmentCleanupTimerAction");
 const NoCloudTimer = require("../entities/core/NoCloudTimer");
 const NoCloudWaterUsageControlTimerPreAction = require("./pre_actions/NoCloudWaterUsageControlTimerPreAction");
+const Tools = require("../utils/Tools");
 const {sleep} = require("../utils/misc");
 
 const MS_PER_MIN = 60 * 1000;

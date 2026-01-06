@@ -1,10 +1,10 @@
 const crypto = require("crypto");
 const fs = require("fs");
 const Logger = require("../../../Logger");
-const PipelineThroughputTracker = require("../../../utils/PipelineThroughputTracker");
-const States = require("../../../entities/core/updater");
 const NoCloudUpdaterError = require("../NoCloudUpdaterError");
 const NoCloudUpdaterStep = require("./NoCloudUpdaterStep");
+const PipelineThroughputTracker = require("../../../utils/PipelineThroughputTracker");
+const States = require("../../../entities/core/updater");
 const {get} = require("../UpdaterUtils");
 const {pipeline} = require("stream/promises");
 

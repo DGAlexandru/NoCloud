@@ -1,6 +1,6 @@
 const entities = require("../../../entities");
-const OperationModeControlCapability = require("../../../core/capabilities/OperationModeControlCapability");
 const NoCloudSelectionPreset = require("../../../entities/core/NoCloudSelectionPreset");
+const OperationModeControlCapability = require("../../../core/capabilities/OperationModeControlCapability");
 const stateAttrs = entities.state.attributes;
 
 /**

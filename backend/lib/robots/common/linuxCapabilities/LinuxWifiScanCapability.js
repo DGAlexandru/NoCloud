@@ -1,7 +1,7 @@
 const Logger = require("../../../Logger");
+const NoCloudWifiNetwork = require("../../../entities/core/NoCloudWifiNetwork");
 const Semaphore = require("semaphore");
 const spawn = require("child_process").spawn;
-const NoCloudWifiNetwork = require("../../../entities/core/NoCloudWifiNetwork");
 const WifiScanCapability = require("../../../core/capabilities/WifiScanCapability");
 
 /**

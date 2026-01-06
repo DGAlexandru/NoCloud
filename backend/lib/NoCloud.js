@@ -3,22 +3,22 @@ const env = require("./res/env");
 const fs = require("fs");
 const Logger = require("./Logger");
 const MqttController = require("./mqtt/MqttController");
+const NoCloudEventStore = require("./NoCloudEventStore");
 const NTPClient = require("./NTPClient");
 const os = require("os");
 const path = require("path");
 const stream = require("stream");
 const Tools = require("./utils/Tools");
 const v8 = require("v8");
-const NoCloudEventStore = require("./NoCloudEventStore");
 const Webserver = require("./webserver/WebServer");
 
 const NetworkAdvertisementManager = require("./NetworkAdvertisementManager");
 const NetworkConnectionStabilizer = require("./NetworkConnectionStabilizer");
-const Scheduler = require("./scheduler/Scheduler");
-const Updater = require("./updater/Updater");
 const NoCloudEventHandlerFactory = require("./NoCloud_events/NoCloudEventHandlerFactory");
 const NoCloudHelper = require("./utils/NoCloudHelper");
 const NoCloudRobotFactory = require("./core/NoCloudRobotFactory");
+const Scheduler = require("./scheduler/Scheduler");
+const Updater = require("./updater/Updater");
 
 class NoCloud {
     constructor() {

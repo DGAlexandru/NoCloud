@@ -1,7 +1,7 @@
-const Tools = require("../../../utils/Tools");
 const NoCloudRelease = require("./NoCloudRelease");
 const NoCloudReleaseBinary = require("./NoCloudReleaseBinary");
 const NoCloudUpdateProvider = require("./NoCloudUpdateProvider");
+const Tools = require("../../../utils/Tools");
 const {get} = require("../UpdaterUtils");
 
 class GithubNoCloudNightlyUpdateProvider extends NoCloudUpdateProvider {

@@ -5,9 +5,9 @@ const EntityCategory = require("../homeassistant/EntityCategory");
 const HassAnchor = require("../homeassistant/HassAnchor");
 const InLineHassComponent = require("../homeassistant/components/InLineHassComponent");
 const Logger = require("../../Logger");
+const NoCloudDataPoint = require("../../entities/core/NoCloudDataPoint");
 const PropertyMqttHandle = require("../handles/PropertyMqttHandle");
 const Unit = require("../common/Unit");
-const NoCloudDataPoint = require("../../entities/core/NoCloudDataPoint");
 
 class CurrentStatisticsCapabilityMqttHandle extends CapabilityMqttHandle {
     /**

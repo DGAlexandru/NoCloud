@@ -3,9 +3,9 @@ const DustBinFullNoCloudEvent = require("../../NoCloud_events/events/DustBinFull
 const entities = require("../../entities");
 const ErrorStateNoCloudEvent = require("../../NoCloud_events/events/ErrorStateNoCloudEvent");
 const MopAttachmentReminderNoCloudEvent = require("../../NoCloud_events/events/MopAttachmentReminderNoCloudEvent");
+const NoCloudRobot = require("../../core/NoCloudRobot");
 const PendingMapChangeNoCloudEvent = require("../../NoCloud_events/events/PendingMapChangeNoCloudEvent");
 const Tools = require("../../utils/Tools");
-const NoCloudRobot = require("../../core/NoCloudRobot");
 const { MapLayer, PointMapEntity, NoCloudMap } = require("../../entities/map");
 const stateAttrs = entities.state.attributes;
 

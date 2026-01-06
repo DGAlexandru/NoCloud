@@ -11,10 +11,10 @@ const LinuxWifiScanCapability = require("../common/linuxCapabilities/LinuxWifiSc
 const MapLayer = require("../../entities/map/MapLayer");
 const MiioDummycloudNotConnectedError = require("../../miio/MiioDummycloudNotConnectedError");
 const MiioNoCloudRobot = require("../MiioNoCloudRobot");
-const PendingMapChangeNoCloudEvent = require("../../NoCloud_events/events/PendingMapChangeNoCloudEvent");
 const NoCloudMap = require("../../entities/map/NoCloudMap");
 const NoCloudRobotError = require("../../entities/core/NoCloudRobotError");
 const NoCloudSelectionPreset = require("../../entities/core/NoCloudSelectionPreset");
+const PendingMapChangeNoCloudEvent = require("../../NoCloud_events/events/PendingMapChangeNoCloudEvent");
 
 const stateAttrs = entities.state.attributes;
 

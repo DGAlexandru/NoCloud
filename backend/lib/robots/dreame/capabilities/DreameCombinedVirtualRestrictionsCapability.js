@@ -4,8 +4,8 @@
 
 const CombinedVirtualRestrictionsCapability = require("../../../core/capabilities/CombinedVirtualRestrictionsCapability");
 const DreameMapParser = require("../DreameMapParser");
-const RobotFirmwareError = require("../../../core/RobotFirmwareError");
 const NoCloudRestrictedZone = require("../../../entities/core/NoCloudRestrictedZone");
+const RobotFirmwareError = require("../../../core/RobotFirmwareError");
 
 /**
  * @extends CombinedVirtualRestrictionsCapability<import("../DreameNoCloudRobot")>

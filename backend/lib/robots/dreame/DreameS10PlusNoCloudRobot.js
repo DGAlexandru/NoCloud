@@ -1,13 +1,13 @@
 const capabilities = require("./capabilities");
 const DreameGen2LidarNoCloudRobot = require("./DreameGen2LidarNoCloudRobot");
 const DreameGen2NoCloudRobot = require("./DreameGen2NoCloudRobot");
-const DreameQuirkFactory = require("./DreameQuirkFactory");
 const DreameNoCloudRobot = require("./DreameNoCloudRobot");
+const DreameQuirkFactory = require("./DreameQuirkFactory");
 const entities = require("../../entities");
 const fs = require("fs");
 const MiioNoCloudRobot = require("../MiioNoCloudRobot");
-const QuirksCapability = require("../../core/capabilities/QuirksCapability");
 const NoCloudSelectionPreset = require("../../entities/core/NoCloudSelectionPreset");
+const QuirksCapability = require("../../core/capabilities/QuirksCapability");
 
 class DreameS10PlusNoCloudRobot extends DreameGen2LidarNoCloudRobot {
 

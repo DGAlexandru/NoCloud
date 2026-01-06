@@ -1,13 +1,13 @@
 const capabilities = require("./capabilities");
 const DreameMiotServices = require("./DreameMiotServices");
 const DreameMopNoCloudRobot = require("./DreameMopNoCloudRobot");
-const DreameQuirkFactory = require("./DreameQuirkFactory");
 const DreameNoCloudRobot = require("./DreameNoCloudRobot");
+const DreameQuirkFactory = require("./DreameQuirkFactory");
 const fs = require("fs");
 const MiioNoCloudRobot = require("../MiioNoCloudRobot");
+const NoCloudSelectionPreset = require("../../entities/core/NoCloudSelectionPreset");
 const QuirksCapability = require("../../core/capabilities/QuirksCapability");
 const stateAttrs = require("../../entities/state/attributes");
-const NoCloudSelectionPreset = require("../../entities/core/NoCloudSelectionPreset");
 
 const MIOT_SERVICES = DreameMiotServices["GEN2"];
 

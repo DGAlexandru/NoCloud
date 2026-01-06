@@ -15,9 +15,9 @@ const MiioDummycloudNotConnectedError = require("../../miio/MiioDummycloudNotCon
 const MiioErrorResponseRobotFirmwareError = require("../../miio/MiioErrorResponseRobotFirmwareError");
 const MiioNoCloudRobot = require("../MiioNoCloudRobot");
 const MopAttachmentReminderNoCloudEvent = require("../../NoCloud_events/events/MopAttachmentReminderNoCloudEvent");
-const PendingMapChangeNoCloudEvent = require("../../NoCloud_events/events/PendingMapChangeNoCloudEvent");
 const NoCloudMap = require("../../entities/map/NoCloudMap");
 const NoCloudRobotError = require("../../entities/core/NoCloudRobotError");
+const PendingMapChangeNoCloudEvent = require("../../NoCloud_events/events/PendingMapChangeNoCloudEvent");
 
 const stateAttrs = entities.state.attributes;
 

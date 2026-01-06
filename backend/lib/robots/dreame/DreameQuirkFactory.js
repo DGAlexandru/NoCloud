@@ -608,7 +608,7 @@ class DreameQuirkFactory {
                         }
                     }
                 });
-            /*case DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING:
+                /*case DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING:
                 return new Quirk({
                     id: id,
                     title: "Edge Extension: Mop",

@@ -4,9 +4,9 @@ const MqttHandle = require("./MqttHandle");
 const CAPABILITY_TYPE_TO_HANDLE_MAPPING = require("./HandleMappings").CAPABILITY_TYPE_TO_HANDLE_MAPPING;
 const Logger = require("../../Logger");
 const MapNodeMqttHandle = require("./MapNodeMqttHandle");
+const NoCloudEventsNodeMqttHandle = require("./NoCloudEventsNodeMqttHandle");
 const STATUS_ATTR_TO_HANDLE_MAPPING = require("./HandleMappings").STATUS_ATTR_TO_HANDLE_MAPPING;
 const VacuumHassComponent = require("../homeassistant/components/VacuumHassComponent");
-const NoCloudEventsNodeMqttHandle = require("./NoCloudEventsNodeMqttHandle");
 
 /**
  * This class represents the robot as a Homie device

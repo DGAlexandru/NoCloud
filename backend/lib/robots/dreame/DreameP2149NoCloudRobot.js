@@ -1,6 +1,6 @@
 const DreameMopNoCloudRobot = require("./DreameMopNoCloudRobot");
-const DreameQuirkFactory = require("./DreameQuirkFactory");
 const DreameNoCloudRobot = require("./DreameNoCloudRobot");
+const DreameQuirkFactory = require("./DreameQuirkFactory");
 const MiioNoCloudRobot = require("../MiioNoCloudRobot");
 const QuirksCapability = require("../../core/capabilities/QuirksCapability");
 

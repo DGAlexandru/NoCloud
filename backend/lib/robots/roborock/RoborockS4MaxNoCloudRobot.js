@@ -2,8 +2,8 @@ const capabilities = require("./capabilities");
 const MiioNoCloudRobot = require("../MiioNoCloudRobot");
 const QuirksCapability = require("../../core/capabilities/QuirksCapability");
 const RoborockGen4NoCloudRobot = require("./RoborockGen4NoCloudRobot");
-const RoborockQuirkFactory = require("./RoborockQuirkFactory");
 const RoborockNoCloudRobot = require("./RoborockNoCloudRobot");
+const RoborockQuirkFactory = require("./RoborockQuirkFactory");
 
 class RoborockS4MaxNoCloudRobot extends RoborockGen4NoCloudRobot {
     /**

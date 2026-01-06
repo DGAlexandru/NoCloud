@@ -1,7 +1,7 @@
 const CapabilityMqttHandle = require("./CapabilityMqttHandle");
 const DataType = require("../homie/DataType");
-const PropertyMqttHandle = require("../handles/PropertyMqttHandle");
 const NoCloudGoToLocation = require("../../entities/core/NoCloudGoToLocation");
+const PropertyMqttHandle = require("../handles/PropertyMqttHandle");
 
 class GoToLocationCapabilityMqttHandle extends CapabilityMqttHandle {
     /**

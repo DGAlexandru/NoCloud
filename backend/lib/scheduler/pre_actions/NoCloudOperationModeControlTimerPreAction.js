@@ -1,5 +1,5 @@
-const OperationModeControlCapability = require("../../core/capabilities/OperationModeControlCapability");
 const NoCloudPresetSelectionTimerPreAction = require("./NoCloudPresetSelectionTimerPreAction");
+const OperationModeControlCapability = require("../../core/capabilities/OperationModeControlCapability");
 
 class NoCloudOperationModeControlTimerPreAction extends NoCloudPresetSelectionTimerPreAction {
     /**

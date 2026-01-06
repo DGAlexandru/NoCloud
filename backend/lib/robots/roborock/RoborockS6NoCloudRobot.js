@@ -1,10 +1,10 @@
 const capabilities = require("./capabilities");
 const entities = require("../../entities");
 const MiioNoCloudRobot = require("../MiioNoCloudRobot");
-const QuirksCapability = require("../../core/capabilities/QuirksCapability");
-const RoborockQuirkFactory = require("./RoborockQuirkFactory");
-const RoborockNoCloudRobot = require("./RoborockNoCloudRobot");
 const NoCloudRestrictedZone = require("../../entities/core/NoCloudRestrictedZone");
+const QuirksCapability = require("../../core/capabilities/QuirksCapability");
+const RoborockNoCloudRobot = require("./RoborockNoCloudRobot");
+const RoborockQuirkFactory = require("./RoborockQuirkFactory");
 
 class RoborockS6NoCloudRobot extends RoborockNoCloudRobot {
     /**

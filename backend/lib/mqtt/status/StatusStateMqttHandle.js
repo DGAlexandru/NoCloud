@@ -4,10 +4,10 @@ const EntityCategory = require("../homeassistant/EntityCategory");
 const HassAnchor = require("../homeassistant/HassAnchor");
 const InLineHassComponent = require("../homeassistant/components/InLineHassComponent");
 const Logger = require("../../Logger");
+const NoCloudRobotError = require("../../entities/core/NoCloudRobotError");
 const PropertyMqttHandle = require("../handles/PropertyMqttHandle");
 const RobotStateNodeMqttHandle = require("../handles/RobotStateNodeMqttHandle");
 const stateAttrs = require("../../entities/state/attributes");
-const NoCloudRobotError = require("../../entities/core/NoCloudRobotError");
 
 class StatusStateMqttHandle extends RobotStateNodeMqttHandle {
     /**

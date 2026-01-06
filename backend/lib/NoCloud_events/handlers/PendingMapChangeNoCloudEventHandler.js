@@ -1,5 +1,5 @@
-const PendingMapChangeHandlingCapability = require("../../core/capabilities/PendingMapChangeHandlingCapability");
 const NoCloudEventHandler = require("./NoCloudEventHandler");
+const PendingMapChangeHandlingCapability = require("../../core/capabilities/PendingMapChangeHandlingCapability");
 
 class PendingMapChangeNoCloudEventHandler extends NoCloudEventHandler {
     /**

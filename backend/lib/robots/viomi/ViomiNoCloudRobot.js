@@ -6,9 +6,9 @@ const LinuxWifiScanCapability = require("../common/linuxCapabilities/LinuxWifiSc
 const Logger = require("../../Logger");
 const miioCapabilities = require("../common/miioCapabilities");
 const MiioNoCloudRobot = require("../MiioNoCloudRobot");
-const ThreeIRobotixMapParser = require("../3irobotix/ThreeIRobotixMapParser");
 const NoCloudRobotError = require("../../entities/core/NoCloudRobotError");
 const NoCloudSelectionPreset = require("../../entities/core/NoCloudSelectionPreset");
+const ThreeIRobotixMapParser = require("../3irobotix/ThreeIRobotixMapParser");
 
 const stateAttrs = entities.state.attributes;
 const mapActions = Object.freeze({

@@ -14,20 +14,20 @@ const Logger = require("../Logger");
 const notFoundPages = require("./res/404");
 
 const Middlewares = require("./middlewares");
-const RobotRouter = require("./RobotRouter");
 const NoCloudRouter = require("./NoCloudRouter");
+const RobotRouter = require("./RobotRouter");
 
 
 const fs = require("fs");
 const MQTTRouter = require("./MQTTRouter");
 const NetworkAdvertisementManagerRouter = require("./NetworkAdvertisementManagerRouter");
+const NoCloudEventRouter = require("./NoCloudEventRouter");
 const NTPClientRouter = require("./NTPClientRouter");
 const SSDPRouter = require("./SSDPRouter");
 const SystemRouter = require("./SystemRouter");
 const TimerRouter = require("./TimerRouter");
 const Tools = require("../utils/Tools");
 const UpdaterRouter = require("./UpdaterRouter");
-const NoCloudEventRouter = require("./NoCloudEventRouter");
 
 class WebServer {
     /**

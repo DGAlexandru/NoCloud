@@ -1,8 +1,8 @@
 const capabilities = require("./capabilities");
 const MiioNoCloudRobot = require("../MiioNoCloudRobot");
 const QuirksCapability = require("../../core/capabilities/QuirksCapability");
-const ViomiQuirkFactory = require("./ViomiQuirkFactory");
 const ViomiNoCloudRobot = require("./ViomiNoCloudRobot");
+const ViomiQuirkFactory = require("./ViomiQuirkFactory");
 
 
 class ViomiV6NoCloudRobot extends ViomiNoCloudRobot {

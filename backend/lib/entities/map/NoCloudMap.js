@@ -1,8 +1,8 @@
 const crypto = require("crypto");
 
 const MapLayer = require("./MapLayer");
-const SerializableEntity = require("../SerializableEntity");
 const NoCloudMapSegment = require("../core/NoCloudMapSegment");
+const SerializableEntity = require("../SerializableEntity");
 
 /**
  * Represents a NoCloud standard issue map
