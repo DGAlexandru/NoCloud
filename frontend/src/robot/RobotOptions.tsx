@@ -6,6 +6,7 @@ import {
     Capability,
     CarpetSensorMode,
     MopDockMopWashTemperature,
+    MopTwistFrequency,
     useAutoEmptyDockAutoEmptyIntervalMutation,
     useAutoEmptyDockAutoEmptyIntervalPropertiesQuery,
     useAutoEmptyDockAutoEmptyIntervalQuery,
@@ -26,6 +27,11 @@ import {
     useMopDockMopWashTemperatureQuery,
     useMopExtensionControlMutation,
     useMopExtensionControlQuery,
+    useMopGapControlMutation,
+    useMopGapControlQuery,
+    useMopTwistFrequencyMutation,
+    useMopTwistFrequencyPropertiesQuery,
+    useMopTwistFrequencyQuery,
     useObstacleAvoidanceControlMutation,
     useObstacleAvoidanceControlQuery,
     useObstacleImagesMutation,
@@ -56,7 +62,11 @@ import {LinkListMenuItem} from "../components/list_menu/LinkListMenuItem";
 import PaperContainer from "../components/PaperContainer";
 import {ButtonListMenuItem} from "../components/list_menu/ButtonListMenuItem";
 import {SelectListMenuItem, SelectListMenuItemOption} from "../components/list_menu/SelectListMenuItem";
-import {MopExtensionControlCapability as MopExtensionControlCapabilityIcon} from "../components/CustomIcons";
+import {
+    MopExtensionControlCapability as MopExtensionControlCapabilityIcon,
+    MopTwistControlCapability as MopTwistFrequencyControlIcon,
+    MopTwistControlCapabilityExtended as MopGapControlCapabilityIcon,
+} from "../components/CustomIcons";
 
 const LocateButtonListMenuItem = (): React.ReactElement => {
     const {
@@ -67,7 +77,7 @@ const LocateButtonListMenuItem = (): React.ReactElement => {
     return (
         <ButtonListMenuItem
             primaryLabel="Locate Robot"
-            secondaryLabel="The robot will play a sound to announce its location"
+            secondaryLabel="The robot will play a sound to announce its location."
             icon={<LocateIcon/>}
             buttonLabel="Go"
             action={() => {
@@ -98,7 +108,7 @@ const KeyLockCapabilitySwitchListMenuItem = () => {
             disabled={disabled}
             loadError={isError}
             primaryLabel={"Lock Keys"}
-            secondaryLabel={"Prevents the robot from being operated using its physical buttons."}
+            secondaryLabel={"Prevents the robot from being operated via its physical buttons."}
             icon={<KeyLockIcon/>}
         />
     );
@@ -124,7 +134,7 @@ const CarpetModeControlCapabilitySwitchListMenuItem = () => {
             disabled={disabled}
             loadError={isError}
             primaryLabel={"Carpet Mode"}
-            secondaryLabel={"When enabled, the vacuum will recognize carpets automatically and increase the suction."}
+            secondaryLabel={"When enabled, the robot will automatically recognize carpets and increase suction."}
             icon={<CarpetModeIcon/>}
         />
     );
@@ -325,7 +335,7 @@ const ObstacleAvoidanceControlCapabilitySwitchListMenuItem = () => {
             disabled={disabled}
             loadError={isError}
             primaryLabel={"Obstacle Avoidance"}
-            secondaryLabel={"Avoid obstacles using sensors such as lasers or cameras. May suffer from false positives."}
+            secondaryLabel={"Avoid obstacles using sensors such as lasers or cameras. This may result in false positives."}
             icon={<ObstacleAvoidanceControlIcon/>}
         />
     );
@@ -351,7 +361,7 @@ const PetObstacleAvoidanceControlCapabilitySwitchListMenuItem = () => {
             disabled={disabled}
             loadError={isError}
             primaryLabel={"Pet Obstacle Avoidance"}
-            secondaryLabel={"Fine-tune obstacle avoidance to avoid obstacles left by pets. Will increase the general false positive rate."}
+            secondaryLabel={"Fine-tune obstacle avoidance to avoid pets and/or obstacles left by pets. This may increase the general false positive rate."}
             icon={<PetObstacleAvoidanceControlIcon/>}
         />
     );
@@ -377,7 +387,7 @@ const ObstacleImagesCapabilitySwitchListMenuItem = () => {
             disabled={disabled}
             loadError={isError}
             primaryLabel={"Obstacle Images"}
-            secondaryLabel={"Take pictures of all encountered obstacles."}
+            secondaryLabel={"Take pictures of all obstacles encountered."}
             icon={<ObstacleImagesIcon/>}
         />
     );
@@ -403,7 +413,7 @@ const CollisionAvoidantNavigationControlCapabilitySwitchListMenuItem = () => {
             disabled={disabled}
             loadError={isError}
             primaryLabel={"Collision-avoidant Navigation"}
-            secondaryLabel={"Drive a more conservative route to reduce collisions. May cause missed spots."}
+            secondaryLabel={"Uses a more conservative route for collision-avoidant navigation, but may result in missed spots."}
             icon={<CollisionAvoidantNavigationControlIcon/>}
         />
     );
@@ -429,7 +439,7 @@ const MopExtensionControlCapabilitySwitchListMenuItem = () => {
             disabled={disabled}
             loadError={isError}
             primaryLabel={"Mop Extension"}
-            secondaryLabel={"Extend the mop outwards to reach closer to walls and furniture."}
+            secondaryLabel={"Extend the mop outward to reach closer to walls and furniture."}
             icon={<MopExtensionControlCapabilityIcon/>}
         />
     );
@@ -455,7 +465,7 @@ const CameraLightControlCapabilitySwitchListMenuItem = () => {
             disabled={disabled}
             loadError={isError}
             primaryLabel={"Camera Light"}
-            secondaryLabel={"Illuminate the dark to improve the AI image recognition obstacle avoidance."}
+            secondaryLabel={"Illuminate the dark to improve the AI's image recognition for obstacle avoidance."}
             icon={<CameraLightControlIcon/>}
         />
     );
@@ -542,6 +552,111 @@ const MopDockMopWashTemperatureControlCapabilitySelectListMenuItem = () => {
     );
 };
 
+const MopTwistFrequencyControlCapabilitySelectListMenuItem = () => {
+    const SORT_ORDER = {
+        "every_7_days" : 7,
+        "each_cleanup": 1,
+        "off": -1
+    };
+
+    const {
+        data: mopTwistFrequencyProperties,
+        isPending: mopTwistFrequencyPropertiesPending,
+        isError: mopTwistFrequencyPropertiesError
+    } = useMopTwistFrequencyPropertiesQuery();
+
+    const options: Array<SelectListMenuItemOption> = (
+        mopTwistFrequencyProperties?.supportedMopTwists ?? []
+    ).sort((a, b) => {
+        const aMapped = SORT_ORDER[a] ?? 10;
+        const bMapped = SORT_ORDER[b] ?? 10;
+
+        if (aMapped < bMapped) {
+            return -1;
+        } else if (bMapped < aMapped) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }).map((val: MopTwistFrequency) => {
+        let label;
+
+        switch (val) {
+            case "off":
+                label = "Off";
+                break;
+            case "each_cleanup":
+                label = "Each Cleanup";
+                break;
+            case "every_7_days":
+                label = "Every 7 Days";
+                break;
+        }
+
+        return {
+            value: val,
+            label: label
+        };
+    });
+
+    const {
+        data: data,
+        isPending: isPending,
+        isFetching: isFetching,
+        isError: isError,
+    } = useMopTwistFrequencyQuery();
+
+    const {mutate: mutate, isPending: isChanging} = useMopTwistFrequencyMutation();
+    const loading = isFetching || isChanging;
+    const disabled = loading || isChanging || isError;
+
+    const currentValue = options.find(mode => {
+        return mode.value === data;
+    }) ?? {value: "", label: ""};
+
+    return (
+        <SelectListMenuItem
+            options={options}
+            currentValue={currentValue}
+            setValue={(e) => {
+                mutate(e.value as MopTwistFrequency);
+            }}
+            disabled={disabled}
+            loadingOptions={mopTwistFrequencyPropertiesPending || isPending}
+            loadError={mopTwistFrequencyPropertiesError}
+            primaryLabel="Twist robot when mopping"
+            secondaryLabel="Select if and how frequently the robot should twist to mop closer to walls and furniture. This will increase the cleanup duration."
+            icon={<MopTwistFrequencyControlIcon/>}
+        />
+    );
+};
+
+const MopGapControlCapabilitySwitchListMenuItem = () => {
+    const {
+        data: data,
+        isFetching: isFetching,
+        isError: isError,
+    } = useMopGapControlQuery();
+
+    const {mutate: mutate, isPending: isChanging} = useMopGapControlMutation();
+    const loading = isFetching || isChanging;
+    const disabled = loading || isChanging || isError;
+
+    return (
+        <ToggleSwitchListMenuItem
+            value={data?.enabled ?? false}
+            setValue={(value) => {
+                mutate(value);
+            }}
+            disabled={disabled}
+            loadError={isError}
+            primaryLabel={"Extend Mop when robot twists"}
+            secondaryLabel={"Extend the mop when the robot twists to further reach under furniture with overhangs." }
+            icon={<MopGapControlCapabilityIcon/>}
+        />
+    );
+};
+
 const RobotOptions = (): React.ReactElement => {
     const [
         autoEmptyDockAutoEmptyIntervalControlCapabilitySupported,
@@ -554,6 +669,8 @@ const RobotOptions = (): React.ReactElement => {
         locateCapabilitySupported,
         mopDockMopWashTemperatureControlSupported,
         mopExtensionControlCapabilitySupported,
+        mopGapControlCapabilitySupported,
+        mopTwistFrequencyControlSupported,
         obstacleAvoidanceControlCapabilitySupported,
         obstacleImagesSupported,
         petObstacleAvoidanceControlCapabilitySupported,
@@ -572,6 +689,8 @@ const RobotOptions = (): React.ReactElement => {
         Capability.Locate,
         Capability.MopDockMopWashTemperatureControl,
         Capability.MopExtensionControl,
+        Capability.MopGapControl,
+        Capability.MopTwistFrequencyControl,
         Capability.ObstacleAvoidanceControl,
         Capability.ObstacleImages,
         Capability.PetObstacleAvoidanceControl,
@@ -580,7 +699,6 @@ const RobotOptions = (): React.ReactElement => {
         Capability.SpeakerVolumeControl,
         Capability.VoicePackManagement,
     );
-
 
     const actionListItems = React.useMemo(() => {
         const items = [];
@@ -644,6 +762,18 @@ const RobotOptions = (): React.ReactElement => {
             );
         }
 
+        if (mopGapControlCapabilitySupported) {
+            items.push(
+                <MopGapControlCapabilitySwitchListMenuItem key={"mopGapControl"}/>
+            );
+        }
+
+        if (mopTwistFrequencyControlSupported) {
+            items.push(
+                <MopTwistFrequencyControlCapabilitySelectListMenuItem key={"mopTwistFrequencyControl"}/>
+            );
+        }
+
         return items;
     }, [
         cameraLightControlSupported,
@@ -651,6 +781,8 @@ const RobotOptions = (): React.ReactElement => {
         carpetSensorModeControlCapabilitySupported,
         collisionAvoidantNavigationControlCapabilitySupported,
         mopExtensionControlCapabilitySupported,
+        mopGapControlCapabilitySupported,
+        mopTwistFrequencyControlSupported,
         obstacleAvoidanceControlCapabilitySupported,
         obstacleImagesSupported,
         petObstacleAvoidanceControlCapabilitySupported,

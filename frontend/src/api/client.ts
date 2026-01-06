@@ -31,6 +31,9 @@ import {
     MopDockMopWashTemperature,
     MopDockMopWashTemperaturePayload,
     MopDockMopWashTemperatureProperties,
+    MopTwistFrequency,
+    MopTwistFrequencyControlProperties,
+    MopTwistFrequencyPayload,
     NTPClientConfiguration,
     NTPClientStatus,
     NetworkAdvertisementConfiguration,
@@ -1082,6 +1085,46 @@ export const fetchCameraLightControlState = async (): Promise<SimpleToggleState>
 
 export const sendCameraLightControlState = async (enable: boolean): Promise<void> => {
     await sendToggleMutation(Capability.CameraLightControl, enable);
+};
+
+export const fetchMopGapControlState = async (): Promise<SimpleToggleState> => {
+    return NoCloudAPI
+        .get<SimpleToggleState>(`/robot/capabilities/${Capability.MopGapControl}`)
+        .then(({ data }) => {
+            return data;
+        });
+};
+
+export const sendMopGapControlState = async (enable: boolean): Promise<void> => {
+    await sendToggleMutation(Capability.MopGapControl, enable);
+};
+
+export const sendMopTwistFrequency = async (payload: MopTwistFrequencyPayload): Promise<void> => {
+    return NoCloudAPI
+        .put(`/robot/capabilities/${Capability.MopTwistFrequencyControl}`, payload)
+        .then(({status}) => {
+            if (status !== 200) {
+                throw new Error("Could not send robot twist for mopping frequency");
+            }
+        });
+};
+
+export const fetchMopTwistFrequency = async (): Promise<MopTwistFrequency> => {
+    return NoCloudAPI
+        .get<MopTwistFrequencyPayload>(`/robot/capabilities/${Capability.MopTwistFrequencyControl}`)
+        .then(({data}) => {
+            return data.mopTwist;
+        });
+};
+
+export const fetchMopTwistFrequencyProperties = async (): Promise<MopTwistFrequencyControlProperties> => {
+    return NoCloudAPI
+        .get<MopTwistFrequencyControlProperties>(
+            `/robot/capabilities/${Capability.MopTwistFrequencyControl}/properties`
+        )
+        .then(({data}) => {
+            return data;
+        });
 };
 
 export const fetchNoCloudCustomizations = async (): Promise<NoCloudCustomizations> => {

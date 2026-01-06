@@ -1,0 +1,98 @@
+{
+  "/api/v2/robot/capabilities/MopTwistFrequencyControlCapability": {
+    "get": {
+      "tags": [
+        "MopTwistFrequencyControlCapability"
+      ],
+      "summary": "Get current robot twisting frequency for mopping",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "mopTwist": {
+                    "type": "string",
+                    "enum": [
+                      "off",
+                      "each_cleanup",
+                      "every_7_days"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "tags": [
+        "MopTwistFrequencyControlCapability"
+      ],
+      "summary": "Set robot twisting frequency for mopping",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mopTwist": {
+                  "type": "string",
+                  "enum": [
+                    "off",
+                    "each_cleanup",
+                    "every_7_days"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "400": {
+          "$ref": "#/components/responses/400"
+        }
+      }
+    }
+  },
+  "/api/v2/robot/capabilities/MopTwistFrequencyControlCapability/properties": {
+    "get": {
+      "tags": [
+        "MopTwistFrequencyControlCapability"
+      ],
+      "summary": "Get various capability-related properties",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "supportedMopTwists": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "off",
+                        "each_cleanup",
+                        "every_7_days"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

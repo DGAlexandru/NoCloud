@@ -11,6 +11,8 @@ import {
 } from "@tanstack/react-query";
 import {
     BasicControlCommand,
+    MopDockCleanManualTriggerCommand,
+    MopDockDryManualTriggerCommand,
     deleteTimer,
     fetchAutoEmptyDockAutoEmptyInterval,
     fetchAutoEmptyDockAutoEmptyIntervalProperties,
@@ -26,9 +28,12 @@ import {
     fetchCurrentStatistics,
     fetchCurrentStatisticsProperties,
     fetchDoNotDisturbConfiguration,
-    fetchHighResolutionManualControlState,
     fetchHTTPBasicAuthConfiguration,
+    fetchHighResolutionManualControlState,
     fetchKeyLockState,
+    fetchMQTTConfiguration,
+    fetchMQTTProperties,
+    fetchMQTTStatus,
     fetchManualControlProperties,
     fetchManualControlState,
     fetchMap,
@@ -36,9 +41,11 @@ import {
     fetchMopDockMopWashTemperature,
     fetchMopDockMopWashTemperatureProperties,
     fetchMopExtensionControlState,
-    fetchMQTTConfiguration,
-    fetchMQTTProperties,
-    fetchMQTTStatus,
+    fetchMopGapControlState,
+    fetchMopTwistFrequency,
+    fetchMopTwistFrequencyProperties,
+    fetchNTPClientConfiguration,
+    fetchNTPClientStatus,
     fetchNetworkAdvertisementConfiguration,
     fetchNetworkAdvertisementProperties,
     fetchNoCloudCustomizations,
@@ -47,8 +54,6 @@ import {
     fetchNoCloudLog,
     fetchNoCloudLogLevel,
     fetchNoCloudVersionInformation,
-    fetchNTPClientConfiguration,
-    fetchNTPClientStatus,
     fetchObstacleAvoidanceControlState,
     fetchObstacleImagesProperties,
     fetchObstacleImagesState,
@@ -74,8 +79,6 @@ import {
     fetchWifiScan,
     fetchWifiStatus,
     fetchZoneProperties,
-    MopDockCleanManualTriggerCommand,
-    MopDockDryManualTriggerCommand,
     sendAutoEmptyDockAutoEmptyInterval,
     sendAutoEmptyDockManualTriggerCommand,
     sendBasicControlCommand,
@@ -90,23 +93,25 @@ import {
     sendDismissWelcomeDialogAction,
     sendDoNotDisturbConfiguration,
     sendGoToCommand,
-    sendHighResolutionManualControlInteraction,
     sendHTTPBasicAuthConfiguration,
+    sendHighResolutionManualControlInteraction,
     sendJoinSegmentsCommand,
     sendKeyLockEnable,
     sendLocateCommand,
+    sendMQTTConfiguration,
     sendManualControlInteraction,
     sendMapReset,
     sendMopDockCleanManualTriggerCommand,
     sendMopDockDryManualTriggerCommand,
     sendMopDockMopWashTemperature,
     sendMopExtensionControlState,
-    sendMQTTConfiguration,
+    sendMopGapControlState,
+    sendMopTwistFrequency,
+    sendNTPClientConfiguration,
     sendNetworkAdvertisementConfiguration,
     sendNoCloudCustomizations,
     sendNoCloudEventInteraction,
     sendNoCloudLogLevel,
-    sendNTPClientConfiguration,
     sendObstacleAvoidanceControlState,
     sendObstacleImagesState,
     sendPersistentMapEnabled,
@@ -152,6 +157,7 @@ import {
     MapSegmentEditSplitRequestParameters,
     MapSegmentRenameRequestParameters,
     MopDockMopWashTemperature,
+    MopTwistFrequency,
     MQTTConfiguration,
     NetworkAdvertisementConfiguration,
     NoCloudCustomizations,
@@ -185,11 +191,14 @@ enum QueryKey {
     CurrentStatistics = "current_statistics",
     CurrentStatisticsProperties = "current_statistics_properties",
     DoNotDisturb = "do_not_disturb",
-    HighResolutionManualControl = "high_resolution_manual_control",
     HTTPBasicAuth = "http_basic_auth",
+    HighResolutionManualControl = "high_resolution_manual_control",
     KeyLockInformation = "key_lock",
     Log = "log",
     LogLevel = "log_level",
+    MQTTConfiguration = "mqtt_configuration",
+    MQTTProperties = "mqtt_properties",
+    MQTTStatus = "mqtt_status",
     ManualControl = "manual_control",
     ManualControlProperties = "manual_control_properties",
     Map = "map",
@@ -197,17 +206,17 @@ enum QueryKey {
     MopDockMopWashTemperature = "mop_dock_mop_wash_temperature",
     MopDockMopWashTemperatureProperties = "mop_dock_mop_wash_temperature_properties",
     MopExtensionControl = "mop_extension_control",
-    MQTTConfiguration = "mqtt_configuration",
-    MQTTProperties = "mqtt_properties",
-    MQTTStatus = "mqtt_status",
+    MopGapControl = "mop_gap_control",
+    MopTwistFrequency = "mop_twist_frequency",
+    MopTwistFrequencyProperties = "mop_twist_frequency_properties",
+    NTPClientConfiguration = "ntp_client_configuration",
+    NTPClientStatus = "ntp_client_status",
     NetworkAdvertisementConfiguration = "network_advertisement_configuration",
     NetworkAdvertisementProperties = "network_advertisement_properties",
     NoCloudCustomizations = "NoCloud_customizations",
     NoCloudEvents = "NoCloud_events",
     NoCloudInformation = "NoCloud_information",
     NoCloudVersion = "NoCloud_version",
-    NTPClientConfiguration = "ntp_client_configuration",
-    NTPClientStatus = "ntp_client_status",
     ObstacleAvoidance = "obstacle_avoidance",
     ObstacleImages = "obstacle_image",
     ObstacleImagesProperties = "obstacle_image_properties",
@@ -1599,6 +1608,51 @@ export const useMopDockMopWashTemperaturePropertiesQuery = () => {
     return useQuery({
         queryKey: [QueryKey.MopDockMopWashTemperatureProperties],
         queryFn: fetchMopDockMopWashTemperatureProperties,
+
+        staleTime: Infinity,
+    });
+};
+
+export const useMopGapControlQuery = () => {
+    return useQuery( {
+        queryKey: [QueryKey.MopGapControl],
+        queryFn: fetchMopGapControlState,
+
+        staleTime: Infinity
+    });
+};
+
+export const useMopGapControlMutation = () => {
+    return useNoCloudFetchingMutation({
+        queryKey: [QueryKey.MopGapControl],
+        mutationFn: (enable: boolean) => {
+            return sendMopGapControlState(enable).then(fetchMopGapControlState);
+        },
+        onError: useOnCommandError(Capability.MopGapControl)
+    });
+};
+
+export const useMopTwistFrequencyQuery = () => {
+    return useQuery({
+        queryKey: [QueryKey.MopTwistFrequency],
+        queryFn: fetchMopTwistFrequency,
+    });
+};
+
+export const useMopTwistFrequencyMutation = () => {
+    return useNoCloudFetchingMutation({
+        queryKey: [QueryKey.MopTwistFrequency],
+        mutationFn: (mopTwist: MopTwistFrequency) => {
+            return sendMopTwistFrequency({mopTwist: mopTwist}).then(fetchMopTwistFrequency);
+        },
+        onError: useOnCommandError(Capability.MopTwistFrequencyControl),
+    });
+};
+
+export const useMopTwistFrequencyPropertiesQuery = () => {
+    return useQuery({
+        queryKey: [QueryKey.MopTwistFrequencyProperties],
+        queryFn: fetchMopTwistFrequencyProperties,
 
         staleTime: Infinity,
     });

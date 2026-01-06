@@ -18,16 +18,18 @@ export enum Capability {
     KeyLock = "KeyLockCapability",
     Locate = "LocateCapability",
     ManualControl = "ManualControlCapability",
-    MappingPass = "MappingPassCapability",
     MapReset = "MapResetCapability",
-    MapSegmentation = "MapSegmentationCapability",
     MapSegmentEdit = "MapSegmentEditCapability",
     MapSegmentRename = "MapSegmentRenameCapability",
+    MapSegmentation = "MapSegmentationCapability",
     MapSnapshot = "MapSnapshotCapability",
+    MappingPass = "MappingPassCapability",
     MopDockCleanManualTrigger = "MopDockCleanManualTriggerCapability",
     MopDockDryManualTrigger = "MopDockDryManualTriggerCapability",
     MopDockMopWashTemperatureControl = "MopDockMopWashTemperatureControlCapability",
     MopExtensionControl = "MopExtensionControlCapability",
+    MopGapControl = "MopGapControlCapability",
+    MopTwistFrequencyControl = "MopTwistFrequencyControlCapability",
     ObstacleAvoidanceControl = "ObstacleAvoidanceControlCapability",
     ObstacleImages = "ObstacleImagesCapability",
     OperationModeControl = "OperationModeControlCapability",
@@ -603,4 +605,14 @@ export interface MopDockMopWashTemperaturePayload {
 
 export interface MopDockMopWashTemperatureProperties {
     supportedTemperatures: Array<MopDockMopWashTemperature>;
+}
+
+export type MopTwistFrequency = "off" | "each_cleanup" | "every_7_days";
+
+export interface MopTwistFrequencyPayload {
+    mopTwist: MopTwistFrequency
+}
+
+export interface MopTwistFrequencyControlProperties {
+    supportedMopTwists: Array<MopTwistFrequency>
 }

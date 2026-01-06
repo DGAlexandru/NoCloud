@@ -30,19 +30,27 @@ class CapabilitiesRouter {
             }));
         });
 
+        const missingRouters = [];
+
         Object.values(this.robot.capabilities).forEach(robotCapability => {
             const matchedRouter = CAPABILITY_TYPE_TO_ROUTER_MAPPING[robotCapability.getType()];
 
-            if (matchedRouter) {
+            if (!matchedRouter) {
+                missingRouters.push(robotCapability.getType());
+            } else {
                 this.router.use(
                     "/" + robotCapability.getType(),
                     new matchedRouter({capability: robotCapability, validator: this.validator}).getRouter()
                 );
-
-            } else {
-                Logger.info("No matching CapabilityRouter for " + robotCapability.getType());
             }
         });
+
+        if (missingRouters.length > 0) {
+            missingRouters.forEach(capType =>
+                Logger.error(`No matching CapabilityRouter for ${capType}`)
+            );
+            throw new Error(`Missing routers for the following capabilities: ${missingRouters.join(", ")}`);
+        }
     }
 
     getRouter() {
@@ -78,6 +86,8 @@ const CAPABILITY_TYPE_TO_ROUTER_MAPPING = {
     [capabilities.MopDockDryManualTriggerCapability.TYPE]: capabilityRouters.MopDockDryManualTriggerCapabilityRouter,
     [capabilities.MopDockMopWashTemperatureControlCapability.TYPE]: capabilityRouters.MopDockMopWashTemperatureControlCapabilityRouter,
     [capabilities.MopExtensionControlCapability.TYPE]: capabilityRouters.SimpleToggleCapabilityRouter,
+    [capabilities.MopGapControlCapability.TYPE]: capabilityRouters.SimpleToggleCapabilityRouter,
+    [capabilities.MopTwistFrequencyControlCapability.TYPE]: capabilityRouters.MopTwistFrequencyControlCapabilityRouter,
     [capabilities.ObstacleAvoidanceControlCapability.TYPE]: capabilityRouters.SimpleToggleCapabilityRouter,
     [capabilities.ObstacleImagesCapability.TYPE]: capabilityRouters.ObstacleImagesCapabilityRouter,
     [capabilities.OperationModeControlCapability.TYPE]: capabilityRouters.PresetSelectionCapabilityRouter,
