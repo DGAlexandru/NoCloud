@@ -196,6 +196,8 @@ class DreameFullNoCloudRobot extends DreameGen4NoCloudRobot {
             capabilities.DreameMopDockMopWashTemperatureControlCapabilityV2,
             capabilities.DreameMopExtensionControlCapabilityV1,
             capabilities.DreameMopExtensionControlCapabilityV2,
+            capabilities.DreameMopGapControlCapability,
+            capabilities.DreameMopTwistFrequencyControlCapability,
             capabilities.DreamePetObstacleAvoidanceControlCapability,
         ].forEach(capability => {
             this.registerCapability(new capability({robot: this}));
@@ -212,7 +214,7 @@ class DreameFullNoCloudRobot extends DreameGen4NoCloudRobot {
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.DETACH_MOPS),								//"4a52e16b-3c73-479d-b308-7f0bbdde0884" : ["On", "Off"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.DRAIN_INTERNAL_WATER_TANK),				//"3e1b0851-3a5a-4943-bea6-dea3d7284bff" : ["select_to_trigger", "trigger"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.EDGE_EXTENSION_FREQUENCY),				//"8f6a7013-794e-40d9-9bbe-8fdeed7c0b9d" : ["automatic", "each_cleanup", "every_7_days"]
-                quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.EDGE_MOPPING),							//"7c71db1b-72b6-402e-89a4-d66c72cb9c8c" : ["off", "each_cleanup", "every_7_days"]
+                //quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.EDGE_MOPPING),							//"7c71db1b-72b6-402e-89a4-d66c72cb9c8c" : ["off", "each_cleanup", "every_7_days"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_AUTO_DRYING),					//"6efc4d62-b5a4-474e-b353-5746a99ee8f9" : ["On", "Off"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_AUTO_REPAIR_TRIGGER),			//"ae753798-aa4f-4b35-a60c-91e7e5ae76f3" : ["select_to_trigger", "trigger"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_CLEANING_PROCESS_TRIGGER),		//"42c7db4b-2cad-4801-a526-44de8944a41f" : ["select_to_trigger", "trigger"]
@@ -227,7 +229,7 @@ class DreameFullNoCloudRobot extends DreameGen4NoCloudRobot {
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DRYING_TIME),							//"516a1025-9c56-46e0-ac9b-a5007088d24a" : ["1h", "2h", "3h", "4h"]
                 //quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING),					//"5e1bbac8-78d1-433e-9868-4229463e2761" : ["off", "automatic", "each_cleanup", "every_7_days"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING_FURNITURE_LEGS),	//"08658d53-5d7b-4bfd-a179-25ceb3c70fe2" : ["On", "Off"]
-                quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING_TWIST),			//"3759ae19-3723-4aad-a55e-4f9d8078185d" : ["On", "Off"]
+                //quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING_TWIST),			//"3759ae19-3723-4aad-a55e-4f9d8078185d" : ["On", "Off"]
                 //quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING_V2),				//"0c6dd70d-4a42-4400-a9ea-d4743015edbd" : ["On", "Off"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.SIDE_BRUSH_EXTEND),						//"e560d60c-76de-4ccc-8c01-8ccbcece850e" : ["On", "Off"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.SIDE_BRUSH_ON_CARPET),					//"d23d7e7e-ef74-42a6-8a0a-4163742e437b" : ["On", "Off"]
