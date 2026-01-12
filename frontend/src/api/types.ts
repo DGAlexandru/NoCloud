@@ -18,6 +18,7 @@ export enum Capability {
     KeyLock = "KeyLockCapability",
     Locate = "LocateCapability",
     ManualControl = "ManualControlCapability",
+    ManualMIoTCommand = "ManualMIoTCommandCapability",
     MapReset = "MapResetCapability",
     MapSegmentEdit = "MapSegmentEditCapability",
     MapSegmentRename = "MapSegmentRenameCapability",
@@ -461,6 +462,22 @@ export interface NoCloudWifiNetwork {
         ssid?: string,
         signal?: number
     }
+}
+// Actions for ManualMIoTCommand, string for now, can be replaced by enum or list later
+// Known action(s)
+export type KnownManualMIoTCommandAction = "get_properties"; // ToDo - add more static variants
+// Allow dynamic future commands from the robot
+export type ManualMIoTCommandAction = KnownManualMIoTCommandAction | string;
+// Optional properties for future dropdown
+export interface ManualMIoTCommandProperties {
+    supportedManualMIoTCommandActions: Array<ManualMIoTCommandAction>;
+}
+// ManualMIoTCommand object sent to the robot
+export interface ManualMIoTCommandInteraction {
+    miotcmd: ManualMIoTCommandAction; // allows any string
+    siid: string;
+    piid: string;
+    value?: string;
 }
 
 export type ManualControlAction = "enable" | "disable" | "move";

@@ -23,6 +23,8 @@ import {
     MQTTStatus,
     ManualControlInteraction,
     ManualControlProperties,
+    ManualMIoTCommandInteraction,
+    ManualMIoTCommandProperties,
     MapSegmentEditJoinRequestParameters,
     MapSegmentEditSplitRequestParameters,
     MapSegmentRenameRequestParameters,
@@ -877,6 +879,34 @@ export const fetchWifiScan = async (): Promise<Array<NoCloudWifiNetwork>> => {
         .get<Array<NoCloudWifiNetwork>>(`/robot/capabilities/${Capability.WifiScan}`)
         .then(({ data }) => {
             return data;
+        });
+};
+
+// ---- API Calls for ManualMIoTCommand ----
+// Fetch the current runtime state of ManualMIoTCommand
+export const fetchManualMIoTCommandState = async (): Promise<unknown> => {
+    return NoCloudAPI
+        .get(`/robot/capabilities/${Capability.ManualMIoTCommand}`)
+        .then(({ data }) => {
+            return data;
+        });
+};
+// Fetch supported actions for future dropdown
+export const fetchManualMIoTCommandProperties = async (): Promise<ManualMIoTCommandProperties> => {
+    return NoCloudAPI
+        .get<ManualMIoTCommandProperties>(`/robot/capabilities/${Capability.ManualMIoTCommand}/properties`)
+        .then(({ data }) => {
+            return data;
+        });
+};
+// Send a ManualMIoTCommand command to the robot
+export const sendManualMIoTCommandInteraction = async (command: ManualMIoTCommandInteraction): Promise<void> => {
+    await NoCloudAPI
+        .put(`/robot/capabilities/${Capability.ManualMIoTCommand}`, command)
+        .then(({ status }) => {
+            if (status !== 200) {
+                throw new Error("Could not send manual MIoT command");
+            }
         });
 };
 

@@ -36,6 +36,8 @@ import {
     fetchMQTTStatus,
     fetchManualControlProperties,
     fetchManualControlState,
+    fetchManualMIoTCommandProperties,
+    fetchManualMIoTCommandState,
     fetchMap,
     fetchMapSegmentationProperties,
     fetchMopDockMopWashTemperature,
@@ -100,6 +102,7 @@ import {
     sendLocateCommand,
     sendMQTTConfiguration,
     sendManualControlInteraction,
+    sendManualMIoTCommandInteraction,
     sendMapReset,
     sendMopDockCleanManualTriggerCommand,
     sendMopDockDryManualTriggerCommand,
@@ -152,6 +155,7 @@ import {
     HighResolutionManualControlInteraction,
     HTTPBasicAuthConfiguration,
     ManualControlInteraction,
+    ManualMIoTCommandInteraction,
     MapSegmentationActionRequestParameters,
     MapSegmentEditJoinRequestParameters,
     MapSegmentEditSplitRequestParameters,
@@ -201,6 +205,8 @@ enum QueryKey {
     MQTTStatus = "mqtt_status",
     ManualControl = "manual_control",
     ManualControlProperties = "manual_control_properties",
+    ManualMIoTCommand = "manual_miot_command",
+    ManualMIoTCommandProperties = "manual_miot_command_properties",
     Map = "map",
     MapSegmentationProperties = "map_segmentation_properties",
     MopDockMopWashTemperature = "mop_dock_mop_wash_temperature",
@@ -1203,7 +1209,36 @@ export const useWifiScanQuery = () => {
         staleTime: Infinity,
     });
 };
-
+// ---- ManualMIoTCommand Hooks: State Query ----
+export const useManualMIoTCommandStateQuery = () => {
+    return useQuery({
+        queryKey: [QueryKey.ManualMIoTCommand],
+        queryFn: fetchManualMIoTCommandState,
+        staleTime: 10_000,
+        refetchInterval: 10_000,
+    });
+};
+// ---- ManualMIoTCommand Hooks: Supported Actions Query (future dropdown) ----
+export const useManualMIoTCommandPropertiesQuery = () => {
+    return useQuery({
+        queryKey: [QueryKey.ManualMIoTCommandProperties],
+        queryFn: fetchManualMIoTCommandProperties,
+        staleTime: Infinity, // static data
+    });
+};
+// ---- ManualMIoTCommand Hooks: Command Mutation ----
+export const useManualMIoTCommandInteraction = () => {
+    return useNoCloudFetchingMutation({
+        queryKey: [QueryKey.ManualMIoTCommand],
+        mutationFn: (command: ManualMIoTCommandInteraction) => {
+            return sendManualMIoTCommandInteraction(command).then(() => {
+                // Always refetch state after sending a command
+                return fetchManualMIoTCommandState();
+            });
+        },
+        onError: useOnCommandError(Capability.ManualMIoTCommand),
+    });
+};
 
 export const useManualControlStateQuery = () => {
     return useQuery({

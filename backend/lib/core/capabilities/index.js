@@ -16,6 +16,7 @@ module.exports = {
     KeyLockCapability: require("./KeyLockCapability"),
     LocateCapability: require("./LocateCapability"),
     ManualControlCapability: require("./ManualControlCapability"),
+    ManualMIoTCommandCapability: require("./ManualMIoTCommandCapability"),
     MapResetCapability: require("./MapResetCapability"),
     MapSegmentEditCapability: require("./MapSegmentEditCapability"),
     MapSegmentRenameCapability: require("./MapSegmentRenameCapability"),

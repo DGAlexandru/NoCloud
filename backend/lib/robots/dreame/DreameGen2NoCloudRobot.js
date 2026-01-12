@@ -102,8 +102,8 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
             aiid: MIOT_SERVICES.AUDIO.ACTIONS.LOCATE.AIID
         }));
 
-        this.registerCapability(new capabilities.DreameMapSegmentEditCapability({
-            robot: this,
+        // Shared configuration for map-related capabilities
+        const sharedMapCapabilityBody = {
             miot_actions: {
                 map_edit: {
                     siid: MIOT_SERVICES.MAP.SIID,
@@ -118,64 +118,27 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
                     piid: MIOT_SERVICES.MAP.PROPERTIES.ACTION_RESULT.PIID
                 }
             }
-        }));
-
-        this.registerCapability(new capabilities.DreameMapSegmentRenameCapability({
-            robot: this,
-            miot_actions: {
-                map_edit: {
-                    siid: MIOT_SERVICES.MAP.SIID,
-                    aiid: MIOT_SERVICES.MAP.ACTIONS.EDIT.AIID
-                }
-            },
-            miot_properties: {
-                mapDetails: {
-                    piid: MIOT_SERVICES.MAP.PROPERTIES.MAP_DETAILS.PIID
-                },
-                actionResult: {
-                    piid: MIOT_SERVICES.MAP.PROPERTIES.ACTION_RESULT.PIID
-                }
-            }
-        }));
-
-        this.registerCapability(new capabilities.DreameMapResetCapability({
-            robot: this,
-            miot_actions: {
-                map_edit: {
-                    siid: MIOT_SERVICES.MAP.SIID,
-                    aiid: MIOT_SERVICES.MAP.ACTIONS.EDIT.AIID
-                }
-            },
-            miot_properties: {
-                mapDetails: {
-                    piid: MIOT_SERVICES.MAP.PROPERTIES.MAP_DETAILS.PIID
-                },
-                actionResult: {
-                    piid: MIOT_SERVICES.MAP.PROPERTIES.ACTION_RESULT.PIID
-                }
-            }
-        }));
-
+        };
+        // Register map-related capabilities using the shared config
+        [
+            capabilities.DreameMapSegmentEditCapability,
+            capabilities.DreameMapSegmentRenameCapability,
+            capabilities.DreameMapResetCapability,
+            capabilities.DreamePendingMapChangeHandlingCapability
+        ].forEach(capability => {
+            this.registerCapability(new capability({
+                robot: this,
+                ...sharedMapCapabilityBody
+            }));
+        });
+        // DreameCombinedVirtualRestrictionsCapability needs the extra supportedRestrictedZoneTypes
         this.registerCapability(new capabilities.DreameCombinedVirtualRestrictionsCapability({
             robot: this,
             supportedRestrictedZoneTypes: [
                 NoCloudRestrictedZone.TYPE.REGULAR,
                 NoCloudRestrictedZone.TYPE.MOP
             ],
-            miot_actions: {
-                map_edit: {
-                    siid: MIOT_SERVICES.MAP.SIID,
-                    aiid: MIOT_SERVICES.MAP.ACTIONS.EDIT.AIID
-                }
-            },
-            miot_properties: {
-                mapDetails: {
-                    piid: MIOT_SERVICES.MAP.PROPERTIES.MAP_DETAILS.PIID
-                },
-                actionResult: {
-                    piid: MIOT_SERVICES.MAP.PROPERTIES.ACTION_RESULT.PIID
-                }
-            }
+            ...sharedMapCapabilityBody
         }));
 
         this.registerCapability(new capabilities.DreameSpeakerVolumeControlCapability({
@@ -187,24 +150,6 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
             robot: this,
             siid: MIOT_SERVICES.AUDIO.SIID,
             aiid: MIOT_SERVICES.AUDIO.ACTIONS.VOLUME_TEST.AIID
-        }));
-
-        this.registerCapability(new capabilities.DreamePendingMapChangeHandlingCapability({
-            robot: this,
-            miot_actions: {
-                map_edit: {
-                    siid: MIOT_SERVICES.MAP.SIID,
-                    aiid: MIOT_SERVICES.MAP.ACTIONS.EDIT.AIID
-                }
-            },
-            miot_properties: {
-                mapDetails: {
-                    piid: MIOT_SERVICES.MAP.PROPERTIES.MAP_DETAILS.PIID
-                },
-                actionResult: {
-                    piid: MIOT_SERVICES.MAP.PROPERTIES.ACTION_RESULT.PIID
-                }
-            }
         }));
 
         this.registerCapability(new capabilities.DreameTotalStatisticsCapability({
@@ -240,13 +185,13 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
         }));
 
         [
-            capabilities.DreameVoicePackManagementCapability,
+            capabilities.DreameDoNotDisturbCapability,
             capabilities.DreameHighResolutionManualControlCapability,
-            capabilities.DreameDoNotDisturbCapability
+            capabilities.DreameVoicePackManagementCapability,
+            capabilities.DreameManualMIoTCommandCapability
         ].forEach(capability => {
             this.registerCapability(new capability({robot: this}));
         });
-
 
         this.state.upsertFirstMatchingAttribute(new entities.state.attributes.AttachmentStateAttribute({
             type: entities.state.attributes.AttachmentStateAttribute.TYPE.MOP,
@@ -263,7 +208,7 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
             case "properties_changed": {
                 msg.params.forEach(e => {
                     switch (e.siid) {
-                        case MIOT_SERVICES.MAP.SIID:
+                        case MIOT_SERVICES.MAP.SIID: // 6
                             switch (e.piid) {
                                 case MIOT_SERVICES.MAP.PROPERTIES.MAP_DATA.PIID:
                                     /*
@@ -277,49 +222,243 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
                                     break;
                             }
                             break;
-                        case MIOT_SERVICES.VACUUM_1.SIID:
-                        case MIOT_SERVICES.VACUUM_2.SIID:
-                        case MIOT_SERVICES.BATTERY.SIID:
-                        case MIOT_SERVICES.MAIN_BRUSH.SIID:
-                        case MIOT_SERVICES.SIDE_BRUSH.SIID:
-                        case MIOT_SERVICES.FILTER.SIID:
-                        case MIOT_SERVICES.SENSOR.SIID:
-                        case MIOT_SERVICES.MOP.SIID:
-                        case MIOT_SERVICES.SECONDARY_FILTER.SIID:
-                        case MIOT_SERVICES.DETERGENT.SIID:
-                        case MIOT_SERVICES.WHEEL.SIID:
-                        case MIOT_SERVICES.MOP_EXPANSION.SIID:
-                        case MIOT_SERVICES.MISC_STATES.SIID:
-                        case MIOT_SERVICES.AUTO_EMPTY_DOCK.SIID:
+                        case MIOT_SERVICES.VACUUM_1.SIID:        // 2
+                        case MIOT_SERVICES.BATTERY.SIID:         // 3
+                        case MIOT_SERVICES.VACUUM_2.SIID:        // 4
+                        case MIOT_SERVICES.MAIN_BRUSH.SIID:      // 9
+                        case MIOT_SERVICES.SIDE_BRUSH.SIID:      // 10
+                        case MIOT_SERVICES.FILTER.SIID:          // 11
+                        case MIOT_SERVICES.AUTO_EMPTY_DOCK.SIID: // 15
+                        case MIOT_SERVICES.SENSOR.SIID:          // 16
+                        case MIOT_SERVICES.SECONDARY_FILTER.SIID:// 17
+                        case MIOT_SERVICES.MOP.SIID:             // 18
+                        case MIOT_SERVICES.DETERGENT.SIID:       // 20
+                        case MIOT_SERVICES.MISC_STATES.SIID:     // 27
+                        case MIOT_SERVICES.MOP_EXPANSION.SIID:   // 28
+                        case MIOT_SERVICES.WHEEL.SIID:           // 30
                             this.parseAndUpdateState([e]);
                             break;
-                        case MIOT_SERVICES.DEVICE.SIID:
-                        case 99: //This seems to be a duplicate of the device service
-                            //Intentionally ignored
+                        case MIOT_SERVICES.DEVICE.SIID: // 1
+                            // Intentionally ignored
                             break;
-                        case MIOT_SERVICES.AUDIO.SIID:
-                        case MIOT_SERVICES.DND.SIID:
-                        case MIOT_SERVICES.PERSISTENT_MAPS.SIID:
-                            //Intentionally ignored since we only poll that info when required and therefore don't care about updates
+                        case MIOT_SERVICES.DND.SIID:             // 5
+                        case MIOT_SERVICES.AUDIO.SIID:           // 7
+                        case MIOT_SERVICES.PERSISTENT_MAPS.SIID: // 13
+                            // Intentionally ignored since we only poll that info when required and therefore don't care about updates
                             break;
-                        case MIOT_SERVICES.TIMERS.SIID:
-                        case MIOT_SERVICES.TOTAL_STATISTICS.SIID:
-                            //Intentionally left blank (for now?)
+                        case MIOT_SERVICES.ROBOT_CONFIG.SIID: // 14
+                            switch (e.piid) {
+                                case MIOT_SERVICES.ROBOT_CONFIG.PROPERTIES.CONFIG.PIID:
+                                    Logger.warn(`Unhandled property change! ROBOT_CONFIG (${e.siid}) : CONFIG (${e.piid}). Full message:`, e);
+                                    break;
+                                default:
+                                    Logger.warn(`Unhandled property change! ROBOT_CONFIG (${e.siid}) : UNKNOWN (${e.piid}). Full message:`, e);
+                                    break;
+                            }
                             break;
-                        case MIOT_SERVICES.SILVER_ION.SIID:
-                        case 21: //Something else that also seems to be some kind of consumable?
-                            //Intentionally ignored for now, because I have no idea what that should be or where it could be located
-                            //TODO: figure out
+                        case MIOT_SERVICES.TIMERS.SIID:           // 8
+                        case MIOT_SERVICES.TOTAL_STATISTICS.SIID: // 12
+                            // Intentionally left blank (for now?)
                             break;
-                        case 10001:
+                        case MIOT_SERVICES.SILVER_ION.SIID: // 19
+                        case 21: // Something else that also seems to be some kind of consumable?
+                            // Intentionally ignored for now, because I have no idea what that should be or where it could be located
+                            // TODO: figure out
+                            break;
+                        case MIOT_SERVICES.SQUEEGEE.SIID: // 24
+                            switch (e.piid) {
+                                case MIOT_SERVICES.SQUEEGEE.PROPERTIES.LEFT.PIID:
+                                    Logger.warn(`Unhandled property change! SQUEEGEE (${e.siid}) : LEFT (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.SQUEEGEE.PROPERTIES.TIME_LEFT.PIID:
+                                    Logger.warn(`Unhandled property change! SQUEEGEE (${e.siid}) : TIME_LEFT (${e.piid}). Full message:`, e);
+                                    break;
+                                default:
+                                    Logger.warn(`Unhandled property change! SQUEEGEE (${e.siid}) : UNKNOWN (${e.piid}). Full message:`, e);
+                                    break;
+                            }
+                            break;
+                        case MIOT_SERVICES.ONBOARD_DIRTY_WATER_TANK.SIID: // 25
+                            switch (e.piid) {
+                                case MIOT_SERVICES.ONBOARD_DIRTY_WATER_TANK.PROPERTIES.LEFT.PIID:
+                                    Logger.warn(`Unhandled property change! ONBOARD_DIRTY_WATER_TANK (${e.siid}) : LEFT (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.ONBOARD_DIRTY_WATER_TANK.PROPERTIES.TIME_LEFT.PIID:
+                                    Logger.warn(`Unhandled property change! ONBOARD_DIRTY_WATER_TANK (${e.siid}) : TIME_LEFT (${e.piid}). Full message:`, e);
+                                    break;
+                                default:
+                                    Logger.warn(`Unhandled property change! ONBOARD_DIRTY_WATER_TANK (${e.siid}) : UNKNOWN (${e.piid}). Full message:`, e);
+                                    break;
+                            }
+                            break;
+                        case MIOT_SERVICES.DIRTY_WATER_TANK.SIID: // 26
+                            switch (e.piid) {
+                                case MIOT_SERVICES.DIRTY_WATER_TANK.PROPERTIES.LEFT.PIID:
+                                    Logger.warn(`Unhandled property change! DIRTY_WATER_TANK (${e.siid}) : LEFT (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.DIRTY_WATER_TANK.PROPERTIES.TIME_LEFT.PIID:
+                                    Logger.warn(`Unhandled property change! DIRTY_WATER_TANK (${e.siid}) : TIME_LEFT (${e.piid}). Full message:`, e);
+                                    break;
+                                default:
+                                    Logger.warn(`Unhandled property change! DIRTY_WATER_TANK (${e.siid}) : UNKNOWN (${e.piid}). Full message:`, e);
+                                    break;
+                            }
+                            break;
+                        case MIOT_SERVICES.DEODORIZER.SIID: // 29
+                            switch (e.piid) {
+                                case MIOT_SERVICES.DEODORIZER.PROPERTIES.TIME_LEFT.PIID:
+                                    Logger.warn(`Unhandled property change! DEODORIZER (${e.siid}) : TIME_LEFT (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.DEODORIZER.PROPERTIES.PERCENT_LEFT.PIID:
+                                    Logger.warn(`Unhandled property change! DEODORIZER (${e.siid}) : PERCENT_LEFT (${e.piid}). Full message:`, e);
+                                    break;
+                                default:
+                                    Logger.warn(`Unhandled property change! DEODORIZER (${e.siid}) : UNKNOWN (${e.piid}). Full message:`, e);
+                                    break;
+                            }
+                            break;
+                        case MIOT_SERVICES.SCALE_INHIBITOR.SIID: // 31
+                            switch (e.piid) {
+                                case MIOT_SERVICES.SCALE_INHIBITOR.PROPERTIES.TIME_LEFT.PIID:
+                                    Logger.warn(`Unhandled property change! SCALE_INHIBITOR (${e.siid}) : TIME_LEFT (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.SCALE_INHIBITOR.PROPERTIES.PERCENT_LEFT.PIID:
+                                    Logger.warn(`Unhandled property change! SCALE_INHIBITOR (${e.siid}) : PERCENT_LEFT (${e.piid}). Full message:`, e);
+                                    break;
+                                default:
+                                    Logger.warn(`Unhandled property change! SCALE_INHIBITOR (${e.siid}) : UNKNOWN (${e.piid}). Full message:`, e);
+                                    break;
+                            }
+                            break;
+                        case MIOT_SERVICES.FACTORY_TEST.SIID: // 99 //Is this a duplicate of the device service - SIID: 1?
+                            switch (e.piid) {
+                                case MIOT_SERVICES.FACTORY_TEST.PROPERTIES.STATUS.PIID:
+                                    Logger.warn(`Unhandled property change! FACTORY_TEST (${e.siid}) : STATUS (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.FACTORY_TEST.PROPERTIES.RESULT.PIID:
+                                    Logger.warn(`Unhandled property change! FACTORY_TEST (${e.siid}) : RESULT (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.FACTORY_TEST.PROPERTIES.SELF_TEST_STATUS.PIID:
+                                    Logger.warn(`Unhandled property change! FACTORY_TEST (${e.siid}) : SELF_TEST_STATUS (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.FACTORY_TEST.PROPERTIES.LSD_TEST_STATUS.PIID:
+                                    Logger.warn(`Unhandled property change! FACTORY_TEST (${e.siid}) : LSD_TEST_STATUS (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.FACTORY_TEST.PROPERTIES.DEBUG_SWITCH.PIID:
+                                    Logger.warn(`Unhandled property change! FACTORY_TEST (${e.siid}) : DEBUG_SWITCH (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.FACTORY_TEST.PROPERTIES.SERIAL.PIID:
+                                    Logger.warn(`Unhandled property change! FACTORY_TEST (${e.siid}) : SERIAL (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.FACTORY_TEST.PROPERTIES.CALIBRATION_STATUS.PIID:
+                                    Logger.warn(`Unhandled property change! FACTORY_TEST (${e.siid}) : CALIBRATION_STATUS (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.FACTORY_TEST.PROPERTIES.VERSION.PIID:
+                                    Logger.warn(`Unhandled property change! FACTORY_TEST (${e.siid}) : VERSION (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.FACTORY_TEST.PROPERTIES.PERFORMANCE_SWITCH.PIID:
+                                    Logger.warn(`Unhandled property change! FACTORY_TEST (${e.siid}) : PERFORMANCE_SWITCH (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.FACTORY_TEST.PROPERTIES.AI_TEST_STATUS.PIID:
+                                    Logger.warn(`Unhandled property change! FACTORY_TEST (${e.siid}) : AI_TEST_STATUS (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.FACTORY_TEST.PROPERTIES.PUBLIC_KEY.PIID:
+                                    Logger.warn(`Unhandled property change! FACTORY_TEST (${e.siid}) : PUBLIC_KEY (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.FACTORY_TEST.PROPERTIES.AUTO_PAIR.PIID:
+                                    Logger.warn(`Unhandled property change! FACTORY_TEST (${e.siid}) : AUTO_PAIR (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.FACTORY_TEST.PROPERTIES.MCU_VERSION.PIID:
+                                    Logger.warn(`Unhandled property change! FACTORY_TEST (${e.siid}) : MCU_VERSION (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.FACTORY_TEST.PROPERTIES.MOP_TEST_STATUS.PIID:
+                                    Logger.warn(`Unhandled property change! FACTORY_TEST (${e.siid}) : MOP_TEST_STATUS (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.FACTORY_TEST.PROPERTIES.PLATFORM_NETWORK.PIID:
+                                    Logger.warn(`Unhandled property change! FACTORY_TEST (${e.siid}) : PLATFORM_NETWORK (${e.piid}). Full message:`, e);
+                                    break;
+                                default:
+                                    Logger.warn(`Unhandled property change! FACTORY_TEST (${e.siid}) : UNKNOWN (${e.piid}). Full message:`, e);
+                                    break;
+                            }
+                            break;
+                        case MIOT_SERVICES.STREAM.SIID: // 10001
                             /*
                                 Seems to have something to do with the AI camera
                                 Sample value: {"operType":"properties_changed","operation":"monitor","result":0,"status":0}
                              */
                             //Intentionally ignored
+                            switch (e.piid) {
+                                case MIOT_SERVICES.STREAM.PROPERTIES.STATUS.PIID:
+                                    Logger.warn(`Unhandled property change! STREAM (${e.siid}) : STATUS (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.STREAM.PROPERTIES.AUDIO.PIID:
+                                    Logger.warn(`Unhandled property change! STREAM (${e.siid}) : AUDIO (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.STREAM.PROPERTIES.RECORD.PIID:
+                                    Logger.warn(`Unhandled property change! STREAM (${e.siid}) : RECORD (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.STREAM.PROPERTIES.TAKE_PHOTO.PIID:
+                                    Logger.warn(`Unhandled property change! STREAM (${e.siid}) : TAKE_PHOTO (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.STREAM.PROPERTIES.KEEP_ALIVE.PIID:
+                                    Logger.warn(`Unhandled property change! STREAM (${e.siid}) : KEEP_ALIVE (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.STREAM.PROPERTIES.FAULT.PIID:
+                                    Logger.warn(`Unhandled property change! STREAM (${e.siid}) : FAULT (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.STREAM.PROPERTIES.CAMERA_LIGHT_BRIGHTNESS.PIID:
+                                    Logger.warn(`Unhandled property change! STREAM (${e.siid}) : CAMERA_LIGHT_BRIGHTNESS (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.STREAM.PROPERTIES.CAMERA_LIGHT.PIID:
+                                    Logger.warn(`Unhandled property change! STREAM (${e.siid}) : CAMERA_LIGHT (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.STREAM.PROPERTIES.VENDOR.PIID:
+                                    Logger.warn(`Unhandled property change! STREAM (${e.siid}) : VENDOR (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.STREAM.PROPERTIES.PROPERTY.PIID:
+                                    Logger.warn(`Unhandled property change! STREAM (${e.siid}) : PROPERTY (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.STREAM.PROPERTIES.CRUISE_POINT.PIID:
+                                    Logger.warn(`Unhandled property change! STREAM (${e.siid}) : CRUISE_POINT (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.STREAM.PROPERTIES.TASK.PIID:
+                                    Logger.warn(`Unhandled property change! STREAM (${e.siid}) : TASK (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.STREAM.PROPERTIES.STEAM_HUMAN_FOLLOW.PIID:
+                                    Logger.warn(`Unhandled property change! STREAM (${e.siid}) : STEAM_HUMAN_FOLLOW (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.STREAM.PROPERTIES.OBSTACLE_VIDEO_STATUS.PIID:
+                                    Logger.warn(`Unhandled property change! STREAM (${e.siid}) : OBSTACLE_VIDEO_STATUS (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.STREAM.PROPERTIES.OBSTACLE_VIDEO_DATA.PIID:
+                                    Logger.warn(`Unhandled property change! STREAM (${e.siid}) : OBSTACLE_VIDEO_DATA (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.STREAM.PROPERTIES.UPLOAD.PIID:
+                                    Logger.warn(`Unhandled property change! STREAM (${e.siid}) : UPLOAD (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.STREAM.PROPERTIES.CODE.PIID:
+                                    Logger.warn(`Unhandled property change! STREAM (${e.siid}) : CODE (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.STREAM.PROPERTIES.SET_CODE.PIID:
+                                    Logger.warn(`Unhandled property change! STREAM (${e.siid}) : SET_CODE (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.STREAM.PROPERTIES.VERIFY_CODE.PIID:
+                                    Logger.warn(`Unhandled property change! STREAM (${e.siid}) : VERIFY_CODE (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.STREAM.PROPERTIES.RESET_CODE.PIID:
+                                    Logger.warn(`Unhandled property change! STREAM (${e.siid}) : RESET_CODE (${e.piid}). Full message:`, e);
+                                    break;
+                                case MIOT_SERVICES.STREAM.PROPERTIES.SPACE.PIID:
+                                    Logger.warn(`Unhandled property change! STREAM (${e.siid}) : SPACE (${e.piid}). Full message:`, e);
+                                    break;
+                                default:
+                                    Logger.warn(`Unhandled property change! STREAM (${e.siid}) : UNKNOWN (${e.piid}). Full message:`, e);
+                                    break;
+                            }
                             break;
                         default:
-                            Logger.warn("Unhandled property change ", e);
+                            Logger.warn(`Unhandled property change: SIID=${e.siid} : PIID=${e.piid}! Full message: `, e);
                     }
                 });
 
@@ -364,7 +503,7 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
             }
             case "dev_auth":
                 // actually replying to it leads to timeouts for reasons I do not care enough about to debug
-                // However, not replying at all will not make the firmware unhappy, so ignore it is
+                // However, not replying at all will not make the firmware unhappy, so ignoring it is safe
                 /*this.sendCloud({
                     id: msg.id,
                     method: "dev_auth",
@@ -373,6 +512,8 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
                     Logger.warn("Error while sending cloud ok", err);
                 }); */
                 return true;
+            default:
+                Logger.warn(`Unhandled onIncomingCloudMessage method: ${msg.method}. This returns false.`);
         }
         return false;
     }
@@ -690,7 +831,7 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
                     break;
                 }
                 default:
-                    Logger.warn("Unhandled property update", elem);
+                    Logger.warn(`Unhandled property update: SIID=${elem.siid} : PIID=${elem.piid}! Full message: `, elem);
             }
         }
 

@@ -76,6 +76,7 @@ const CAPABILITY_TYPE_TO_ROUTER_MAPPING = {
     [capabilities.KeyLockCapability.TYPE]: capabilityRouters.SimpleToggleCapabilityRouter,
     [capabilities.LocateCapability.TYPE]: capabilityRouters.LocateCapabilityRouter,
     [capabilities.ManualControlCapability.TYPE]: capabilityRouters.ManualControlCapabilityRouter,
+    [capabilities.ManualMIoTCommandCapability.TYPE ]: capabilityRouters.ManualMIoTCommandCapabilityRouter,
     [capabilities.MapResetCapability.TYPE]: capabilityRouters.MapResetCapabilityRouter,
     [capabilities.MapSegmentEditCapability.TYPE]: capabilityRouters.MapSegmentEditCapabilityRouter,
     [capabilities.MapSegmentRenameCapability.TYPE]: capabilityRouters.MapSegmentRenameCapabilityRouter,

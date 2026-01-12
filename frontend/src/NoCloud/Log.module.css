@@ -8,7 +8,27 @@
     .logViewer {
         height: calc(68vh - 56px)
     }
-
 }
 
+/* New input line container */
+.logInputLine {
+    margin-top: 16px; /* spacing under the log viewer */
+    width: 100%;
+}
 
+/* Individual input items */
+.logInputItem {
+    width: 100%;
+}
+
+/* Remove number input arrows in Chrome/Safari */
+.logInputItem input[type=number]::-webkit-inner-spin-button,
+.logInputItem input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Remove number input arrows in Firefox */
+.logInputItem input[type=number] {
+    -moz-appearance: textfield;
+}

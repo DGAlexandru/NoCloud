@@ -1,0 +1,94 @@
+{
+  "/api/v2/robot/capabilities/ManualMIoTCommandCapability": {
+    "get": {
+      "tags": [
+        "ManualMIoTCommandCapability"
+      ],
+      "summary": "Currently, the GET / route is a dummy endpoint, since no runtime status is needed.",
+      "description": "Returns a static placeholder and does not provide a real status.",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "tags": [
+        "ManualMIoTCommandCapability"
+      ],
+      "summary": "Send a manual MIoT command to the robot",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/NoCloudManualMIoTCommandInteraction"
+            },
+            "examples": {
+              "get_properties": {
+                "description": "Fetch property values",
+                "value": { "miotcmd": "get_properties", "siid": "1", "piid": "5" }
+              },
+              "set_properties": {
+                "description": "Set property values",
+                "value": { "miotcmd": "set_properties", "siid": "1", "piid": "5", "value": "0" }
+              },
+              "action": {
+                "description": "Execute an action with or without values",
+                "value": { "miotcmd": "action", "siid": "1", "piid": "5", "value": "start" }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "400": {
+          "$ref": "#/components/responses/400"
+        }
+      }
+    }
+  },
+  "/api/v2/robot/capabilities/ManualMIoTCommandCapability/properties": {
+    "get": {
+      "tags": [
+        "ManualMIoTCommandCapability"
+      ],
+      "summary": "Get supported commands for the capability",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "supportedManualMIoTCommandActions": {
+                    "type": "array",
+                    "description": "List of supported MIoT commands",
+                    "items": {
+                      "$ref": "#/components/schemas/NoCloudManualMIoTCommandAction"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
