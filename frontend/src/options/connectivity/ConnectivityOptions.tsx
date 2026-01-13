@@ -2,7 +2,7 @@ import {useCapabilitiesSupported} from "../../CapabilitiesProvider";
 import {Capability} from "../../api";
 import React from "react";
 import {LinkListMenuItem} from "../../components/list_menu/LinkListMenuItem";
-import {MQTTIcon} from "../../components/CustomIcons";
+import {MQTTIcon, PushNotifIcon} from "../../components/CustomIcons";
 import {
     AccessTime as NTPIcon,
     VpnKey as AuthIcon,
@@ -44,6 +44,15 @@ const ConnectivityOptions = (): React.ReactElement => {
                 primaryLabel="MQTT Connectivity"
                 secondaryLabel="Connect NoCloud to your MQTT Broker"
                 icon={<MQTTIcon/>}
+            />
+        );
+        items.push(
+            <LinkListMenuItem
+                key="pushNotifConnectivity"
+                url="/options/connectivity/pushnotif"
+                primaryLabel="Push Notifications Connectivity"
+                secondaryLabel="Send Events from NoCloud as Push Notifications"
+                icon={<PushNotifIcon/>}
             />
         );
 

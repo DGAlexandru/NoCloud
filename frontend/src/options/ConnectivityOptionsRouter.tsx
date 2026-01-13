@@ -4,6 +4,7 @@ import {useCapabilitiesSupported} from "../CapabilitiesProvider";
 import {Capability} from "../api";
 import ConnectivityOptions from "./connectivity/ConnectivityOptions";
 import NTPConnectivityPage from "./connectivity/NTPConnectivityPage";
+import PushNotifConnectivityPage from "./connectivity/PushNotifConnectivityPage";
 import AuthSettingsPage from "./connectivity/AuthSettingsPage";
 import WifiConnectivityPage from "./connectivity/WifiConnectivityPage";
 import NetworkAdvertisementSettingsPage from "./connectivity/NetworkAdvertisementSettingsPage";
@@ -22,6 +23,7 @@ const OptionsRouter = (): React.ReactElement => {
             <Route path={""} element={<ConnectivityOptions />} />
             <Route path={"auth"} element={<AuthSettingsPage />} />
             <Route path={"mqtt"} element={<MQTTConnectivityPage />} />
+            <Route path={"pushnotif"} element={<PushNotifConnectivityPage />} />
             <Route path={"networkadvertisement"} element={<NetworkAdvertisementSettingsPage />} />
             <Route path={"ntp"} element={<NTPConnectivityPage />} />
 

@@ -62,6 +62,8 @@ import {
     fetchPersistentMapState,
     fetchPetObstacleAvoidanceControlState,
     fetchPresetSelections,
+    fetchPushNotifClientConfiguration,
+    fetchPushNotifClientStatus,
     fetchQuirks,
     fetchRobotInformation,
     fetchRobotProperties,
@@ -119,6 +121,8 @@ import {
     sendObstacleImagesState,
     sendPersistentMapEnabled,
     sendPetObstacleAvoidanceControlState,
+    sendPushNotifClientConfiguration,
+    sendPushNotifClientMessage,
     sendRenameSegmentCommand,
     sendRestoreDefaultConfigurationAction,
     sendSetQuirkValueCommand,
@@ -170,6 +174,9 @@ import {
     NTPClientConfiguration,
     NTPClientStatus,
     Point,
+    PushNotifClientConfiguration,
+    PushNotifClientStatus,
+    SendPushNotifClientParams,
     SetLogLevelRequest,
     Timer,
     UpdaterConfiguration,
@@ -229,6 +236,8 @@ enum QueryKey {
     PersistentMap = "persistent_map",
     PetObstacleAvoidance = "pet_obstacle_avoidance",
     PresetSelections = "preset_selections",
+    PushNotifClientConfiguration = "pushnotif_client_configuration",
+    PushNotifClientStatus = "pushnotif_client_status",
     Quirks = "quirks",
     RobotInformation = "robot_information",
     RobotProperties = "robot_properties",
@@ -820,6 +829,63 @@ export const useNetworkAdvertisementPropertiesQuery = () => {
         queryFn: fetchNetworkAdvertisementProperties,
 
         staleTime: Infinity,
+    });
+};
+
+export const usePushNotifClientStatusQuery = () => {
+    return useQuery( {
+        queryKey: [QueryKey.PushNotifClientStatus],
+        queryFn: fetchPushNotifClientStatus,
+
+        staleTime: 5_000,
+        refetchInterval: 5_000
+    });
+};
+
+export const usePushNotifClientConfigurationQuery = () => {
+    return useQuery({
+        queryKey: [QueryKey.PushNotifClientConfiguration],
+        queryFn: fetchPushNotifClientConfiguration,
+
+        staleTime: Infinity,
+    });
+};
+
+export const usePushNotifClientConfigurationMutation = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (configuration: PushNotifClientConfiguration) => {
+            return sendPushNotifClientConfiguration(configuration).then(fetchPushNotifClientConfiguration).then((configuration) => {
+                queryClient.setQueryData<PushNotifClientConfiguration>([QueryKey.PushNotifClientConfiguration], configuration, {
+                    updatedAt: Date.now(),
+                });
+            }).then(fetchPushNotifClientStatus).then((state) => {
+                queryClient.setQueryData<PushNotifClientStatus>([QueryKey.PushNotifClientStatus], state, {
+                    updatedAt: Date.now(),
+                });
+            });
+        },
+        onError: useOnSettingsChangeError("PushNotif Client")
+    });
+};
+
+export const useSendPushNotifClientMutation = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (params: SendPushNotifClientParams) => {
+            return sendPushNotifClientMessage(params);
+        },
+        onSuccess: async () => {
+            // Refetch the latest state from backend
+            const latestState = await fetchPushNotifClientStatus();
+            queryClient.setQueryData<PushNotifClientStatus>([QueryKey.PushNotifClientStatus], latestState, {
+                updatedAt: Date.now()
+            });
+        },
+        // Handle errors during send message operation
+        onError: useOnCommandError("Sending a PushNotifClient Message")
     });
 };
 

@@ -192,6 +192,12 @@ const menuTree: Array<MenuEntry | MenuSubEntry | MenuSubheader> = [
     },
     {
         kind: "MenuSubEntry",
+        route: "/options/connectivity/pushnotif",
+        title: "Push Notifications Connectivity",
+        parentRoute: "/options/connectivity"
+    },
+    {
+        kind: "MenuSubEntry",
         route: "/options/connectivity/networkadvertisement",
         title: "Network Advertisement",
         parentRoute: "/options/connectivity"

@@ -49,10 +49,13 @@ import {
     NoCloudWifiNetwork,
     ObstacleImagesProperties,
     Point,
+    PushNotifClientConfiguration,
+    PushNotifClientStatus,
     Quirk,
     RobotInformation,
     RobotProperties,
     Segment,
+    SendPushNotifClientParams,
     SetLogLevelRequest,
     SetQuirkValueCommand,
     SimpleToggleState,
@@ -581,6 +584,48 @@ export const fetchNetworkAdvertisementProperties = async (): Promise<NetworkAdve
         .get<NetworkAdvertisementProperties>("/networkadvertisement/properties")
         .then(({data}) => {
             return data;
+        });
+};
+
+export const fetchPushNotifClientStatus = async (): Promise<PushNotifClientStatus> => {
+    return NoCloudAPI
+        .get<PushNotifClientStatus>("/pushnotifclient/status")
+        .then(({data}) => {
+            return data;
+        });
+};
+
+export const fetchPushNotifClientConfiguration = async (): Promise<PushNotifClientConfiguration> => {
+    return NoCloudAPI
+        .get<PushNotifClientConfiguration>("/pushnotifclient/config")
+        .then(({data}) => {
+            return data;
+        });
+};
+
+export const sendPushNotifClientConfiguration = async (configuration: PushNotifClientConfiguration): Promise<void> => {
+    return NoCloudAPI
+        .put("/pushnotifclient/config", configuration)
+        .then(({status}) => {
+            if (status !== 200) {
+                throw new Error("Could not update PushNotifClient configuration");
+            }
+        })
+        .catch((err) => {
+            throw err;
+        });
+};
+
+export const sendPushNotifClientMessage = async (params: SendPushNotifClientParams): Promise<void> => {
+    return NoCloudAPI
+        .post("/pushnotifclient/send", params)
+        .then(({status}) => {
+            if (status !== 200) {
+                throw new Error("Failed to send push notification");
+            }
+        })
+        .catch((err) => {
+            throw err;
         });
 };
 

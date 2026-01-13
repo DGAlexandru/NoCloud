@@ -352,6 +352,45 @@ export interface NTPClientConfiguration {
     timeout: number;
 }
 
+export interface PushNotifClientState {
+    __class: "NoCloudPushNotifClientDisabledState" | "NoCloudPushNotifClientEnabledState" | "NoCloudPushNotifClientErrorState" | "NoCloudPushNotifClientSyncedState";
+    timestamp: string;
+    type?: "unknown" | "transient" | "name_resolution" | "connection" | "persisting";
+    message?: string;
+    lastMessage?: string | null;
+    lastTitle?: string | null;
+    lastPriority?: number;
+}
+
+export interface PushNotifClientStatus {
+    state: PushNotifClientState,
+    robotTime: string
+}
+
+export interface PushNotifClientConfiguration {
+    enabled: boolean;
+    server: string;
+    path: string;
+    port: number;
+    token: string;
+    user: string;
+    sound: string;
+    priority: number;
+    rateLimit: number;
+    rateLimitTime: number;
+    pushEvents: boolean;
+    processEvents: boolean;
+}
+
+export interface SendPushNotifClientParams {
+    message: string;
+    title?: string;
+    priority?: number;
+    retry?: number;
+    expire?: number;
+    sound?: string;
+}
+
 export interface NoCloudEvent {
     __class: string;
     id: string;

@@ -22,7 +22,6 @@ import {
     useLogLevelQuery,
     useManualMIoTCommandInteraction,
     useManualMIoTCommandPropertiesQuery,
-    //useManualMIoTCommandStateQuery,
     useNoCloudLogQuery
 } from "../api";
 import LogViewer from "../components/LogViewer";
