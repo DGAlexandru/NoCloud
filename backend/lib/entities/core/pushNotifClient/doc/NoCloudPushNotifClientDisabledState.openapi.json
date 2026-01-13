@@ -1,0 +1,13 @@
+{
+  "components": {
+    "schemas": {
+      "NoCloudPushNotifClientDisabledState": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/NoCloudPushNotifClientState"
+          }
+        ]
+      }
+    }
+  }
+}

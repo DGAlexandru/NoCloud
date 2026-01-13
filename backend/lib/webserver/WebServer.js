@@ -23,6 +23,7 @@ const MQTTRouter = require("./MQTTRouter");
 const NetworkAdvertisementManagerRouter = require("./NetworkAdvertisementManagerRouter");
 const NoCloudEventRouter = require("./NoCloudEventRouter");
 const NTPClientRouter = require("./NTPClientRouter");
+const PushNotifClientRouter = require("./PushNotifClientRouter");
 const SSDPRouter = require("./SSDPRouter");
 const SystemRouter = require("./SystemRouter");
 const TimerRouter = require("./TimerRouter");
@@ -35,6 +36,7 @@ class WebServer {
      * @param {import("../core/NoCloudRobot")} options.robot
      * @param {import("../mqtt/MqttController")} options.mqttController
      * @param {import("../NetworkAdvertisementManager")} options.networkAdvertisementManager
+     * @param {import("../PushNotifClient")} options.pushNotifClient
      * @param {import("../NTPClient")} options.ntpClient
      * @param {import("../updater/Updater")} options.updater
      * @param {import("../scheduler/Scheduler")} options.scheduler
@@ -132,6 +134,8 @@ class WebServer {
         this.app.use("/api/v2/networkadvertisement/", new NetworkAdvertisementManagerRouter({config: this.config, networkAdvertisementManager: options.networkAdvertisementManager, validator: this.validator}).getRouter());
 
         this.app.use("/api/v2/ntpclient/", new NTPClientRouter({config: this.config, ntpClient: options.ntpClient, validator: this.validator}).getRouter());
+
+        this.app.use("/api/v2/pushnotifclient/", new PushNotifClientRouter({config: this.config, pushNotifClient: options.pushNotifClient, validator: this.validator}).getRouter());
 
         this.app.use("/api/v2/timers/", new TimerRouter({config: this.config, robot: this.robot, validator: this.validator, scheduler: options.scheduler}).getRouter());
 

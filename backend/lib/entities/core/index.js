@@ -15,5 +15,6 @@ module.exports = {
     NoCloudWifiNetwork: require("./NoCloudWifiNetwork"),
     NoCloudWifiStatus: require("./NoCloudWifiStatus"),
     NoCloudZone: require("./NoCloudZone"),
-    ntpClient: require("./ntpClient")
+    ntpClient: require("./ntpClient"),
+    pushNotifClient: require("./pushNotifClient")
 };

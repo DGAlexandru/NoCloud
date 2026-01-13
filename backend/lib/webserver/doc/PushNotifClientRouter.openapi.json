@@ -1,0 +1,103 @@
+{
+  "/api/v2/pushnotifclient/status": {
+    "get": {
+      "tags": [
+        "PushNotif"
+      ],
+      "summary": "Get Push Notifications Client status",
+      "responses": {
+        "200": {
+          "description": "Push Notifications Client's current status.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "state": {
+                    "type": "object",
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/NoCloudPushNotifClientDisabledState"
+                      },
+                      {
+                        "$ref": "#/components/schemas/NoCloudPushNotifClientEnabledState"
+                      },
+                      {
+                        "$ref": "#/components/schemas/NoCloudPushNotifClientErrorState"
+                      },
+                      {
+                        "$ref": "#/components/schemas/NoCloudPushNotifClientSyncedState"
+                      }
+                    ]
+                  },
+                  "robotTime": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/v2/pushnotifclient/config": {
+    "get": {
+      "tags": [
+        "PushNotif"
+      ],
+      "summary": "Get Push Notifications Client configuration",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PushNotifClientConfigDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "tags": [
+        "PushNotif"
+      ],
+      "summary": "Update Push Notification Client configuration",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/PushNotifClientConfigDTO"
+            },
+            "examples": {
+              "custom":{
+                "description": "Configure Push Notification Client Settings",
+                "value": {
+                  "enabled": false,
+                  "server": "api.pushover.net",
+                  "path": "/1/messages.json",
+                  "port": 443,
+                  "token": "1234567890abcdefghijABCDEFGHIJ",
+                  "user": "abcdefghij1234567890ABCDEFGHIJ",
+                  "sound": "magic",
+                  "priority": 0,
+                  "rateLimit": 5,
+                  "rateLimitTime": 60000,
+                  "pushEvents": false,
+                  "processEvents": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        }
+      }
+    }
+  }
+}

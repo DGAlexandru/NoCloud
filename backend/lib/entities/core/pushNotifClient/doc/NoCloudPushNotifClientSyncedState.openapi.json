@@ -1,0 +1,32 @@
+{
+  "components": {
+    "schemas": {
+      "NoCloudPushNotifClientSyncedState": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/NoCloudPushNotifClientState"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "lastMessage": {
+                "type": "string",
+                "description": "The last message successfully sent"
+              },
+              "lastTitle": {
+                "type": "string",
+                "nullable": true,
+                "description": "The title of the last message (nullable)"
+              },
+              "lastPriority": {
+                "type": "number",
+                "description": "The priority of the last message"
+              }
+            },
+            "required": ["lastMessage", "lastPriority"]
+          }
+        ]
+      }
+    }
+  }
+}

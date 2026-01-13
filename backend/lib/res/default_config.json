@@ -55,6 +55,20 @@
         },
         "optionalExposedCapabilities": []
     },
+    "pushNotifClient": {
+        "enabled": false,
+        "server": "api.pushover.net",
+        "path": "/1/messages.json",
+        "port": 443,
+        "token": "1234567890abcdefghijABCDEFGHIJ",
+        "user": "abcdefghij1234567890ABCDEFGHIJ",
+        "sound": "magic",
+        "priority": 0,
+        "rateLimit": 5,
+        "rateLimitTime": 60000,
+        "pushEvents": false,
+        "processEvents": false
+    },
     "ntpClient": {
         "enabled": true,
         "server": "pool.ntp.org",

@@ -27,6 +27,7 @@ const options = {
             {name: "MQTT", description: "MQTT Controller API"},
             {name: "NetworkAdvertisement", description: "Network Advertisement Manager API"},
             {name: "NTP", description: "NTP Client API"},
+            {name: "PushNotif", description: "Push Notifications Client API"},
             {name: "Timers", description: "Timers API"},
             {name: "Updater", description: "Update NoCloud using NoCloud"},
 
@@ -98,6 +99,7 @@ const options = {
         path.join(__dirname, "./backend/lib/entities/map/doc/*.openapi.json"),
         path.join(__dirname, "./backend/lib/entities/core/doc/*.openapi.json"),
         path.join(__dirname, "./backend/lib/entities/core/ntpClient/doc/*.openapi.json"),
+        path.join(__dirname, "./backend/lib/entities/core/pushNotifClient/doc/*.openapi.json"),
         path.join(__dirname, "./backend/lib/entities/core/updater/doc/*.openapi.json"),
         path.join(__dirname, "./backend/lib/entities/state/doc/*.openapi.json"),
         path.join(__dirname, "./backend/lib/entities/state/attributes/doc/*.openapi.json"),

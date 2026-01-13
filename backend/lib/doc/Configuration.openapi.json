@@ -47,6 +47,9 @@
           "mqtt": {
             "$ref": "#/components/schemas/MqttConfigDTO"
           },
+          "pushNotifClient": {
+            "$ref": "#/components/schemas/PushNotifClientConfigDTO"
+          },
           "ntpClient": {
             "$ref": "#/components/schemas/NTPClientConfigDTO"
           },
@@ -325,7 +328,7 @@
           },
           "server": {
             "type": "string",
-            "description": "Can be either an IP or a Domain Name"
+            "description": "Can be either an IP or a FQDN"
           },
           "port": {
             "type": "number"
@@ -349,6 +352,74 @@
         "properties": {
           "enabled": {
             "type": "boolean"
+          }
+        }
+      },
+      "PushNotifClientConfigDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "enabled",
+          "server",
+          "path",
+          "port",
+          "token",
+          "user",
+          "sound",
+          "priority",
+          "rateLimit",
+          "rateLimitTime",
+          "pushEvents",
+          "processEvents"
+        ],
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "description": "Controls the status of NoCloud Push Notifications Connectivity"
+          },
+          "server": {
+            "type": "string",
+            "description": "Can be either an IP or a FQDN"
+          },
+          "path": {
+            "type": "string",
+            "description": "Path to API; starting with (at least): /"
+          },
+          "port": {
+            "type": "number",
+            "description": "Push Notification Server port"
+          },
+          "token": {
+            "type": "string",
+            "description": "Push Notifications Application API Token/Key (30 characters)"
+          },
+          "user": {
+            "type": "string",
+            "description": "Push Notification User API Key (30 characters)"
+          },
+          "sound": {
+            "type": "string",
+            "description": "Push Notification Sound"
+          },
+          "priority": {
+            "type": "number",
+            "description": "Push Notification Priority (-2 .. 2)"
+          },
+          "rateLimit": {
+            "type": "number",
+            "description": "Push Notification Messages Rate Limit (1 .. 20)"
+          },
+          "rateLimitTime": {
+            "type": "number",
+            "description": "Push Notification Time Rate Limit, in ms (1 .. 5*60_000)"
+          },
+          "pushEvents": {
+            "type": "boolean",
+            "description": "Controls if the NoCloud Events are forwarded or not"
+          },
+          "processEvents": {
+            "type": "boolean",
+            "description": "Controls if the forwarded NoCloud Events are cleared (processed)"
           }
         }
       },
