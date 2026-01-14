@@ -376,6 +376,9 @@ export interface PushNotifClientConfiguration {
     user: string;
     sound: string;
     priority: number;
+    retry: number;
+    expire: number;
+    titleID: string;
     rateLimit: number;
     rateLimitTime: number;
     pushEvents: boolean;
@@ -385,10 +388,11 @@ export interface PushNotifClientConfiguration {
 export interface SendPushNotifClientParams {
     message: string;
     title?: string;
+    sound?: string;
     priority?: number;
     retry?: number;
     expire?: number;
-    sound?: string;
+    titleID?: string;
 }
 
 export interface NoCloudEvent {

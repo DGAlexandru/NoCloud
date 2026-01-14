@@ -134,6 +134,9 @@ type PushNotifConfigState = {
     user: string;
     sound: string;
     priority: number;
+    retry: number;
+    expire: number;
+    titleID: string;
     rateLimit: number;
     rateLimitTime: number;
     pushEvents: boolean;
@@ -143,13 +146,47 @@ type PushNotifConfigState = {
 type TestNotifState = {
     title: string;
     message: string;
-    priority: number;
     sound: string;
+    priority: number;
     retry: number;
     expire: number;
     sending: boolean;
     result: string | null;
 };
+
+const priorities = [
+    { value: -2, label: "Silent (-2)" },
+    { value: -1, label: "Low (-1)" },
+    { value: 0, label: "Normal (0)" },
+    { value: 1, label: "High (1)" },
+    { value: 2, label: "Emergency (2)" }
+];
+
+const sounds = [
+    { value: "none", label: "None (silent)" },
+    { value: "alien", label: "Alien Alarm (long)" },
+    { value: "bike", label: "Bike" },
+    { value: "bugle", label: "Bugle" },
+    { value: "cashregister", label: "Cash Register" },
+    { value: "classical", label: "Classical" },
+    { value: "climb", label: "Climb (long)" },
+    { value: "cosmic", label: "Cosmic" },
+    { value: "echo", label: "Pushover Echo (long)" },
+    { value: "falling", label: "Falling" },
+    { value: "gamelan", label: "Gamelan" },
+    { value: "incoming", label: "Incoming" },
+    { value: "intermission", label: "Intermission" },
+    { value: "magic", label: "Magic" },
+    { value: "mechanical", label: "Mechanical" },
+    { value: "persistent", label: "Persistent (long)" },
+    { value: "pianobar", label: "Piano Bar" },
+    { value: "pushover", label: "Pushover (default)" },
+    { value: "siren", label: "Siren" },
+    { value: "spacealarm", label: "Space Alarm" },
+    { value: "tugboat", label: "Tug Boat" },
+    { value: "updown", label: "Up Down (long)" },
+    { value: "vibrate", label: "Vibrate Only" }
+];
 
 const PushNotifConnectivity: React.FC<{
     statusQuery: ReturnType<typeof usePushNotifClientStatusQuery>;
@@ -182,8 +219,11 @@ const PushNotifConnectivity: React.FC<{
         user: "",
         sound: "magic",
         priority: 0,
+        retry: 30,
+        expire: 600,
+        titleID: "Robot1",
         rateLimit: 5,
-        rateLimitTime: 30_000,
+        rateLimitTime: 60_000,
         pushEvents: false,
         processEvents: false
     });
@@ -213,12 +253,12 @@ const PushNotifConnectivity: React.FC<{
     // -----------------------------------------------------
 
     const [test, setTest] = React.useState<TestNotifState>({
-        title: "Test notification",
-        message: "This is a test push notification",
+        title: "Robot1 - Test Push Notification",
+        message: "This is a NoCloud push notification test.",
+        sound: "siren",
         priority: 0,
-        sound: "magic",
         retry: 30,
-        expire: 300,
+        expire: 600,
         sending: false,
         result: null,
     });
@@ -242,8 +282,8 @@ const PushNotifConnectivity: React.FC<{
 
         try {
             const params: SendPushNotifClientParams = {
-                title: test.title || "Test Notification",
-                message: test.message || "This is a test push notification from NoCloud",
+                title: test.title || "Robot1 - Test Push Notification",
+                message: test.message || "This is a NoCloud push notification test.",
                 priority: test.priority,
                 sound: test.sound,
             };
@@ -293,7 +333,7 @@ const PushNotifConnectivity: React.FC<{
 
             {/* Configuration Section */}
             <Grid container spacing={1} sx={{ mb: 1 }}>
-                <Grid size={{ xs: 6, sm: 6 }}>
+                <Grid size={{ xs: 5, sm: 5 }}>
                     <FormControlLabel
                         control={
                             <Checkbox
@@ -305,7 +345,17 @@ const PushNotifConnectivity: React.FC<{
                         sx={{ mb: 1 }}
                     />
                 </Grid>
-                <Grid container size={{ xs: 6, sm: 6 }} justifyContent="flex-end">
+                <Grid size={{ xs: 3, sm: 3 }}>
+                    <TextField
+                        label="Robot Name"
+                        value={config.titleID}
+                        disabled={!config.enabled}
+                        variant="standard"
+                        onChange={(e) => updateConfig("titleID", e.target.value)}
+                        fullWidth
+                    />
+                </Grid>
+                <Grid container size={{ xs: 4, sm: 4 }} justifyContent="flex-end">
                     <LoadingButton
                         loading={configurationUpdating}
                         color="primary"
@@ -382,32 +432,64 @@ const PushNotifConnectivity: React.FC<{
                 </Grid>
                 <Grid size={{ xs: 6, sm: 2 }}>
                     <TextField
-                        label="Def. Notification Sound"
+                        label="Notification Sound"
                         value={config.sound}
-                        disabled={!config.enabled}
                         variant="standard"
                         onChange={(e) => updateConfig("sound", e.target.value)}
                         fullWidth
-                    />
+                        select
+                    >
+                        {sounds.map((sound) => (
+                            <MenuItem key={sound.value} value={sound.value}>
+                                {sound.label}
+                            </MenuItem>
+                        ))}
+                    </TextField>
                 </Grid>
                 <Grid size={{ xs: 6, sm: 2 }}>
                     <TextField
-                        label="Def. Notification Priority"
+                        label="Notification Priority"
                         value={config.priority}
-                        select
                         disabled={!config.enabled}
                         variant="standard"
                         onChange={(e) => updateConfig("priority", Number(e.target.value))}
                         fullWidth
+                        select
                     >
-                        <MenuItem value={-2}>Silent (-2)</MenuItem>
-                        <MenuItem value={-1}>Low (-1)</MenuItem>
-                        <MenuItem value={0}>Normal (0)</MenuItem>
-                        <MenuItem value={1}>High (1)</MenuItem>
-                        <MenuItem value={2}>Emergency (2)</MenuItem>
+                        {priorities.map((p) => (
+                            <MenuItem key={p.value} value={p.value}>
+                                {p.label}
+                            </MenuItem>
+                        ))}
                     </TextField>
                 </Grid>
-                <Grid size={{ xs: 6, sm: 3 }}>
+                {(config.priority === 2) && (
+                    <>
+                        <Grid size={{ xs: 6, sm: 2 }}>
+                            <TextField
+                                label="Sec. between retries"
+                                type="number"
+                                value={config.retry}
+                                variant="standard"
+                                onChange={(e) => updateConfig("retry", Number(e.target.value))}
+                                slotProps={{ htmlInput: { min: 30, max: 10*60 } }}
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid size={{ xs: 6, sm: 2 }}>
+                            <TextField
+                                label="Expiration (sec)"
+                                type="number"
+                                value={config.expire}
+                                variant="standard"
+                                onChange={(e) => updateConfig("expire", Number(e.target.value))}
+                                slotProps={{ htmlInput: { min: 10*60, max: 3*60*60 } }}
+                                fullWidth
+                            />
+                        </Grid>
+                    </>
+                )}
+                <Grid size={{ xs: 6, sm: 2 }}>
                     <TextField
                         label="RateLimit"
                         type="number"
@@ -420,11 +502,11 @@ const PushNotifConnectivity: React.FC<{
                                 updateConfig("rateLimit", value);
                             }
                         }}
-                        slotProps={{ htmlInput: { min: 1, max: 20 } }}
+                        slotProps={{ htmlInput: { min: 1, max: 50 } }}
                         fullWidth
                     />
                 </Grid>
-                <Grid size={{ xs: 6, sm: 3 }}>
+                <Grid size={{ xs: 6, sm: 2 }}>
                     <TextField
                         label="RateLimitTimeMS"
                         type="number"
@@ -437,11 +519,11 @@ const PushNotifConnectivity: React.FC<{
                                 updateConfig("rateLimitTime", value);
                             }
                         }}
-                        slotProps={{ htmlInput: { min: 1, max: 5*60_000 } }}
+                        slotProps={{ htmlInput: { min: 30_000, max: 5*60_000 } }}
                         fullWidth
                     />
                 </Grid>
-                <Grid size={{ xs: 6, sm: 3 }}>
+                <Grid size={{ xs: 6, sm: 2 }}>
                     <FormControlLabel
                         control={
                             <Checkbox
@@ -453,7 +535,7 @@ const PushNotifConnectivity: React.FC<{
                         sx={{ mb: 1 }}
                     />
                 </Grid>
-                <Grid size={{ xs: 6, sm: 3 }}>
+                <Grid size={{ xs: 6, sm: 2 }}>
                     <FormControlLabel
                         control={
                             <Checkbox
@@ -480,81 +562,83 @@ const PushNotifConnectivity: React.FC<{
             <Typography variant="h6" gutterBottom>
                 Test Push Notification
             </Typography>
-
             <Grid container spacing={2}>
                 <Grid size={{ xs: 12, sm: 6 }}>
                     <TextField
                         label="Title"
                         value={test.title}
+                        variant="standard"
                         onChange={(e) => updateTest("title", e.target.value)}
                         fullWidth
-                        variant="standard"
                     />
                 </Grid>
-
                 <Grid size={{ xs: 12, sm: 6 }}>
                     <TextField
                         label="Message"
                         value={test.message}
+                        variant="standard"
                         onChange={(e) => updateTest("message", e.target.value)}
                         fullWidth
-                        variant="standard"
                     />
                 </Grid>
-
                 <Grid size={{ xs: 12, sm: 4 }}>
                     <TextField
-                        select
                         label="Priority"
                         value={test.priority}
+                        variant="standard"
                         onChange={(e) => updateTest("priority", Number(e.target.value))}
                         fullWidth
-                        variant="standard"
+                        select
                     >
-                        <MenuItem value={-2}>Silent (-2)</MenuItem>
-                        <MenuItem value={-1}>Low (-1)</MenuItem>
-                        <MenuItem value={0}>Normal (0)</MenuItem>
-                        <MenuItem value={1}>High (1)</MenuItem>
-                        <MenuItem value={2}>Emergency (2)</MenuItem>
+                        {priorities.map((p) => (
+                            <MenuItem key={p.value} value={p.value}>
+                                {p.label}
+                            </MenuItem>
+                        ))}
                     </TextField>
                 </Grid>
-
                 {isEmergency && (
                     <>
                         <Grid size={{ xs: 12, sm: 4 }}>
                             <TextField
-                                label="Retry (seconds)"
+                                label="Sec. between retries"
                                 type="number"
                                 value={test.retry}
-                                onChange={(e) => updateTest("retry", Number(e.target.value))}
-                                fullWidth
                                 variant="standard"
+                                onChange={(e) => updateTest("retry", Number(e.target.value))}
+                                slotProps={{ htmlInput: { min: 30, max: 10*60 } }}
+                                fullWidth
                             />
                         </Grid>
-
                         <Grid size={{ xs: 12, sm: 4 }}>
                             <TextField
-                                label="Expire (seconds)"
+                                label="Expiration (sec)"
                                 type="number"
                                 value={test.expire}
-                                onChange={(e) => updateTest("expire", Number(e.target.value))}
-                                fullWidth
                                 variant="standard"
+                                onChange={(e) => updateTest("expire", Number(e.target.value))}
+                                slotProps={{ htmlInput: { min: 10*60, max: 3*60*60 } }}
+                                fullWidth
                             />
                         </Grid>
                     </>
                 )}
-
                 <Grid size={{ xs: 12, sm: 6 }}>
                     <TextField
-                        label="Sound"
+                        label="Notif Test Sound"
                         value={test.sound}
+                        variant="standard"
                         onChange={(e) => updateTest("sound", e.target.value)}
                         fullWidth
-                        variant="standard"
-                    />
+                        select
+                    >
+                        {sounds.map((sound) => (
+                            <MenuItem key={sound.value} value={sound.value}>
+                                {sound.label}
+                            </MenuItem>
+                        ))}
+                    </TextField>
                 </Grid>
-
                 <Grid size={{ xs: 12, sm: 6 }} sx={{ display: "flex", alignItems: "flex-end" }}>
                     <LoadingButton
                         loading={test.sending}
@@ -566,7 +650,6 @@ const PushNotifConnectivity: React.FC<{
                         Try Test Notification
                     </LoadingButton>
                 </Grid>
-
                 {test.result && (
                     <Grid size={{ xs: 12, sm: 6 }} sx={{ display: "flex", alignItems: "flex-end" }}>
                         <Typography
@@ -585,7 +668,6 @@ const PushNotifConnectivity: React.FC<{
 // ---------------------------------------------------------
 // Page Wrapper
 // ---------------------------------------------------------
-
 const PushNotifConnectivityPage = (): React.ReactElement => {
     const statusQuery = usePushNotifClientStatusQuery();
 

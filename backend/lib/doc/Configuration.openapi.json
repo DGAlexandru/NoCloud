@@ -367,6 +367,9 @@
           "user",
           "sound",
           "priority",
+          "retry",
+          "expire",
+          "titleID",
           "rateLimit",
           "rateLimitTime",
           "pushEvents",
@@ -375,18 +378,22 @@
         "properties": {
           "enabled": {
             "type": "boolean",
+            "default": "false",
             "description": "Controls the status of NoCloud Push Notifications Connectivity"
           },
           "server": {
             "type": "string",
+            "default": "api.pushover.net",
             "description": "Can be either an IP or a FQDN"
           },
           "path": {
             "type": "string",
+            "default": "/1/messages.json",
             "description": "Path to API; starting with (at least): /"
           },
           "port": {
             "type": "number",
+            "default": 443,
             "description": "Push Notification Server port"
           },
           "token": {
@@ -399,26 +406,72 @@
           },
           "sound": {
             "type": "string",
-            "description": "Push Notification Sound"
+            "enum": [
+              "none",
+              "alien",
+              "bike",
+              "bugle",
+              "cashregister",
+              "classical",
+              "climb",
+              "cosmic",
+              "echo",
+              "falling",
+              "gamelan",
+              "incoming",
+              "intermission",
+              "magic",
+              "mechanical",
+              "persistent",
+              "pianobar",
+              "pushover",
+              "siren",
+              "spacealarm",
+              "tugboat",
+              "updown",
+              "vibrate"
+            ],
+            "default": "magic",
+            "description": "Push Notification Sound.\nValues: none (None – silent), alien (Alien Alarm – long), bike, bugle, cashregister (Cash Register), classical, climb (long), cosmic, echo (Pushover Echo – long), falling, gamelan, incoming, intermission, magic, mechanical, persistent (long), pianobar (Piano Bar), pushover (default), siren, spacealarm (Space Alarm), tugboat (Tug Boat), updown (long), vibrate (Vibrate Only)"
           },
           "priority": {
             "type": "number",
+            "default": 0,
             "description": "Push Notification Priority (-2 .. 2)"
+          },
+          "retry": {
+            "type": "number",
+            "default": 30,
+            "description": "Push Notification Emergency (priority: 2) seconds to retry (30 - 10x60) "
+          },
+          "expire": {
+            "type": "number",
+            "default": 600,
+            "description": "Push Notification Emergency (priority: 2) expiration time in seconds (10x60 .. 3x60x60)"
+          },
+          "titleID": {
+            "type": "string",
+            "default": "NoCloud Robo1",
+            "description": "Add a custom ID at the beginning of the message title (subject)."
           },
           "rateLimit": {
             "type": "number",
-            "description": "Push Notification Messages Rate Limit (1 .. 20)"
+            "default": 5,
+            "description": "Push Notification Messages Rate Limit (1 .. 50)"
           },
           "rateLimitTime": {
             "type": "number",
-            "description": "Push Notification Time Rate Limit, in ms (1 .. 5*60_000)"
+            "default": 60000,
+            "description": "Push Notification Time Rate Limit, in ms (30_000 .. 5*60_000)"
           },
           "pushEvents": {
             "type": "boolean",
+            "default": "false",
             "description": "Controls if the NoCloud Events are forwarded or not"
           },
           "processEvents": {
             "type": "boolean",
+            "default": "false",
             "description": "Controls if the forwarded NoCloud Events are cleared (processed)"
           }
         }
@@ -431,7 +484,8 @@
         ],
         "properties": {
           "enabled": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": "true"
           },
           "updateProvider": {
             "type": "object",
@@ -442,6 +496,7 @@
             "properties": {
               "type": {
                 "type": "string",
+                "default": "github",
                 "enum": [
                   "github",
                   "github_nightly"
