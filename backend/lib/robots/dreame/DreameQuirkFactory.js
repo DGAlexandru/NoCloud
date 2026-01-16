@@ -665,7 +665,7 @@ class DreameQuirkFactory {
                         );
                     }
                 }); */
-            /*case DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING_TWIST:
+                /*case DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING_TWIST:
                 return new Quirk({
                     id: id,
                     title: "Edge Extension: Mop and twist",
@@ -710,7 +710,7 @@ class DreameQuirkFactory {
                         );
                     }
                 }); */
-            case DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING_FURNITURE_LEGS:
+                /*case DreameQuirkFactory.KNOWN_QUIRKS.MOP_EXTEND_EDGE_MOPPING_FURNITURE_LEGS:
                 return new Quirk({
                     id: id,
                     title: "Edge Extension: Mop for furniture legs",
@@ -754,7 +754,7 @@ class DreameQuirkFactory {
                             })
                         );
                     }
-                });
+                }); */
                 /*case DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_WATER_HEATER:
                 return new Quirk({
                     id: id,

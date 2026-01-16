@@ -495,8 +495,8 @@ const MopExtensionFurnitureLegHandlingControlCapabilitySwitchListMenuItem = () =
             }}
             disabled={disabled}
             loadError={isError}
-            primaryLabel={"Mop Extension for Furniture Legs"}
-            secondaryLabel={"Use the extending mop to mop up close to legs of chairs and tables."}
+            primaryLabel={"Extend Mop for Furniture Legs"}
+            secondaryLabel={"Use the extending mop to mop closer to furniture legs."}
             icon={<MopExtensionFurnitureLegHandlingControlIcon/>}
         />
     );
