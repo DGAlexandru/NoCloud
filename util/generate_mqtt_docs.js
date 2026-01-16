@@ -8,7 +8,7 @@ const RobotStateNodeMqttHandle = require("../backend/lib/mqtt/handles/RobotState
 const MapNodeMqttHandle = require("../backend/lib/mqtt/handles/MapNodeMqttHandle");
 const NoCloudEventsNodeMqttHandle = require("../backend/lib/mqtt/handles/NoCloudEventsNodeMqttHandle");
 const MockConsumableMonitoringCapability = require("../backend/lib/robots/mock/capabilities/MockConsumableMonitoringCapability");
-const ConsumableStateAttribute = require("../backend/lib/entities/state/attributes/ConsumableStateAttribute");
+const NoCloudConsumable = require("../backend/lib/entities/core/NoCloudConsumable");
 const NoCloudMapSegment = require("../backend/lib/entities/core/NoCloudMapSegment");
 const PropertyMqttHandle = require("../backend/lib/mqtt/handles/PropertyMqttHandle");
 const DataType = require("../backend/lib/mqtt/homie/DataType");
@@ -143,16 +143,35 @@ class FakeMqttController extends MqttController {
                 availableConsumables: [
                     {
                         type: "<CONSUMABLE-MINUTES>",
-                        subType: ConsumableStateAttribute.SUB_TYPE.NONE,
-                        unit: ConsumableStateAttribute.UNITS.MINUTES
+                        subType: NoCloudConsumable.SUB_TYPE.NONE,
+                        unit: NoCloudConsumable.UNITS.MINUTES
                     },
                     {
                         type: "<CONSUMABLE-PERCENT>",
-                        subType: ConsumableStateAttribute.SUB_TYPE.NONE,
-                        unit: ConsumableStateAttribute.UNITS.PERCENT
+                        subType: NoCloudConsumable.SUB_TYPE.NONE,
+                        unit: NoCloudConsumable.UNITS.PERCENT
                     },
                 ]
             };
+        }
+
+        robot.capabilities[ConsumableMonitoringCapability.TYPE].getConsumables = () => {
+            return [
+                new NoCloudConsumable({
+                    type: "<CONSUMABLE-MINUTES>",
+                    remaining: {
+                        value: 492,
+                        unit: NoCloudConsumable.UNITS.MINUTES
+                    }
+                }),
+                new NoCloudConsumable({
+                    type: "<CONSUMABLE-PERCENT>",
+                    remaining: {
+                        value: 59,
+                        unit: NoCloudConsumable.UNITS.PERCENT
+                    }
+                })
+            ]
         }
         
         robot.state.map.getSegments = () => {
@@ -235,20 +254,6 @@ class FakeMqttController extends MqttController {
             new PresetSelectionStateAttribute({
                 type: PresetSelectionStateAttribute.TYPE.WATER_GRADE,
                 value: PresetSelectionStateAttribute.INTENSITY.MIN
-            }),
-            new ConsumableStateAttribute({
-                type: "<CONSUMABLE-MINUTES>",
-                remaining: {
-                    value: 492,
-                    unit: ConsumableStateAttribute.UNITS.MINUTES
-                }
-            }),
-            new ConsumableStateAttribute({
-                type: "<CONSUMABLE-PERCENT>",
-                remaining: {
-                    value: 59,
-                    unit: ConsumableStateAttribute.UNITS.PERCENT
-                }
             })
         ];
         for (const attr of attributes) {

@@ -1,6 +1,5 @@
 const ConsumableMonitoringCapability = require("../../../core/capabilities/ConsumableMonitoringCapability");
-
-const ConsumableStateAttribute = require("../../../entities/state/attributes/ConsumableStateAttribute");
+const NoCloudConsumable = require("../../../entities/core/NoCloudConsumable");
 
 /**
  * @extends ConsumableMonitoringCapability<import("../ViomiNoCloudRobot")>
@@ -10,7 +9,7 @@ class ViomiConsumableMonitoringCapability extends ConsumableMonitoringCapability
      * This function polls the current consumables state and stores the attributes in our robotState
      *
      * @abstract
-     * @returns {Promise<Array<import("../../../entities/state/attributes/ConsumableStateAttribute")>>}
+     * @returns {Promise<Array<import("../../../entities/core/NoCloudConsumable")>>}
      */
     async getConsumables() {
         const data = await this.robot.sendCommand("get_consumables");
@@ -22,45 +21,41 @@ class ViomiConsumableMonitoringCapability extends ConsumableMonitoringCapability
         };
 
         const consumables = [
-            new ConsumableStateAttribute({
-                type: ConsumableStateAttribute.TYPE.BRUSH,
-                subType: ConsumableStateAttribute.SUB_TYPE.MAIN,
+            new NoCloudConsumable({
+                type: NoCloudConsumable.TYPE.BRUSH,
+                subType: NoCloudConsumable.SUB_TYPE.MAIN,
                 remaining: {
                     value: Math.round(Math.max(0, (360 - rawConsumables.mainBrush) * 60)),
-                    unit: ConsumableStateAttribute.UNITS.MINUTES
+                    unit: NoCloudConsumable.UNITS.MINUTES
                 }
             }),
-            new ConsumableStateAttribute({
-                type: ConsumableStateAttribute.TYPE.BRUSH,
-                subType: ConsumableStateAttribute.SUB_TYPE.SIDE_RIGHT,
+            new NoCloudConsumable({
+                type: NoCloudConsumable.TYPE.BRUSH,
+                subType: NoCloudConsumable.SUB_TYPE.SIDE_RIGHT,
                 remaining: {
                     value: Math.round(Math.max(0, (180 - rawConsumables.sideBrush) * 60)),
-                    unit: ConsumableStateAttribute.UNITS.MINUTES
+                    unit: NoCloudConsumable.UNITS.MINUTES
                 }
             }),
-            new ConsumableStateAttribute({
-                type: ConsumableStateAttribute.TYPE.FILTER,
-                subType: ConsumableStateAttribute.SUB_TYPE.MAIN,
+            new NoCloudConsumable({
+                type: NoCloudConsumable.TYPE.FILTER,
+                subType: NoCloudConsumable.SUB_TYPE.MAIN,
                 remaining: {
                     value: Math.round(Math.max(0, (180 - rawConsumables.filter) * 60)),
-                    unit: ConsumableStateAttribute.UNITS.MINUTES
+                    unit: NoCloudConsumable.UNITS.MINUTES
                 }
             }),
-            new ConsumableStateAttribute({
-                type: ConsumableStateAttribute.TYPE.MOP,  // According to python-miio, unverified
-                subType: ConsumableStateAttribute.SUB_TYPE.MAIN,
+            new NoCloudConsumable({
+                type: NoCloudConsumable.TYPE.MOP,  // According to python-miio, unverified
+                subType: NoCloudConsumable.SUB_TYPE.MAIN,
                 remaining: {
                     value: Math.round(Math.max(0, (180 - rawConsumables.mop) * 60)),
-                    unit: ConsumableStateAttribute.UNITS.MINUTES
+                    unit: NoCloudConsumable.UNITS.MINUTES
                 }
             }),
         ];
 
-        consumables.forEach(c => {
-            return this.robot.state.upsertFirstMatchingAttribute(c);
-        });
-
-        this.robot.emitStateAttributesUpdated();
+        this.raiseEventIfRequired(consumables);
 
         return consumables;
     }
@@ -75,26 +70,26 @@ class ViomiConsumableMonitoringCapability extends ConsumableMonitoringCapability
         let idx;
 
         switch (type) {
-            case ConsumableStateAttribute.TYPE.BRUSH:
+            case NoCloudConsumable.TYPE.BRUSH:
                 switch (subType) {
-                    case ConsumableStateAttribute.SUB_TYPE.MAIN:
+                    case NoCloudConsumable.SUB_TYPE.MAIN:
                         idx = 1;
                         break;
-                    case ConsumableStateAttribute.SUB_TYPE.SIDE_RIGHT:
+                    case NoCloudConsumable.SUB_TYPE.SIDE_RIGHT:
                         idx = 2;
                         break;
                 }
                 break;
-            case ConsumableStateAttribute.TYPE.FILTER:
+            case NoCloudConsumable.TYPE.FILTER:
                 switch (subType) {
-                    case ConsumableStateAttribute.SUB_TYPE.MAIN:
+                    case NoCloudConsumable.SUB_TYPE.MAIN:
                         idx = 3;
                         break;
                 }
                 break;
-            case ConsumableStateAttribute.TYPE.MOP:
+            case NoCloudConsumable.TYPE.MOP:
                 switch (subType) {
-                    case ConsumableStateAttribute.SUB_TYPE.MAIN:
+                    case NoCloudConsumable.SUB_TYPE.MAIN:
                         idx = 4;
                         break;
                 }
@@ -112,21 +107,21 @@ class ViomiConsumableMonitoringCapability extends ConsumableMonitoringCapability
         return {
             availableConsumables: [
                 {
-                    type: ConsumableStateAttribute.TYPE.BRUSH,
-                    subType: ConsumableStateAttribute.SUB_TYPE.MAIN,
-                    unit: ConsumableStateAttribute.UNITS.MINUTES,
+                    type: NoCloudConsumable.TYPE.BRUSH,
+                    subType: NoCloudConsumable.SUB_TYPE.MAIN,
+                    unit: NoCloudConsumable.UNITS.MINUTES,
                     maxValue: 360 * 60
                 },
                 {
-                    type: ConsumableStateAttribute.TYPE.BRUSH,
-                    subType: ConsumableStateAttribute.SUB_TYPE.SIDE_RIGHT,
-                    unit: ConsumableStateAttribute.UNITS.MINUTES,
+                    type: NoCloudConsumable.TYPE.BRUSH,
+                    subType: NoCloudConsumable.SUB_TYPE.SIDE_RIGHT,
+                    unit: NoCloudConsumable.UNITS.MINUTES,
                     maxValue: 180 * 60
                 },
                 {
-                    type: ConsumableStateAttribute.TYPE.FILTER,
-                    subType: ConsumableStateAttribute.SUB_TYPE.MAIN,
-                    unit: ConsumableStateAttribute.UNITS.MINUTES,
+                    type: NoCloudConsumable.TYPE.FILTER,
+                    subType: NoCloudConsumable.SUB_TYPE.MAIN,
+                    unit: NoCloudConsumable.UNITS.MINUTES,
                     maxValue: 180 * 60
                 }
             ]

@@ -1,32 +1,31 @@
 const ConsumableMonitoringCapability = require("../../../core/capabilities/ConsumableMonitoringCapability");
-
-const ConsumableStateAttribute = require("../../../entities/state/attributes/ConsumableStateAttribute");
+const NoCloudConsumable = require("../../../entities/core/NoCloudConsumable");
 const stateAttrs = require("../../../entities/state/attributes");
 
 const MOCKED_CONSUMABLES = Object.freeze([
     {
-        type: ConsumableStateAttribute.TYPE.BRUSH,
-        subType: ConsumableStateAttribute.SUB_TYPE.MAIN,
+        type: NoCloudConsumable.TYPE.BRUSH,
+        subType: NoCloudConsumable.SUB_TYPE.MAIN,
         serviceLife: 60,
     },
     {
-        type: ConsumableStateAttribute.TYPE.BRUSH,
-        subType: ConsumableStateAttribute.SUB_TYPE.SIDE_RIGHT,
+        type: NoCloudConsumable.TYPE.BRUSH,
+        subType: NoCloudConsumable.SUB_TYPE.SIDE_RIGHT,
         serviceLife: 30,
     },
     {
-        type: ConsumableStateAttribute.TYPE.FILTER,
-        subType: ConsumableStateAttribute.SUB_TYPE.MAIN,
+        type: NoCloudConsumable.TYPE.FILTER,
+        subType: NoCloudConsumable.SUB_TYPE.MAIN,
         serviceLife: 10,
     },
     {
-        type: ConsumableStateAttribute.TYPE.CLEANING,
-        subType: ConsumableStateAttribute.SUB_TYPE.SENSOR,
+        type: NoCloudConsumable.TYPE.CLEANING,
+        subType: NoCloudConsumable.SUB_TYPE.SENSOR,
         serviceLife: 5,
     },
     {
-        type: ConsumableStateAttribute.TYPE.MOP,
-        subType: ConsumableStateAttribute.SUB_TYPE.MAIN,
+        type: NoCloudConsumable.TYPE.MOP,
+        subType: NoCloudConsumable.SUB_TYPE.MAIN,
         serviceLife: 1,
     },
 ]);
@@ -59,29 +58,23 @@ class MockConsumableMonitoringCapability extends ConsumableMonitoringCapability 
     }
 
     /**
-     * @returns {Promise<Array<import("../../../entities/state/attributes/ConsumableStateAttribute")>>}
+     * @returns {Promise<Array<import("../../../entities/core/NoCloudConsumable")>>}
      */
     async getConsumables() {
         const consumables = MOCKED_CONSUMABLES.map((c, idx) => {
             const remaining = this.remaining[idx];
-            return new ConsumableStateAttribute({
+
+            return new NoCloudConsumable({
                 type: c.type,
                 subType: c.subType,
                 remaining: {
                     value: remaining,
-                    unit: ConsumableStateAttribute.UNITS.MINUTES
-                },
-                metaData: {
-                    consumableIndex: idx
+                    unit: NoCloudConsumable.UNITS.MINUTES
                 }
             });
         });
 
-        consumables.forEach(c => {
-            return this.robot.state.upsertFirstMatchingAttribute(c);
-        });
-
-        this.robot.emitStateAttributesUpdated();
+        this.raiseEventIfRequired(consumables);
 
         return consumables;
     }
@@ -92,15 +85,10 @@ class MockConsumableMonitoringCapability extends ConsumableMonitoringCapability 
      * @returns {Promise<void>}
      */
     async resetConsumable(type, subType) {
-        const consumable = this.robot.state.getFirstMatchingAttribute({
-            attributeClass: ConsumableStateAttribute.name,
-            attributeType: type,
-            attributeSubType: subType
-        });
+        const consumableIdx = MOCKED_CONSUMABLES.findIndex(c => c.type === type && c.subType === subType);
 
-        if (consumable) {
-            const index = consumable.metaData.consumableIndex;
-            this.remaining[index] = MOCKED_CONSUMABLES[index].serviceLife;
+        if (consumableIdx >= 0) {
+            this.remaining[consumableIdx] = MOCKED_CONSUMABLES[consumableIdx].serviceLife;
 
             this.markEventsAsProcessed(type, subType);
         } else {
@@ -112,29 +100,34 @@ class MockConsumableMonitoringCapability extends ConsumableMonitoringCapability 
         return {
             availableConsumables: [
                 {
-                    type: ConsumableStateAttribute.TYPE.BRUSH,
-                    subType: ConsumableStateAttribute.SUB_TYPE.MAIN,
-                    unit: ConsumableStateAttribute.UNITS.MINUTES
+                    type: NoCloudConsumable.TYPE.BRUSH,
+                    subType: NoCloudConsumable.SUB_TYPE.MAIN,
+                    unit: NoCloudConsumable.UNITS.MINUTES,
+                    maxValue: 60
                 },
                 {
-                    type: ConsumableStateAttribute.TYPE.BRUSH,
-                    subType: ConsumableStateAttribute.SUB_TYPE.SIDE_RIGHT,
-                    unit: ConsumableStateAttribute.UNITS.MINUTES
+                    type: NoCloudConsumable.TYPE.BRUSH,
+                    subType: NoCloudConsumable.SUB_TYPE.SIDE_RIGHT,
+                    unit: NoCloudConsumable.UNITS.MINUTES,
+                    maxValue: 30
                 },
                 {
-                    type: ConsumableStateAttribute.TYPE.FILTER,
-                    subType: ConsumableStateAttribute.SUB_TYPE.MAIN,
-                    unit: ConsumableStateAttribute.UNITS.MINUTES
+                    type: NoCloudConsumable.TYPE.FILTER,
+                    subType: NoCloudConsumable.SUB_TYPE.MAIN,
+                    unit: NoCloudConsumable.UNITS.MINUTES,
+                    maxValue: 10
                 },
                 {
-                    type: ConsumableStateAttribute.TYPE.CLEANING,
-                    subType: ConsumableStateAttribute.SUB_TYPE.SENSOR,
-                    unit: ConsumableStateAttribute.UNITS.MINUTES
+                    type: NoCloudConsumable.TYPE.CLEANING,
+                    subType: NoCloudConsumable.SUB_TYPE.SENSOR,
+                    unit: NoCloudConsumable.UNITS.MINUTES,
+                    maxValue: 5
                 },
                 {
-                    type: ConsumableStateAttribute.TYPE.MOP,
-                    subType: ConsumableStateAttribute.SUB_TYPE.MAIN,
-                    unit: ConsumableStateAttribute.UNITS.PERCENT
+                    type: NoCloudConsumable.TYPE.MOP,
+                    subType: NoCloudConsumable.SUB_TYPE.MAIN,
+                    unit: NoCloudConsumable.UNITS.PERCENT,
+                    maxValue: 1
                 }
             ]
         };

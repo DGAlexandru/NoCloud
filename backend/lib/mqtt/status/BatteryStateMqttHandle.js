@@ -8,6 +8,7 @@ const Logger = require("../../Logger");
 const PropertyMqttHandle = require("../handles/PropertyMqttHandle");
 const RobotStateNodeMqttHandle = require("../handles/RobotStateNodeMqttHandle");
 const stateAttrs = require("../../entities/state/attributes");
+const StateClass = require("../homeassistant/StateClass");
 const Unit = require("../common/Unit");
 
 class BatteryStateMqttHandle extends RobotStateNodeMqttHandle {
@@ -59,7 +60,8 @@ class BatteryStateMqttHandle extends RobotStateNodeMqttHandle {
                             icon: "mdi:battery",
                             entity_category: EntityCategory.DIAGNOSTIC,
                             unit_of_measurement: Unit.PERCENT,
-                            device_class: DeviceClass.BATTERY
+                            device_class: DeviceClass.BATTERY,
+                            state_class: StateClass.MEASUREMENT
                         }
                     })
                 );

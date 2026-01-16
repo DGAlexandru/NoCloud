@@ -3,12 +3,13 @@ const CapabilityMqttHandle = require("./CapabilityMqttHandle");
 const Commands = require("../common/Commands");
 const ComponentType = require("../homeassistant/ComponentType");
 const DataType = require("../homie/DataType");
+const DeviceClass = require("../homeassistant/DeviceClass");
 const EntityCategory = require("../homeassistant/EntityCategory");
 const HassAnchor = require("../homeassistant/HassAnchor");
 const InLineHassComponent = require("../homeassistant/components/InLineHassComponent");
-const Logger = require("../../Logger");
+const NoCloudConsumable = require("../../entities/core/NoCloudConsumable");
 const PropertyMqttHandle = require("../handles/PropertyMqttHandle");
-const stateAttrs = require("../../entities/state/attributes");
+const StateClass = require("../homeassistant/StateClass");
 const Unit = require("../common/Unit");
 
 class ConsumableMonitoringCapabilityMqttHandle extends CapabilityMqttHandle {
@@ -29,6 +30,8 @@ class ConsumableMonitoringCapabilityMqttHandle extends CapabilityMqttHandle {
             }
         }));
         this.capability = options.capability;
+        /* @type {Array<import("../../entities/core/NoCloudConsumable")>} */
+        this.consumables = [];
 
         this.capability.getProperties().availableConsumables.forEach(consumable => {
             this.addNewConsumable(
@@ -42,13 +45,13 @@ class ConsumableMonitoringCapabilityMqttHandle extends CapabilityMqttHandle {
 
     /**
      * @private
-     * @param {import("../../entities/state/attributes/ConsumableStateAttribute").TYPE} type
-     * @param {import("../../entities/state/attributes/ConsumableStateAttribute").SUB_TYPE} subType
+     * @param {import("../../entities/core/NoCloudConsumable").TYPE} type
+     * @param {import("../../entities/core/NoCloudConsumable").SUB_TYPE} subType
      * @return {string}
      */
     genConsumableTopicId(type, subType) {
         let name = type;
-        if (subType !== stateAttrs.ConsumableStateAttribute.SUB_TYPE.NONE) {
+        if (subType !== NoCloudConsumable.SUB_TYPE.NONE) {
             name += "-" + subType;
         }
         return name;
@@ -56,13 +59,13 @@ class ConsumableMonitoringCapabilityMqttHandle extends CapabilityMqttHandle {
 
     /**
      * @private
-     * @param {import("../../entities/state/attributes/ConsumableStateAttribute").TYPE} type
-     * @param {import("../../entities/state/attributes/ConsumableStateAttribute").SUB_TYPE} subType
+     * @param {import("../../entities/core/NoCloudConsumable").TYPE} type
+     * @param {import("../../entities/core/NoCloudConsumable").SUB_TYPE} subType
      * @return {string}
      */
     genConsumableFriendlyName(type, subType) {
         let name = "";
-        if (subType !== stateAttrs.ConsumableStateAttribute.SUB_TYPE.NONE && subType !== stateAttrs.ConsumableStateAttribute.SUB_TYPE.ALL) {
+        if (subType !== NoCloudConsumable.SUB_TYPE.NONE && subType !== NoCloudConsumable.SUB_TYPE.ALL) {
             name += SUBTYPE_MAPPING[subType] + " ";
         }
         name += TYPE_MAPPING[type];
@@ -72,9 +75,9 @@ class ConsumableMonitoringCapabilityMqttHandle extends CapabilityMqttHandle {
     /**
      * @private
      * @param {string} topicId
-     * @param {import("../../entities/state/attributes/ConsumableStateAttribute").TYPE} type
-     * @param {import("../../entities/state/attributes/ConsumableStateAttribute").SUB_TYPE} subType
-     * @param {import("../../entities/state/attributes/ConsumableStateAttribute").UNITS} unit
+     * @param {import("../../entities/core/NoCloudConsumable").TYPE} type
+     * @param {import("../../entities/core/NoCloudConsumable").SUB_TYPE} subType
+     * @param {import("../../entities/core/NoCloudConsumable").UNITS} unit
      * @return {void}
      */
     addNewConsumable(topicId, type, subType, unit) {
@@ -85,28 +88,24 @@ class ConsumableMonitoringCapabilityMqttHandle extends CapabilityMqttHandle {
                 topicName: topicId,
                 friendlyName: this.genConsumableFriendlyName(type, subType),
                 datatype: DataType.INTEGER,
-                unit: unit === stateAttrs.ConsumableStateAttribute.UNITS.PERCENT ? Unit.PERCENT : undefined,
-                format: unit === stateAttrs.ConsumableStateAttribute.UNITS.PERCENT ? "0:100" : undefined,
+                unit: unit === NoCloudConsumable.UNITS.PERCENT ? Unit.PERCENT : undefined,
+                format: unit === NoCloudConsumable.UNITS.PERCENT ? "0:100" : undefined,
                 getter: async () => {
-                    const newAttr = this.robot.state.getFirstMatchingAttribute({
-                        attributeClass: stateAttrs.ConsumableStateAttribute.name,
-                        attributeType: type,
-                        attributeSubType: subType
-                    });
+                    const consumable = this.consumables.find(c => c.type === type && c.subType === subType);
 
-                    if (newAttr) {
+                    if (consumable) {
                         // Raw value for Home Assistant
                         await this.controller.hassAnchorProvider.getAnchor(
                             HassAnchor.ANCHOR.CONSUMABLE_VALUE + topicId
-                        ).post(newAttr.remaining.value);
+                        ).post(consumable.remaining.value);
 
                         // Convert value to seconds for Homie
-                        return newAttr.remaining.value * (unit === stateAttrs.ConsumableStateAttribute.UNITS.PERCENT ? 1 : 60);
+                        return consumable.remaining.value * (unit === NoCloudConsumable.UNITS.PERCENT ? 1 : 60);
                     }
 
                     return null;
                 },
-                helpText: unit === stateAttrs.ConsumableStateAttribute.UNITS.PERCENT ?
+                helpText: unit === NoCloudConsumable.UNITS.PERCENT ?
                     "This handle returns the consumable remaining endurance percentage." :
                     "This handle returns the consumable remaining endurance time as an int representing seconds remaining."
             }).also((prop) => {
@@ -125,9 +124,11 @@ class ConsumableMonitoringCapabilityMqttHandle extends CapabilityMqttHandle {
                                 state_topic: this.controller.hassAnchorProvider.getTopicReference(
                                     HassAnchor.REFERENCE.HASS_CONSUMABLE_STATE + topicId
                                 ),
-                                unit_of_measurement: unit === stateAttrs.ConsumableStateAttribute.UNITS.PERCENT ? Unit.PERCENT : Unit.MINUTES,
+                                unit_of_measurement: unit === NoCloudConsumable.UNITS.PERCENT ? Unit.PERCENT : Unit.MINUTES,
                                 icon: "mdi:progress-wrench",
-                                entity_category: EntityCategory.DIAGNOSTIC
+                                entity_category: EntityCategory.DIAGNOSTIC,
+                                state_class: StateClass.MEASUREMENT,
+                                device_class: unit === NoCloudConsumable.UNITS.MINUTES ? DeviceClass.DURATION : undefined
                             },
                             topics: {
                                 "": this.controller.hassAnchorProvider.getAnchor(
@@ -150,6 +151,7 @@ class ConsumableMonitoringCapabilityMqttHandle extends CapabilityMqttHandle {
                 format: Commands.BASIC.PERFORM,
                 setter: async (value) => {
                     await this.capability.resetConsumable(type, subType);
+                    await this.updateInternalState(); // FIXME: this should also republish the state of the other child
                 }
             }).also((prop) => {
                 this.controller.withHass((hass) => {
@@ -174,45 +176,40 @@ class ConsumableMonitoringCapabilityMqttHandle extends CapabilityMqttHandle {
     }
 
     async refresh() {
-        await this.capability.getConsumables();
+        await this.updateInternalState();
         await super.refresh();
     }
 
-    onStatusSubscriberEvent() {
-        /*
-            We need to override this method as otherwise, we'd end up in an endless loop
-            due to refresh() triggering a consumables poll triggering a statusAttribute update
-            triggering a refresh() triggering a consumables poll...
-         */
-        super.refresh().then(() => { /* intentional */ }).catch(err => {
-            Logger.error("Error during MqttHandle refresh", err);
-        });
-    }
-
-    getInterestingStatusAttributes() {
-        return [{attributeClass: stateAttrs.ConsumableStateAttribute.name}];
+    async updateInternalState() {
+        let newConsumables;
+        try {
+            newConsumables = await this.capability.getConsumables();
+            this.consumables = newConsumables;
+        } catch (e) {
+            /* intentional */
+        }
     }
 }
 
 const TYPE_MAPPING = Object.freeze({
-    [stateAttrs.ConsumableStateAttribute.TYPE.BRUSH]: "Brush",
-    [stateAttrs.ConsumableStateAttribute.TYPE.FILTER]: "Filter",
-    [stateAttrs.ConsumableStateAttribute.TYPE.CLEANING]: "Cleaning",
-    [stateAttrs.ConsumableStateAttribute.TYPE.MOP]: "Mop",
-    [stateAttrs.ConsumableStateAttribute.TYPE.DETERGENT]: "Detergent",
-    [stateAttrs.ConsumableStateAttribute.TYPE.BIN]: "Bin",
+    [NoCloudConsumable.TYPE.BRUSH]: "Brush",
+    [NoCloudConsumable.TYPE.FILTER]: "Filter",
+    [NoCloudConsumable.TYPE.CLEANING]: "Cleaning",
+    [NoCloudConsumable.TYPE.MOP]: "Mop",
+    [NoCloudConsumable.TYPE.DETERGENT]: "Detergent",
+    [NoCloudConsumable.TYPE.BIN]: "Bin",
 });
 
 const SUBTYPE_MAPPING = Object.freeze({
-    [stateAttrs.ConsumableStateAttribute.SUB_TYPE.MAIN]: "Main",
-    [stateAttrs.ConsumableStateAttribute.SUB_TYPE.SECONDARY]: "Secondary",
-    [stateAttrs.ConsumableStateAttribute.SUB_TYPE.SIDE_RIGHT]: "Right",
-    [stateAttrs.ConsumableStateAttribute.SUB_TYPE.SIDE_LEFT]: "Left",
-    [stateAttrs.ConsumableStateAttribute.SUB_TYPE.ALL]: "",
-    [stateAttrs.ConsumableStateAttribute.SUB_TYPE.NONE]: "",
-    [stateAttrs.ConsumableStateAttribute.SUB_TYPE.DOCK]: "Dock",
-    [stateAttrs.ConsumableStateAttribute.SUB_TYPE.SENSOR]: "Sensor",
-    [stateAttrs.ConsumableStateAttribute.SUB_TYPE.WHEEL]: "Wheel"
+    [NoCloudConsumable.SUB_TYPE.MAIN]: "Main",
+    [NoCloudConsumable.SUB_TYPE.SECONDARY]: "Secondary",
+    [NoCloudConsumable.SUB_TYPE.SIDE_RIGHT]: "Right",
+    [NoCloudConsumable.SUB_TYPE.SIDE_LEFT]: "Left",
+    [NoCloudConsumable.SUB_TYPE.ALL]: "",
+    [NoCloudConsumable.SUB_TYPE.NONE]: "",
+    [NoCloudConsumable.SUB_TYPE.DOCK]: "Dock",
+    [NoCloudConsumable.SUB_TYPE.SENSOR]: "Sensor",
+    [NoCloudConsumable.SUB_TYPE.WHEEL]: "Wheel",
 });
 
 ConsumableMonitoringCapabilityMqttHandle.OPTIONAL = true;

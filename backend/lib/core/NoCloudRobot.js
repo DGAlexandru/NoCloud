@@ -2,14 +2,13 @@ const EventEmitter = require("events").EventEmitter;
 
 const AttributeSubscriber = require("../entities/AttributeSubscriber");
 const CallbackAttributeSubscriber = require("../entities/CallbackAttributeSubscriber");
-const ConsumableDepletedNoCloudEvent = require("../NoCloud_events/events/ConsumableDepletedNoCloudEvent");
 const entities = require("../entities");
 const ErrorStateNoCloudEvent = require("../NoCloud_events/events/ErrorStateNoCloudEvent");
 const Logger = require("../Logger");
 const NotImplementedError = require("./NotImplementedError");
 const Semaphore = require("semaphore");
 const Tools = require("../utils/Tools");
-const {ConsumableStateAttribute, StatusStateAttribute} = require("../entities/state/attributes");
+const {StatusStateAttribute} = require("../entities/state/attributes");
 
 /**
  * @abstract
@@ -97,21 +96,6 @@ class NoCloudRobot {
      * @protected
      */
     initInternalSubscriptions() {
-        this.state.subscribe(
-            new CallbackAttributeSubscriber((eventType, consumable) => {
-                if (eventType !== AttributeSubscriber.EVENT_TYPE.DELETE) {
-                    //@ts-ignore
-                    if (consumable?.remaining?.value === 0) {
-                        this.NoCloudEventStore.raise(new ConsumableDepletedNoCloudEvent({
-                            type: consumable.type,
-                            subType: consumable.subType
-                        }));
-                    }
-                }
-            }),
-            {attributeClass: ConsumableStateAttribute.name}
-        );
-
         this.state.subscribe(
             new CallbackAttributeSubscriber((eventType, status, prevStatus) => {
                 if (

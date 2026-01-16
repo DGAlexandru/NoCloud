@@ -1,7 +1,6 @@
 const ConsumableMonitoringCapability = require("../../../core/capabilities/ConsumableMonitoringCapability");
+const NoCloudConsumable = require("../../../entities/core/NoCloudConsumable");
 const RobotFirmwareError = require("../../../core/RobotFirmwareError");
-
-const ConsumableStateAttribute = require("../../../entities/state/attributes/ConsumableStateAttribute");
 
 /**
  * @extends ConsumableMonitoringCapability<import("../DreameNoCloudRobot")>
@@ -49,10 +48,10 @@ class Dreame1CConsumableMonitoringCapability extends ConsumableMonitoringCapabil
 
 
     /**
-     * This function polls the current consumables state and stores the attributes in our robotState
+     * This function polls the current consumables state
      *
      * @abstract
-     * @returns {Promise<Array<import("../../../entities/state/attributes/ConsumableStateAttribute")>>}
+     * @returns {Promise<Array<import("../../../entities/core/NoCloudConsumable")>>}
      */
     async getConsumables() {
         const response = await this.robot.sendCommand("get_properties", [
@@ -64,11 +63,15 @@ class Dreame1CConsumableMonitoringCapability extends ConsumableMonitoringCapabil
         }));
 
         if (response) {
-            return response.map(elem => {
+            const filteredResponse = response.map(elem => {
                 return this.parseConsumablesMessage(elem);
             }).filter(elem => {
-                return elem instanceof ConsumableStateAttribute;
+                return elem instanceof NoCloudConsumable;
             });
+
+            this.raiseEventIfRequired(filteredResponse);
+
+            return filteredResponse;
         } else {
             return [];
         }
@@ -83,19 +86,19 @@ class Dreame1CConsumableMonitoringCapability extends ConsumableMonitoringCapabil
         let payload;
 
         switch (type) {
-            case ConsumableStateAttribute.TYPE.BRUSH:
+            case NoCloudConsumable.TYPE.BRUSH:
                 switch (subType) {
-                    case ConsumableStateAttribute.SUB_TYPE.MAIN:
+                    case NoCloudConsumable.SUB_TYPE.MAIN:
                         payload = this.miot_actions.reset_main_brush;
                         break;
-                    case ConsumableStateAttribute.SUB_TYPE.SIDE_RIGHT:
+                    case NoCloudConsumable.SUB_TYPE.SIDE_RIGHT:
                         payload = this.miot_actions.reset_side_brush;
                         break;
                 }
                 break;
-            case ConsumableStateAttribute.TYPE.FILTER:
+            case NoCloudConsumable.TYPE.FILTER:
                 switch (subType) {
-                    case ConsumableStateAttribute.SUB_TYPE.MAIN:
+                    case NoCloudConsumable.SUB_TYPE.MAIN:
                         payload = this.miot_actions.reset_filter;
                         break;
                 }
@@ -130,12 +133,12 @@ class Dreame1CConsumableMonitoringCapability extends ConsumableMonitoringCapabil
             case this.miot_properties.main_brush.siid: {
                 switch (msg.piid) {
                     case this.miot_properties.main_brush.piid:
-                        consumable = new ConsumableStateAttribute({
-                            type: ConsumableStateAttribute.TYPE.BRUSH,
-                            subType: ConsumableStateAttribute.SUB_TYPE.MAIN,
+                        consumable = new NoCloudConsumable({
+                            type: NoCloudConsumable.TYPE.BRUSH,
+                            subType: NoCloudConsumable.SUB_TYPE.MAIN,
                             remaining: {
                                 value: Math.round(Math.max(0, msg.value * 60)),
-                                unit: ConsumableStateAttribute.UNITS.MINUTES
+                                unit: NoCloudConsumable.UNITS.MINUTES
                             }
                         });
                         break;
@@ -145,12 +148,12 @@ class Dreame1CConsumableMonitoringCapability extends ConsumableMonitoringCapabil
             case this.miot_properties.side_brush.siid: {
                 switch (msg.piid) {
                     case this.miot_properties.side_brush.piid:
-                        consumable = new ConsumableStateAttribute({
-                            type: ConsumableStateAttribute.TYPE.BRUSH,
-                            subType: ConsumableStateAttribute.SUB_TYPE.SIDE_RIGHT,
+                        consumable = new NoCloudConsumable({
+                            type: NoCloudConsumable.TYPE.BRUSH,
+                            subType: NoCloudConsumable.SUB_TYPE.SIDE_RIGHT,
                             remaining: {
                                 value: Math.round(Math.max(0, msg.value * 60)),
-                                unit: ConsumableStateAttribute.UNITS.MINUTES
+                                unit: NoCloudConsumable.UNITS.MINUTES
                             }
                         });
                         break;
@@ -160,12 +163,12 @@ class Dreame1CConsumableMonitoringCapability extends ConsumableMonitoringCapabil
             case this.miot_properties.filter.siid: {
                 switch (msg.piid) {
                     case this.miot_properties.filter.piid:
-                        consumable = new ConsumableStateAttribute({
-                            type: ConsumableStateAttribute.TYPE.FILTER,
-                            subType: ConsumableStateAttribute.SUB_TYPE.MAIN,
+                        consumable = new NoCloudConsumable({
+                            type: NoCloudConsumable.TYPE.FILTER,
+                            subType: NoCloudConsumable.SUB_TYPE.MAIN,
                             remaining: {
                                 value: Math.round(Math.max(0, msg.value * 60)),
-                                unit: ConsumableStateAttribute.UNITS.MINUTES
+                                unit: NoCloudConsumable.UNITS.MINUTES
                             }
                         });
                         break;
@@ -173,33 +176,28 @@ class Dreame1CConsumableMonitoringCapability extends ConsumableMonitoringCapabil
                 break;
             }
         }
-
-        if (consumable) {
-            this.robot.state.upsertFirstMatchingAttribute(consumable);
-
-            return consumable;
-        }
+        return consumable;
     }
 
     getProperties() {
         return {
             availableConsumables: [
                 {
-                    type: ConsumableStateAttribute.TYPE.BRUSH,
-                    subType: ConsumableStateAttribute.SUB_TYPE.MAIN,
-                    unit: ConsumableStateAttribute.UNITS.MINUTES,
+                    type: NoCloudConsumable.TYPE.BRUSH,
+                    subType: NoCloudConsumable.SUB_TYPE.MAIN,
+                    unit: NoCloudConsumable.UNITS.MINUTES,
                     maxValue: 300 * 60
                 },
                 {
-                    type: ConsumableStateAttribute.TYPE.BRUSH,
-                    subType: ConsumableStateAttribute.SUB_TYPE.SIDE_RIGHT,
-                    unit: ConsumableStateAttribute.UNITS.MINUTES,
+                    type: NoCloudConsumable.TYPE.BRUSH,
+                    subType: NoCloudConsumable.SUB_TYPE.SIDE_RIGHT,
+                    unit: NoCloudConsumable.UNITS.MINUTES,
                     maxValue: 200 * 60
                 },
                 {
-                    type: ConsumableStateAttribute.TYPE.FILTER,
-                    subType: ConsumableStateAttribute.SUB_TYPE.MAIN,
-                    unit: ConsumableStateAttribute.UNITS.MINUTES,
+                    type: NoCloudConsumable.TYPE.FILTER,
+                    subType: NoCloudConsumable.SUB_TYPE.MAIN,
+                    unit: NoCloudConsumable.UNITS.MINUTES,
                     maxValue: 150 * 60
                 }
             ]
