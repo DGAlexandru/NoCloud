@@ -485,7 +485,7 @@ class DreameQuirkFactory {
                         }
                     }
                 });
-            case DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_AUTO_DRYING:
+                /*case DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_AUTO_DRYING:
                 return new Quirk({
                     id: id,
                     title: "Mop Auto drying",
@@ -529,8 +529,8 @@ class DreameQuirkFactory {
                             })
                         );
                     }
-                });
-            /*case DreameQuirkFactory.KNOWN_QUIRKS.EDGE_MOPPING:
+                }); */
+                /*case DreameQuirkFactory.KNOWN_QUIRKS.EDGE_MOPPING:
                 return new Quirk({
                     id: id,
                     title: "Edge Extension: Twist",
@@ -1374,7 +1374,7 @@ DreameQuirkFactory.KNOWN_QUIRKS = {
     DRAIN_INTERNAL_WATER_TANK: "3e1b0851-3a5a-4943-bea6-dea3d7284bff",
     EDGE_EXTENSION_FREQUENCY: "8f6a7013-794e-40d9-9bbe-8fdeed7c0b9d",
     //EDGE_MOPPING: "7c71db1b-72b6-402e-89a4-d66c72cb9c8c",
-    MOP_DOCK_AUTO_DRYING: "6efc4d62-b5a4-474e-b353-5746a99ee8f9",
+    //MOP_DOCK_AUTO_DRYING: "6efc4d62-b5a4-474e-b353-5746a99ee8f9",
     MOP_DOCK_AUTO_REPAIR_TRIGGER: "ae753798-aa4f-4b35-a60c-91e7e5ae76f3",
     MOP_DOCK_CLEANING_PROCESS_TRIGGER: "42c7db4b-2cad-4801-a526-44de8944a41f",
     MOP_DOCK_DETERGENT: "a2a03d42-c710-45e5-b53a-4bc62778589f",
@@ -1387,7 +1387,7 @@ DreameQuirkFactory.KNOWN_QUIRKS = {
     MOP_DOCK_WET_DRY_SWITCH: "66adac0f-0a16-4049-b6ac-080ef702bb39",
     MOP_DRYING_TIME: "516a1025-9c56-46e0-ac9b-a5007088d24a",
     //MOP_EXTEND_EDGE_MOPPING: "5e1bbac8-78d1-433e-9868-4229463e2761",
-    MOP_EXTEND_EDGE_MOPPING_FURNITURE_LEGS: "08658d53-5d7b-4bfd-a179-25ceb3c70fe2",
+    //MOP_EXTEND_EDGE_MOPPING_FURNITURE_LEGS: "08658d53-5d7b-4bfd-a179-25ceb3c70fe2",
     //MOP_EXTEND_EDGE_MOPPING_TWIST: "3759ae19-3723-4aad-a55e-4f9d8078185d",
     //MOP_EXTEND_EDGE_MOPPING_V2: "0c6dd70d-4a42-4400-a9ea-d4743015edbd",
     SIDE_BRUSH_EXTEND: "e560d60c-76de-4ccc-8c01-8ccbcece850e",

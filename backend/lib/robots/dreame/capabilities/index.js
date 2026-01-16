@@ -33,6 +33,7 @@ module.exports = {
     DreameMappingPassCapability: require("./DreameMappingPassCapability"),
     DreameMopDockCleanManualTriggerCapability: require("./DreameMopDockCleanManualTriggerCapability"),
     DreameMopDockDryManualTriggerCapability: require("./DreameMopDockDryManualTriggerCapability"),
+    DreameMopDockMopAutoDryingControlCapability: require("./DreameMopDockMopAutoDryingControlCapability"),
     DreameMopDockMopWashTemperatureControlCapabilityV1: require("./DreameMopDockMopWashTemperatureControlCapabilityV1"),
     DreameMopDockMopWashTemperatureControlCapabilityV2: require("./DreameMopDockMopWashTemperatureControlCapabilityV2"),
     DreameMopDockWaterUsageControlCapability: require("./DreameMopDockWaterUsageControlCapability"),
