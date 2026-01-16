@@ -27,6 +27,7 @@ module.exports = {
     MopDockDryManualTriggerCapability: require("./MopDockDryManualTriggerCapability"),
     MopDockMopWashTemperatureControlCapability: require("./MopDockMopWashTemperatureControlCapability"),
     MopExtensionControlCapability: require("./MopExtensionControlCapability"),
+    MopExtensionFurnitureLegHandlingControlCapability: require("./MopExtensionFurnitureLegHandlingControlCapability"),
     MopGapControlCapability: require("./MopGapControlCapability"),
     MopTwistFrequencyControlCapability: require("./MopTwistFrequencyControlCapability"),
     ObstacleAvoidanceControlCapability: require("./ObstacleAvoidanceControlCapability"),

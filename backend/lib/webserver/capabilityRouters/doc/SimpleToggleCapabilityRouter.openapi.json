@@ -1,4 +1,81 @@
 {
+  "/api/v2/robot/capabilities/CameraLightControlCapability": {
+    "get": {
+      "tags": [
+        "CameraLightControlCapability"
+      ],
+      "summary": "Get camera light setting",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "tags": [
+        "CameraLightControlCapability"
+      ],
+      "summary": "Set camera light setting",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "enable",
+                    "disable"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "400": {
+          "$ref": "#/components/responses/400"
+        }
+      }
+    }
+  },
+  "/api/v2/robot/capabilities/CameraLightControlCapability/properties": {
+    "get": {
+      "tags": [
+        "CameraLightControlCapability"
+      ],
+      "summary": "Get various capability-related properties",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
   "/api/v2/robot/capabilities/CarpetModeControlCapability": {
     "get": {
       "tags": [
@@ -60,314 +137,6 @@
     "get": {
       "tags": [
         "CarpetModeControlCapability"
-      ],
-      "summary": "Get various capability-related properties",
-      "responses": {
-        "200": {
-          "description": "Ok",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "/api/v2/robot/capabilities/PersistentMapControlCapability": {
-    "get": {
-      "tags": [
-        "PersistentMapControlCapability"
-      ],
-      "summary": "Get persistent map setting",
-      "responses": {
-        "200": {
-          "description": "Ok",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "enabled": {
-                    "type": "boolean"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "put": {
-      "tags": [
-        "PersistentMapControlCapability"
-      ],
-      "summary": "Set persistent map setting",
-      "requestBody": {
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "action": {
-                  "type": "string",
-                  "enum": [
-                    "enable",
-                    "disable"
-                  ]
-                }
-              }
-            }
-          }
-        }
-      },
-      "responses": {
-        "200": {
-          "$ref": "#/components/responses/200"
-        },
-        "400": {
-          "$ref": "#/components/responses/400"
-        }
-      }
-    }
-  },
-  "/api/v2/robot/capabilities/PersistentMapControlCapability/properties": {
-    "get": {
-      "tags": [
-        "PersistentMapControlCapability"
-      ],
-      "summary": "Get various capability-related properties",
-      "responses": {
-        "200": {
-          "description": "Ok",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "/api/v2/robot/capabilities/KeyLockCapability": {
-    "get": {
-      "tags": [
-        "KeyLockCapability"
-      ],
-      "summary": "Get key lock setting",
-      "responses": {
-        "200": {
-          "description": "Ok",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "enabled": {
-                    "type": "boolean"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "put": {
-      "tags": [
-        "KeyLockCapability"
-      ],
-      "summary": "Set key lock setting",
-      "requestBody": {
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "action": {
-                  "type": "string",
-                  "enum": [
-                    "enable",
-                    "disable"
-                  ]
-                }
-              }
-            }
-          }
-        }
-      },
-      "responses": {
-        "200": {
-          "$ref": "#/components/responses/200"
-        },
-        "400": {
-          "$ref": "#/components/responses/400"
-        }
-      }
-    }
-  },
-  "/api/v2/robot/capabilities/KeyLockCapability/properties": {
-    "get": {
-      "tags": [
-        "KeyLockCapability"
-      ],
-      "summary": "Get various capability-related properties",
-      "responses": {
-        "200": {
-          "description": "Ok",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "/api/v2/robot/capabilities/ObstacleAvoidanceControlCapability": {
-    "get": {
-      "tags": [
-        "ObstacleAvoidanceControlCapability"
-      ],
-      "summary": "Get obstacle avoidance setting",
-      "responses": {
-        "200": {
-          "description": "Ok",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "enabled": {
-                    "type": "boolean"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "put": {
-      "tags": [
-        "ObstacleAvoidanceControlCapability"
-      ],
-      "summary": "Set obstacle avoidance setting",
-      "requestBody": {
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "action": {
-                  "type": "string",
-                  "enum": [
-                    "enable",
-                    "disable"
-                  ]
-                }
-              }
-            }
-          }
-        }
-      },
-      "responses": {
-        "200": {
-          "$ref": "#/components/responses/200"
-        },
-        "400": {
-          "$ref": "#/components/responses/400"
-        }
-      }
-    }
-  },
-  "/api/v2/robot/capabilities/ObstacleAvoidanceControlCapability/properties": {
-    "get": {
-      "tags": [
-        "ObstacleAvoidanceControlCapability"
-      ],
-      "summary": "Get various capability-related properties",
-      "responses": {
-        "200": {
-          "description": "Ok",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "/api/v2/robot/capabilities/PetObstacleAvoidanceControlCapability": {
-    "get": {
-      "tags": [
-        "PetObstacleAvoidanceControlCapability"
-      ],
-      "summary": "Get pet obstacle avoidance setting",
-      "responses": {
-        "200": {
-          "description": "Ok",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "enabled": {
-                    "type": "boolean"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "put": {
-      "tags": [
-        "PetObstacleAvoidanceControlCapability"
-      ],
-      "summary": "Set pet obstacle avoidance setting",
-      "requestBody": {
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "action": {
-                  "type": "string",
-                  "enum": [
-                    "enable",
-                    "disable"
-                  ]
-                }
-              }
-            }
-          }
-        }
-      },
-      "responses": {
-        "200": {
-          "$ref": "#/components/responses/200"
-        },
-        "400": {
-          "$ref": "#/components/responses/400"
-        }
-      }
-    }
-  },
-  "/api/v2/robot/capabilities/PetObstacleAvoidanceControlCapability/properties": {
-    "get": {
-      "tags": [
-        "PetObstacleAvoidanceControlCapability"
       ],
       "summary": "Get various capability-related properties",
       "responses": {
@@ -461,6 +230,83 @@
       }
     }
   },
+  "/api/v2/robot/capabilities/KeyLockCapability": {
+    "get": {
+      "tags": [
+        "KeyLockCapability"
+      ],
+      "summary": "Get key lock setting",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "tags": [
+        "KeyLockCapability"
+      ],
+      "summary": "Set key lock setting",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "enable",
+                    "disable"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "400": {
+          "$ref": "#/components/responses/400"
+        }
+      }
+    }
+  },
+  "/api/v2/robot/capabilities/KeyLockCapability/properties": {
+    "get": {
+      "tags": [
+        "KeyLockCapability"
+      ],
+      "summary": "Get various capability-related properties",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
   "/api/v2/robot/capabilities/MopExtensionControlCapability": {
     "get": {
       "tags": [
@@ -538,12 +384,12 @@
       }
     }
   },
-  "/api/v2/robot/capabilities/CameraLightControlCapability": {
+  "/api/v2/robot/capabilities/MopExtensionFurnitureLegHandlingControlCapability": {
     "get": {
       "tags": [
-        "CameraLightControlCapability"
+        "MopExtensionFurnitureLegHandlingControlCapability"
       ],
-      "summary": "Get camera light setting",
+      "summary": "Get mop extension furniture leg handling setting",
       "responses": {
         "200": {
           "description": "Ok",
@@ -564,9 +410,9 @@
     },
     "put": {
       "tags": [
-        "CameraLightControlCapability"
+        "MopExtensionFurnitureLegHandlingControlCapability"
       ],
-      "summary": "Set camera light setting",
+      "summary": "Set mop extension furniture leg handling setting",
       "requestBody": {
         "content": {
           "application/json": {
@@ -595,10 +441,10 @@
       }
     }
   },
-  "/api/v2/robot/capabilities/CameraLightControlCapability/properties": {
+  "/api/v2/robot/capabilities/MopExtensionFurnitureLegHandlingControlCapability/properties": {
     "get": {
       "tags": [
-        "CameraLightControlCapability"
+        "MopExtensionFurnitureLegHandlingControlCapability"
       ],
       "summary": "Get various capability-related properties",
       "responses": {
@@ -676,6 +522,237 @@
     "get": {
       "tags": [
         "MopGapControlCapability"
+      ],
+      "summary": "Get various capability-related properties",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/v2/robot/capabilities/ObstacleAvoidanceControlCapability": {
+    "get": {
+      "tags": [
+        "ObstacleAvoidanceControlCapability"
+      ],
+      "summary": "Get obstacle avoidance setting",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "tags": [
+        "ObstacleAvoidanceControlCapability"
+      ],
+      "summary": "Set obstacle avoidance setting",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "enable",
+                    "disable"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "400": {
+          "$ref": "#/components/responses/400"
+        }
+      }
+    }
+  },
+  "/api/v2/robot/capabilities/ObstacleAvoidanceControlCapability/properties": {
+    "get": {
+      "tags": [
+        "ObstacleAvoidanceControlCapability"
+      ],
+      "summary": "Get various capability-related properties",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/v2/robot/capabilities/PersistentMapControlCapability": {
+    "get": {
+      "tags": [
+        "PersistentMapControlCapability"
+      ],
+      "summary": "Get persistent map setting",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "tags": [
+        "PersistentMapControlCapability"
+      ],
+      "summary": "Set persistent map setting",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "enable",
+                    "disable"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "400": {
+          "$ref": "#/components/responses/400"
+        }
+      }
+    }
+  },
+  "/api/v2/robot/capabilities/PersistentMapControlCapability/properties": {
+    "get": {
+      "tags": [
+        "PersistentMapControlCapability"
+      ],
+      "summary": "Get various capability-related properties",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/v2/robot/capabilities/PetObstacleAvoidanceControlCapability": {
+    "get": {
+      "tags": [
+        "PetObstacleAvoidanceControlCapability"
+      ],
+      "summary": "Get pet obstacle avoidance setting",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "tags": [
+        "PetObstacleAvoidanceControlCapability"
+      ],
+      "summary": "Set pet obstacle avoidance setting",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "enable",
+                    "disable"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "400": {
+          "$ref": "#/components/responses/400"
+        }
+      }
+    }
+  },
+  "/api/v2/robot/capabilities/PetObstacleAvoidanceControlCapability/properties": {
+    "get": {
+      "tags": [
+        "PetObstacleAvoidanceControlCapability"
       ],
       "summary": "Get various capability-related properties",
       "responses": {

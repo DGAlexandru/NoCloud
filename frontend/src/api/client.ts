@@ -824,6 +824,46 @@ export const sendKeyLockEnable = async (enable: boolean): Promise<void> => {
     await sendToggleMutation(Capability.KeyLock, enable);
 };
 
+export const sendAutoEmptyDockAutoEmptyInterval = async (payload: AutoEmptyDockAutoEmptyIntervalPayload): Promise<void> => {
+    return NoCloudAPI
+        .put(`/robot/capabilities/${Capability.AutoEmptyDockAutoEmptyIntervalControl}`, payload)
+        .then(({status}) => {
+            if (status !== 200) {
+                throw new Error("Could not send auto empty dock auto empty interval");
+            }
+        });
+};
+
+export const fetchAutoEmptyDockAutoEmptyInterval = async (): Promise<AutoEmptyDockAutoEmptyInterval> => {
+    return NoCloudAPI
+        .get<AutoEmptyDockAutoEmptyIntervalPayload>(`/robot/capabilities/${Capability.AutoEmptyDockAutoEmptyIntervalControl}`)
+        .then(({data}) => {
+            return data.interval;
+        });
+};
+
+export const fetchAutoEmptyDockAutoEmptyIntervalProperties = async (): Promise<AutoEmptyDockAutoEmptyIntervalProperties> => {
+    return NoCloudAPI
+        .get<AutoEmptyDockAutoEmptyIntervalProperties>(
+            `/robot/capabilities/${Capability.AutoEmptyDockAutoEmptyIntervalControl}/properties`
+        )
+        .then(({data}) => {
+            return data;
+        });
+};
+
+export const fetchCameraLightControlState = async (): Promise<SimpleToggleState> => {
+    return NoCloudAPI
+        .get<SimpleToggleState>(`/robot/capabilities/${Capability.CameraLightControl}`)
+        .then(({ data }) => {
+            return data;
+        });
+};
+
+export const sendCameraLightControlState = async (enable: boolean): Promise<void> => {
+    await sendToggleMutation(Capability.CameraLightControl, enable);
+};
+
 export const fetchCarpetModeState = async (): Promise<SimpleToggleState> => {
     return NoCloudAPI
         .get<SimpleToggleState>(`/robot/capabilities/${Capability.CarpetModeControl}`)
@@ -834,6 +874,34 @@ export const fetchCarpetModeState = async (): Promise<SimpleToggleState> => {
 
 export const sendCarpetModeEnable = async (enable: boolean): Promise<void> => {
     await sendToggleMutation(Capability.CarpetModeControl, enable);
+};
+
+export const sendCarpetSensorMode = async (payload: CarpetSensorModePayload): Promise<void> => {
+    return NoCloudAPI
+        .put(`/robot/capabilities/${Capability.CarpetSensorModeControl}`, payload)
+        .then(({status}) => {
+            if (status !== 200) {
+                throw new Error("Could not send carpet sensor mode");
+            }
+        });
+};
+
+export const fetchCarpetSensorMode = async (): Promise<CarpetSensorMode> => {
+    return NoCloudAPI
+        .get<CarpetSensorModePayload>(`/robot/capabilities/${Capability.CarpetSensorModeControl}`)
+        .then(({data}) => {
+            return data.mode;
+        });
+};
+
+export const fetchCarpetSensorModeProperties = async (): Promise<CarpetSensorModeControlProperties> => {
+    return NoCloudAPI
+        .get<CarpetSensorModeControlProperties>(
+            `/robot/capabilities/${Capability.CarpetSensorModeControl}/properties`
+        )
+        .then(({data}) => {
+            return data;
+        });
 };
 
 export const fetchObstacleAvoidanceControlState = async (): Promise<SimpleToggleState> => {
@@ -873,7 +941,6 @@ export const sendCollisionAvoidantNavigationControlState = async (enable: boolea
     await fetchCollisionAvoidantNavigationControlState(); //force status update; TODO: why do we need this for this one???
 };
 
-
 export const fetchDoNotDisturbConfiguration = async (): Promise<DoNotDisturbConfiguration> => {
     return NoCloudAPI
         .get<DoNotDisturbConfiguration>(`/robot/capabilities/${Capability.DoNotDisturb}`)
@@ -908,7 +975,6 @@ export const fetchWifiConfigurationProperties = async (): Promise<WifiConfigurat
         });
 };
 
-
 export const sendWifiConfiguration = async (configuration: WifiConfiguration): Promise<void> => {
     await NoCloudAPI
         .put(`/robot/capabilities/${Capability.WifiConfiguration}`, configuration)
@@ -927,8 +993,6 @@ export const fetchWifiScan = async (): Promise<Array<NoCloudWifiNetwork>> => {
         });
 };
 
-// ---- API Calls for ManualMIoTCommand ----
-// Fetch the current runtime state of ManualMIoTCommand
 export const fetchManualMIoTCommandState = async (): Promise<unknown> => {
     return NoCloudAPI
         .get(`/robot/capabilities/${Capability.ManualMIoTCommand}`)
@@ -936,7 +1000,7 @@ export const fetchManualMIoTCommandState = async (): Promise<unknown> => {
             return data;
         });
 };
-// Fetch supported actions for future dropdown
+
 export const fetchManualMIoTCommandProperties = async (): Promise<ManualMIoTCommandProperties> => {
     return NoCloudAPI
         .get<ManualMIoTCommandProperties>(`/robot/capabilities/${Capability.ManualMIoTCommand}/properties`)
@@ -944,7 +1008,7 @@ export const fetchManualMIoTCommandProperties = async (): Promise<ManualMIoTComm
             return data;
         });
 };
-// Send a ManualMIoTCommand command to the robot
+
 export const sendManualMIoTCommandInteraction = async (command: ManualMIoTCommandInteraction): Promise<void> => {
     await NoCloudAPI
         .put(`/robot/capabilities/${Capability.ManualMIoTCommand}`, command)
@@ -1137,6 +1201,34 @@ export const sendMopDockDryManualTriggerCommand = async (
     );
 };
 
+export const sendMopDockMopWashTemperature = async (payload: MopDockMopWashTemperaturePayload): Promise<void> => {
+    return NoCloudAPI
+        .put(`/robot/capabilities/${Capability.MopDockMopWashTemperatureControl}`, payload)
+        .then(({status}) => {
+            if (status !== 200) {
+                throw new Error("Could not send mop dock mop wash temperature");
+            }
+        });
+};
+
+export const fetchMopDockMopWashTemperature = async (): Promise<MopDockMopWashTemperature> => {
+    return NoCloudAPI
+        .get<MopDockMopWashTemperaturePayload>(`/robot/capabilities/${Capability.MopDockMopWashTemperatureControl}`)
+        .then(({data}) => {
+            return data.temperature;
+        });
+};
+
+export const fetchMopDockMopWashTemperatureProperties = async (): Promise<MopDockMopWashTemperatureProperties> => {
+    return NoCloudAPI
+        .get<MopDockMopWashTemperatureProperties>(
+            `/robot/capabilities/${Capability.MopDockMopWashTemperatureControl}/properties`
+        )
+        .then(({data}) => {
+            return data;
+        });
+};
+
 export const fetchMopExtensionControlState = async (): Promise<SimpleToggleState> => {
     return NoCloudAPI
         .get<SimpleToggleState>(`/robot/capabilities/${Capability.MopExtensionControl}`)
@@ -1150,16 +1242,16 @@ export const sendMopExtensionControlState = async (enable: boolean): Promise<voi
     await fetchMopExtensionControlState(); //force status update; TODO: why do we need this???
 };
 
-export const fetchCameraLightControlState = async (): Promise<SimpleToggleState> => {
+export const fetchMopExtensionFurnitureLegHandlingControlState = async (): Promise<SimpleToggleState> => {
     return NoCloudAPI
-        .get<SimpleToggleState>(`/robot/capabilities/${Capability.CameraLightControl}`)
+        .get<SimpleToggleState>(`/robot/capabilities/${Capability.MopExtensionFurnitureLegHandlingControl}`)
         .then(({ data }) => {
             return data;
         });
 };
 
-export const sendCameraLightControlState = async (enable: boolean): Promise<void> => {
-    await sendToggleMutation(Capability.CameraLightControl, enable);
+export const sendMopExtensionFurnitureLegHandlingControlState = async (enable: boolean): Promise<void> => {
+    await sendToggleMutation(Capability.MopExtensionFurnitureLegHandlingControl, enable);
 };
 
 export const fetchMopGapControlState = async (): Promise<SimpleToggleState> => {
@@ -1220,62 +1312,6 @@ export const sendNoCloudCustomizations = async (customizations: NoCloudCustomiza
         });
 };
 
-export const sendCarpetSensorMode = async (payload: CarpetSensorModePayload): Promise<void> => {
-    return NoCloudAPI
-        .put(`/robot/capabilities/${Capability.CarpetSensorModeControl}`, payload)
-        .then(({status}) => {
-            if (status !== 200) {
-                throw new Error("Could not send carpet sensor mode");
-            }
-        });
-};
-
-export const fetchCarpetSensorMode = async (): Promise<CarpetSensorMode> => {
-    return NoCloudAPI
-        .get<CarpetSensorModePayload>(`/robot/capabilities/${Capability.CarpetSensorModeControl}`)
-        .then(({data}) => {
-            return data.mode;
-        });
-};
-
-export const fetchCarpetSensorModeProperties = async (): Promise<CarpetSensorModeControlProperties> => {
-    return NoCloudAPI
-        .get<CarpetSensorModeControlProperties>(
-            `/robot/capabilities/${Capability.CarpetSensorModeControl}/properties`
-        )
-        .then(({data}) => {
-            return data;
-        });
-};
-
-export const sendAutoEmptyDockAutoEmptyInterval = async (payload: AutoEmptyDockAutoEmptyIntervalPayload): Promise<void> => {
-    return NoCloudAPI
-        .put(`/robot/capabilities/${Capability.AutoEmptyDockAutoEmptyIntervalControl}`, payload)
-        .then(({status}) => {
-            if (status !== 200) {
-                throw new Error("Could not send auto empty dock auto empty interval");
-            }
-        });
-};
-
-export const fetchAutoEmptyDockAutoEmptyInterval = async (): Promise<AutoEmptyDockAutoEmptyInterval> => {
-    return NoCloudAPI
-        .get<AutoEmptyDockAutoEmptyIntervalPayload>(`/robot/capabilities/${Capability.AutoEmptyDockAutoEmptyIntervalControl}`)
-        .then(({data}) => {
-            return data.interval;
-        });
-};
-
-export const fetchAutoEmptyDockAutoEmptyIntervalProperties = async (): Promise<AutoEmptyDockAutoEmptyIntervalProperties> => {
-    return NoCloudAPI
-        .get<AutoEmptyDockAutoEmptyIntervalProperties>(
-            `/robot/capabilities/${Capability.AutoEmptyDockAutoEmptyIntervalControl}/properties`
-        )
-        .then(({data}) => {
-            return data;
-        });
-};
-
 export const fetchObstacleImagesState = async (): Promise<SimpleToggleState> => {
     return NoCloudAPI
         .get<SimpleToggleState>(`/robot/capabilities/${Capability.ObstacleImages}`)
@@ -1292,34 +1328,6 @@ export const fetchObstacleImagesProperties = async (): Promise<ObstacleImagesPro
     return NoCloudAPI
         .get<ObstacleImagesProperties>(`/robot/capabilities/${Capability.ObstacleImages}/properties`)
         .then(({ data }) => {
-            return data;
-        });
-};
-
-export const sendMopDockMopWashTemperature = async (payload: MopDockMopWashTemperaturePayload): Promise<void> => {
-    return NoCloudAPI
-        .put(`/robot/capabilities/${Capability.MopDockMopWashTemperatureControl}`, payload)
-        .then(({status}) => {
-            if (status !== 200) {
-                throw new Error("Could not send mop dock mop wash temperature");
-            }
-        });
-};
-
-export const fetchMopDockMopWashTemperature = async (): Promise<MopDockMopWashTemperature> => {
-    return NoCloudAPI
-        .get<MopDockMopWashTemperaturePayload>(`/robot/capabilities/${Capability.MopDockMopWashTemperatureControl}`)
-        .then(({data}) => {
-            return data.temperature;
-        });
-};
-
-export const fetchMopDockMopWashTemperatureProperties = async (): Promise<MopDockMopWashTemperatureProperties> => {
-    return NoCloudAPI
-        .get<MopDockMopWashTemperatureProperties>(
-            `/robot/capabilities/${Capability.MopDockMopWashTemperatureControl}/properties`
-        )
-        .then(({data}) => {
             return data;
         });
 };

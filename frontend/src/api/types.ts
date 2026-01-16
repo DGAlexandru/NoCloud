@@ -29,6 +29,7 @@ export enum Capability {
     MopDockDryManualTrigger = "MopDockDryManualTriggerCapability",
     MopDockMopWashTemperatureControl = "MopDockMopWashTemperatureControlCapability",
     MopExtensionControl = "MopExtensionControlCapability",
+    MopExtensionFurnitureLegHandlingControl = "MopExtensionFurnitureLegHandlingControlCapability",
     MopGapControl = "MopGapControlCapability",
     MopTwistFrequencyControl = "MopTwistFrequencyControlCapability",
     ObstacleAvoidanceControl = "ObstacleAvoidanceControlCapability",
@@ -506,20 +507,17 @@ export interface NoCloudWifiNetwork {
         signal?: number
     }
 }
-// Actions for ManualMIoTCommand, string for now, can be replaced by enum or list later
-// Known action(s)
-export type KnownManualMIoTCommandAction = "get_properties"; // ToDo - add more static variants
-// Allow dynamic future commands from the robot
-export type ManualMIoTCommandAction = KnownManualMIoTCommandAction | string;
-// Optional properties for future dropdown
+
+export type ManualMIoTCommandAction = "get_properties" | "set_properties" | "action" | string;
+
 export interface ManualMIoTCommandProperties {
     supportedManualMIoTCommandActions: Array<ManualMIoTCommandAction>;
 }
-// ManualMIoTCommand object sent to the robot
+
 export interface ManualMIoTCommandInteraction {
     miotcmd: ManualMIoTCommandAction; // allows any string
     siid: string;
-    piid: string;
+    piid: string; // used also for aiid
     value?: string;
 }
 
@@ -637,6 +635,7 @@ export type CarpetSensorMode = "off" | "avoid" | "lift" | "detach" | "cross";
 export interface CarpetSensorModePayload {
     mode: CarpetSensorMode
 }
+
 export interface CarpetSensorModeControlProperties {
     supportedModes: Array<CarpetSensorMode>
 }
@@ -646,6 +645,7 @@ export type AutoEmptyDockAutoEmptyInterval = "off" | "infrequent" | "normal" | "
 export interface AutoEmptyDockAutoEmptyIntervalPayload {
     interval: AutoEmptyDockAutoEmptyInterval
 }
+
 export interface AutoEmptyDockAutoEmptyIntervalProperties {
     supportedIntervals: Array<AutoEmptyDockAutoEmptyInterval>
 }
