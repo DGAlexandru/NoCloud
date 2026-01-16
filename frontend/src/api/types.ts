@@ -27,6 +27,7 @@ export enum Capability {
     MappingPass = "MappingPassCapability",
     MopDockCleanManualTrigger = "MopDockCleanManualTriggerCapability",
     MopDockDryManualTrigger = "MopDockDryManualTriggerCapability",
+    MopDockMopAutoDryingControl = "MopDockMopAutoDryingControlCapability",
     MopDockMopWashTemperatureControl = "MopDockMopWashTemperatureControlCapability",
     MopExtensionControl = "MopExtensionControlCapability",
     MopExtensionFurnitureLegHandlingControl = "MopExtensionFurnitureLegHandlingControlCapability",

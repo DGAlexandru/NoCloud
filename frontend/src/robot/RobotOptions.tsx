@@ -22,6 +22,8 @@ import {
     useKeyLockStateMutation,
     useKeyLockStateQuery,
     useLocateMutation,
+    useMopDockMopAutoDryingControlMutation,
+    useMopDockMopAutoDryingControlQuery,
     useMopDockMopWashTemperatureMutation,
     useMopDockMopWashTemperaturePropertiesQuery,
     useMopDockMopWashTemperatureQuery,
@@ -45,6 +47,7 @@ import React from "react";
 import {ListMenu} from "../components/list_menu/ListMenu";
 import {ToggleSwitchListMenuItem} from "../components/list_menu/ToggleSwitchListMenuItem";
 import {
+    Air as MopDockMopAutoDryingControlIcon,
     AutoDelete as AutoEmptyIntervalControlIcon,
     Cable as ObstacleAvoidanceControlIcon,
     DeviceThermostat as MopDockMopWashTemperatureControlIcon,
@@ -365,6 +368,32 @@ const CollisionAvoidantNavigationControlCapabilitySwitchListMenuItem = () => {
             primaryLabel={"Collision-avoidant Navigation"}
             secondaryLabel={"Uses a more conservative route for collision-avoidant navigation, but may result in missed spots."}
             icon={<CollisionAvoidantNavigationControlIcon/>}
+        />
+    );
+};
+
+const MopDockMopAutoDryingControlCapabilitySwitchListMenuItem = () => {
+    const {
+        data: data,
+        isFetching: isFetching,
+        isError: isError,
+    } = useMopDockMopAutoDryingControlQuery();
+
+    const {mutate: mutate, isPending: isChanging} = useMopDockMopAutoDryingControlMutation();
+    const loading = isFetching || isChanging;
+    const disabled = loading || isChanging || isError;
+
+    return (
+        <ToggleSwitchListMenuItem
+            value={data?.enabled ?? false}
+            setValue={(value) => {
+                mutate(value);
+            }}
+            disabled={disabled}
+            loadError={isError}
+            primaryLabel={"Mop Auto-Drying"}
+            secondaryLabel={"Automatically dry the mop pads after a finished cleanup."}
+            icon={<MopDockMopAutoDryingControlIcon/>}
         />
     );
 };
@@ -695,6 +724,7 @@ const RobotOptions = (): React.ReactElement => {
         doNotDisturbCapabilitySupported,
         keyLockControlCapabilitySupported,
         locateCapabilitySupported,
+        mopDockMopAutoDryingControlSupported,
         mopDockMopWashTemperatureControlSupported,
         mopExtensionControlCapabilitySupported,
         mopExtensionFurnitureLegHandlingControlSupported,
@@ -716,6 +746,7 @@ const RobotOptions = (): React.ReactElement => {
         Capability.DoNotDisturb,
         Capability.KeyLock,
         Capability.Locate,
+        Capability.MopDockMopAutoDryingControl,
         Capability.MopDockMopWashTemperatureControl,
         Capability.MopExtensionControl,
         Capability.MopExtensionFurnitureLegHandlingControl,
@@ -835,6 +866,10 @@ const RobotOptions = (): React.ReactElement => {
             );
         }
 
+        if (mopDockMopAutoDryingControlSupported) {
+            items.push(<MopDockMopAutoDryingControlCapabilitySwitchListMenuItem key="mopDockAutoDrying"/>);
+        }
+
         if (mopDockMopWashTemperatureControlSupported) {
             items.push(
                 <MopDockMopWashTemperatureControlCapabilitySelectListMenuItem key={"mopDockMopWashTemperatureControl"}/>
@@ -844,6 +879,7 @@ const RobotOptions = (): React.ReactElement => {
         return items;
     }, [
         autoEmptyDockAutoEmptyIntervalControlCapabilitySupported,
+        mopDockMopAutoDryingControlSupported,
         mopDockMopWashTemperatureControlSupported,
     ]);
 

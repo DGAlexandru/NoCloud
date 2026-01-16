@@ -40,6 +40,7 @@ import {
     fetchManualMIoTCommandState,
     fetchMap,
     fetchMapSegmentationProperties,
+    fetchMopDockMopAutoDryingControlState,
     fetchMopDockMopWashTemperature,
     fetchMopDockMopWashTemperatureProperties,
     fetchMopExtensionControlState,
@@ -109,6 +110,7 @@ import {
     sendMapReset,
     sendMopDockCleanManualTriggerCommand,
     sendMopDockDryManualTriggerCommand,
+    sendMopDockMopAutoDryingControlState,
     sendMopDockMopWashTemperature,
     sendMopExtensionControlState,
     sendMopExtensionFurnitureLegHandlingControlState,
@@ -218,6 +220,7 @@ enum QueryKey {
     ManualMIoTCommandProperties = "manual_miot_command_properties",
     Map = "map",
     MapSegmentationProperties = "map_segmentation_properties",
+    MopDockMopAutoDryingControl = "mop_dock_mop_auto_drying_control",
     MopDockMopWashTemperature = "mop_dock_mop_wash_temperature",
     MopDockMopWashTemperatureProperties = "mop_dock_mop_wash_temperature_properties",
     MopExtensionControl = "mop_extension_control",
@@ -1576,6 +1579,25 @@ export const useMopDockDryManualTriggerMutation = () => {
                 updatedAt: Date.now(),
             });
         },
+    });
+};
+
+export const useMopDockMopAutoDryingControlQuery = () => {
+    return useQuery( {
+        queryKey: [QueryKey.MopDockMopAutoDryingControl],
+        queryFn: fetchMopDockMopAutoDryingControlState,
+
+        staleTime: Infinity
+    });
+};
+
+export const useMopDockMopAutoDryingControlMutation = () => {
+    return useNoCloudFetchingMutation({
+        queryKey: [QueryKey.MopDockMopAutoDryingControl],
+        mutationFn: (enable: boolean) => {
+            return sendMopDockMopAutoDryingControlState(enable).then(fetchMopDockMopAutoDryingControlState);
+        },
+        onError: useOnCommandError(Capability.MopDockMopAutoDryingControl)
     });
 };
 

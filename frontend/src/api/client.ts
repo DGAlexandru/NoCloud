@@ -1201,6 +1201,18 @@ export const sendMopDockDryManualTriggerCommand = async (
     );
 };
 
+export const fetchMopDockMopAutoDryingControlState = async (): Promise<SimpleToggleState> => {
+    return NoCloudAPI
+        .get<SimpleToggleState>(`/robot/capabilities/${Capability.MopDockMopAutoDryingControl}`)
+        .then(({ data }) => {
+            return data;
+        });
+};
+
+export const sendMopDockMopAutoDryingControlState = async (enable: boolean): Promise<void> => {
+    await sendToggleMutation(Capability.MopDockMopAutoDryingControl, enable);
+};
+
 export const sendMopDockMopWashTemperature = async (payload: MopDockMopWashTemperaturePayload): Promise<void> => {
     return NoCloudAPI
         .put(`/robot/capabilities/${Capability.MopDockMopWashTemperatureControl}`, payload)

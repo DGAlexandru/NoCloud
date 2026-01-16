@@ -25,6 +25,7 @@ module.exports = {
     MappingPassCapability: require("./MappingPassCapability"),
     MopDockCleanManualTriggerCapability: require("./MopDockCleanManualTriggerCapability"),
     MopDockDryManualTriggerCapability: require("./MopDockDryManualTriggerCapability"),
+    MopDockMopAutoDryingControlCapability: require("./MopDockMopAutoDryingControlCapability"),
     MopDockMopWashTemperatureControlCapability: require("./MopDockMopWashTemperatureControlCapability"),
     MopExtensionControlCapability: require("./MopExtensionControlCapability"),
     MopExtensionFurnitureLegHandlingControlCapability: require("./MopExtensionFurnitureLegHandlingControlCapability"),
