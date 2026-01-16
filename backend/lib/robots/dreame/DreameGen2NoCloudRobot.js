@@ -58,12 +58,14 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
             };
         });
 
-        this.mode = 0; //Idle
-        this.isCharging = false;
-        this.errorCode = "0";
-
-        this.mopDockState = undefined; // Might not be set depending on model
-        this.autoEmptyDockState = undefined; // Might also not be set depending on model
+        this.ephemeralState = {
+            autoEmptyDockState: undefined, // Might not be set depending on model
+            errorCode: "0",
+            isCharging: false,
+            mode: 0, // Idle
+            mopDockState: undefined, // Might not be set depending on model
+            taskStatus: undefined,
+        };
 
         this.registerCapability(new capabilities.DreameBasicControlCapability({
             robot: this,
@@ -608,19 +610,19 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
                 case MIOT_SERVICES.VACUUM_2.SIID: {
                     switch (elem.piid) {
                         case MIOT_SERVICES.VACUUM_2.PROPERTIES.MODE.PIID: {
-                            this.mode = elem.value;
+                            this.ephemeralState.mode = elem.value;
 
                             statusNeedsUpdate = true;
                             break;
                         }
                         case MIOT_SERVICES.VACUUM_2.PROPERTIES.ERROR_CODE.PIID: {
-                            this.errorCode = elem.value ?? "";
+                            this.ephemeralState.errorCode = elem.value ?? "";
 
                             statusNeedsUpdate = true;
                             break;
                         }
                         case MIOT_SERVICES.VACUUM_2.PROPERTIES.TASK_STATUS.PIID: {
-                            this.taskStatus = elem.value;
+                            this.ephemeralState.taskStatus = elem.value;
 
                             statusNeedsUpdate = true;
                             break;
@@ -692,7 +694,7 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
                             break;
                         }
                         case MIOT_SERVICES.VACUUM_2.PROPERTIES.MOP_DOCK_STATUS.PIID: {
-                            this.mopDockState = elem.value;
+                            this.ephemeralState.mopDockState = elem.value;
                             dockStatusNeedsUpdate = true;
 
                             break;
@@ -818,7 +820,7 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
                 case MIOT_SERVICES.AUTO_EMPTY_DOCK.SIID: {
                     switch (elem.piid) {
                         case MIOT_SERVICES.AUTO_EMPTY_DOCK.PROPERTIES.STATE.PIID: {
-                            this.autoEmptyDockState = elem.value;
+                            this.ephemeralState.autoEmptyDockState = elem.value;
                             dockStatusNeedsUpdate = true;
 
                             break;
@@ -852,40 +854,40 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
                 
                 We can therefore simply filter the non-error codes and pick the first remaining element.
              */
-            if (this.errorCode.includes(",")) {
-                let errorArray = this.errorCode.split(",");
+            if (this.ephemeralState.errorCode.includes(",")) {
+                let errorArray = this.ephemeralState.errorCode.split(",");
 
                 errorArray = errorArray.filter(e => !["68", "114", "122"].includes(e));
 
-                this.errorCode = errorArray[0] ?? "";
+                this.ephemeralState.errorCode = errorArray[0] ?? "";
             }
 
 
-            if (this.errorCode === "0" || this.errorCode === "") {
-                statusValue = DreameNoCloudRobot.STATUS_MAP[this.mode]?.value ?? stateAttrs.StatusStateAttribute.VALUE.IDLE;
-                statusFlag = DreameNoCloudRobot.STATUS_MAP[this.mode]?.flag;
+            if (this.ephemeralState.errorCode === "0" || this.ephemeralState.errorCode === "") {
+                statusValue = DreameNoCloudRobot.STATUS_MAP[this.ephemeralState.mode]?.value ?? stateAttrs.StatusStateAttribute.VALUE.IDLE;
+                statusFlag = DreameNoCloudRobot.STATUS_MAP[this.ephemeralState.mode]?.flag;
 
-                if (statusValue === stateAttrs.StatusStateAttribute.VALUE.DOCKED && this.taskStatus !== 0) {
+                if (statusValue === stateAttrs.StatusStateAttribute.VALUE.DOCKED && this.ephemeralState.taskStatus !== 0) {
                     // Robot has a pending task but is charging due to low battery and will resume when battery >= 80%
                     statusFlag = stateAttrs.StatusStateAttribute.FLAG.RESUMABLE;
                 } else if (statusValue === stateAttrs.StatusStateAttribute.VALUE.IDLE && statusFlag === undefined && this.isCharging === true) {
                     statusValue = stateAttrs.StatusStateAttribute.VALUE.DOCKED;
                 }
             } else {
-                if (this.errorCode === "68") { // Docked with mop still attached. For some reason, dreame decided to have this as an error
+                if (this.ephemeralState.errorCode === "68") { // Docked with mop still attached. For some reason, dreame decided to have this as an error
                     statusValue = stateAttrs.StatusStateAttribute.VALUE.DOCKED;
 
                     if (!this.hasCapability(capabilities.DreameMopDockDryManualTriggerCapability.TYPE)) {
                         this.NoCloudEventStore.raise(new MopAttachmentReminderNoCloudEvent({}));
                     }
-                } else if (this.errorCode === "114") { // Reminder message to regularly clean the mop dock
+                } else if (this.ephemeralState.errorCode === "114") { // Reminder message to regularly clean the mop dock
                     statusValue = stateAttrs.StatusStateAttribute.VALUE.DOCKED;
-                } else if (this.errorCode === "122") { // Apparently just an info that the water hookup (kit) worked successfully?
+                } else if (this.ephemeralState.errorCode === "122") { // Apparently just an info that the water hookup (kit) worked successfully?
                     statusValue = stateAttrs.StatusStateAttribute.VALUE.DOCKED;
                 } else {
                     statusValue = stateAttrs.StatusStateAttribute.VALUE.ERROR;
 
-                    statusError = DreameNoCloudRobot.MAP_ERROR_CODE(this.errorCode);
+                    statusError = DreameNoCloudRobot.MAP_ERROR_CODE(this.ephemeralState.errorCode);
                 }
 
             }
@@ -905,8 +907,8 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
         }
 
         if (dockStatusNeedsUpdate === true) {
-            const mappedMopDockState = DreameNoCloudRobot.MOP_DOCK_STATUS_MAP[this.mopDockState];
-            const mappedAutoEmptyDockState = DreameNoCloudRobot.AUTO_EMPTY_DOCK_STATUS_MAP[this.autoEmptyDockState];
+            const mappedMopDockState = DreameNoCloudRobot.MOP_DOCK_STATUS_MAP[this.ephemeralState.mopDockState];
+            const mappedAutoEmptyDockState = DreameNoCloudRobot.AUTO_EMPTY_DOCK_STATUS_MAP[this.ephemeralState.autoEmptyDockState];
 
             let fullDockState = mappedMopDockState ?? stateAttrs.DockStatusStateAttribute.VALUE.IDLE;
             if (mappedAutoEmptyDockState && mappedAutoEmptyDockState !== stateAttrs.DockStatusStateAttribute.VALUE.IDLE) {
