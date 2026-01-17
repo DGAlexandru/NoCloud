@@ -261,9 +261,9 @@ const menuTree: Array<MenuEntry | MenuSubEntry | MenuSubheader> = [
     {
         kind: "MenuEntry",
         route: "/NoCloud/updater",
-        title: "Updater",
+        title: "Update NoCloud",
         menuIcon: UpdaterIcon,
-        menuText: "Updater"
+        menuText: "Update NoCloud"
     },
     {
         kind: "MenuEntry",

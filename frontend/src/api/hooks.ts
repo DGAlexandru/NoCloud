@@ -1463,7 +1463,10 @@ export const useUpdaterStateQuery = () => {
         queryFn: fetchUpdaterState,
 
         staleTime: 5_000,
-        refetchInterval: 5_000
+        refetchInterval: 5_000,
+        retry: true,
+        retryDelay: (attempt) => Math.min(3_000 * attempt, 60_000),
+        placeholderData: (previousData) => previousData, // Keep last known state while backend is offline (rebooting)
     });
 };
 
@@ -1475,8 +1478,10 @@ export const useUpdaterCommandMutation = () => {
     return useMutation({
         mutationFn: sendUpdaterCommand,
         onError: useOnCommandError("Updater"),
-        onSuccess: () => {
-            refetchUpdaterState().catch(() => {/*intentional*/});
+        onSuccess: (_data, command) => {
+            if (command !== "apply") {
+                refetchUpdaterState().catch(() => {/*intentional*/});
+            }
         }
     });
 };

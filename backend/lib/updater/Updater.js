@@ -110,7 +110,6 @@ class Updater {
         if (!(this.state instanceof States.NoCloudUpdaterApprovalPendingState)) {
             throw new Error("Downloads can only be started when there's pending approval");
         }
-        const downloadPath = this.state.downloadPath;
         this.state.busy = true;
 
         const step = new Steps.NoCloudUpdaterDownloadStep({
@@ -138,8 +137,21 @@ class Updater {
         step.execute().then((state) => {
             this.state = state;
 
+            const downloadPath = state.downloadPath;
+            const downloadPathFd = state.downloadPathFd;
+
             this.cleanupHandler = () => {
-                fs.unlinkSync(downloadPath);
+                try {
+                    fs.closeSync(downloadPathFd);
+                } catch (e) {
+                    /* intentional */
+                }
+
+                try {
+                    fs.unlinkSync(downloadPath);
+                } catch (e) {
+                    /* intentional */
+                }
 
                 this.state = new States.NoCloudUpdaterIdleState({
                     currentVersion: this.updateProvider.getCurrentVersion()
@@ -172,7 +184,8 @@ class Updater {
         this.state.busy = true;
 
         const step = new Steps.NoCloudUpdaterApplyStep({
-            downloadPath: this.state.downloadPath
+            downloadPath: this.state.downloadPath,
+            downloadPathFd: this.state.downloadPathFd
         });
 
         step.execute().catch(err => { //no .then() required as the system will reboot
