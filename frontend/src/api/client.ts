@@ -27,6 +27,8 @@ import {
     ManualMIoTCommandProperties,
     MapSegmentEditJoinRequestParameters,
     MapSegmentEditSplitRequestParameters,
+    MapSegmentMaterialControlProperties,
+    MapSegmentMaterialControlRequestParameters,
     MapSegmentRenameRequestParameters,
     MapSegmentationActionRequestParameters,
     MapSegmentationProperties,
@@ -197,6 +199,16 @@ export const fetchMap = (): Promise<RawMapData> => {
     return NoCloudAPI.get<RawMapData>("/robot/state/map").then(({data}) => {
         return preprocessMap(data);
     });
+};
+
+export const fetchMapSegmentMaterialControlProperties = async (): Promise<MapSegmentMaterialControlProperties> => {
+    return NoCloudAPI
+        .get<MapSegmentMaterialControlProperties>(
+            `/robot/capabilities/${Capability.MapSegmentMaterialControl}/properties`
+        )
+        .then(({data}) => {
+            return data;
+        });
 };
 
 export const subscribeToMap = (
@@ -1156,6 +1168,20 @@ export const fetchQuirks = async (): Promise<Array<Quirk>> => {
         .get<Array<Quirk>>(`/robot/capabilities/${Capability.Quirks}`)
         .then(({ data }) => {
             return data;
+        });
+};
+
+export const sendSetSegmentMaterialCommand = async (parameters: MapSegmentMaterialControlRequestParameters): Promise<void> => {
+    return NoCloudAPI
+        .put(`/robot/capabilities/${Capability.MapSegmentMaterialControl}`, {
+            action: "set_material",
+            segment_id: parameters.segment_id,
+            material: parameters.material
+        })
+        .then(({status}) => {
+            if (status !== 200) {
+                throw new Error("Could not set segment material");
+            }
         });
 };
 

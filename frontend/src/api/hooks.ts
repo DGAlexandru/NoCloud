@@ -40,6 +40,7 @@ import {
     fetchManualMIoTCommandState,
     fetchMap,
     fetchMapSegmentationProperties,
+    fetchMapSegmentMaterialControlProperties,
     fetchMopDockMopAutoDryingControlState,
     fetchMopDockMopWashTemperature,
     fetchMopDockMopWashTemperatureProperties,
@@ -129,6 +130,7 @@ import {
     sendPushNotifClientMessage,
     sendRenameSegmentCommand,
     sendRestoreDefaultConfigurationAction,
+    sendSetSegmentMaterialCommand,
     sendSetQuirkValueCommand,
     sendSpeakerTestCommand,
     sendSpeakerVolume,
@@ -167,6 +169,7 @@ import {
     MapSegmentationActionRequestParameters,
     MapSegmentEditJoinRequestParameters,
     MapSegmentEditSplitRequestParameters,
+    MapSegmentMaterialControlRequestParameters,
     MapSegmentRenameRequestParameters,
     MopDockMopWashTemperature,
     MopTwistFrequency,
@@ -220,6 +223,7 @@ enum QueryKey {
     ManualMIoTCommandProperties = "manual_miot_command_properties",
     Map = "map",
     MapSegmentationProperties = "map_segmentation_properties",
+    MapSegmentMaterialControlProperties = "map_segment_material_control_properties",
     MopDockMopAutoDryingControl = "mop_dock_mop_auto_drying_control",
     MopDockMopWashTemperature = "mop_dock_mop_wash_temperature",
     MopDockMopWashTemperatureProperties = "mop_dock_mop_wash_temperature_properties",
@@ -1385,6 +1389,15 @@ export const useManualControlInteraction = () => {
     });
 };
 
+export const useMapSegmentMaterialControlPropertiesQuery = () => {
+    return useQuery( {
+        queryKey: [QueryKey.MapSegmentMaterialControlProperties],
+        queryFn: fetchMapSegmentMaterialControlProperties,
+
+        staleTime: Infinity,
+    });
+};
+
 export const useHighResolutionManualControlStateQuery = () => {
     return useQuery({
         queryKey: [QueryKey.HighResolutionManualControl],
@@ -1528,6 +1541,27 @@ export const useQuirksQuery = () => {
     return useQuery({
         queryKey: [QueryKey.Quirks],
         queryFn: fetchQuirks
+    });
+};
+
+export const useSetSegmentMaterialMutation = (
+    options?: UseMutationOptions<RobotAttribute[], unknown, MapSegmentMaterialControlRequestParameters>
+) => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (parameters: MapSegmentMaterialControlRequestParameters) => {
+            return sendSetSegmentMaterialCommand(parameters).then(fetchStateAttributes); //TODO: this should actually refetch the map
+        },
+        ...options,
+
+        onError: useOnCommandError(Capability.MapSegmentMaterialControl),
+        onSuccess: async (data, ...args) => {
+            queryClient.setQueryData<RobotAttribute[]>([QueryKey.Attributes], data, {
+                updatedAt: Date.now(),
+            });
+            await options?.onSuccess?.(data, ...args);
+        },
     });
 };
 

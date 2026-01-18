@@ -21,6 +21,7 @@ export enum Capability {
     ManualMIoTCommand = "ManualMIoTCommandCapability",
     MapReset = "MapResetCapability",
     MapSegmentEdit = "MapSegmentEditCapability",
+    MapSegmentMaterialControl = "MapSegmentMaterialControlCapability",
     MapSegmentRename = "MapSegmentRenameCapability",
     MapSegmentation = "MapSegmentationCapability",
     MapSnapshot = "MapSnapshotCapability",
@@ -167,6 +168,23 @@ export interface MapSegmentEditSplitRequestParameters {
     segment_id: string;
     pA: Point;
     pB: Point;
+}
+
+export enum MapSegmentMaterial {
+    Generic = "generic",
+    Tile = "tile",
+    Wood = "wood",
+    WoodHorizontal = "wood_horizontal",
+    WoodVertical = "wood_vertical"
+}
+
+export interface MapSegmentMaterialControlProperties {
+    supportedMaterials: Array<MapSegmentMaterial>;
+}
+
+export interface MapSegmentMaterialControlRequestParameters {
+    segment_id: string;
+    material: MapSegmentMaterial;
 }
 
 export interface MapSegmentRenameRequestParameters {
