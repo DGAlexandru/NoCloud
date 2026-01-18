@@ -33,16 +33,16 @@ const AI_CLASSIFIER_IDS = Object.freeze({
 
     "128": "Pedestal",
     "129": "Bathroom Scale",
-    "130": "Power Strip",
-    "131": "Unknown",
+    "130": "Power Strip", // Thread?
+    "131": "Wire (131)", // was Unknown
     "132": "Toy",
     "133": "Shoes",
     "134": "Sock",
-    "135": "Feces",
+    "135": "Feces", // Poo
     "136": "Trash Can",
     "137": "Fabric",
-    "138": "Cable", // Thread?
-    "139": "Stain",
+    "138": "Cable (138)", // Thread? or Power Strip
+    "139": "Stain", // Liquid Stain
     "140": "Dock Entrance",
     "141": "Dock",
     "142": "Obstacle", // Ambiguous obstacle
@@ -66,21 +66,38 @@ const AI_CLASSIFIER_IDS = Object.freeze({
     "160": "Furniture Leg Black",
     "161": "Wheel",
     "162": "Robot Cleaner",
-    "163": "Cleaner",
+    "163": "Cleaner", // Cleaning Tools
     "164": "Unknown",
     "165": "Bottle",
     "166": "Unknown",
     "167": "Pet Bowl",
     "168": "Mirror",
+    "169": "Door Stop",  // Detected Stain
+    "170": "Remote Control",
+    "171": "Flower Pot",
 
-    "169": "Stain need filter", //??
-
-    "170": "Hand Gesture Unknown",
-    "171": "Hand Gesture Stop",
+    "173": "Stain Need Filter", // ???
+    "174": "Hand Gesture: unknown",
+    "175": "Hand Gesture: Stop",
     // Various body key points I'm not going to document here because they'll certainly only be used within the robots
     // firmware for some kind of gesture control
 
-    "201": "Bar Stool", // Might also be any kind of furniture that can act as a prison for the robot that can be entered but not left
+    "200": "Blocked Room",
+    "201": "Bar Stool", // Easy to Stuck Furniture - any kind of furniture that can act as a prison for the robot: can be entered but not left
+    "202": "Mixed Stain", // Solid Liquid
+    "203": "Human Body",
+    "204": "Human Leg",
+    "205": "Large Particles", // Particles Area
+    "206": "Dried Stain", // Stubborn Stain
+    "207": "Pet House",
+    "208": "Yoga Mat",
+    "209": "Food Bowl",
+    "210": "Pet Bed",
+
+    "214": "Cleaned Stain",
+    "215": "Cleaned Mixed Stain",
+    "216": "Cleaned Dried Stain",
+    "217": "Cleaned Large Particles",
 });
 
 const WATER_HOOKUP_ERRORS = Object.freeze({

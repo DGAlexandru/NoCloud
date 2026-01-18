@@ -15,7 +15,7 @@ class DreameLineLaserObstacleAvoidanceControlCapability extends ObstacleAvoidanc
         super(options);
 
         this.siid = DreameMiotServices["GEN2"].VACUUM_2.SIID;
-        this.piid = DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.OBSTACLE_AVOIDANCE.PIID;
+        this.piid = DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.LINE_LASER_SETTINGS.PIID;
 
         this.helper = new DreameMiotHelper({robot: this.robot});
     }

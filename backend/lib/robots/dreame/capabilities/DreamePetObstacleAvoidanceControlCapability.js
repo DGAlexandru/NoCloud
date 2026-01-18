@@ -27,9 +27,7 @@ class DreamePetObstacleAvoidanceControlCapability extends PetObstacleAvoidanceCo
      */
     async isEnabled() {
         const res = await this.helper.readProperty(this.siid, this.piid);
-        const deserializedRes = DreameUtils.DESERIALIZE_AI_SETTINGS(res);
-
-        return deserializedRes.petObstacleDetection;
+        return DreameUtils.AI_CAMERA_FLAG_STATUS(res, "petDetection");
     }
 
     /**
@@ -37,15 +35,8 @@ class DreamePetObstacleAvoidanceControlCapability extends PetObstacleAvoidanceCo
      */
     async enable() {
         const res = await this.helper.readProperty(this.siid, this.piid);
-        const deserializedRes = DreameUtils.DESERIALIZE_AI_SETTINGS(res);
-
-        deserializedRes.petObstacleDetection = true;
-
-        await this.helper.writeProperty(
-            this.siid,
-            this.piid,
-            DreameUtils.SERIALIZE_AI_SETTINGS(deserializedRes)
-        );
+        const newBitmask = DreameUtils.AI_CAMERA_FLAG_SET(res, "petDetection", true);
+        await this.helper.writeProperty(this.siid, this.piid, newBitmask);
     }
 
     /**
@@ -53,15 +44,8 @@ class DreamePetObstacleAvoidanceControlCapability extends PetObstacleAvoidanceCo
      */
     async disable() {
         const res = await this.helper.readProperty(this.siid, this.piid);
-        const deserializedRes = DreameUtils.DESERIALIZE_AI_SETTINGS(res);
-
-        deserializedRes.petObstacleDetection = false;
-
-        await this.helper.writeProperty(
-            this.siid,
-            this.piid,
-            DreameUtils.SERIALIZE_AI_SETTINGS(deserializedRes)
-        );
+        const newBitmask = DreameUtils.AI_CAMERA_FLAG_SET(res, "petDetection", false);
+        await this.helper.writeProperty(this.siid, this.piid, newBitmask);
     }
 }
 

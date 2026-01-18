@@ -344,7 +344,7 @@ module.exports = {
                         11 - successfully located itself in its map
                      */
                 },
-                OBSTACLE_AVOIDANCE: {
+                LINE_LASER_SETTINGS: {
                     PIID: 21
                 },
                 AI_CAMERA_SETTINGS: { /* AI_DETECTION */

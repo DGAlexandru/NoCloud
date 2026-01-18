@@ -24,9 +24,7 @@ class DreameObstacleImagesCapability extends ObstacleImagesCapability {
      */
     async isEnabled() {
         const res = await this.helper.readProperty(this.siid, this.piid);
-        const deserializedRes = DreameUtils.DESERIALIZE_AI_SETTINGS(res);
-
-        return deserializedRes.obstacleImages;
+        return DreameUtils.AI_CAMERA_FLAG_STATUS(res, "obstacleImages");
     }
 
     /**
@@ -34,15 +32,8 @@ class DreameObstacleImagesCapability extends ObstacleImagesCapability {
      */
     async enable() {
         const res = await this.helper.readProperty(this.siid, this.piid);
-        const deserializedRes = DreameUtils.DESERIALIZE_AI_SETTINGS(res);
-
-        deserializedRes.obstacleImages = true;
-
-        await this.helper.writeProperty(
-            this.siid,
-            this.piid,
-            DreameUtils.SERIALIZE_AI_SETTINGS(deserializedRes)
-        );
+        const newBitmask = DreameUtils.AI_CAMERA_FLAG_SET(res, "obstacleImages", true);
+        await this.helper.writeProperty(this.siid, this.piid, newBitmask);
     }
 
     /**
@@ -50,15 +41,8 @@ class DreameObstacleImagesCapability extends ObstacleImagesCapability {
      */
     async disable() {
         const res = await this.helper.readProperty(this.siid, this.piid);
-        const deserializedRes = DreameUtils.DESERIALIZE_AI_SETTINGS(res);
-
-        deserializedRes.obstacleImages = false;
-
-        await this.helper.writeProperty(
-            this.siid,
-            this.piid,
-            DreameUtils.SERIALIZE_AI_SETTINGS(deserializedRes)
-        );
+        const newBitmask = DreameUtils.AI_CAMERA_FLAG_SET(res, "obstacleImages", false);
+        await this.helper.writeProperty(this.siid, this.piid, newBitmask);
     }
 
     /*
@@ -69,7 +53,7 @@ class DreameObstacleImagesCapability extends ObstacleImagesCapability {
         if (!/^\/data\/record(?:\/ai_image)?\/\d+\.jpg$/.test(image)) {
             /*
                 Attack scenario:
-                someone somehow uploads a specially crafted map file containing a path for an obstacle image 
+                someone somehow uploads a specially crafted map file containing a path for an obstacle image
                 that points somewhere that is no obstacle image
              */
             Logger.warn("Unexpected obstacle image path.");

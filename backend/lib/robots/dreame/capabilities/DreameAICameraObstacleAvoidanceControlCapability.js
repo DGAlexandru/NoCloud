@@ -26,9 +26,7 @@ class DreameAICameraObstacleAvoidanceControlCapability extends ObstacleAvoidance
      */
     async isEnabled() {
         const res = await this.helper.readProperty(this.siid, this.piid);
-        const deserializedRes = DreameUtils.DESERIALIZE_AI_SETTINGS(res);
-
-        return deserializedRes.obstacleDetection;
+        return DreameUtils.AI_CAMERA_FLAG_STATUS(res, "obstacleDetection");
     }
 
     /**
@@ -36,15 +34,8 @@ class DreameAICameraObstacleAvoidanceControlCapability extends ObstacleAvoidance
      */
     async enable() {
         const res = await this.helper.readProperty(this.siid, this.piid);
-        const deserializedRes = DreameUtils.DESERIALIZE_AI_SETTINGS(res);
-
-        deserializedRes.obstacleDetection = true;
-
-        await this.helper.writeProperty(
-            this.siid,
-            this.piid,
-            DreameUtils.SERIALIZE_AI_SETTINGS(deserializedRes)
-        );
+        const newBitmask = DreameUtils.AI_CAMERA_FLAG_SET(res, "obstacleDetection", true);
+        await this.helper.writeProperty(this.siid, this.piid, newBitmask);
     }
 
     /**
@@ -52,15 +43,8 @@ class DreameAICameraObstacleAvoidanceControlCapability extends ObstacleAvoidance
      */
     async disable() {
         const res = await this.helper.readProperty(this.siid, this.piid);
-        const deserializedRes = DreameUtils.DESERIALIZE_AI_SETTINGS(res);
-
-        deserializedRes.obstacleDetection = false;
-
-        await this.helper.writeProperty(
-            this.siid,
-            this.piid,
-            DreameUtils.SERIALIZE_AI_SETTINGS(deserializedRes)
-        );
+        const newBitmask = DreameUtils.AI_CAMERA_FLAG_SET(res, "obstacleDetection", false);
+        await this.helper.writeProperty(this.siid, this.piid, newBitmask);
     }
 }
 
