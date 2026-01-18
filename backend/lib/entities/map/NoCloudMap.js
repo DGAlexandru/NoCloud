@@ -97,12 +97,14 @@ class NoCloudMap extends SerializableEntity { //TODO: Current, Historic, Etc.
                 let id = e.metaData.segmentId;
 
                 if (typeof id === "number") {
+                    // @ts-ignore
                     id = id.toString();
                 }
 
                 return new NoCloudMapSegment({
                     id: id,
-                    name: e.metaData.name
+                    name: e.metaData.name,
+                    material: e.metaData.material
                 });
             });
     }

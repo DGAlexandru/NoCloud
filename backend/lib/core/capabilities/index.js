@@ -19,6 +19,7 @@ module.exports = {
     ManualMIoTCommandCapability: require("./ManualMIoTCommandCapability"),
     MapResetCapability: require("./MapResetCapability"),
     MapSegmentEditCapability: require("./MapSegmentEditCapability"),
+    MapSegmentMaterialControlCapability: require("./MapSegmentMaterialControlCapability"),
     MapSegmentRenameCapability: require("./MapSegmentRenameCapability"),
     MapSegmentationCapability: require("./MapSegmentationCapability"),
     MapSnapshotCapability: require("./MapSnapshotCapability"),
