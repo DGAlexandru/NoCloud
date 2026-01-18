@@ -1,17 +1,18 @@
-import {RawMapData, RawMapEntity, RawMapEntityType, RawMapLayer, RawMapLayerType} from "../api";
-import RobotPositionMapStructure from "./structures/map_structures/RobotPositionMapStructure";
-import ChargerLocationMapStructure from "./structures/map_structures/ChargerLocationMapStructure";
-import SegmentLabelMapStructure from "./structures/map_structures/SegmentLabelMapStructure";
 import ActiveZoneMapStructure from "./structures/map_structures/ActiveZoneMapStructure";
-import MapStructure from "./structures/map_structures/MapStructure";
+import CarpetMapStructure from "./structures/map_structures/CarpetMapStructure";
+import ChargerLocationMapStructure from "./structures/map_structures/ChargerLocationMapStructure";
 import ClientStructure from "./structures/client_structures/ClientStructure";
+import GoToTargetMapStructure from "./structures/map_structures/GoToTargetMapStructure";
+import MapStructure from "./structures/map_structures/MapStructure";
 import NoGoAreaMapStructure from "./structures/map_structures/NoGoAreaMapStructure";
 import NoMopAreaMapStructure from "./structures/map_structures/NoMopAreaMapStructure";
+import ObstacleMapStructure from "./structures/map_structures/ObstacleMapStructure";
+import RobotPositionMapStructure from "./structures/map_structures/RobotPositionMapStructure";
+import SegmentLabelMapStructure from "./structures/map_structures/SegmentLabelMapStructure";
 import VirtualWallMapStructure from "./structures/map_structures/VirtualWallMapStructure";
-import GoToTargetMapStructure from "./structures/map_structures/GoToTargetMapStructure";
 import {median} from "../utils";
 import {PointCoordinates} from "./utils/types";
-import ObstacleMapStructure from "./structures/map_structures/ObstacleMapStructure";
+import {RawMapData, RawMapEntity, RawMapEntityType, RawMapLayer, RawMapLayerType} from "../api";
 
 
 class StructureManager {
@@ -48,35 +49,6 @@ class StructureManager {
 
         entities.forEach(e => {
             switch (e.type) {
-                case RawMapEntityType.RobotPosition: {
-                    const p0 = this.convertCMCoordinatesToPixelSpace({x: e.points[0], y: e.points[1]});
-
-                    mapStructures.push(new RobotPositionMapStructure(p0.x, p0.y, e.metaData.angle ?? 0));
-                    break;
-                }
-                case RawMapEntityType.ChargerLocation: {
-                    const p0 = this.convertCMCoordinatesToPixelSpace({x: e.points[0], y: e.points[1]});
-
-                    mapStructures.push(new ChargerLocationMapStructure(p0.x, p0.y));
-                    break;
-                }
-                case RawMapEntityType.GoToTarget: {
-                    const p0 = this.convertCMCoordinatesToPixelSpace({x: e.points[0], y: e.points[1]});
-
-                    mapStructures.push(new GoToTargetMapStructure(p0.x, p0.y));
-                    break;
-                }
-                case RawMapEntityType.Obstacle: {
-                    const p0 = this.convertCMCoordinatesToPixelSpace({x: e.points[0], y: e.points[1]});
-
-                    mapStructures.push(new ObstacleMapStructure(
-                        p0.x,
-                        p0.y,
-                        e.metaData.label,
-                        e.metaData.id
-                    ));
-                    break;
-                }
                 case RawMapEntityType.ActiveZone: {
                     const p0 = this.convertCMCoordinatesToPixelSpace({x: e.points[0], y: e.points[1]});
                     const p1 = this.convertCMCoordinatesToPixelSpace({x: e.points[2], y: e.points[3]});
@@ -89,6 +61,35 @@ class StructureManager {
                         p2.x, p2.y,
                         p3.x, p3.y,
                     ));
+                    break;
+                }
+                case RawMapEntityType.Carpet: {
+                    // Carpets can be polygons with an arbitrary point count
+                    const points: Array<{x: number, y: number}> = [];
+
+                    for (let i = 0; i < e.points.length; i += 2) {
+                        const p = this.convertCMCoordinatesToPixelSpace({
+                            x: e.points[i],
+                            y: e.points[i + 1]
+                        });
+                        points.push(p);
+                    }
+
+                    mapStructures.push(new CarpetMapStructure(
+                        points
+                    ));
+                    break;
+                }
+                case RawMapEntityType.ChargerLocation: {
+                    const p0 = this.convertCMCoordinatesToPixelSpace({x: e.points[0], y: e.points[1]});
+
+                    mapStructures.push(new ChargerLocationMapStructure(p0.x, p0.y));
+                    break;
+                }
+                case RawMapEntityType.GoToTarget: {
+                    const p0 = this.convertCMCoordinatesToPixelSpace({x: e.points[0], y: e.points[1]});
+
+                    mapStructures.push(new GoToTargetMapStructure(p0.x, p0.y));
                     break;
                 }
                 case RawMapEntityType.NoGoArea: {
@@ -117,6 +118,23 @@ class StructureManager {
                         p2.x, p2.y,
                         p3.x, p3.y,
                     ));
+                    break;
+                }
+                case RawMapEntityType.Obstacle: {
+                    const p0 = this.convertCMCoordinatesToPixelSpace({x: e.points[0], y: e.points[1]});
+
+                    mapStructures.push(new ObstacleMapStructure(
+                        p0.x,
+                        p0.y,
+                        e.metaData.label,
+                        e.metaData.id
+                    ));
+                    break;
+                }
+                case RawMapEntityType.RobotPosition: {
+                    const p0 = this.convertCMCoordinatesToPixelSpace({x: e.points[0], y: e.points[1]});
+
+                    mapStructures.push(new RobotPositionMapStructure(p0.x, p0.y, e.metaData.angle ?? 0));
                     break;
                 }
                 case RawMapEntityType.VirtualWall: {
@@ -245,6 +263,8 @@ class StructureManager {
 
 // This is important because it determines the draw order
 const TYPE_SORT_MAPPING = {
+    [CarpetMapStructure.TYPE]: 4,
+
     [NoGoAreaMapStructure.TYPE]: 5,
     [NoMopAreaMapStructure.TYPE]: 5,
     [VirtualWallMapStructure.TYPE]: 5,

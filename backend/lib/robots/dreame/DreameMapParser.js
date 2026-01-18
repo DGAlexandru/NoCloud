@@ -127,6 +127,7 @@ class DreameMapParser {
                             }
                         } else if (e instanceof mapEntities.PolygonMapEntity) {
                             if (
+                                e.type === mapEntities.PolygonMapEntity.TYPE.CARPET ||
                                 e.type === mapEntities.PolygonMapEntity.TYPE.NO_GO_AREA ||
                                 e.type === mapEntities.PolygonMapEntity.TYPE.NO_MOP_AREA
                             ) {
@@ -289,6 +290,58 @@ class DreameMapParser {
                     }));
                 });
             }
+
+            if (additionalData.carpet_info) {
+                for (const [carpetId, carpetInfo] of Object.entries(additionalData.carpet_info)) {
+                    const pA = DreameMapParser.CONVERT_TO_NoCloud_COORDINATES(carpetInfo[0], carpetInfo[1]);
+                    const pB = DreameMapParser.CONVERT_TO_NoCloud_COORDINATES(carpetInfo[2], carpetInfo[3]);
+
+                    //I'm way too lazy to figure out which dreame model uses which order of coordinates
+                    const xCoords = [pA.x, pB.x].sort((a, b) => {
+                        return a-b;
+                    });
+                    const yCoords = [pA.y, pB.y].sort((a, b) => {
+                        return a-b;
+                    });
+
+                    entities.push(new mapEntities.PolygonMapEntity({
+                        points: [
+                            xCoords[0], yCoords[0],
+                            xCoords[1], yCoords[0],
+                            xCoords[1], yCoords[1],
+                            xCoords[0], yCoords[1]
+                        ],
+                        type: mapEntities.PolygonMapEntity.TYPE.CARPET,
+                        metaData: {
+                            id: carpetId
+                        }
+                    }));
+
+                }
+            }
+
+            if (additionalData.carpet_polygon) {
+                for (const [carpetId, carpetPolygon] of Object.entries(additionalData.carpet_polygon)) {
+                    const coords = carpetPolygon[0];
+                    const points = [];
+
+                    for (let i = 0; i < coords.length; i = i + 2) {
+                        const p = DreameMapParser.CONVERT_TO_NoCloud_COORDINATES(coords[i], coords[i+1]);
+
+                        points.push(p.x, p.y);
+                    }
+
+                    entities.push(new mapEntities.PolygonMapEntity({
+                        points: points,
+                        type: mapEntities.PolygonMapEntity.TYPE.CARPET,
+                        metaData: {
+                            id: carpetId
+                        }
+                    }));
+
+                }
+            }
+
         } else {
             //Just a header
             return null;

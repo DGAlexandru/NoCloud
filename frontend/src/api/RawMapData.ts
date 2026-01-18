@@ -54,16 +54,17 @@ export enum RawMapLayerType {
 }
 
 export enum RawMapEntityType {
+    ActiveZone = "active_zone",
     ChargerLocation = "charger_location",
-    RobotPosition = "robot_position",
+    Carpet = "carpet",
     GoToTarget = "go_to_target",
+    NoGoArea = "no_go_area",
+    NoMopArea = "no_mop_area",
     Obstacle = "obstacle",
     Path = "path",
     PredictedPath = "predicted_path",
+    RobotPosition = "robot_position",
     VirtualWall = "virtual_wall",
-    NoGoArea = "no_go_area",
-    NoMopArea = "no_mop_area",
-    ActiveZone = "active_zone",
 }
 
 export interface RawMapDataMetaData {

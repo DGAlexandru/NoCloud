@@ -13,6 +13,7 @@
                 "type": "string",
                 "enum": [
                   "active_zone",
+                  "carpet",
                   "no_go_area",
                   "no_mop_area"
                 ]
