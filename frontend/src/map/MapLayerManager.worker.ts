@@ -24,8 +24,7 @@ self.addEventListener( "message", ( evt ) => {
     const rendered = PROCESS_LAYERS(
         cachedLayers,
         evt.data.pixelSize,
-        evt.data.colors,
-        evt.data.backgroundColors,
+        evt.data.paletteMode,
         evt.data.selectedSegmentIds
     );
 

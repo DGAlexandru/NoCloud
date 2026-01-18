@@ -1,9 +1,5 @@
 import {Box, Button, CircularProgress, styled, Typography, useTheme} from "@mui/material";
-import {
-    Capability,
-    useRobotMapQuery,
-    useRobotStatusQuery
-} from "../api";
+import {Capability, useRobotMapQuery, useRobotStatusQuery} from "../api";
 import {useCapabilitiesSupported} from "../CapabilitiesProvider";
 import EditMap, { mode } from "./EditMap";
 import {SegmentEditHelp} from "./res/SegmentEditHelp";
@@ -98,7 +94,7 @@ const EditMapPage = (props: {
 
     return <EditMap
         rawMap={mapData}
-        theme={theme}
+        paletteMode={theme.palette.mode}
         mode={props.mode}
         helpText={helpText}
         robotStatus={robotStatus}

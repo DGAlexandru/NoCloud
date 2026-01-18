@@ -1,12 +1,8 @@
-import {Box, Button, CircularProgress, styled, Typography, useTheme} from "@mui/material";
-import {
-    useRobotMapQuery,
-    useRobotStatusQuery
-} from "../api";
-import RobotCoverageMap from "./RobotCoverageMap";
-import {RobotCoverageMapHelp} from "./res/RobotCoverageMapHelp";
 import React from "react";
-
+import RobotCoverageMap from "./RobotCoverageMap";
+import {Box, Button, CircularProgress, styled, Typography, useTheme} from "@mui/material";
+import {RobotCoverageMapHelp} from "./res/RobotCoverageMapHelp";
+import {useRobotMapQuery, useRobotStatusQuery} from "../api";
 
 const Container = styled(Box)({
     flex: "1",
@@ -71,7 +67,7 @@ const RobotCoverageMapPage = (): React.ReactElement => {
 
     return <RobotCoverageMap
         rawMap={mapData}
-        theme={theme}
+        paletteMode={theme.palette.mode}
         helpText={RobotCoverageMapHelp}
     />;
 };
