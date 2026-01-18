@@ -114,14 +114,10 @@ class DreameMopNoCloudRobot extends DreameGen2NoCloudRobot {
             piid: DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.PROPERTIES.MOP_DOCK_SETTINGS.PIID
         }));
 
-        this.registerCapability(new capabilities.DreameMopDockCleanManualTriggerCapability({
-            robot: this,
-            legacy: true
-        }));
-
         [
             capabilities.DreameCarpetModeControlCapability,
             capabilities.DreameKeyLockCapability,
+            capabilities.DreameMopDockCleanManualTriggerCapability,
             capabilities.DreameMopDockDryManualTriggerCapability,
             capabilities.DreameMopMappingPassCapability,
         ].forEach(capability => {
