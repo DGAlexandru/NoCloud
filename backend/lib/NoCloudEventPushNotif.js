@@ -131,13 +131,13 @@ class NoCloudEventPushNotif {
             const title = this.getEventTitle(e);
             const message = this.getEventMessage(e);
 
-            const key = `${title}::${message}`;
+            const key = JSON.stringify([title, message]);
             if (!acc[key]) {
                 acc[key] = { title: title, message: message, count: 0 };
             }
             acc[key].count += 1;
             return acc;
-        });
+        }, Object.create(null));
         const notificationLines = Object.values(grouped).map(({ title, message, count }) => {
             return count > 1 ?
                 `[${title}]: ${message} (x${count})` :
