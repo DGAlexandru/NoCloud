@@ -80,7 +80,7 @@ class DreameMapParser {
             try {
                 additionalData = JSON.parse(buf.subarray(parsedHeader.width * parsedHeader.height + HEADER_SIZE).toString());
             } catch (e) {
-                Logger.warn("Error while parsing additional map data", e);
+                Logger.warn("DreameMapParser: error while parsing additional map data", e);
             }
 
             if (additionalData.sa && Array.isArray(additionalData.sa)) {
@@ -112,8 +112,17 @@ class DreameMapParser {
                             case 2:
                                 material = mapEntities.MapLayer.MATERIAL.TILE;
                                 break;
+                            case 5:
+                                material = mapEntities.MapLayer.MATERIAL.MEDIUM_PILE_CARPET;
+                                break;
+                            case 6:
+                                material = mapEntities.MapLayer.MATERIAL.LOW_PILE_CARPET;
+                                break;
+                            case 7:
+                                material = mapEntities.MapLayer.MATERIAL.CARPET;
+                                break;
                             default:
-                                Logger.warn("Unhandled segment material", additionalData.seg_inf[segmentId].material);
+                                Logger.warn("DreameMapParser: unhandled segment material", additionalData.seg_inf[segmentId].material);
                         }
 
                         segmentMaterials[segmentId] = material;
@@ -488,7 +497,7 @@ class DreameMapParser {
                                 wallPixels.push(coords);
                                 break;
                             default:
-                                Logger.warn("Unhandled pixel type", px);
+                                Logger.warn("DreameMapParser: unhandled pixel type", px);
                         }
                     }
                 } else if (mapType === MAP_DATA_TYPES.RISM) {
