@@ -39,8 +39,14 @@ import {AddCuttingLineIcon, RenameIcon} from "../../../components/CustomIcons";
 
 const getMaterialLabel = (material: MapSegmentMaterial): string => {
     switch (material) {
+        case MapSegmentMaterial.Carpet:
+            return "Carpet";
         case MapSegmentMaterial.Generic:
             return "Generic";
+        case MapSegmentMaterial.LowPileCarpet:
+            return "Low Pile Carpet";
+        case MapSegmentMaterial.MediumPileCarpet:
+            return "Medium Pile Carpet";
         case MapSegmentMaterial.Tile:
             return "Tile";
         case MapSegmentMaterial.Wood:

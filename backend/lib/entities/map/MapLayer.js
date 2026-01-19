@@ -184,7 +184,10 @@ MapLayer.TYPE = Object.freeze({
  *
  */
 MapLayer.MATERIAL = Object.freeze({
+    CARPET: "carpet",
     GENERIC: "generic",
+    LOW_PILE_CARPET: "low_pile_carpet",
+    MEDIUM_PILE_CARPET: "medium_pile_carpet",
     TILE: "tile",
     WOOD: "wood",
     WOOD_HORIZONTAL: "wood_horizontal",

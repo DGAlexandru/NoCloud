@@ -25,7 +25,7 @@ class SegmentLabelMapStructure extends MapStructure {
     private scaledIconSize: { width: number; height: number } = {width: 1, height: 1};
 
 
-    constructor(x0 : number ,y0 : number, id: string, selected: boolean, active: boolean, area: number, name?: string | undefined, material: RawMapLayerMaterial | undefined) {
+    constructor(x0 : number ,y0 : number, id: string, selected: boolean, active: boolean, area: number, name?: string | undefined, material?: RawMapLayerMaterial | undefined) {
         super(x0, y0);
 
         this.id = id;

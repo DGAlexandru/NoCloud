@@ -28,6 +28,7 @@ module.exports = {
     DreameManualMIoTCommandCapability: require("./DreameManualMIoTCommandCapability"),
     DreameMapResetCapability: require("./DreameMapResetCapability"),
     DreameMapSegmentEditCapability: require("./DreameMapSegmentEditCapability"),
+    DreameMapSegmentMaterialControlCapability: require("./DreameMapSegmentMaterialControlCapability"),
     DreameMapSegmentRenameCapability: require("./DreameMapSegmentRenameCapability"),
     DreameMapSegmentationCapability: require("./DreameMapSegmentationCapability"),
     DreameMappingPassCapability: require("./DreameMappingPassCapability"),

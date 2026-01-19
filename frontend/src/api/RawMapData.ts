@@ -55,7 +55,10 @@ export enum RawMapLayerType {
 }
 
 export enum RawMapLayerMaterial {
+    Carpet = "carpet",
     Generic = "generic",
+    LowPileCarpet = "low_pile_carpet",
+    MediumPileCarpet = "medium_pile_carpet",
     Tile = "tile",
     Wood = "wood",
     WoodHorizontal = "wood_horizontal",

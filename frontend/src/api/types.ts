@@ -171,8 +171,11 @@ export interface MapSegmentEditSplitRequestParameters {
 }
 
 export enum MapSegmentMaterial {
+    Carpet = "carpet",
     Generic = "generic",
     Tile = "tile",
+    LowPileCarpet = "low_pile_carpet",
+    MediumPileCarpet = "medium_pile_carpet",
     Wood = "wood",
     WoodHorizontal = "wood_horizontal",
     WoodVertical = "wood_vertical"

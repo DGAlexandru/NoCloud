@@ -18,17 +18,13 @@ class DreameMapParser {
      * :(
      *
      * @param {Buffer} buf
-     * @param {MapDataType} [type]
+     * @param {MapDataType} [mapType]
      * @returns {Promise<null|import("../../entities/map/NoCloudMap")>}
      */
-    static async PARSE(buf, type) {
+    static async PARSE(buf, mapType = MAP_DATA_TYPES.REGULAR) {
         //Maps are always at least 27 bytes in size
         if (!buf || buf.length < HEADER_SIZE) {
             return null;
-        }
-
-        if (!type) {
-            type = MAP_DATA_TYPES.REGULAR;
         }
 
         const parsedHeader = DreameMapParser.PARSE_HEADER(buf.subarray(0, HEADER_SIZE));
@@ -78,6 +74,7 @@ class DreameMapParser {
             const imageData = buf.subarray(HEADER_SIZE, HEADER_SIZE + parsedHeader.width * parsedHeader.height);
             const activeSegmentIds = [];
             const segmentNames = {};
+            const segmentMaterials = {};
             let additionalData = {};
 
             try {
@@ -97,10 +94,34 @@ class DreameMapParser {
                     if (additionalData.seg_inf[segmentId].name) {
                         segmentNames[segmentId] = Buffer.from(additionalData.seg_inf[segmentId].name, "base64").toString("utf8");
                     }
+
+                    if (additionalData.seg_inf[segmentId].material !== undefined) {
+                        let material;
+                        switch (additionalData.seg_inf[segmentId].material) {
+                            case 0:
+                                material = mapEntities.MapLayer.MATERIAL.GENERIC;
+                                break;
+                            case 1:
+                                material = mapEntities.MapLayer.MATERIAL.WOOD_HORIZONTAL;
+
+                                if (additionalData.seg_inf[segmentId].direction === 90) {
+                                    material = mapEntities.MapLayer.MATERIAL.WOOD_VERTICAL;
+                                }
+
+                                break;
+                            case 2:
+                                material = mapEntities.MapLayer.MATERIAL.TILE;
+                                break;
+                            default:
+                                Logger.warn("Unhandled segment material", additionalData.seg_inf[segmentId].material);
+                        }
+
+                        segmentMaterials[segmentId] = material;
+                    }
                 });
             }
 
-            layers.push(...DreameMapParser.PARSE_IMAGE(parsedHeader, activeSegmentIds, segmentNames, imageData, type));
+            layers.push(...DreameMapParser.PARSE_IMAGE(parsedHeader, activeSegmentIds, segmentNames, segmentMaterials, imageData, mapType));
 
             /**
              * Contains saved map data such as virtual restrictions as well as segments
@@ -153,6 +174,11 @@ class DreameMapParser {
                                     layers.find(eL => {
                                         return eL.metaData.segmentId === l.metaData.segmentId;
                                     }).metaData.name = l.metaData.name;
+                                }
+                                if (l.metaData.material) {
+                                    layers.find(eL => {
+                                        return eL.metaData.segmentId === l.metaData.segmentId;
+                                    }).metaData.material = l.metaData.material;
                                 }
                             }
                         } else {
@@ -272,6 +298,10 @@ class DreameMapParser {
                     const type = DreameConst.AI_CLASSIFIER_IDS[obstacle[2]] ?? `Unknown ID ${obstacle[2]}`;
                     const confidence = `${Math.round(parseFloat(obstacle[3])*100)}%`;
                     const image = obstacle[5] !== undefined ? obstacle[5] : undefined;
+
+                    /*if (HIDDEN_OBSTACLE_TYPES.includes(obstacle[2])) {
+                        return;
+                    } */
 
                     entities.push(new mapEntities.PointMapEntity({
                         points: [
@@ -402,7 +432,7 @@ class DreameMapParser {
         return parsedHeader;
     }
 
-    static PARSE_IMAGE(parsedHeader, activeSegmentIds, segmentNames, buf, type) {
+    static PARSE_IMAGE(parsedHeader, activeSegmentIds, segmentNames, segmentMaterials, buf, mapType) {
         const floorPixels = [];
         const wallPixels = [];
         const segments = {};
@@ -430,7 +460,7 @@ class DreameMapParser {
 
 
 
-                if (type === MAP_DATA_TYPES.REGULAR) {
+                if (mapType === MAP_DATA_TYPES.REGULAR) {
                     /**
                      * A regular Pixel is one byte consisting of
                      *      000000               00
@@ -461,7 +491,7 @@ class DreameMapParser {
                                 Logger.warn("Unhandled pixel type", px);
                         }
                     }
-                } else if (type === MAP_DATA_TYPES.RISM) {
+                } else if (mapType === MAP_DATA_TYPES.RISM) {
                     /**
                      * A rism Pixel is one byte consisting of
                      *      1            1                000000
@@ -512,11 +542,15 @@ class DreameMapParser {
             const metaData = {
                 segmentId: segmentId,
                 active: activeSegmentIds.includes(segmentId),
-                source: type
+                source: mapType
             };
 
             if (segmentNames[segmentId]) {
                 metaData.name = segmentNames[segmentId];
+            }
+
+            if (segmentMaterials[segmentId]) {
+                metaData.material = segmentMaterials[segmentId];
             }
 
             layers.push(
@@ -737,11 +771,16 @@ DreameMapParser.CONVERT_TO_DREAME_COORDINATES = function(x, y) {
     };
 };
 
+/**
+ * @param {number} angle
+ * @return {number}
+ */
 DreameMapParser.CONVERT_ANGLE_TO_NoCloud = function(angle) {
     //This flips the angle at the Y-axis due to our different coordinate system and then substracts 90° from it
     return ((angle < 180 ? 180 - angle : 360 - angle + 180) + 270) % 360;
 };
 
+//const HIDDEN_OBSTACLE_TYPES = ["200"];
 const OBSTACLE_ID_NAMESPACE = "f90e13dc-3728-4267-bd90-43caa3f460e5";
 
 module.exports = DreameMapParser;

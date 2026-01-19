@@ -175,7 +175,10 @@ const fallbackPixelPatternHandler: PixelPatternHandler = (x, y) => {
 };
 
 const materialToPixelPatternHandler: {[key in RawMapLayerMaterial]: PixelPatternHandler} = {
+    [RawMapLayerMaterial.Carpet]: solidFillPixelPatternHandler, // ToDo: Define custom renderer
     [RawMapLayerMaterial.Generic]: solidFillPixelPatternHandler,
+    [RawMapLayerMaterial.LowPileCarpet]: solidFillPixelPatternHandler, // ToDo: Define custom renderer
+    [RawMapLayerMaterial.MediumPileCarpet]: solidFillPixelPatternHandler, // ToDo: Define custom renderer
     [RawMapLayerMaterial.Tile]: tilePixelPatternHandler,
     [RawMapLayerMaterial.Wood]: chevronPixelPatternHandler,
     [RawMapLayerMaterial.WoodHorizontal]: createPlankPixelPatternHandler(true),
