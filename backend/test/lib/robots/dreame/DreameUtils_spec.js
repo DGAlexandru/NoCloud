@@ -1,3 +1,5 @@
+// eslint-disable-next-line no-unused-vars
+const should = require("should");
 const sinon = require("sinon");
 
 const DreameUtils = require("../../../../lib/robots/dreame/DreameUtils");
@@ -22,16 +24,21 @@ describe("DreameUtils", function () {
         { input: 0xFFFFFF, expected: mopDockSettings(255, 255, 255) }
     ].forEach(({ input, expected }) => {
         it(`Should deserialize MopDockSettings for input ${input}`, function() {
-            DreameUtils.DESERIALIZE_MOP_DOCK_SETTINGS(input).Should.deepEqual(expected);
+            DreameUtils.DESERIALIZE_MOP_DOCK_SETTINGS(input).should.deepEqual(expected);
         });
 
         it(`Should serialize MopDockSettings ${JSON.stringify(expected)}`, function() {
-            DreameUtils.SERIALIZE_MOP_DOCK_SETTINGS(expected).Should.equal(input >>> 0);
+            DreameUtils.SERIALIZE_MOP_DOCK_SETTINGS(expected).should.equal(input >>> 0);
         });
     });
-    it("Should throw error for out-of-range MopDockSettings values", function() {
+    it("Should warn for out-of-range MopDockSettings values", function() {
+        const warnStub = sinon.stub(Logger, "warn");
         const badSettings = mopDockSettings(256, -1, 300);
-        (() => DreameUtils.SERIALIZE_MOP_DOCK_SETTINGS(badSettings)).Should.throw(/between 0 and 255/);
+        DreameUtils.SERIALIZE_MOP_DOCK_SETTINGS(badSettings);
+
+        warnStub.calledOnce.should.be.true();
+        warnStub.calledWithMatch(/between 0 and 255/).should.be.true();
+        warnStub.restore();
     });
 
     // --- MiscTunables Tests---
@@ -47,7 +54,7 @@ describe("DreameUtils", function () {
         ]);
 
         const actual = DreameUtils.DESERIALIZE_MISC_TUNABLES(json);
-        actual.Should.deepEqual({
+        actual.should.deepEqual({
             AutoDry: 1,
             CleanType: 0,
             FillinLight: 1,
@@ -58,20 +65,24 @@ describe("DreameUtils", function () {
     });
 
     it("Should return empty object for invalid misc tunables", function() {
-        DreameUtils.DESERIALIZE_MISC_TUNABLES("not json").Should.deepEqual({});
+        const warnStub = sinon.stub(Logger, "warn");
+
+        DreameUtils.DESERIALIZE_MISC_TUNABLES("not json").should.deepEqual({});
+        warnStub.calledOnce.should.be.true();
+        warnStub.restore();
     });
 
     it("Should serialize a single misc tunable", function() {
         DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE({ AutoDry: 1 })
-            .Should.equal(JSON.stringify({ k: "AutoDry", v: 1 }));
+            .should.equal(JSON.stringify({ k: "AutoDry", v: 1 }));
     });
 
     it("Should warn when serializing more than one misc tunable", function() {
         const warnStub = sinon.stub(Logger, "warn");
         const obj = { AutoDry: 1, CleanType: 0 };
         const result = DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE(obj);
-        result.Should.equal(JSON.stringify({ k: "AutoDry", v: 1 }));
-        warnStub.calledOnce.Should.be.true();
+        result.should.equal(JSON.stringify({ k: "AutoDry", v: 1 }));
+        warnStub.calledOnce.should.be.true();
         warnStub.restore();
     });
 
@@ -84,8 +95,8 @@ describe("DreameUtils", function () {
 
         allFlags.forEach(flag => {
             const expected = Boolean(input & DreameUtils.AI_CAMERA_FLAGS_MASK[flag]);
-            actual[flag].Should.equal(expected);
-            DreameUtils.AI_CAMERA_FLAG_STATUS(input, flag).Should.equal(expected);
+            actual[flag].should.equal(expected);
+            DreameUtils.AI_CAMERA_FLAG_STATUS(input, flag).should.equal(expected);
         });
     });
 
@@ -107,11 +118,11 @@ describe("DreameUtils", function () {
         // expected bitmask: 0b0000000000010010 = 18
 
         const actual = DreameUtils.SERIALIZE_AI_SETTINGS(input);
-        actual.Should.equal(18);
+        actual.should.equal(18);
 
         allFlags.forEach(flag => {
             DreameUtils.AI_CAMERA_FLAG_STATUS(actual, flag)
-                .Should.equal(Boolean(input[flag]));
+                .should.equal(Boolean(input[flag]));
         });
     });
 
@@ -129,8 +140,8 @@ describe("DreameUtils", function () {
         allFlags.forEach(flag => {
             const expected = Boolean(input[flag]);
 
-            deserialized[flag].Should.equal(expected);
-            DreameUtils.AI_CAMERA_FLAG_STATUS(serialized, flag).Should.equal(expected);
+            deserialized[flag].should.equal(expected);
+            DreameUtils.AI_CAMERA_FLAG_STATUS(serialized, flag).should.equal(expected);
         });
     });
 
@@ -138,16 +149,16 @@ describe("DreameUtils", function () {
         let bitmask = 0;
 
         bitmask = DreameUtils.AI_CAMERA_FLAG_SET(bitmask, "obstacleDetection", false);
-        DreameUtils.AI_CAMERA_FLAG_STATUS(bitmask, "obstacleDetection").Should.equal(false);
+        DreameUtils.AI_CAMERA_FLAG_STATUS(bitmask, "obstacleDetection").should.equal(false);
 
         bitmask = DreameUtils.AI_CAMERA_FLAG_SET(bitmask, "petDetection", true);
-        DreameUtils.AI_CAMERA_FLAG_STATUS(bitmask, "petDetection").Should.equal(true);
+        DreameUtils.AI_CAMERA_FLAG_STATUS(bitmask, "petDetection").should.equal(true);
 
         bitmask = DreameUtils.AI_CAMERA_FLAG_SET(bitmask, "largeParticlesBoost", false);
-        DreameUtils.AI_CAMERA_FLAG_STATUS(bitmask, "largeParticlesBoost").Should.equal(false);
+        DreameUtils.AI_CAMERA_FLAG_STATUS(bitmask, "largeParticlesBoost").should.equal(false);
 
         // ensure a Flag which was set before isn't touched by the usage of helpers for other AI Flags
-        DreameUtils.AI_CAMERA_FLAG_STATUS(bitmask, "petDetection").Should.equal(true);
+        DreameUtils.AI_CAMERA_FLAG_STATUS(bitmask, "petDetection").should.equal(true);
     });
 
 });
