@@ -5,7 +5,7 @@ order: 11
 ---
 # Roborock rooting and installation
 
-Please check the [supported robots](https://Valetudo.Cloud/pages/general/supported-robots.html) page to find out which method applies to your model of robot.
+Please check the [supported robots](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/supported-robots.md) page to find out which method applies to your model of robot.
 
 Also note that all rooting guides assume a factory-new robot that has never been connected to the vendor cloud.<br/>
 If you've used any vendor apps before, make sure to do a full factory-reset before starting with the rooting procedure.
@@ -69,7 +69,7 @@ Please keep the distance between your WiFi antenna and your robot as short as po
 After the successful transfer of the image to the robot, the robot will start flashing the image. This will take about 5~10 minutes.
 After the process is done, the robot will state that the update was successful.
 
-You can now return to the [getting started guide](https://Valetudo.Cloud/pages/general/getting-started.html#joining_wifi).
+You can now return to the [getting started guide](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/getting-started.md#joining_wifi).
 
 #### Troubleshooting
 
@@ -141,7 +141,7 @@ For more in-depth information, check out [Dennis' talk at DEF CON 29](https://yo
 
 For this root you will need:
 * One of the listed NAND-based roborock vacuum robots
-* A laptop running linux with `sunxi-tools` installed
+* A laptop running linux **natively** with `sunxi-tools` >= 1.3 installed
 * A micro USB cable
 * A few screwdrivers
 * A jumper wire or a conductive paperclip
@@ -307,6 +307,6 @@ After the robot has rebooted, connect to its Wi-Fi AP for the final time, wait f
 NoCloud Webinterface in your browser to connect the robot to your Wi-Fi network.<br/>
 For that, just browse to `http://192.168.8.1`.
 
-After reassembling the robot you can continue with the <a href="https://Valetudo.Cloud/pages/general/getting-started.html#using-valetudo">getting started guide</a>.
+After reassembling the robot you can continue with the <a href="https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/getting-started.md#using-NoCloud">getting started guide</a>.
 
 </div>

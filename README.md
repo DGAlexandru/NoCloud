@@ -3,52 +3,58 @@
     <p align="center"><h2>Free your vacuum from the cloud</h2></p>
 </div>
 
-NoCloud is a cloud replacement for vacuum robots enabling local-only operation. It is not a custom firmware.<br/>
+NoCloud is a cloud replacement for vacuum robots enabling local-only operation. It isn't a custom firmware. You can think of it as a <i>brain parasite</i> for the vendor firmware... a good-intended parasite :D<br/>
 Here's a diagram illustrating the core operation principle:
 
 [<img src="https://github.com/DGAlexandru/NoCloud/raw/main/docs/_pages/general/img/operation_principle.png" height=450>](https://github.com/DGAlexandru/NoCloud/raw/main/docs/_pages/general/img/operation_principle.png)
 
-Because NoCloud is not a custom firmware, it cannot change anything about how the robot operates.<br/>
+Because NoCloud isn't a custom firmware, it cannot really change how the robot operates.<br/>
 What it can do however is protect your data and enable you to connect your robot
-to your home automation system without having to detour through a vendor cloud, which,
-apart from the whole data problematic, might not be reachable due to your internet connection
+to your Home Automation system without having to detour through a vendor Cloud, which,
+apart from the whole data problematic, might not be reachable due to your Internet connection
 being down or some servers in the datacenter being on fire.
 
 Not having to leave your local network of course also benefits the latency of commands, status reports etc.
 
-NoCloud aims to be proof that easy to use and reliable smart appliances are possible without any cloud and/or account requirements.
+As such, it protects your data through not sharing it with anyone by being fully local, saves you from in-app ads, upselling, sudden subscriptions
+and all the other fun enshittification tactics and playbooks.
+
+NoCloud aims to be proof that easy to use and reliable smart appliances are possible without any Cloud and/or account requirements.
 Maybe at some point it might help convince vendors that there is another way of doing things.
 
-By default, NoCloud provides control over your vacuum robot via a **responsive webinterface** that works on all of your devices.
-It can be used on phones, tablets as well as your desktop computer.
+NoCloud also aims to be a generic abstraction, providing a responsive webinterface that allows controlling the robot, that (should) works on all of your devices: it can be used on phones, tablets as well as on your desktop computer.
 
+To integrate with other systems, it provides a **REST-interface** with inbuilt **Swagger UI** as documentation.
+Additionally, it integrates with **Home Assistant** and other smarthome systems (of your choice) using **MQTT**.
 
-Furthermore, there's a **REST-interface** documented with **Swagger UI** as well as **MQTT**.
-With support for both **Homie** and **Home Assistant Autodiscovery** for MQTT, you should be able to connect NoCloud to
-the open-source smarthome software of your choice.
+Being a generic abstraction, NoCloud won't be a "feature-complete" reimplementation of the vendor apps, as that would also
+mean inheriting all of their technical debt.
+It does however support everything you need to have a proper, modern, cloud-free robot vacuum.
 
-For more information, check out the [newcomer guide](https://Valetudo.cloud/pages/general/newcomer-guide.html),
-the [getting started guide](https://Valetudo.cloud/pages/general/getting-started.html) 
+While being published under the Apache-2.0 license and clearly being FOSS, the governance and development model NoCloud operates under
+is to be understood as that of "Freeware with source available". It is evidently much more than that when it comes to the freedoms provided by true FOSS,
+but it is not the FOSS that only knows "community-driven" you might be used to from corporate co-option and come to expect when you read "FOSS".
+
+For more information, check out the [newcomer guide](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/newcomer-guide.md),
+the [getting started guide](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/getting-started.md) 
 and also the docs in general at [https://Valetudo.cloud](https://Valetudo.cloud)
 
-There, you will find a list of [supported robots](https://Valetudo.cloud/pages/general/supported-robots.html).
+There, you will find a list of [supported robots](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/supported-robots.md).
 
 ## Screenshots
 
 ### Phone/Mobile
-<img src="https://user-images.githubusercontent.com/974410/211155741-d6430660-a6b2-48ab-8ddc-2217328444de.png" width=360> <img src="https://github.com/user-attachments/assets/eaad6fe0-dd1e-4f56-b6f9-f65954aecac7" width=360>
+<img width="360" src="https://github.com/user-attachments/assets/21b6cb92-43e8-4c49-b7f4-e15bedaab094" /> <img width="360" src="https://github.com/user-attachments/assets/e4b32931-1116-4d19-bece-e48746a89664" />
 
-<img src="https://user-images.githubusercontent.com/974410/211155650-7cac266c-ffeb-432d-8656-5241a5d6f227.png" width=360> <img src="https://user-images.githubusercontent.com/974410/211155656-d43ee25e-1ae6-432f-95ff-1a39d294828d.png" width=360>
+<img width="360" src="https://github.com/user-attachments/assets/4fdad83d-3df1-4d24-929b-004ce6b3bff0" /> <img width="360" src="https://github.com/user-attachments/assets/422d54c8-6546-4616-9cd6-c1239be78c32" />
 
 ### Tablet/Desktop
 
-![image](https://github.com/user-attachments/assets/dc18723f-b15f-4500-907b-bad6d7dd1a4f)
+<img width="1024" src="https://github.com/user-attachments/assets/28e7dea0-db0a-482b-92ba-8e9774b2416f" />
 
-![image](https://user-images.githubusercontent.com/974410/211155836-9199616a-efde-4238-91c4-24158ba67677.png)
+<img width="1024" src="https://github.com/user-attachments/assets/f9217069-ee10-42f4-8897-0c90703201b7" />
 
-![image](https://user-images.githubusercontent.com/974410/211155860-9926b126-d1fe-41b1-8c83-1af21bf8caf2.png)
-
-![image](https://user-images.githubusercontent.com/974410/211155880-ff184776-86fe-4c2f-9556-4d556cfa12f4.png)
+<img width="1024" src="https://github.com/user-attachments/assets/d7281e75-32c7-4a1e-a10b-95aef3b06a78" />
 
 
 ## NoCloud is a garden
@@ -79,10 +85,18 @@ When it comes to software development, _everyone_ has access to infinite plots o
 Therefore, a garden being build with a specific vision does not take away the ability for anyone else to build their own garden with a different vision.
 
 ## Further questions?
+
+> [!IMPORTANT]  
+> Before asking/joining/interacting, remember that you're entering a workshop that - fueled by naive optimism - was made partially accessible to the public under strict conditions.
+>
+> I hang out there in my free time, and, as any human, I'd like to spend my free time pleasantly and surrounded by people that understand and respect me.
+> Contrary to e.g. your workplace, where tolerating is all that is expected of you, understanding cannot be made optional in such a space, as the economics that allow it to exist would otherwise not work out.
+
 1. [dust_announce - Very low frequency updates about Valetudo and Rooting](https://t.me/dust_announce)
 
 2. [Valetudo Telegram group](https://t.me/+2MsKV8kILxJhNDAy)
 
+3. [So you've been banned?](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/so-youve-been-banned.md)
 Be aware that there is an automod active on Telegram that will automatically kick users without a username and/or a screen name with less than 2 characters.
 If you're unable to join, make sure that your account passes those requirements, as they are necessary for the moderation tools to work.
 
@@ -95,7 +109,9 @@ Make sure to familiarize yourself with the [./CONTRIBUTING.md](./CONTRIBUTING.md
 
 ## Honourable mentions
 
-NoCloud and its companion applications are developed using JetBrains IDEs such as [WebStorm](https://www.jetbrains.com/webstorm/).
+NoCloud is a fork of [Valetudo](https://github.com/Hypfer/Valetudo) which is developed by [Hypfer](https://github.com/Hypfer)
+
+NoCloud is further developed using JetBrains IDEs such as [WebStorm](https://www.jetbrains.com/webstorm/).
 Licenses for those have been provided for free by JetBrains to the project in context of [their open source support program](https://jb.gg/OpenSourceSupport) since multiple years now.
 
-Thanks a lot for that!
+Thanks!

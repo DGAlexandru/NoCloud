@@ -5,7 +5,7 @@ order: 10
 ---
 # Dreame rooting and installation
 
-Please check the [supported robots](https://Valetudo.Cloud/pages/general/supported-robots.html) page to find out which method applies to your model of robot.
+Please check the [supported robots](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/supported-robots.md) page to find out which method applies to your model of robot.
 
 Also note that all rooting guides assume a factory-new robot that has never been connected to the vendor cloud.<br/>
 If you've used any vendor apps before, make sure to do a full factory-reset before starting with the rooting procedure.
@@ -16,7 +16,7 @@ If you've used any vendor apps before, make sure to do a full factory-reset befo
 
 To root using this method, you'll need:
 
-- The [Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter)
+- The [Dreame Breakout PCB](https://github.com/Hypfer/valetudo-dreameadapter)
 - A 3.3V USB to TTL Serial UART Adapter (like CP2102 or Pl2303)
 - A FAT32 & MBR-formatted USB Stick preferably with an activity LED
 - Some dupont cables
@@ -33,7 +33,7 @@ a login shell on the UART accessible on the debug connector.
 The root password is calculated from the serial number that can be found on a sticker on the robot and the debug
 connector also provides access to USB-OTG-functionality. And that's **almost** it.
 
-**Almost**, because on some p-dreames (check the [supported robots](https://Valetudo.Cloud/pages/general/supported-robots.html) page for more info), Dreame introduced a secure boot scheme 
+**Almost**, because on some p-dreames (check the [supported robots](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/supported-robots.md) page for more info), Dreame introduced a secure boot scheme 
 with a key burned into the SoC that then verifies the signature of the U-Boot bootloader, which in turn verifies the signature of the rootfs etc.
 
 On these robots, you **MUST** defeat the secure boot mechanism before making any modifications to the filesystem **or else you will brick your robot**.
@@ -91,7 +91,7 @@ For all round-shaped dreames, this means removing the top plastic cover with a p
 If your Dreame is the P2148 Ultra Slim, just remove the whole top cover.<br/>
 If your Dreame is a D-shaped Mop such as the W10, simply take out the dustbin and open the rubber flap in front of that port.
 
-Once you have access to the debug port, plug in your [Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter) and then
+Once you have access to the debug port, plug in your [Dreame Breakout PCB](https://github.com/Hypfer/valetudo-dreameadapter) and then
 connect your USB to Serial UART adapter to the SoC breakout on the PCB. **Make sure your adapter is set to 3.3V**.
 You will only need 3 wires for this connection: (GND, RX, and TX).
 
@@ -130,13 +130,16 @@ To get the password, use the following [Calculator](https://gchq.github.io/Cyber
 or enter the full SN (all uppercase) into this shell command
 `echo -n "P20290000US00000ZM" | md5sum | base64`
 
+If your Dreame is Xiaomi-branded, your SN might instead look similar to `41717/BFACWF3Z000000`.<br/>
+In that case, use the full string including the `41717/` part as the SN.
+
 #### Phase 3: Installing the patched Firmware + NoCloud
 
-Once logged in, build a patched firmware image for manual installation via the [Dustbuilder](https://builder.dontvacuum.me).
-**Make sure that both `Prepackage NoCloud` and `Patch DNS` are selected before clicking on `Create Job`.**
+Once logged in, build a patched firmware image for manual installation via the <a href="https://builder.dontvacuum.me" rel="noopener" target="_blank">Dustbuilder</a>.
+**Make sure that both `Prepackage valetudo` and `Patch DNS` are selected before clicking on `Create Job`.**
 You will receive an email once it's built. Download the `tar.gz` file from the link in that mail to your laptop.
 
-With the `tar.gz` downloaded, head over to <a href="https://github.com/DGAlexandru/NoCloud-helper-httpbridge" rel="noopener" target="_blank">https://github.com/DGAlexandru/NoCloud-helper-httpbridge</a>
+With the `tar.gz` downloaded, head over to <a href="https://github.com/Hypfer/valetudo-helper-httpbridge" rel="noopener" target="_blank">https://github.com/Hypfer/valetudo-helper-httpbridge</a>
 and download a matching binary for your laptops operating system.
 
 Now, connect the laptop to the Wi-Fi Access Point of the robot. If you can't see the robots Wi-Fi AP to connect to, it might have disabled itself because 30 minutes passed since the last boot.
@@ -164,7 +167,7 @@ To do that, head back to the UART shell and create a tar file of all the require
 tar cvf /tmp/backup.tar /mnt/private/ /mnt/misc/ /etc/OTA_Key_pub.pem /etc/publickey.pem
 ```
 
-Then, look at the output of the `NoCloud-helper-httpbridge` instance you've started previously.
+Then, look at the output of the `valetudo-helper-httpbridge` instance you've started previously.
 It contains an example curl command usable for uploading that should look similar to this one:
 
 ```
@@ -179,7 +182,7 @@ If you're experiencing issues, make sure that you've specified the correct port.
 </div>
 
 After uploading the backup and storing it in a safe place, you can now download the firmware image file that you've
-previously put in the `www` directory. `NoCloud-helper-httpbridge` will tell you the correct command, which should look
+previously put in the `www` directory. `valetudo-helper-httpbridge` will tell you the correct command, which should look
 similar to this:
 
 ```
@@ -205,7 +208,7 @@ If you see that MOTD, the rooting procedure was successful.
 
 You now have a rooted Dreame vacuum robot running NoCloud.
 
-Now continue with the [getting started guide](https://Valetudo.Cloud/pages/general/getting-started.html#joining_wifi).
+Now continue with the [getting started guide](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/getting-started.md#joining_wifi).
 
 </div>
 
@@ -216,8 +219,8 @@ Now continue with the [getting started guide](https://Valetudo.Cloud/pages/gener
 This method abuses the proprietary Allwinner LiveSuit tool for Linux with somewhat hacked LiveSuit images.
 Because of that, it's a bit janky. You will also need some advanced linux knowledge.
 
-This Guide assumes that you have just installed a fresh copy of Debian Bookworm with some kind of GUI (e.g. KDE).<br/>
-Please use a native install for this, as VMs will usually be troublesome.
+This Guide assumes that you have booted a fresh copy of Debian 13 Live with some kind of GUI (e.g. KDE).<br/>
+Please use a native environment for this, as VMs will usually be troublesome.
 
 <div class="alert alert-important" role="alert">
   <p>
@@ -250,7 +253,7 @@ out security features that would otherwise prevent the root.
 #### Software preparation
 
 For this root, you need to set up your Laptop with Debian and install livesuit on it. To do that, head over to
-<a href="https://github.com/DGAlexandru/NoCloud-sunxi-livesuit" rel="noopener" target="_blank">https://github.com/DGAlexandru/NoCloud-sunxi-livesuit</a>
+<a href="https://github.com/Hypfer/valetudo-sunxi-livesuit" rel="noopener" target="_blank">https://github.com/Hypfer/valetudo-sunxi-livesuit</a>
 and follow the instructions in the readme.
 
 You can of course use any linux distribution you want, however, if you want to receive support, please stick with Debian.
@@ -304,7 +307,7 @@ As described in the high-level overview, we start by doing some reconnaissance o
 
 Download the latest stage1 dustbuilder livesuit image for your robot:
 - <a href="https://builder.dontvacuum.me/nextgen/dust-livesuit-mr813-ddr3.img" rel="noopener" target="_blank">D10s Pro/Plus, W10 Pro</a>
-- <a href="https://builder.dontvacuum.me/nextgen/dust-livesuit-mr813-ddr4.img" rel="noopener" target="_blank">All other active Dreame / Mova robots</a>
+- <a href="https://builder.dontvacuum.me/nextgen/dust-livesuit-mr813-ddr4.img" rel="noopener" target="_blank">Everything else</a>
 
 and select that as the Image in the LiveSuit tool.
 
@@ -318,7 +321,7 @@ Follow these steps to enter fastboot:
 Plug the Breakout PCB into your robot. Make sure that the USB OTG ID Jumper is **NOT** set and plug a cable into
 the Micro USB port.
 
-<img src="./img/dreame_breakout_breakout_fel.jpg" alt="Dreame Breakout90gr & Breakout PCB connected" width="1200" height="700">
+<img src="./img/dreame_breakout_breakout_fel.jpg" alt="Dreame Breakout PCB connected" width="1200" height="700">
 <img src="./img/dreame_breakout_fel.jpg" alt="Dreame Breakout PCB connected" width="1200" height="700">
 
 1. Press and hold the button on the PCB.
@@ -477,7 +480,7 @@ Here are the steps again:
 Plug the Breakout PCB into your robot. Make sure that the USB OTG ID Jumper is **NOT** set and plug a cable into
 the Micro USB port.
 
-<img src="./img/dreame_breakout_breakout_fel.jpg" alt="Dreame Breakout90gr & Breakout PCB connected" width="1200" height="700">
+<img src="./img/dreame_breakout_breakout_fel.jpg" alt="Dreame Breakout PCB connected" width="1200" height="700">
 <img src="./img/dreame_breakout_fel.jpg" alt="Dreame Breakout PCB connected" width="1200" height="700">
 
 1. Press and hold the button on the PCB.
@@ -488,7 +491,7 @@ the Micro USB port.
 The button LEDs of the robot should now be pulsing. With that, plug the USB cable into your computer.
 LiveSuit should now display this message box:
 
-<img src="./img/dreame_livesuit_msgbox.png" alt="Dreame Livesuit Msgbox" width="806" height="622">
+<img src="./img/dreame_livesuit_msgbox_2.png" alt="Dreame Livesuit Msgbox" width="806" height="622">
 
 Click no. This should now have booted your robot into Fastboot.
 To verify that, open a new terminal and run `fastboot devices`.
@@ -530,19 +533,20 @@ Finally, run `fastboot reboot`. If it boots up normally, you have successfully r
 
 With the rooted firmware installed, we finish the procedure by installing NoCloud to it.
 
-For that, first, check the [Supported Robots](https://Valetudo.Cloud/pages/general/supported-robots.html) page and look up which `NoCloud Binary` is the right one for your robot.
+For that, first, check the [Supported Robots](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/supported-robots.md) page and look up which `NoCloud Binary` is the right one for your robot.
 
 Once you know that, download the latest matching NoCloud binary to your laptop:
 `https://github.com/DGAlexandru/NoCloud/releases/latest/download/NoCloud-{armv7,armv7-lowmem,aarch64}`
 
-With the NoCloud binary downloaded, head over to <a href="https://github.com/DGAlexandru/NoCloud-helper-httpbridge" rel="noopener" target="_blank">https://github.com/DGAlexandru/NoCloud-helper-httpbridge</a>
+With the NoCloud binary downloaded, head over to <a href="https://github.com/Hypfer/valetudo-helper-httpbridge" rel="noopener" target="_blank">https://github.com/Hypfer/valetudo-helper-httpbridge</a>
 and download a matching binary for your laptops operating system.
 
 Now, connect the laptop to the Wi-Fi Access Point of the robot. If you can't see the robots Wi-Fi AP to connect to, it might have disabled itself.
 In that case, press and hold the two outer buttons until it starts talking to you.
+
 Once connected via Wi-Fi, you should be able to connect to it using ssh. Do that now and keep the shell open: `ssh -i ./your/keyfile root@192.168.5.1`
 
-The next step is to start the utility webserver. Open a new terminal and run the `./NoCloud-helper-httpbridge-amd64` binary **Don't close that window until you're done.**
+The next step is to start the utility webserver. Open a new terminal and run the `./valetudo-helper-httpbridge-amd64` binary **Don't close that window until you're done.**
 The server will create a new `www` directory right next to itself as well as print out a few sample commands explaining how to download from and upload to it.
 
 Make sure that it is listening on an IP in the range of `192.168.5.0/24` and then copy the downloaded NoCloud binary to the newly created `www` folder.
@@ -565,7 +569,7 @@ To do that, use the ssh shell to create a tar file of all the required files lik
 tar cvf /tmp/backup.tar /mnt/private/ /mnt/misc/
 ```
 
-Then, look at the output of the `NoCloud-helper-httpbridge` instance you've started previously.
+Then, look at the output of the `valetudo-helper-httpbridge` instance you've started previously.
 It contains an example curl command usable for uploading that should look similar to this one:
 
 ```
@@ -580,7 +584,7 @@ If you're experiencing issues, make sure that you've specified the correct port.
 </div>
 
 After uploading the backup and storing it in a safe place, you can now download the NoCloud binary that you've
-previously put in the `www` directory. `NoCloud-helper-httpbridge` will tell you the correct command, which should look
+previously put in the `www` directory. `valetudo-helper-httpbridge` will tell you the correct command, which should look
 similar to this:
 
 ```
@@ -597,6 +601,6 @@ chmod +x /data/_root_postboot.sh
 reboot
 ```
 
-Once the robot has rebooted, you can continue with the [getting started guide](https://Valetudo.Cloud/pages/general/getting-started.html#joining_wifi).
+Once the robot has rebooted, you can continue with the [getting started guide](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/getting-started.md#joining_wifi).
 
 </div>

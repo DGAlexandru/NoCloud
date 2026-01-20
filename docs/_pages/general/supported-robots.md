@@ -1,12 +1,11 @@
 ---
 title: Supported Robots
 category: General
-order: 9
+order: 10
 ---
 
 # Supported Robots
 
-At the time of writing, (2024-06-18), NoCloud supports more than 35 different Robots.<br/>
 If you're interested in hardware specifics, teardowns and more, check out Dennis Giese's [Vacuum Robot Overview](https://robotinfo.dev/).
 
 Please note that this list is exhaustive. These are the supported robots.<br/>
@@ -103,15 +102,22 @@ You can use Ctrl + F to look for your model of robot.<br/>
 5. [Viomi](#viomi)
    1. [V6](#viomi_v6)
    2. [SE](#viomi_se)
-6. [Cecotec](#cecotec)
+6. [Eureka](#eureka)
+   1. [J15 Max Ultra](#eureka_j15mu)
+   2. [J15 Pro Ultra](#eureka_j15pu)
+   3. [J15 Ultra](#eureka_j15u)
+   4. [J12 Ultra](#eureka_j12u)
+   5. [E20 Evo Plus](#eureka_e20evoplus)
+   6. [E20 Plus](#eureka_e20plus)
+7. [Cecotec](#cecotec)
    1. [Conga 3290](#conga_3290)
    2. [Conga 3790](#conga_3790)
-7. [Proscenic](#proscenic)
+8. [Proscenic](#proscenic)
    1. [M6 Pro](#proscenic_m6pro)
-8. [Commodore](#commodore)
+9. [Commodore](#commodore)
    1. [CVR 200](#commodore_cvr200)
-9. [IKOHS](#ikohs)
-   1. [Netbot LS22](#ikohs_ls22)
+10. [IKOHS](#ikohs)
+    1. [Netbot LS22](#ikohs_ls22)
 
 ## Xiaomi<a id="xiaomi"></a>
 
@@ -136,15 +142,16 @@ In that case, it only requires a Laptop. All warranty seals stay intact.
 
 If your robot is newer than that, full disassembly will be required.
 
+Depending on your OpenSSH version, it might be necessary to add `-o HostKeyAlgorithms=+ssh-rsa` when trying to ssh into the rooted robot.
+
 #### Details
 
 **NoCloud Binary**: `armv7`
-**Secure Boot**: `no`
 
 #### Rooting instructions
 
-- [OTA (before 2020-03)](https://Valetudo.Cloud/pages/installation/roborock.html#ota)
-- [Vinda (after 2020-03)](https://Valetudo.Cloud/pages/installation/roborock.html#vinda)
+- [OTA (before 2020-03)](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/roborock.md#ota)
+- [Vinda (after 2020-03)](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/roborock.md#vinda)
 
 ### Xiaomi 1C<a id="xiaomi_1c"></a>
 
@@ -161,7 +168,7 @@ The Xiaomi 1C is made by Dreame. It is sold as:
 There are multiple hardware revisions under the same name. Only the `dreame.vacuum.mc1808` is currently supported.<br/>
 You can distinguish the different revisions by looking at the SSID of the Wi-Fi AP of the robot.
 
-Rooting is pretty easy, only requiring a 3.3v USB UART Adapter, [the Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter) and almost no disassembly.
+Rooting is pretty easy, only requiring a 3.3v USB UART Adapter, [the Dreame Breakout PCB](https://github.com/Hypfer/valetudo-dreameadapter) and almost no disassembly.
 All warranty seals stay intact.
 
 If you only see weird characters on the UART, try `500000` instead of `115200` as the baud rate.
@@ -173,7 +180,7 @@ If you only see weird characters on the UART, try `500000` instead of `115200` a
 
 #### Rooting instructions
 
-- [UART](https://Valetudo.Cloud/pages/installation/dreame.html#uart)
+- [UART](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/dreame.md#uart)
 - [Init override (may be patched)](https://gist.github.com/stek29/5c44244ae190f3757a785f432536c22a)
 
 ### Xiaomi 1T<a id="xiaomi_1t"></a>
@@ -188,7 +195,7 @@ The Xiaomi 1T is made by Dreame. It is sold as:
 
 #### Comments
 
-Rooting is pretty easy, only requiring a 3.3v USB UART Adapter, [the Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter) and almost no disassembly.
+Rooting is pretty easy, only requiring a 3.3v USB UART Adapter, [the Dreame Breakout PCB](https://github.com/Hypfer/valetudo-dreameadapter) and almost no disassembly.
 All warranty seals stay intact.
 
 On initial root, it might be required to do a factory reset so that the device.conf gets regenerated.
@@ -201,7 +208,7 @@ Note that that factory reset will also remove NoCloud meaning that you will have
 
 #### Rooting instructions
 
-- [UART](https://Valetudo.Cloud/pages/installation/dreame.html#uart)
+- [UART](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/dreame.md#uart)
 
 ### Xiaomi P2148<a id="xiaomi_p2148"></a>
 
@@ -215,7 +222,7 @@ The Xiaomi P2148 is made by Dreame. It is sold as:
 
 #### Comments
 
-Rooting is pretty easy, only requiring a 3.3v USB UART Adapter, [the Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter) and almost no disassembly.
+Rooting is pretty easy, only requiring a 3.3v USB UART Adapter, [the Dreame Breakout PCB](https://github.com/Hypfer/valetudo-dreameadapter) and almost no disassembly.
 All warranty seals stay intact.
 
 With its 5.5cm height and 32.3cm diameter, this robot offers a solution for some tricky homes.
@@ -236,7 +243,7 @@ There is no reset button on this robot. Instead, press and hold the two buttons 
 
 #### Rooting instructions
 
-- [UART](https://Valetudo.Cloud/pages/installation/dreame.html#uart)
+- [UART](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/dreame.md#uart)
 
 ### Xiaomi Vacuum-Mop P<a id="xiaomi_vacuummop_p"></a>
 
@@ -266,11 +273,10 @@ While NoCloud works with their model firmwares, the recommended rooting procedur
 #### Details
 
 **NoCloud Binary**: `armv7`
-**Secure Boot**: `no`
 
 #### Rooting instructions
 
-- [ADB](https://github.com/DGAlexandru/NoCloud-crl200s-root)
+- [ADB](https://github.com/Hypfer/valetudo-crl200s-root)
 
 ### Xiaomi Vacuum-Mop 2 Ultra<a id="xiaomi_p2150"></a>
 
@@ -283,7 +289,7 @@ The Xiaomi Vacuum-Mop 2 Ultra is made by Dreame. It is sold as:
 
 #### Comments
 
-Rooting is pretty easy, only requiring a 3.3v USB UART Adapter, [the Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter) and almost no disassembly.
+Rooting is pretty easy, only requiring a 3.3v USB UART Adapter, [the Dreame Breakout PCB](https://github.com/Hypfer/valetudo-dreameadapter) and almost no disassembly.
 All warranty seals stay intact.
 
 #### Details
@@ -293,7 +299,7 @@ All warranty seals stay intact.
 
 #### Rooting instructions
 
-- [UART](https://Valetudo.Cloud/pages/installation/dreame.html#uart)
+- [UART](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/dreame.md#uart)
 
 ### Xiaomi X10 Plus<a id="xiaomi_x10plus"></a>
 
@@ -305,7 +311,7 @@ The Xiaomi Robot Vacuum X10 Plus is made by Dreame. It is sold as:
 
 #### Comments
 
-Rooting is pretty easy, only requiring a 3.3v USB UART Adapter, [the Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter) and almost no disassembly.
+Rooting is pretty easy, only requiring a 3.3v USB UART Adapter, [the Dreame Breakout PCB](https://github.com/Hypfer/valetudo-dreameadapter) and almost no disassembly.
 All warranty seals stay intact.
 
 #### Details
@@ -315,7 +321,7 @@ All warranty seals stay intact.
 
 #### Rooting instructions
 
-- [UART](https://Valetudo.Cloud/pages/installation/dreame.html#uart)
+- [UART](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/dreame.md#uart)
 
 ## Dreame<a id="dreame"></a>
 
@@ -331,7 +337,7 @@ To ensure that you get the supported D9, make sure that it has 3 buttons.
 
 #### Comments
 
-Rooting is pretty easy, only requiring a 3.3v USB UART Adapter, [the Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter) and almost no disassembly.
+Rooting is pretty easy, only requiring a 3.3v USB UART Adapter, [the Dreame Breakout PCB](https://github.com/Hypfer/valetudo-dreameadapter) and almost no disassembly.
 All warranty seals stay intact.
 
 #### Details
@@ -341,7 +347,7 @@ All warranty seals stay intact.
 
 #### Rooting instructions
 
-- [UART](https://Valetudo.Cloud/pages/installation/dreame.html#uart)
+- [UART](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/dreame.md#uart)
 
 ### D9 Pro<a id="dreame_d9pro"></a>
 
@@ -356,7 +362,7 @@ The Dreame D9 Pro is sold as:
 Dreame never released any firmware updates for this robot.<br/>
 However, we were able to port the regular D9 firmware to it, which is a huge improvement over the stock D9 Pro experience.
 
-Rooting is pretty easy, only requiring a 3.3v USB UART Adapter, [the Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter) and almost no disassembly.
+Rooting is pretty easy, only requiring a 3.3v USB UART Adapter, [the Dreame Breakout PCB](https://github.com/Hypfer/valetudo-dreameadapter) and almost no disassembly.
 All warranty seals stay intact.
 
 #### Details
@@ -366,7 +372,7 @@ All warranty seals stay intact.
 
 #### Rooting instructions
 
-- [UART](https://Valetudo.Cloud/pages/installation/dreame.html#uart)
+- [UART](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/dreame.md#uart)
 
 ### F9 <a id="dreame_f9"></a>
 
@@ -377,8 +383,10 @@ The Dreame F9 is sold as:
 
 #### Comments
 
-Rooting is pretty easy, only requiring a 3.3v USB UART Adapter, [the Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter) and almost no disassembly.
+Rooting is pretty easy, only requiring a 3.3v USB UART Adapter, [the Dreame Breakout PCB](https://github.com/Hypfer/valetudo-dreameadapter) and almost no disassembly.
 All warranty seals stay intact.
+
+If you only see weird characters on the UART, try `500000` instead of `115200` as the baud rate.
 
 #### Details
 
@@ -387,7 +395,7 @@ All warranty seals stay intact.
 
 #### Rooting instructions
 
-- [UART](https://Valetudo.Cloud/pages/installation/dreame.html#uart)
+- [UART](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/dreame.md#uart)
 
 ### L10 Pro <a id="dreame_l10pro"></a>
 
@@ -398,7 +406,7 @@ The Dreame L10 Pro is sold as:
 
 #### Comments
 
-Rooting is pretty easy, only requiring a 3.3v USB UART Adapter, [the Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter) and almost no disassembly.
+Rooting is pretty easy, only requiring a 3.3v USB UART Adapter, [the Dreame Breakout PCB](https://github.com/Hypfer/valetudo-dreameadapter) and almost no disassembly.
 All warranty seals stay intact.
 
 #### Details
@@ -408,7 +416,7 @@ All warranty seals stay intact.
 
 #### Rooting instructions
 
-- [UART](https://Valetudo.Cloud/pages/installation/dreame.html#uart)
+- [UART](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/dreame.md#uart)
 
 ### Z10 Pro <a id="dreame_z10pro"></a>
 
@@ -420,7 +428,7 @@ The Dreame Z10 Pro is sold as:
 
 #### Comments
 
-Rooting is pretty easy, only requiring a 3.3v USB UART Adapter, [the Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter) and almost no disassembly.
+Rooting is pretty easy, only requiring a 3.3v USB UART Adapter, [the Dreame Breakout PCB](https://github.com/Hypfer/valetudo-dreameadapter) and almost no disassembly.
 All warranty seals stay intact.
 
 #### Details
@@ -430,7 +438,7 @@ All warranty seals stay intact.
 
 #### Rooting instructions
 
-- [UART](https://Valetudo.Cloud/pages/installation/dreame.html#uart)
+- [UART](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/dreame.md#uart)
 
 ### W10 <a id="dreame_w10"></a>
 
@@ -441,7 +449,7 @@ The Dreame W10 is sold as:
 
 #### Comments
 
-Rooting is pretty easy, only requiring a 3.3v USB UART Adapter, [the Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter) and almost no disassembly.
+Rooting is pretty easy, only requiring a 3.3v USB UART Adapter, [the Dreame Breakout PCB](https://github.com/Hypfer/valetudo-dreameadapter) and almost no disassembly.
 All warranty seals stay intact.
 
 Due to the design of the dock, it might be difficult to have the robot docked while being connected to its UART.
@@ -455,7 +463,7 @@ One useful trick to solve that is this: `sleep 300 && ./install.sh`. With that, 
 
 #### Rooting instructions
 
-- [UART](https://Valetudo.Cloud/pages/installation/dreame.html#uart)
+- [UART](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/dreame.md#uart)
 
 
 ### W10 Pro <a id="dreame_w10pro"></a>
@@ -467,7 +475,7 @@ The Dreame W10 Pro is sold as:
 
 #### Comments
 
-Rooting is relatively easy. Usage of [the Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter) is highly recommended.
+Rooting is relatively easy. Usage of [the Dreame Breakout PCB](https://github.com/Hypfer/valetudo-dreameadapter) is highly recommended.
 All warranty seals stay intact.
 
 Due to the design of the dock, it might be difficult to have the robot docked while being connected to its UART.
@@ -487,7 +495,7 @@ If you're rooting your W10 Pro, just run that command before setting up NoCloud.
 
 #### Rooting instructions
 
-- [Fastboot](https://Valetudo.Cloud/pages/installation/dreame.html#fastboot)
+- [Fastboot](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/dreame.md#fastboot)
 
 ### L10s Ultra <a id="dreame_l10sultra"></a>
 
@@ -503,7 +511,7 @@ You can tell the L10s Ultra from the unsupported but confusingly similar named L
 
 #### Comments
 
-Rooting is relatively easy. Usage of [the Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter) is highly recommended.
+Rooting is relatively easy. Usage of [the Dreame Breakout PCB](https://github.com/Hypfer/valetudo-dreameadapter) is highly recommended.
 All warranty seals stay intact.
 
 #### Details
@@ -513,7 +521,7 @@ All warranty seals stay intact.
 
 #### Rooting instructions
 
-- [Fastboot](https://Valetudo.Cloud/pages/installation/dreame.html#fastboot)
+- [Fastboot](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/dreame.md#fastboot)
 
 ### D10s Pro <a id="dreame_d10spro"></a>
 
@@ -527,7 +535,7 @@ To ensure that you get the supported "Pro", make sure that it has 3 buttons.
 
 #### Comments
 
-Rooting is relatively easy. Usage of [the Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter) is highly recommended.
+Rooting is relatively easy. Usage of [the Dreame Breakout PCB](https://github.com/Hypfer/valetudo-dreameadapter) is highly recommended.
 All warranty seals stay intact.
 
 #### Details
@@ -537,7 +545,7 @@ All warranty seals stay intact.
 
 #### Rooting instructions
 
-- [Fastboot](https://Valetudo.Cloud/pages/installation/dreame.html#fastboot)
+- [Fastboot](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/dreame.md#fastboot)
 
 ### D10s Plus <a id="dreame_d10splus"></a>
 
@@ -551,7 +559,7 @@ To ensure that you get the supported "s", make sure that it has 3 buttons.
 
 #### Comments
 
-Rooting is relatively easy. Usage of [the Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter) is highly recommended.
+Rooting is relatively easy. Usage of [the Dreame Breakout PCB](https://github.com/Hypfer/valetudo-dreameadapter) is highly recommended.
 All warranty seals stay intact.
 
 #### Details
@@ -561,7 +569,7 @@ All warranty seals stay intact.
 
 #### Rooting instructions
 
-- [Fastboot](https://Valetudo.Cloud/pages/installation/dreame.html#fastboot)
+- [Fastboot](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/dreame.md#fastboot)
 
 ### L10s Pro Ultra Heat <a id="dreame_l10sproultraheat"></a>
 
@@ -571,8 +579,10 @@ The Dreame L10s Pro Ultra Heat is sold as:
 - Dreame L10s Pro Ultra Heat
 
 #### Comments
+Rooting is relatively easy. Usage of [the Dreame Breakout PCB](https://github.com/Hypfer/valetudo-dreameadapter) is highly recommended.
+All warranty seals stay intact.
 
-If the robot fails to dock after rooting:
+If the robot fails to dock or you cannot select any operating modes after rooting:
 1. Dock it manually. Make sure that it is charging
 2. Head to the dustbuilder
 3. Build a firmware for manual install via SSH
@@ -580,12 +590,26 @@ If the robot fails to dock after rooting:
 5. Install the built firmware
 
 The issue is that rooting flashes a newer firmware than the one installed from the factory; bypassing the normal update process.
-As there seems to have been a breaking change in the communication between MCU and Linux-side-software, this breaks docking.
+As there seems to have been a breaking change in the communication between MCU and Linux-side-software, this breaks that stuff.
 
 Installing a firmware package via SSH uses the normal OTA update process and with that fixes this mismatch.
 
-Rooting is relatively easy. Usage of [the Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter) is highly recommended.
-All warranty seals stay intact.
+If the rooted robot does not want to stay connected to your Wi-Fi network, try this one-liner:
+`rm -f /data/config/miio/wifi.conf /data/config/wifi/wpa_supplicant.conf /var/run/wpa_supplicant.conf; dreame_release.na -c 9 -i ap_info -m " "; reboot`
+
+After that, you will have to reconfigure Wi-Fi using NoCloud.
+
+
+If NoCloud doesn't want to auto-detect the robot, and it was made around 08/2025 or later, Dreame might've switched to negative
+deviceIds, which are unexpected for miio. To solve that:
+
+1. Check `/mnt/private/ULI/factory/did.txt`. Is it a negative number? If not, this is not your problem
+2. `mount -o remount,rw /mnt/private`
+3. ! BACKUP ! the original did. `cp /mnt/private/ULI/factory/did.txt /mnt/private/ULI/factory/did_orig.txt && sync`
+4. Edit the file and make the did a positive number. `nano /mnt/private/ULI/factory/did.txt`, and save
+5. `rm /data/config/miio/device.conf`. It will be regenerated on next boot
+6. `reboot`
+7. Ensure that NoCloud has now auto-detected the correct implementation and can talk to the robot via the miio stack
 
 #### Details
 
@@ -594,7 +618,7 @@ All warranty seals stay intact.
 
 #### Rooting instructions
 
-- [Fastboot](https://Valetudo.Cloud/pages/installation/dreame.html#fastboot)
+- [Fastboot](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/dreame.md#fastboot)
 
 ### L40 Ultra <a id="dreame_l40ultra"></a>
 
@@ -603,10 +627,30 @@ All warranty seals stay intact.
 The Dreame L40 Ultra is sold as:
 - Dreame L40 Ultra
 
+It is **not sold** as the L40 Ultra **AE** nor as the L40**s Pro Ultra** nor any other name that isn't exactly this one.<br/>
+Those are all completely different robots with confusing names that are **not** supported.
+
 #### Comments
 
-Rooting is relatively easy. Usage of [the Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter) is highly recommended.
+Rooting is relatively easy. Usage of [the Dreame Breakout PCB](https://github.com/Hypfer/valetudo-dreameadapter) is highly recommended.
 All warranty seals stay intact.
+
+If the rooted robot does not want to stay connected to your Wi-Fi network, try this one-liner:
+`rm -f /data/config/miio/wifi.conf /data/config/wifi/wpa_supplicant.conf /var/run/wpa_supplicant.conf; dreame_release.na -c 9 -i ap_info -m " "; reboot`
+
+After that, you will have to reconfigure Wi-Fi using NoCloud.
+
+
+If NoCloud doesn't want to auto-detect the robot, and it was made around 08/2025 or later, Dreame might've switched to negative
+deviceIds, which are unexpected for miio. To solve that:
+
+1. Check `/mnt/private/ULI/factory/did.txt`. Is it a negative number? If not, this is not your problem
+2. `mount -o remount,rw /mnt/private`
+3. ! BACKUP ! the original did. `cp /mnt/private/ULI/factory/did.txt /mnt/private/ULI/factory/did_orig.txt && sync`
+4. Edit the file and make the did a positive number. `nano /mnt/private/ULI/factory/did.txt`, and save
+5. `rm /data/config/miio/device.conf`. It will be regenerated on next boot
+6. `reboot`
+7. Ensure that NoCloud has now auto-detected the correct implementation and can talk to the robot via the miio stack
 
 #### Details
 
@@ -615,7 +659,7 @@ All warranty seals stay intact.
 
 #### Rooting instructions
 
-- [Fastboot](https://Valetudo.Cloud/pages/installation/dreame.html#fastboot)
+- [Fastboot](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/dreame.md#fastboot)
 
 ### X40 Ultra <a id="dreame_x40ultra"></a>
 
@@ -627,8 +671,25 @@ The Dreame X40 Ultra is sold as:
 
 #### Comments
 
-Rooting is relatively easy. Usage of [the Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter) is highly recommended.
+Rooting is relatively easy. Usage of [the Dreame Breakout PCB](https://github.com/Hypfer/valetudo-dreameadapter) is highly recommended.
 All warranty seals stay intact.
+
+If the rooted robot does not want to stay connected to your Wi-Fi network, try this one-liner:
+`rm -f /data/config/miio/wifi.conf /data/config/wifi/wpa_supplicant.conf /var/run/wpa_supplicant.conf; dreame_release.na -c 9 -i ap_info -m " "; reboot`
+
+After that, you will have to reconfigure Wi-Fi using NoCloud.
+
+
+If NoCloud doesn't want to auto-detect the robot, and it was made around 08/2025 or later, Dreame might've switched to negative
+deviceIds, which are unexpected for miio. To solve that:
+
+1. Check `/mnt/private/ULI/factory/did.txt`. Is it a negative number? If not, this is not your problem
+2. `mount -o remount,rw /mnt/private`
+3. ! BACKUP ! the original did. `cp /mnt/private/ULI/factory/did.txt /mnt/private/ULI/factory/did_orig.txt && sync`
+4. Edit the file and make the did a positive number. `nano /mnt/private/ULI/factory/did.txt`, and save
+5. `rm /data/config/miio/device.conf`. It will be regenerated on next boot
+6. `reboot`
+7. Ensure that NoCloud has now auto-detected the correct implementation and can talk to the robot via the miio stack
 
 #### Details
 
@@ -637,7 +698,7 @@ All warranty seals stay intact.
 
 #### Rooting instructions
 
-- [Fastboot](https://Valetudo.Cloud/pages/installation/dreame.html#fastboot)
+- [Fastboot](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/dreame.md#fastboot)
 
 ### X40 Master <a id="dreame_x40master"></a>
 
@@ -648,8 +709,25 @@ The Dreame X40 Master is sold as:
 
 #### Comments
 
-Rooting is relatively easy. Usage of [the Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter) is highly recommended.
+Rooting is relatively easy. Usage of [the Dreame Breakout PCB](https://github.com/Hypfer/valetudo-dreameadapter) is highly recommended.
 All warranty seals stay intact.
+
+If the rooted robot does not want to stay connected to your Wi-Fi network, try this one-liner:
+`rm -f /data/config/miio/wifi.conf /data/config/wifi/wpa_supplicant.conf /var/run/wpa_supplicant.conf; dreame_release.na -c 9 -i ap_info -m " "; reboot`
+
+After that, you will have to reconfigure Wi-Fi using NoCloud.
+
+
+If NoCloud doesn't want to auto-detect the robot, and it was made around 08/2025 or later, Dreame might've switched to negative
+deviceIds, which are unexpected for miio. To solve that:
+
+1. Check `/mnt/private/ULI/factory/did.txt`. Is it a negative number? If not, this is not your problem
+2. `mount -o remount,rw /mnt/private`
+3. ! BACKUP ! the original did. `cp /mnt/private/ULI/factory/did.txt /mnt/private/ULI/factory/did_orig.txt && sync`
+4. Edit the file and make the did a positive number. `nano /mnt/private/ULI/factory/did.txt`, and save
+5. `rm /data/config/miio/device.conf`. It will be regenerated on next boot
+6. `reboot`
+7. Ensure that NoCloud has now auto-detected the correct implementation and can talk to the robot via the miio stack
 
 #### Details
 
@@ -658,7 +736,7 @@ All warranty seals stay intact.
 
 #### Rooting instructions
 
-- [Fastboot](https://Valetudo.Cloud/pages/installation/dreame.html#fastboot)
+- [Fastboot](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/dreame.md#fastboot)
 
 
 
@@ -675,7 +753,7 @@ The MOVA Z500 is made by Dreame. It is sold as:
 
 #### Comments
 
-Rooting is pretty easy, only requiring a 3.3v USB UART Adapter, [the Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter) and almost no disassembly.
+Rooting is pretty easy, only requiring a 3.3v USB UART Adapter, [the Dreame Breakout PCB](https://github.com/Hypfer/valetudo-dreameadapter) and almost no disassembly.
 All warranty seals stay intact.
 
 #### Details
@@ -685,7 +763,7 @@ All warranty seals stay intact.
 
 #### Rooting instructions
 
-- [UART](https://Valetudo.Cloud/pages/installation/dreame.html#uart)
+- [UART](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/dreame.md#uart)
 
 ### S20 Ultra <a id="mova_s20ultra"></a>
 
@@ -696,8 +774,14 @@ The Mova S20 Ultra is sold as:
 
 #### Comments
 
-Rooting is relatively easy. Usage of [the Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter) is highly recommended.
+Rooting is relatively easy. Usage of [the Dreame Breakout PCB](https://github.com/Hypfer/valetudo-dreameadapter) is highly recommended.
 All warranty seals stay intact.
+
+If the rooted robot does not want to stay connected to your Wi-Fi network, try this one-liner:
+`rm -f /data/config/miio/wifi.conf /data/config/wifi/wpa_supplicant.conf /var/run/wpa_supplicant.conf; dreame_release.na -c 9 -i ap_info -m " "; reboot`
+
+After that, you will have to reconfigure Wi-Fi using NoCloud.
+
 
 #### Details
 
@@ -706,7 +790,7 @@ All warranty seals stay intact.
 
 #### Rooting instructions
 
-- [Fastboot](https://Valetudo.Cloud/pages/installation/dreame.html#fastboot)
+- [Fastboot](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/dreame.md#fastboot)
 
 ### P10 Pro Ultra <a id="mova_p10proultra"></a>
 
@@ -719,7 +803,7 @@ It is **NOT** sold as the P10 Ultra. That is a different robot.
 
 #### Comments
 
-Rooting is relatively easy. Usage of [the Dreame Breakout PCB](https://github.com/DGAlexandru/NoCloud-dreameadapter) is highly recommended.
+Rooting is relatively easy. Usage of [the Dreame Breakout PCB](https://github.com/Hypfer/valetudo-dreameadapter) is highly recommended.
 All warranty seals stay intact.
 
 #### Details
@@ -729,7 +813,7 @@ All warranty seals stay intact.
 
 #### Rooting instructions
 
-- [Fastboot](https://Valetudo.Cloud/pages/installation/dreame.html#fastboot)
+- [Fastboot](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/dreame.md#fastboot)
 
 
 
@@ -749,14 +833,15 @@ Rooting is pretty easy, only requiring a Laptop. All warranty seals stay intact.
 
 Note that segment support is only available starting with firmware version 2008 so make sure you're up-to-date.
 
+Depending on your OpenSSH version, it might be necessary to add `-o HostKeyAlgorithms=+ssh-rsa` when trying to ssh into the rooted robot.
+
 #### Details
 
 **NoCloud Binary**: `armv7`
-**Secure Boot**: `no`
 
 #### Rooting instructions
 
-- [OTA](https://Valetudo.Cloud/pages/installation/roborock.html#ota)
+- [OTA](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/roborock.md#ota)
 
 ### Roborock S6<a id="roborock_s6"></a>
 
@@ -776,12 +861,11 @@ Rooting requires full disassembly.
 #### Details
 
 **NoCloud Binary**: `armv7`
-**Secure Boot**: `no`
 
 #### Rooting instructions
 
-- [Vinda (before 2020-06)](https://Valetudo.Cloud/pages/installation/roborock.html#vinda)
-- [Init override (after 2020-06)](https://Valetudo.Cloud/pages/installation/roborock.html#init)
+- [Vinda (before 2020-06)](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/roborock.md#vinda)
+- [Init override (after 2020-06)](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/roborock.md#init)
 
 ### Roborock S6 Pure<a id="roborock_s6pure"></a>
 
@@ -801,11 +885,10 @@ Rooting requires full disassembly.
 #### Details
 
 **NoCloud Binary**: `armv7-lowmem`
-**Secure Boot**: `no`
 
 #### Rooting instructions
 
-- [FEL](https://Valetudo.Cloud/pages/installation/roborock.html#fel)
+- [FEL](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/roborock.md#fel)
 
 ### Roborock S4<a id="roborock_s4"></a>
 
@@ -825,11 +908,10 @@ Rooting requires full disassembly.
 #### Details
 
 **NoCloud Binary**: `armv7`
-**Secure Boot**: `no`
 
 #### Rooting instructions
 
-- [Vinda](https://Valetudo.Cloud/pages/installation/roborock.html#vinda)
+- [Vinda](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/roborock.md#vinda)
 
 ### Roborock S4 Max<a id="roborock_s4max"></a>
 
@@ -849,11 +931,10 @@ Rooting requires full disassembly.
 #### Details
 
 **NoCloud Binary**: `armv7-lowmem`
-**Secure Boot**: `no`
 
 #### Rooting instructions
 
-- [FEL](https://Valetudo.Cloud/pages/installation/roborock.html#fel)
+- [FEL](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/roborock.md#fel)
 
 ### Roborock S5 Max<a id="roborock_s5max"></a>
 
@@ -870,11 +951,10 @@ Rooting requires full disassembly.
 #### Details
 
 **NoCloud Binary**: `armv7-lowmem`
-**Secure Boot**: `no`
 
 #### Rooting instructions
 
-- [FEL](https://Valetudo.Cloud/pages/installation/roborock.html#fel)
+- [FEL](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/roborock.md#fel)
 
 ### Roborock S7<a id="roborock_s7"></a>
 
@@ -894,11 +974,10 @@ The VibraRise mop module makes disassembly of this robot difficult and easy to m
 #### Details
 
 **NoCloud Binary**: `armv7-lowmem`
-**Secure Boot**: `no`
 
 #### Rooting instructions
 
-- [FEL](https://Valetudo.Cloud/pages/installation/roborock.html#fel)
+- [FEL](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/roborock.md#fel)
 
 ### Roborock S7 Pro Ultra<a id="roborock_s7proultra"></a>
 
@@ -914,11 +993,10 @@ Rooting requires full disassembly.
 #### Details
 
 **NoCloud Binary**: `armv7-lowmem`
-**Secure Boot**: `no`
 
 #### Rooting instructions
 
-- [FEL](https://Valetudo.Cloud/pages/installation/roborock.html#fel)
+- [FEL](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/roborock.md#fel)
 
 ### Roborock Q7 Max<a id="roborock_q7max"></a>
 
@@ -949,11 +1027,10 @@ Rooting requires full disassembly.
 #### Details
 
 **NoCloud Binary**: `armv7-lowmem`
-**Secure Boot**: `no`
 
 #### Rooting instructions
 
-- [FEL](https://Valetudo.Cloud/pages/installation/roborock.html#fel)
+- [FEL](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/roborock.md#fel)
 
 ## Viomi<a id="viomi"></a>
 
@@ -978,11 +1055,10 @@ It might be required to remove the battery but that can be done without touching
 #### Details
 
 **NoCloud Binary**: `armv7`
-**Secure Boot**: `no`
 
 #### Rooting instructions
 
-- [ADB](https://github.com/Hypfer/Valetudo-crl200s-root)
+- [ADB](https://github.com/Hypfer/valetudo-crl200s-root)
 
 ### Viomi SE<a id="viomi_se"></a>
 
@@ -1000,12 +1076,137 @@ It might be required to remove the battery but that can be done without touching
 #### Details
 
 **NoCloud Binary**: `armv7`
-**Secure Boot**: `no`
 
 #### Rooting instructions
 
-- [ADB](https://github.com/Hypfer/Valetudo-crl200s-root)
+- [ADB](https://github.com/Hypfer/valetudo-crl200s-root)
 
+
+## Eureka<a id="eureka"></a>
+
+Eureka is a brand of Midea.
+
+### Eureka J15 Max Ultra<a id="eureka_j15mu"></a>
+
+<img src="./img/robots/eureka/eureka_j15mu.jpg" width="1300" height="325"/>
+
+#### Comments
+
+Rooting is pretty easy, only requiring a Linux Laptop and a micro USB cable.
+All warranty seals stay intact.
+
+#### Details
+
+**NoCloud Binary**: `aarch64`
+
+#### Rooting instructions
+
+- [ADB](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/midea.md#adb)
+
+### Eureka J15 Pro Ultra<a id="eureka_j15pu"></a>
+
+<img src="./img/robots/eureka/eureka_j15pu.jpg" width="1300" height="325"/>
+
+#### Comments
+
+Rooting is pretty easy, only requiring a Linux Laptop and a micro USB cable.
+All warranty seals stay intact.
+
+#### Details
+
+**NoCloud Binary**: `aarch64`
+
+#### Rooting instructions
+
+- [ADB](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/midea.md#adb)
+
+### Eureka J15 Ultra<a id="eureka_j15u"></a>
+
+<img src="./img/robots/eureka/eureka_j15u.jpg" width="1300" height="325"/>
+
+#### Comments
+
+Rooting is pretty easy, only requiring a Linux Laptop and a micro USB cable.
+All warranty seals stay intact.
+
+
+#### Details
+
+**NoCloud Binary**: `aarch64`
+
+#### Rooting instructions
+
+- [ADB](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/midea.md#adb)
+
+### Eureka J12 Ultra<a id="eureka_j12u"></a>
+
+<img src="./img/robots/eureka/eureka_j12u.jpg" width="1300" height="325"/>
+
+#### Comments
+
+Rooting is pretty easy, only requiring a Linux Laptop and a micro USB cable.
+All warranty seals stay intact.
+
+Due to the rather slow SoC, NoCloud startup after boot may take a few minutes.
+
+
+#### Details
+
+**NoCloud Binary**: `aarch64`
+
+#### Rooting instructions
+
+- [ADB](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/midea.md#adb)
+
+### Eureka E20 Evo Plus<a id="eureka_e20evoplus"></a>
+
+<img src="img/robots/eureka/eureka_e20evoplus.jpg" width="1300" height="325"/>
+
+#### Comments
+
+⚠⚠⚠<br/>
+These robots seem to come with a Wi-Fi module on the compute module that has a very broken driver.<br/>
+mDNS does not work reliably on this robot, meaning that the NoCloud Companion app does not see it.<br/>
+⚠⚠⚠
+
+Rooting is pretty easy, only requiring a Linux Laptop and a micro USB cable.
+All warranty seals stay intact.
+
+Due to the rather slow SoC, NoCloud startup after boot may take a few minutes.
+
+
+#### Details
+
+**NoCloud Binary**: `aarch64`
+
+#### Rooting instructions
+
+- [ADB](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/midea.md#adb)
+
+### Eureka E20 Plus<a id="eureka_e20plus"></a>
+
+<img src="./img/robots/eureka/eureka_e20plus.jpg" width="1300" height="325"/>
+
+#### Comments
+
+⚠⚠⚠<br/>
+These robots seem to come with a Wi-Fi module on the compute module that has a very broken driver.<br/>
+mDNS does not work reliably on this robot, meaning that the NoCloud Companion app does not see it.<br/>
+⚠⚠⚠
+
+Rooting is pretty easy, only requiring a Linux Laptop and a micro USB cable.
+All warranty seals stay intact.
+
+Due to the rather slow SoC, NoCloud startup after boot may take a few minutes.
+
+
+#### Details
+
+**NoCloud Binary**: `aarch64`
+
+#### Rooting instructions
+
+- [ADB](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/midea.md#adb)
 
 ## Cecotec<a id="cecotec"></a>
 
@@ -1031,11 +1232,10 @@ It might be required to remove the battery but that can be done without touching
 #### Details
 
 **NoCloud Binary**: `armv7`
-**Secure Boot**: `no`
 
 #### Rooting instructions
 
-- [ADB](https://github.com/Hypfer/Valetudo-crl200s-root)
+- [ADB](https://github.com/Hypfer/valetudo-crl200s-root)
 
 ### Conga 3790<a id="conga_3790"></a>
 
@@ -1056,11 +1256,10 @@ It might be required to remove the battery but that can be done without touching
 #### Details
 
 **NoCloud Binary**: `armv7`
-**Secure Boot**: `no`
 
 #### Rooting instructions
 
-- [ADB](https://github.com/Hypfer/Valetudo-crl200s-root)
+- [ADB](https://github.com/Hypfer/valetudo-crl200s-root)
 
 
 ## Proscenic<a id="proscenic"></a>
@@ -1087,11 +1286,10 @@ It might be required to remove the battery but that can be done without touching
 #### Details
 
 **NoCloud Binary**: `armv7`
-**Secure Boot**: `no`
 
 #### Rooting instructions
 
-- [ADB](https://github.com/Hypfer/Valetudo-crl200s-root)
+- [ADB](https://github.com/Hypfer/valetudo-crl200s-root)
 
 
 ## Commodore<a id="commodore"></a>
@@ -1118,11 +1316,10 @@ It might be required to remove the battery but that can be done without touching
 #### Details
 
 **NoCloud Binary**: `armv7`
-**Secure Boot**: `no`
 
 #### Rooting instructions
 
-- [ADB](https://github.com/Hypfer/Valetudo-crl200s-root)
+- [ADB](https://github.com/Hypfer/valetudo-crl200s-root)
 
 ## IKOHS<a id="ikohs"></a>
 
@@ -1148,8 +1345,7 @@ It might be required to remove the battery but that can be done without touching
 #### Details
 
 **NoCloud Binary**: `armv7`
-**Secure Boot**: `no`
 
 #### Rooting instructions
 
-- [ADB](https://github.com/DGAlexandru/NoCloud-crl200s-root)
+- [ADB](https://github.com/Hypfer/valetudo-crl200s-root)

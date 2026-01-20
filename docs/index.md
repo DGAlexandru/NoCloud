@@ -5,25 +5,23 @@
 NoCloud is an opinionated software solution for cloud-free vacuum robots installed on thousands of robots.<br/>
 Since it was started in 2018, it has matured to a reliable fire-and-forget solution that just works.
 
-NoCloud is made, managed, maintained and more by me,
-<a href="https://hypfer.de" rel="noopener" target="_blank">Sören Beye</a>, with occasional contributions by
-<a href="https://github.com/DGAlexandru/NoCloud/graphs/contributors" rel="noopener" target="_blank">these awesome people</a>.<br/>
-It would not exist without the ongoing work of <a href="https://dontvacuum.me/" rel="noopener" target="_blank">Dennis Giese</a>,
-who is constantly providing us with new ways of liberating and gaining actual ownership of our robots.
+NoCloud is a fork of [Valetudo] (https://github.com/Hypfer/Valetudo) (developed by Hypfer, <a href="https://hypfer.de" rel="noopener" target="_blank">Sören Beye</a>) in which I add my own touch by further adding other features or changing it's appearance.<br/>
+It would not exist without the work of <a href="https://dontvacuum.me/" rel="noopener" target="_blank">Dennis Giese</a>,
+who provided a way of liberating and gaining actual ownership of our robots.
 
 As there is no telemetry built-in and no commercial interest to change that, I can't tell you how many users exactly are there,
 however judging by download counts and support group members, I'd guesstimate that there are a few thousand.
 
-If you want to learn more about why someone would want to use something like NoCloud, check out the [Why NoCloud?](https://Valetudo.Cloud/pages/general/why-NoCloud.html) page.
+If you want to learn more about why someone would want to use something like NoCloud, check out the [Why NoCloud?](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/why-NoCloud.md) page.
 
-If you want to learn more about why someone would **not** want to use something like NoCloud, check out the [Why not NoCloud?](https://Valetudo.Cloud/pages/general/why-not-NoCloud.html) page.
+If you want to learn more about why someone would **not** want to use something like NoCloud, check out the [Why not NoCloud?](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/why-not-NoCloud.md) page.
 
-To choose the right robot to buy, head over to [Buying supported robots](https://Valetudo.Cloud/pages/general/buying-supported-robots.html).
+To choose the right robot to buy, head over to [Buying supported robots](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/buying-supported-robots.md).
 
 If you want to learn more about why I'm building NoCloud, the answer is actually pretty simple:<br/>
 When I was looking for a vacuum robot for myself, I didn't find anything that matched what I was looking for.<br/>
 Thus, in a brief moment of hubris, I thought to myself: "How hard can it be?".<br/>
-Now, more than five years later, we're here and I'm quite happy with how it turned out.
+Now, more than seven years later, we're here, and we seem quite happy with how it turned out :)
 
 NoCloud is licensed under the Apache-2.0 open-source license, because you need to be able to know what your smart
 devices are doing and also alter (some parts of) it without being dependent on some vendor and/or third party.
@@ -34,38 +32,33 @@ advantage of that and sell NoCloud; especially not as their own work.<br/>
 Please don't disappoint me. Thank you.
 
 
-These are the NoCloud Docs.
+These are the NoCloud Docs. Just like the software they accompany, they aim to (to some degree) deconstruct the genres IoT and FOSS.<br/>
 Simply use the navigation menu on the left to find what you're looking for.
 
-The [getting started guide](https://Valetudo.Cloud/pages/general/getting-started.html) is a good place to start.
+The [newcomer guide](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/newcomer-guide.md) is a good place to start.
 
-If you're looking to make content out of NoCloud, please read [Media & Content Creators](https://Valetudo.Cloud/pages/general/media.html).
+If you're looking to make content out of NoCloud, please read [Media & Content Creators](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/media.md).
 
 ### Screenshots
 
 ### Phone/Mobile
-<img src="https://user-images.githubusercontent.com/974410/211155741-d6430660-a6b2-48ab-8ddc-2217328444de.png" width=360>
-<img src="https://github.com/user-attachments/assets/eaad6fe0-dd1e-4f56-b6f9-f65954aecac7" width=360>
+<img width="360" src="https://github.com/user-attachments/assets/21b6cb92-43e8-4c49-b7f4-e15bedaab094" />
+<img width="360" src="https://github.com/user-attachments/assets/e4b32931-1116-4d19-bece-e48746a89664" />
 
-<img src="https://user-images.githubusercontent.com/974410/211155650-7cac266c-ffeb-432d-8656-5241a5d6f227.png" width=360>
-<img src="https://user-images.githubusercontent.com/974410/211155656-d43ee25e-1ae6-432f-95ff-1a39d294828d.png" width=360>
+<img width="360" src="https://github.com/user-attachments/assets/4fdad83d-3df1-4d24-929b-004ce6b3bff0" />
+<img width="360" src="https://github.com/user-attachments/assets/422d54c8-6546-4616-9cd6-c1239be78c32" />
 
 ### Tablet/Desktop
 
-![image](https://github.com/user-attachments/assets/dc18723f-b15f-4500-907b-bad6d7dd1a4f)
+<img width="1024" src="https://github.com/user-attachments/assets/28e7dea0-db0a-482b-92ba-8e9774b2416f" />
 
-![image](https://user-images.githubusercontent.com/974410/211155836-9199616a-efde-4238-91c4-24158ba67677.png)
+<img width="1024" src="https://github.com/user-attachments/assets/f9217069-ee10-42f4-8897-0c90703201b7" />
 
-![image](https://user-images.githubusercontent.com/974410/211155860-9926b126-d1fe-41b1-8c83-1af21bf8caf2.png)
-
-![image](https://user-images.githubusercontent.com/974410/211155880-ff184776-86fe-4c2f-9556-4d556cfa12f4.png)
-
-### Further questions?
-<a href="https://t.me/+F00lFE1NVUc2NTAy" data-si="34097f03527c7c0375540b07132a652161373c7b0d3b031c6a640d4556614159600b09351b1c087d">Valetudo Telegram group</a>
+<img width="1024" src="https://github.com/user-attachments/assets/d7281e75-32c7-4a1e-a10b-95aef3b06a78" />
 
 
 ### NoCloud is a garden <a id="garden"></a>
-This project is the hobby of some random guy on the internet. There is no intent to commercialize it, grow it
+This project is the hobby of some random guys on Internet. There is no intent to commercialize it, grow it
 or expand the target audience of it. In fact, there is intent to explicitly not do that.
 
 Think of NoCloud as a privately-owned public garden. You can visit it any time for free and enjoy it.
@@ -90,3 +83,23 @@ This at the end of the day is simply private property with free public access as
 
 When it comes to software development, _everyone_ has access to infinite plots of undeveloped land that they can claim at any time.
 Therefore, a garden being build with a specific vision does not take away the ability for anyone else to build their own garden with a different vision.
+
+### Further questions?
+
+<div class="alert alert-note" role="alert">
+  <p>
+    <strong>Important:</strong><br/>
+    Before asking/joining/interacting, remember that you're entering a workshop that - fueled by naive optimism - was made partially accessible to the public under strict conditions.
+    <br/><br/>
+    We hang out there in our free time, and, as any human, we'd like to spend our free time pleasantly and surrounded by people that understand and respect us.
+    Contrary to e.g. your workplace, where tolerating is all that is expected of you, understanding cannot be made optional in such a space, as the economics that allow it to exist wouldn't otherwise work out.
+</p>
+</div>
+
+1. [dust_announce - Very low frequency updates mainly about Rooting](https://t.me/dust_announce)
+
+2. <a href="https://t.me/+F00lFE1NVUc2NTAy" data-si="34097f03527c7c0375540b07132a652161373c7b0d3b031c6a640d4556614159600b09351b1c087d">Valetudo Telegram group</a>
+
+3. [So you've been banned?](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/so-youve-been-banned.md)
+
+Any other mediums such as IRC, Matrix or Reddit are unofficial channels not connected to the project and might contain incorrect or outdated information.

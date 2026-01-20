@@ -5,33 +5,59 @@ order: 30
 ---
 # Frequently asked questions
 
-## Why the name?
+To preface this with some general thoughts providing context:
 
-NoCloud is the roman name for the greek goddess Hygieia, which is the goddess of health, cleanliness and hygiene.
+In a similar fashion to the [Why not NoCloud?](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/why-not-valetudo.md) page,
+the way an FAQ grows is not proactive but reactive.<br/>
+Specifically, what you can find here will likely to some degree look defensive, because it is defensive; usually being the result
+of a post-mortem analysis of or just a rebuttal against a common conflict or pain-point.
 
-## Can I use NoCloud without an internet connection? <a name="offline"></a>
+It is here to and will provide you with answers, but those answers will also come with some remnants of the emotions that forged them.
+This is intentional, as it offers additional context, dry words might not be able to fully convey.
+
+## Table of Contents
+1. [Why the name?](#why_the_name)
+2. [Can I use NoCloud without an Internet connection?](#offline)
+3. [Can I run NoCloud elsewhere and just redirect the Cloud DNS?](#elsewhere)
+4. [Can I use NoCloud to bypass region locks?](#regionlock)
+5. [Can you support Robot Model XY?](#newbot)
+6. [Why is there no reboot button in NoCloud?](#reboot)
+7. [Why is there no HTTPS support?](#https)
+8. [Why is there no iOS companion app?](#ios)
+9. [Why is there no Matter support?](#matter)
+10. [Why aren't you doing X?](#x)
+11. [What is the contingency plan for NoCloud?](#contingency)
+
+
+## Why the name?<a id='why_the_name'></a>
+
+NoCloud naming comes from the ideea of deClouding something.. simple as that :D<br/>
+Valetudo (the orignal project's name) is the roman name for the greek goddess Hygieia, which is the goddess of health, cleanliness and hygiene.
+
+## Can I use NoCloud without an Internet connection?<a id='offline'></a>
 
 Yes!<br/>
 That's the whole idea behind it.
 
-In NoCloud, there are only two things that connect to the internet:
+In NoCloud, there are only three things that connect to The Internet:
 
 1. The NTP client <- You can either disable that or change the NTP server to something locally
-2. The Updater <- This only ever contacts the GitHub API if you, the user, explicitly click on "Check for Updates"
+2. The NoCloud Updater <- This only ever contacts the GitHub API if you, the user, explicitly click on "Check for Updates"
+3. NoCloud's implementation of Push Notifications (PushOver.net) so you know that something happened with the robot's activities even when you're not at home. This isn't available on Valetudo. This option can also be disabled.
 
 Additionally, some robot firmwares include connectivity checks that:
 
 1. Ping the default gateway (e.g. your local router) <- This is required. You will see issues if you block that
-2. Ping the internet (e.g. `8.8.8.8`) <- You can block that but that's up to you.
+2. Ping The Internet (e.g. `8.8.8.8`) <- You can block that but that's up to you.
 
 Firmware ML/AI features such as obstacle avoidance based on AI image recognition will continue to function offline,
-as such things can't be cloud based for latency-reasons alone.
+as such things can't be Cloud based for latency-reasons alone.
 
-The SoCs on the supported robots are more than fast enough to handle such workloads. No cloud required. 
+The SoCs on the supported robots are more than fast enough to handle such workloads. No Cloud required.
 
-## Can I run NoCloud elsewhere and just redirect the cloud DNS? <a name="elsewhere"></a>
+## Can I run NoCloud elsewhere and just redirect the Cloud DNS?<a id='elsewhere'></a>
 
-**No.**
+**No** (to have it simple)
 
 Think about it. Why would we go through all this rooting trouble if there was an easier way?<br/>
 Especially since that _easier way_ is so trivial, **everyone** has already come up with it 20s after learning about NoCloud existing.
@@ -40,14 +66,14 @@ No, life isn't that simple, sorry. Or not sorry, actually, because that is a goo
 It would be terrible if you could easily take over a whole fleet of expensive vacuum robots in peoples home networks just by messing with DNS.
 
 For us as people who want to own our devices it's bad, yes, but insecure IoT devices aren't the solution to that.<br/>
-They being hackable just by-accident happens to be a super inefficient band-aid "solution" with lots of collateral damage.<br/>
+Them being hackable just by-accident happens to be a super inefficient band-aid "solution" with lots of collateral damage.<br/>
 _e.g. regarding End-User privacy, security, DDoS Botnets etc._
 
-The proper solution is strong legislation enforcing product usage either without the cloud or with your own cloud
+The proper solution is strong legislation enforcing product usage either without the Cloud or with your own Cloud
 in a controlled fashion right out of the box.
-The vendor cloud can still be an option, but it must not be the only way to use an IoT Device.
+The vendor's Cloud can still be an option, but it must not be the only way to use an IoT Device.
 
-## Can I use NoCloud to bypass region locks? <a name="regionlock"></a>
+## Can I use NoCloud to bypass region locks?<a id='regionlock'></a>
 
 **No.**
 
@@ -55,7 +81,7 @@ NoCloud does not support bypassing region locks to e.g. use a CN unit outside of
 
 The reasoning behind this stance is that, as it works right now, NoCloud existing does not have any negative impact
 on sales for the vendors.<br/>
-In fact, I'd argue that it has an ever-growing **positive** impact on their bottom line, because
+In fact, we'd argue that it has an ever-growing **positive** impact on their bottom line, because
 lots of people buy their products _only_ because they can use it with NoCloud.
 
 However, as soon as you decide to undermine regional pricing strategies of these vendors, you'd be giving them a
@@ -67,20 +93,28 @@ If you give them (or rather their investors) a business incentive to stop you, t
 And what would it be good for anyway?<br/>
 Is allowing a few people to save some minor amounts of money worth souring the relations with the vendors?<br/>
 Is getting what you want (CN unit with cool features in EU) worth jeopardizing the ability of regular buyers to use their
-robot without the cloud?
+robot without the Cloud?
 
 
-Yes, I hear you, you bought the HW and now you want total freedom over it because you paid for it.<br/>
+Yes, we hear you, you bought the HW and now you want total freedom over it because you paid for it.<br/>
 It's an understandable perspective, but that's not how the world works. And - most importantly - you won't be able to change
 how the world works by just forcefully trying to get what you want without considering the needs of other parties involved.
 
+**2025 Update**
+
+With the geopolitical difficulties of the current century also come new nuances to this topic.
+Specifically, we have seen vendors disable IoT devices also as part of international sanctions.
+
+Wherever you might stand on these conflicts and wherever you might be coming from, we think we can agree that even just
+dipping your toe into that topic is a massive business liability. Thus, we won't.
+
+We enjoy geopolitics as something watched from afar; not something where we suddenly find ourselves on the chessboard.
 
 
-
-## Can you support Robot Model XY? <a name="newbot"></a>
+## Can you support Robot Model XY?<a id='newbot'></a>
 
 While NoCloud tries its best to be generic and reuse code wherever possible, since it is not a custom firmware,
-the backend is basically a few huge chunks of code that are very specific to the respective vendor firmware and cloud architecture they try to emulate.
+the backend is basically a few huge chunks of code that are very specific to the respective vendor firmware and Cloud architecture they try to emulate.
 
 Supporting any new vendors is thus quite a large task because not only requires it to write large parts of the backend
 again from scratch but also do the reverse engineering of data formats, authentication, communication and various functionality
@@ -92,12 +126,11 @@ without any documentation that is also quite time-consuming and mostly involves 
 
 <br/>
 
-NoCloud only runs on the supported robots because security researcher [Dennis Giese](https://dontvacuum.me) found ways
-to root them.
+NoCloud only runs on the supported robots because security researcher [Dennis Giese](https://dontvacuum.me) found ways to root them.
 
 Rooting in this context means taking these locked-down IoT devices, finding and exploiting security flaws in their design
 and gaining permanent system administrator level access to them to allow for running additional custom software such as NoCloud
-and modifying the system to make the unclouding possible.
+and modifying the system to make the unClouding possible.
 
 These security flaws are all 0days of which we sometimes need multiple to achieve the rooting.<br/>
 They're also specific to one specific vendor's implementation of something on one specific piece of hardware.
@@ -115,7 +148,7 @@ no one has tried it yet, which is more akin to how e.g. running GNU+Linux on som
 
 Thank you for your understanding
 
-## Why is there no reboot button in NoCloud? <a name="reboot"></a>
+## Why is there no reboot button in NoCloud?<a id='reboot'></a>
 
 Because it would be harmful to have that.
 
@@ -151,17 +184,17 @@ You might also just be some hacker that wanted to solve an issue in a "good enou
 You don't have to always go the extra mile. That doesn't scale. Good enough can be good enough.
 
 
-With NoCloud however, I don't want the project to just be "good enough". I want it to be great - or at least strive towards being that.<br/>
+With NoCloud however, we don't want the project to just be "good enough". We want it to be great - or at least strive towards being that.<br/>
 Because of that, there can't be a reboot button, since as soon as there is one, things will just not get fixed, improved or even just reported anymore.
 
 
-## Why is there no HTTPS support? <a name="https"></a>
+## Why is there no HTTPS support?<a id='https'></a>
 
 While this could be a text about why HTTPS isn't really required for the NoCloud use-case, a more interesting answer is the following:
 
 Because unfortunately, the way HTTPS is spec'd simply does not really account for private local usage.
 
-What do I mean by that? Well if you think about how properly implemented HTTPS works, you'll see the following:
+What do we mean by that? Well if you think about how properly implemented HTTPS works, you'll see the following:
 
 You have a **public-facing host** with a **globally unique identity** `(the Domain)` provided by some kind of **global authority** `(the Institution behind the TLD)` that
 is **aware of your identity** in exchange for **a monthly rent**.<br/>
@@ -177,7 +210,7 @@ However, it is not great if HTTPS is used everywhere for everything, because of 
 
 IMO, it really shows that the protocol has never fully left its historic roots behind. It solved the problems at the time
 and since then we've been modifying our problems so that they fit the existing solution by just putting everything
-into the cloud.
+into the Cloud.
 
 ### But there are workarounds!
 
@@ -188,8 +221,8 @@ Yes, there are indeed workarounds. But, as the word states, they are just workar
 - You can "just" run your own CA, import that root cert into every device you own and maintain that till the end of time.
 - You can use a self-signed cert and live with the browser screaming at you that you're about to die and the world is going to end + breakage where you can't accept a self-signed one.
 
-I'm sure that there are more options, but they all have one thing in common: <br/>
-They're not a solution. They're all hacks that require money, knowledge, maintenance and (cloud) infrastructure.
+We're sure that there are more options, but they all have one thing in common: <br/>
+They're not a solution. They're all hacks that require money, knowledge, maintenance and (Cloud) infrastructure.
 
 They might be good enough most of the time, but they still suck in one way or another.
 
@@ -201,7 +234,7 @@ Did you ever ssh into a raspberry pi sitting next to you?
 That connection was secure, wasn't it? And yet the thing was entirely local.
 
 Imagine ssh having the same requirements as https.<br/>
-Imagine it throwing the same big red warnings at you every time you use it without some public cloud identity that costs money.
+Imagine it throwing the same big red warnings at you every time you use it without some public Cloud identity that costs money.
 
 Because why wouldn't you imagine it. What makes it different?<br/>
 The problem space it solves certainly is quite similar in that regard at least.
@@ -218,22 +251,23 @@ Make that something mere mortals can do. Make it so easy, it could be a feature 
 Make it something that works reliably 10 years into the future.
 
 My vision there would be to have a CA-in-a-Box that is e.g. just a Docker Image that you spin up and then point all your
-IoT devices to so that they can pull certs via ACME or similar.<br/>
+IoT devices to so that they can pull certs via ACME or similar. Something specifically targeting home use by people that
+don't have homelabbing as their currently pursued main hobby and thus featuring UX suited for that:<br/>
 Management, metrics etc. would be done via a Webinterface and that Webinterface also comes with a Help section where you
 get step-by-step guides on how to install the root cert written for all relevant devices (Android, iOS, Windows, Mac, etc.)
 
 And with that, you suddenly have HTTPS at home in a way that works, that scales and that doesn't require constant maintenance.
 
-I'm sure that there are other approaches as well, however, I actually quite like this one, because it doesn't require
+We're sure that there are other approaches as well, however, we actually quite like this one, because it doesn't require
 any change of the spec itself. It could be implemented right now. We have everything we need to do so. It's not even that complex.
 
-We could have proper offline, anonymous, accessible, compliant and cloud-free HTTPS at home tomorrow. Someone simply needs to do it.
+We could have proper offline, anonymous, accessible, compliant and Cloud-free HTTPS at home tomorrow. Someone simply needs to do it.
 However, that will never happen if we always resort to workarounds that are just "good enough" and then not bother anymore.
 
 
-## Why is there no iOS companion app? <a name="ios"></a>
+## Why is there no iOS companion app?<a id='ios'></a>
 
-Because I don't want the app to be a paid yearly subscription supporting only some small garage startups in Cupertino
+Because we don't want the app to be a paid yearly subscription supporting only some small garage startups in Cupertino
 and not the actual project.
 
 You might not be aware of this, but since there's no sideloading and no alternative stores on iDevices, the only way
@@ -241,7 +275,7 @@ to get your software on there is through the official distribution channel of th
 
 Furthermore, development for iApps can only be done on a Mac which needs to be bought and also won't last forever.
 Assuming a reasonable 5 years of lifetime for the hardware, picking the cheapest Mac mini and a 2-gen-behind base-spec
-iPhone, at the time of writing, I end up with this calculation for 5 years:
+iPhone, at the time of writing, we end up with this calculation for 5 years:
 
 - Store Fee: 5 * 80€ = 400€
 - Mac Mini: 699€
@@ -250,15 +284,15 @@ iPhone, at the time of writing, I end up with this calculation for 5 years:
 Sum: 1828€
 
 This money needs to be earned somehow, and it needs to be earned yearly, which forces you to find some way of generating
-recurring revenue - something I do not want to do with this project.
+recurring revenue - something we don't want to do with this project.
 
 ### But what if you did it anyway?
 
 Fine. If you insist, we can go along with that:
 
-Excluding any compensation for my time spent on actually building and supporting that app, by dividing that number by 5,
-you end up with 365.50€. 365.50€ that would need to be donated or paid by users every year just so that I don't lose money
-out of my own pocket on paying the cloud landlord for wanting to exist.
+Excluding any compensation for our time spent on actually building and supporting that app, by dividing that number by 5,
+you end up with 365.50€. 365.50€ that would need to be donated or paid by users every year just so that we don't lose money
+out of our own pocket on paying the Cloud landlord for wanting to exist.
 
 But it gets worse, because the platform also takes a 15% (previously 30%) fee on everything sold there, meaning that people
 would actually have to buy apps/subscriptions for 420.44€ every year; all of it ending up at the platform and nothing
@@ -279,7 +313,7 @@ Sounds quite crushing, doesn't it?
 No! You don't.
 
 The app is just being used for robot discovery on your network and can be completely replaced by
-- looking at your routers webinterface and creating a bookmark with the IP 
+- looking at your routers webinterface and creating a bookmark with the IP
 
 OR
 - not looking at the routers interface and just creating a bookmark for the mDNS hostname,
@@ -311,7 +345,7 @@ for now at least, it's way less bad and thus the best and _only_ thing we have. 
 
 ### Final remarks
 
-Just for reference, I'm not interested in any special Apple sponsorships or donations of iHardware.<br/>
+Just for reference, we're not interested in any special Apple sponsorships or donations of iHardware.<br/>
 If you even think about doing that, you've completely missed the point of the previous wall of text.
 
 It's not about money. It's about not enabling these business practices.
@@ -321,7 +355,7 @@ Further reading:
 - [2023, Technofeudalism, Book by Yanis Varoufakis](https://www.penguin.co.uk/books/451795/technofeudalism-by-varoufakis-yanis/9781847927279)
 
 
-## Why is there no Matter support? <a name="matter"></a>
+## Why is there no Matter support?<a id='matter'></a>
 
 A few reasons, actually.
 
@@ -330,8 +364,8 @@ Any smarthome software that respects you and thus is suited to run something as 
 life as your home _already has open interfaces where you can connect NoCloud_.
 We've had them since years. Decades even.
 
-The only "smart" home "solutions" that won't nicely integrate with FOSS are those cloud-based Big Tech ones and supporting
-these is a strong non-goal for the project for obvious reasons. Besides, why would you even uncloud to then recloud again?
+The only "smart" home "solutions" that won't nicely integrate with FOSS are those Cloud-based Big Tech ones and supporting
+these is a strong non-goal for the project for obvious reasons. Besides, why would you even unCloud to then reCloud again?
 The stock vendor apps for our vacuum robots already integrate with Google Home/Alexa/etc.
 
 
@@ -382,18 +416,18 @@ The following was a reply by me to a reddit post titled "What do you folks think
 Please keep in mind that the FAQ entry exists as a defense against hyped people wanting Matter support in NoCloud. The takeaway shouldn't necessarily be that Matter is genuinely bad. It's just bad for the use case.
 </p>
 <p>
-Personally, I don't think that Matter is terrible. For what it is, it is a step forward.<br/>
+Personally, we don't think that Matter is terrible. For what it is, it is a step forward.<br/>
 It's a small step and it shouldn't be how it is in the first place, but as things are the way they are, it's a good development that the big tech vendors are opening up their devices even if it's just a little.
 </p>
 <p>
-I also think that It's a very good thing that Nabu Casa is a member of the CSA-IOT (the standard body behind Matter) and does what they can to influence Matter to be as useful and local (and open?) as they can get it to be.<br/>
-Without them, it would probably only be cloud-based big tech speaking with other cloud-based big tech.
+We also think that It's a very good thing that Nabu Casa is a member of the CSA-IOT (the standard body behind Matter) and does what they can to influence Matter to be as useful and local (and open?) as they can get it to be.<br/>
+Without them, it would probably only be Cloud-based big tech speaking with other Cloud-based big tech.
 </p>
 <p>
 One unfortunate downside of that however is that their involvement with Matter breaks the "if HA endorses it, it must be open, good and correct" heuristic people in this space tend to rely on.
 </p>
 <p>
-Thus, what I'm missing a bit from Nabu Casa there is the "hey, this is bad and we know that this is bad but we're doing it anyway so that it is less bad for the community" talk. But otoh that's just me the idealist rambling while they are out there actually making real money to feed their families with something that is foss but also a commercial product.
+Thus, what we're missing a bit from Nabu Casa there is the "hey, this is bad and we know that this is bad but we're doing it anyway so that it is less bad for the community" talk. But otoh that's just me the idealist rambling while they are out there actually making real money to feed their families with something that is foss but also a commercial product.
 </p>
 <p>
 Anyway, Matter hasn't failed and also isn't useless.<br/>
@@ -410,7 +444,33 @@ Just see and wait how things develop. Do not buy based on hype.
 </details>
 <br/>
 
-## What is the contingency plan for NoCloud? <a name="contingency"></a>
+## Why aren't you doing X?<a id='x'></a>
+
+Alternative headline: You should be doing X
+
+This usually comes as more of an imperative pretending to be a question - not always consciously.
+Often framed as best practice, industry standard or the morally right thing to do.
+
+While from the outside it might not always seem like it, most of the decisions we make are done so deliberately and as part of a bigger coherent vision and picture of the world.
+Specifically, we have spent a lot of time thinking about open source, sustainability, resource management and other related topics.
+
+What we're doing is because we have deemed it optimal and as the best course of action for the specific given circumstances and constraints.
+Which is not to say that we would be above learning or feedback, but it does mean that we can't simply just "try doing something else", when we know beforehand that we consciously decided against that specific "something else".
+
+It also isn't to say that we won't be very wrong sometimes. We'll be very wrong sometimes. And then we'll iterate.
+That iteration however will be intrinsic with us plotting the path deduced from the situation by us through us and for us.
+
+We don't need any unsolicited logical or conceptual prefabs (n.b. prefab != input), as they are - by their nature - a worse solution and unnecessary shortcut.
+Unless of course we feel like we absolutely need this shortcut, but then we will be the one looking for it. It will not find us.
+
+We simply do not have the lifetime to run experiments against our own better judgement.<br/>
+We simply cannot live for someone else.<br/>
+There is no time for that.
+
+Thus, if we don't do something even though you're convinced that the world would be better if we just did this one thing, rest assured, we're not doing that out of malice or ignorance.
+We're simply all dying, and we just cannot waste this limited time by playing a role other people believe we should be playing.
+
+## What is the contingency plan for NoCloud?<a id='contingency'></a>
 
 Well, you see, software developers are actually artists.<br/>
 They create something out of nothing just by using their imagination and inspiration from the real world.
@@ -439,18 +499,21 @@ This is not only a theoretical issue. It is something that is being exploited in
 For example:
 - Management of a company changing entirely with the brand and reputation staying the same (e.g. Aircraft manufacturers)
 - A brand being bought by some other company that now sells products that have been engineered by entirely different people under that same old badge (e.g. Household appliance manufacturers)
-- The 2024 supply-chain attack against openssh sshd via xz's deceptive insertion of a malicious new maintainer by gaslighting the old one
+- The 2024 supply-chain attack against OpenSSH sshd via xz's deceptive insertion of a malicious new maintainer by gaslighting the old one
 
 <br/>
 
-I don't plan to stop maintaining NoCloud in the foreseeable future. I like maintaining NoCloud.<br/>
-However, reality exist, diseases exist, buses that can run you over exist, jobs change, priorities change etc etc.
+We don't plan to stop maintaining NoCloud in the foreseeable future. We like maintaining NoCloud.<br/>
+However, reality exists, diseases exist, buses that can run you over exist, jobs change, priorities change etc etc.
 
-If for whatever reason I will stop maintaining NoCloud, NoCloud will die.<br/>
-At that moment, it will be over.
+If for whatever reason we'll stop maintaining NoCloud, most probably NoCloud will die.<br/>
+At that moment, it will/might be over.
 
-However, since it's foss, its spirit will live on.<br/>
-Someone can and will pick it up, slap a new name on it - clearly communicating that change - and then life will go on.
+However, since it's FOSS, its spirit will live on.<br/>
+Someone can and will pick it up, slap a new name on it - clearly communicating that change - and then life will go on - just like NoCloud did with Valetudo.
 
-Therefore, I'm not worried about "not having a contingency plan" or "not having any additional maintainers", because the license _is_ the contingency plan.<br/>
+Being local-only and fully self-contained, the frozen-in-time NoCloud will continue to work indefinitely up until rot and entropy consumes it;
+giving users peace of mind that what they have will continue to be forever, but also giving a successor a significantly large time window to come up with something new.
+
+Therefore, we're not worried about "not having a contingency plan" or "not having any additional maintainers", because the license _is_ the contingency plan.<br/>
 It's not a fallback either. It's the best contingency plan there can be.

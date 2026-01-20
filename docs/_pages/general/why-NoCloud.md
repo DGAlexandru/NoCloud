@@ -12,34 +12,81 @@ First of all, please do **not** try to convince people to use NoCloud.
 We all know how terribly it usually turns out when people try to convince their friends to use linux on their desktop.
 Using NoCloud only makes sense if you understand its goals and feel like they are important to you. Everything else will fail.
 
-It is perfectly fine to continue using the cloud if you don't really care about its downsides.
-Do not flame people for doing that. You can be a bit snarky about downtimes, lag and other cloud shenanigans though :)
+It is perfectly fine to continue using the Cloud if you don't really care about its downsides.
+Do not flame people for doing that. You can be a bit snarky about downtimes, lag and other Cloud shenanigans though :)
+
+## Table of Contents
+1. [An actually good vacuum robot that just works](#good_robot)
+2. [A vendor-agnostic abstraction](#vendor_agnostic)
+3. [Removig Cloud dependency](#cloud_dependency)
+    1. [Your data stays at home](#data_at_home)
+    2. [No server dependency](#no_server_dependency)
+    3. [No sudden in-app pop-up ads](#no_popup_ads)
+    4. [No forced updates](#no_forced_updates)
+    5. [No sudden redesigns](#no_sudden_redesigns)
+    6. [No account required](#no_account_required)
+    7. [No marketing](#no_marketing)
+    8. [Downsides](#downsides)
+4. [Good integration into FOSS smarthome systems](#good_integration)
+5. [No phone app requirement](#no_phone_app)
+6. [Open Knowledge](#open_knowledge)
 
 ## Goals
 
-### Vendor-agnostic abstraction
+### An actually good vacuum robot that just works<a id='good_robot'></a>
 
-NoCloud should enable you to stop caring about your choice of vacuum robot as all supported models should (best case) behave pretty much the same.
+The reason NoCloud exists is that I really wanted a vacuum robot but didn't like that it wanted me to install an app.<br/>
+But I didn't just want a vacuum robot. I wanted a good vacuum robot.
 
-This is great because it eliminates vendor lock-in and prevents you from having to re-learn UI/concepts/etc. The cost of this however is,
-that some vendor-specific quirks like a special feature might not instantly or ever be available in NoCloud as they may not make sense in a generic abstraction.
+I also wanted it to just work like it would with the app and I wanted it to work reliably, so that I don't have to bother with it much.<br/>
+(that did **not** work out for me personally, lol)
 
-### No cloud connectivity
+That was 2018 and it didn't change since then.
 
-Removing the cloud has a wide range of benefits.
+### A vendor-agnostic abstraction<a id='vendor_agnostic'></a>
 
-#### No server dependency
+As a vendor, lock-in is great. As a user, it is not.
 
-The obvious upside of this is that all your data stays on your robot.
-It also means that you won't need to have a working internet connection just to control your local vacuum robot anymore.
+While most vendor apps eventually converged to look and behave quite similar, that is always just "quite".
+And, just because the app looks similar, doesn't mean that the integrations into other systems are too.
+
+NoCloud is NoCloud. Everything implemented on the NoCloud level is mostly independent from the lower layers.
+This means that buying a supported robot means getting the known experience.
+It doesn't matter much who actually made that thing. You will still use NoCloud the same way you did on your other robot running NoCloud.
+
+Another nice benefit of this is that you can easily mix and match robots (e.g. for availability or price reasons) without
+suffering from having to use 3 different apps.
+
+The only downside of this approach is that NoCloud will always be limited to a smaller common denominator between vendors,
+meaning that this one cool thing just one vendor does might not be available.<br/>
+Experience however has shown that if something is _actually good_ other vendors will eventually copy it.
+
+### Removig Cloud dependency<a id='cloud_dependency'></a>
+
+Removing the Cloud has a wide range of benefits:
+
+#### Your data stays at home<a id='data_at_home'></a>
+
+With the rise of robots with cameras that use AI image classification based obstacle avoidance, what was "just" your
+floor plan a few years ago might now be a picture of you sitting on your toilet ending up in an S3 bucket and, soon after, on The Internet.
+
+By not uploading these images to the Cloud, this and other very unpleasant scenarios become a lot less likely.
+
+Have I mentioned that many new robots also come with microphone arrays?
+
+#### No server dependency<a id='no_server_dependency'></a>
+
+Beside the data aspect, this also means that you won't need to have a working Internet connection just to control your local vacuum robot anymore.
 
 Commands usually execute much faster and more reliable, as they don't have to detour through some server in a datacenter
 far away from you, which might be overloaded or even on fire.
 
 
 Furthermore, the robot will continue working even after the vendor has ended support for that model and shut down the
-corresponding servers. This is a huge issue with IoT devices. They brick all the time because the vendor 
+corresponding servers. This is a recurring theme with IoT devices. They regularly brick because the vendor
 - gets sold
+- decided to move on
+- wants to sell a newer generation
 - changes its business model
 - runs out of venture capital
 - is bankrupt
@@ -47,44 +94,69 @@ corresponding servers. This is a huge issue with IoT devices. They brick all the
 
 and more.
 
-#### No forced updates
+#### No sudden in-app pop-up ads<a id='no_popup_ads'></a>
 
-You also don't have to fear forced firmware updates that paywall or even entirely remove a previously available feature.
+Yes, this happens. Regularly.
 
-Bricked devices caused by faulty forced firmware updates are also an issue that seems to happen from time to time.
+#### No forced updates<a id='no_forced_updates'></a>
+
+Without the Cloud, you won't have to fear forced firmware updates that paywall or even entirely remove a previously available feature.
+
+Bricked devices caused by faulty forced firmware updates are an issue that seems to happen from time to time.
 One might for example push an update with extremely verbose logs enabled, leading to your flash wearing out and bricking your whole car.<br/>
 You can't just not update to prevent those situations. It is also very hard/impossible to prove that a defect was caused
 by the manufacturer.
 
+#### No sudden redesigns<a id='no_sudden_redesigns'></a>
 
-Overall, forced firmware updates IMO are a very scary thing, because they clearly demonstrate that you're not the owner
-of the device you've bought. One might argue that you also buy this "managed update service" with the device, however
-is it really a service if you cannot opt out?
+This is an extension of the "no forced updates", as it is what they usually facilitate.
 
-#### No account required
+I do miss the blades dashboard, but that was nothing compared to what we've been seeing in the last few years.<br/>
+**Everything** we use regularly changes _completely_ for _absolutely no reason_ other than probably some microbenchmarks
+showing that users are 0.3% more likely to buy when the button is at the other end of the application.
+
+> Focus groups have shown that round edges are now bad.
+> They will be edgy again for the next 72h, then return to being round every second sunday.
+
+
+All that nonsense just doesn't happen when your device isn't Internet-connected.
+
+#### No account required<a id='no_account_required'></a>
 
 By using NoCloud, you don't need to give anyone your phone number or e-mail address just to use the robot you've bought.
 This way, it will never be part of a data breach as it was never stored in the first place.
 Did you know that there's a german word for that? *Datensparsamkeit* — privacy by design
 
-You also don't have to periodically read some hard to understand 200-page ToS where you're basically forced to agree to
-whatever the vendor wants from you as there often is no way to deny it while continuing to use the product.
+You also don't have to periodically read some hard-to-understand 200-page ToS where you're basically forced to agree,
+as there often is no way to deny it while continuing to use the product.
 
-#### No marketing
+#### No marketing<a id='no_marketing'></a>
 
 With NoCloud, you won't get any ads. You won't get push notifications notifying you about new product launches.
-You won't get nagged by your property to upgrade to a new model or buy these new accessories for your existing one.
+You won't get nagged by the thing you own to upgrade to a new model or buy these new accessories for your existing one.
 
 You also won't get emails from a third party trying to cross-sell you something.
 
-#### Downsides
+#### Downsides<a id='downsides'></a>
 
-The downside of not using the manufacturer-provided cloud services is that now you're responsible for installing (security)
-updates, allowing for remote connectivity to e.g., control your robot while not at home etc.<br/>
-All that fancy cloud stuff.
+The downside of not using the manufacturer-provided Cloud services is that now you're responsible for installing (security)
+updates and coming up with some way of remote connectivity (if desired).<br/>
+All that fancy Cloud stuff.
 
+### Good integration into FOSS smarthome systems<a id='good_integration'></a>
 
-### No phone app required
+This was actually somewhat new to me, as I had literally never seen the sorry state of integrating a lot of Cloud-connected
+devices into e.g. Home Assistant, but it is apparently really bad.
+
+_If_ there is anything at all, they often just expose a subset of not just what is available but also what you would actually want to do.<br/>
+A $1300 vacuum robot where all you can do with HA is press the "start" button. What a joke.
+
+NoCloud offers a much more featureful integration and I strongly encourage you to use it to get the most out of your robot.
+
+It is however worth noting that NoCloud is not a tool meant to integrate a robot into a smarthome system.<br/>
+Its primary goal is to **unCloud**.
+
+### No phone app requirement<a id='no_phone_app'></a>
 
 Many consumer IoT devices require you to have a smartphone to run the vendor app to provision and control it with no way of using your
 desktop computer, laptop or a smartphone with a different operating system than android/iOS for that.
@@ -96,7 +168,7 @@ At times, thanks to the fully responsive design, the experience can even be _obj
 Some users for example reported that some vendor apps do not play well with tablets and instead just display the phone-optimized
 views in an upscaled way on the large tablet screen, wasting all that screen real estate on black borders.
 
-### Open Knowledge
+### Open Knowledge<a id='open_knowledge'></a>
 
 NoCloud is released under a permissive license. You're free to understand and modify your instance of NoCloud as you like.
 There's a lot of documentation. The code is pretty well-structured and features comments where required.

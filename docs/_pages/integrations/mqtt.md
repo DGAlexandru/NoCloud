@@ -93,6 +93,9 @@ settings page.
      - [Map segments (`segments`)](#mapsegmentssegments)
      - [Raw map data (`map-data`)](#rawmapdatamap-data)
      - [Raw map data for Home Assistant (`map-data-hass`)](#rawmapdataforhomeassistantmap-data-hass)
+   - [NoCloud Events](#nocloudevents)
+     - [Events (`NoCloud_events`)](#eventsnocloudevents)
+     - [Interact with Events (`NoCloud_events/interact`)](#interactwitheventsnocloudeventsinteract)
    - [Status](#status)
      - [Attachment state (`AttachmentStateAttribute`)](#attachmentstateattachmentstateattribute)
        - [Dust bin (`dustbin`)](#dustbindustbin)
@@ -108,16 +111,12 @@ settings page.
        - [Robot Error (`error`)](#roboterrorerror)
        - [Status (`status`)](#statusstatus)
        - [Status flag (`flag`)](#statusflagflag)
-   - [NoCloud Events](#NoCloudevents)
-     - [Events (`NoCloud_events`)](#eventsNoCloudevents)
-     - [Interact with Events (`NoCloud_events/interact`)](#interactwitheventsNoCloudeventsinteract)
 
 
 ### State attributes index
 
 - [AttachmentStateAttribute](#attachmentstateattachmentstateattribute)
 - [BatteryStateAttribute](#batterystatebatterystateattribute)
-- [ConsumableStateAttribute](#consumablesmonitoringconsumablemonitoringcapability)
 - [DockStatusStateAttribute](#dockstatedockstatusstateattribute)
 - [PresetSelectionStateAttribute](#watercontrolwaterusagecontrolcapability)
 - [StatusStateAttribute](#vacuumstatusstatusstateattribute)
@@ -135,7 +134,7 @@ settings page.
 - [Dock Status (`sensor.mqtt`)](#statusstatus)
 - [Dust bin attachment (`binary_sensor.mqtt`)](#dustbindustbin)
 - [Error (`sensor.mqtt`)](#vacuumstatusstatusstateattribute)
-- [Events (`sensor.mqtt`)](#eventsNoCloudevents)
+- [Events (`sensor.mqtt`)](#eventsnocloudevents)
 - [Fan (`select.mqtt`)](#fanpreset)
 - [Lock Keys (`switch.mqtt`)](#lockkeysenabled)
 - [Map data (`camera.mqtt`)](#rawmapdataforhomeassistantmap-data-hass)
@@ -145,8 +144,8 @@ settings page.
 - [Obstacle Avoidance (`switch.mqtt`)](#obstacleavoidanceenabled)
 - [Pet Obstacle Avoidance (`switch.mqtt`)](#petobstacleavoidanceenabled)
 - [Play locate sound (`button.mqtt`)](#locatelocate)
-- [Reset <CONSUMABLE-MINUTES> Consumable (`button.mqtt`)](#resettheconsumableconsumable-minutesreset)
-- [Reset <CONSUMABLE-PERCENT> Consumable (`button.mqtt`)](#resettheconsumableconsumable-percentreset)
+- [Reset &lt;CONSUMABLE-MINUTES&gt; Consumable (`button.mqtt`)](#resettheconsumableconsumable-minutesreset)
+- [Reset &lt;CONSUMABLE-PERCENT&gt; Consumable (`button.mqtt`)](#resettheconsumableconsumable-percentreset)
 - [Speaker volume (`number.mqtt`)](#speakervolumevalue)
 - [Status Flag (`sensor.mqtt`)](#statusflagflag)
 - [Total Statistics Area (`sensor.mqtt`)](#totalstatisticsareaarea)
@@ -175,7 +174,7 @@ Home Assistant components controlled by this device:
 
 #### Auto Empty Dock Manual Trigger (`AutoEmptyDockManualTriggerCapability`) <a id="autoemptydockmanualtriggerautoemptydockmanualtriggercapability" />
 
-*Node, capability: [AutoEmptyDockManualTriggerCapability](/pages/usage/capabilities-overview.html#autoemptydockmanualtriggercapability)*
+*Node, capability: [AutoEmptyDockManualTriggerCapability](/_pages/usage/capabilities-overview.md#autoemptydockmanualtriggercapability)*
 
 ##### Auto Empty Dock Manual Trigger (`trigger`) <a id="autoemptydockmanualtriggertrigger" />
 
@@ -195,7 +194,7 @@ Home Assistant components controlled by this property:
 
 #### Basic control (`BasicControlCapability`) <a id="basiccontrolbasiccontrolcapability" />
 
-*Node, capability: [BasicControlCapability](/pages/usage/capabilities-overview.html#basiccontrolcapability)*
+*Node, capability: [BasicControlCapability](/_pages/usage/capabilities-overview.md#basiccontrolcapability)*
 
 ##### Operation (`operation`) <a id="operationoperation" />
 
@@ -211,14 +210,14 @@ Home Assistant components controlled by this property:
 
 #### Carpet Mode (`CarpetModeControlCapability`) <a id="carpetmodecarpetmodecontrolcapability" />
 
-*Node, capability: [CarpetModeControlCapability](/pages/usage/capabilities-overview.html#carpetmodecontrolcapability)*
+*Node, capability: [CarpetModeControlCapability](/_pages/usage/capabilities-overview.md#carpetmodecontrolcapability)*
 
-**Note:** This is an optional exposed capability handle and thus will only be available via MQTT if enabled in the Valetudo configuration.
+**Note:** This is an optional exposed capability handle and thus will only be available via MQTT if enabled in the NoCloud configuration.
 
 ##### Carpet Mode (`enabled`) <a id="carpetmodeenabled" />
 
-
 *Property, readable, settable, retained*
+
 - Read topic: `<TOPIC PREFIX>/<IDENTIFIER>/CarpetModeControlCapability/enabled`
 - Set topic: `<TOPIC PREFIX>/<IDENTIFIER>/CarpetModeControlCapability/enabled/set`
 - Data type: [enum](https://homieiot.github.io/specification/#enum) (allowed payloads: `ON`, `OFF`)
@@ -239,9 +238,9 @@ Home Assistant components controlled by this property:
 
 #### Carpet Sensor Mode (`CarpetSensorModeControlCapability`) <a id="carpetsensormodecarpetsensormodecontrolcapability" />
 
-*Node, capability: [CarpetSensorModeControlCapability](/pages/usage/capabilities-overview.html#carpetsensormodecontrolcapability)*
+*Node, capability: [CarpetSensorModeControlCapability](/_pages/usage/capabilities-overview.md#carpetsensormodecontrolcapability)*
 
-**Note:** This is an optional exposed capability handle and thus will only be available via MQTT if enabled in the Valetudo configuration.
+**Note:** This is an optional exposed capability handle and thus will only be available via MQTT if enabled in the NoCloud configuration.
 
 ##### Carpet Sensor Mode (`mode`) <a id="carpetsensormodemode" />
 
@@ -279,7 +278,7 @@ Home Assistant components controlled by this property:
 
 #### Consumables monitoring (`ConsumableMonitoringCapability`) <a id="consumablesmonitoringconsumablemonitoringcapability" />
 
-*Node, capability: [ConsumableMonitoringCapability](/pages/usage/capabilities-overview.html#consumablemonitoringcapability)*
+*Node, capability: [ConsumableMonitoringCapability](/_pages/usage/capabilities-overview.md#consumablemonitoringcapability)*
 
 **Note:** This is an optional exposed capability handle and thus will only be available via MQTT if enabled in the NoCloud configuration.
 
@@ -293,10 +292,6 @@ Home Assistant components controlled by this property:
 |------+--------|
 
 " %}
-
-Status attributes managed by this node:
-
-- ConsumableStateAttribute
 
 ##### Consumable (minutes) (`<CONSUMABLE-MINUTES>`) <a id="consumableminutesconsumable-minutes" />
 
@@ -329,7 +324,7 @@ Home Assistant components controlled by this property:
 
 Home Assistant components controlled by this property:
 
-- Reset <CONSUMABLE-MINUTES> Consumable ([`button.mqtt`](https://www.home-assistant.io/integrations/button.mqtt/))
+- Reset &lt;CONSUMABLE-MINUTES&gt; Consumable ([`button.mqtt`](https://www.home-assistant.io/integrations/button.mqtt/))
 
 
 
@@ -364,7 +359,7 @@ Home Assistant components controlled by this property:
 
 Home Assistant components controlled by this property:
 
-- Reset <CONSUMABLE-PERCENT> Consumable ([`button.mqtt`](https://www.home-assistant.io/integrations/button.mqtt/))
+- Reset &lt;CONSUMABLE-PERCENT&gt; Consumable ([`button.mqtt`](https://www.home-assistant.io/integrations/button.mqtt/))
 
 
 
@@ -372,7 +367,7 @@ Home Assistant components controlled by this property:
 
 #### Current Statistics (`CurrentStatisticsCapability`) <a id="currentstatisticscurrentstatisticscapability" />
 
-*Node, capability: [CurrentStatisticsCapability](/pages/usage/capabilities-overview.html#currentstatisticscapability)*
+*Node, capability: [CurrentStatisticsCapability](/_pages/usage/capabilities-overview.md#currentstatisticscapability)*
 
 **Note:** This is an optional exposed capability handle and thus will only be available via MQTT if enabled in the NoCloud configuration.
 
@@ -412,7 +407,7 @@ Home Assistant components controlled by this property:
 This handle returns the current statistics time in seconds
 
 - Read topic: `<TOPIC PREFIX>/<IDENTIFIER>/CurrentStatisticsCapability/time`
-- Data type: [integer](https://homieiot.github.io/specification/#integer) (unit: seconds)
+- Data type: [integer](https://homieiot.github.io/specification/#integer) (unit: s)
 
 Sample value:
 
@@ -430,7 +425,7 @@ Home Assistant components controlled by this property:
 
 #### Fan control (`FanSpeedControlCapability`) <a id="fancontrolfanspeedcontrolcapability" />
 
-*Node, capability: [FanSpeedControlCapability](/pages/usage/capabilities-overview.html#fanspeedcontrolcapability)*
+*Node, capability: [FanSpeedControlCapability](/_pages/usage/capabilities-overview.md#fanspeedcontrolcapability)*
 
 Status attributes managed by this node:
 
@@ -472,7 +467,7 @@ Home Assistant components controlled by this property:
 
 #### Go to location (`GoToLocationCapability`) <a id="gotolocationgotolocationcapability" />
 
-*Node, capability: [GoToLocationCapability](/pages/usage/capabilities-overview.html#gotolocationcapability)*
+*Node, capability: [GoToLocationCapability](/_pages/usage/capabilities-overview.md#gotolocationcapability)*
 
 ##### Go to location (`go`) <a id="gotolocationgo" />
 
@@ -504,7 +499,7 @@ Sample payload:
 
 #### Lock Keys (`KeyLockCapability`) <a id="lockkeyskeylockcapability" />
 
-*Node, capability: [KeyLockCapability](/pages/usage/capabilities-overview.html#keylockcapability)*
+*Node, capability: [KeyLockCapability](/_pages/usage/capabilities-overview.md#keylockcapability)*
 
 **Note:** This is an optional exposed capability handle and thus will only be available via MQTT if enabled in the NoCloud configuration.
 
@@ -532,7 +527,7 @@ Home Assistant components controlled by this property:
 
 #### Locate (`LocateCapability`) <a id="locatelocatecapability" />
 
-*Node, capability: [LocateCapability](/pages/usage/capabilities-overview.html#locatecapability)*
+*Node, capability: [LocateCapability](/_pages/usage/capabilities-overview.md#locatecapability)*
 
 ##### Locate (`locate`) <a id="locatelocate" />
 
@@ -552,7 +547,7 @@ Home Assistant components controlled by this property:
 
 #### Segment cleaning (`MapSegmentationCapability`) <a id="segmentcleaningmapsegmentationcapability" />
 
-*Node, capability: [MapSegmentationCapability](/pages/usage/capabilities-overview.html#mapsegmentationcapability)*
+*Node, capability: [MapSegmentationCapability](/_pages/usage/capabilities-overview.md#mapsegmentationcapability)*
 
 ##### Clean segments (`clean`) <a id="cleansegmentsclean" />
 
@@ -587,7 +582,7 @@ Sample payload:
 
 #### Obstacle Avoidance (`ObstacleAvoidanceControlCapability`) <a id="obstacleavoidanceobstacleavoidancecontrolcapability" />
 
-*Node, capability: [ObstacleAvoidanceControlCapability](/pages/usage/capabilities-overview.html#obstacleavoidancecontrolcapability)*
+*Node, capability: [ObstacleAvoidanceControlCapability](/_pages/usage/capabilities-overview.md#obstacleavoidancecontrolcapability)*
 
 **Note:** This is an optional exposed capability handle and thus will only be available via MQTT if enabled in the NoCloud configuration.
 
@@ -615,7 +610,7 @@ Home Assistant components controlled by this property:
 
 #### Mode control (`OperationModeControlCapability`) <a id="modecontroloperationmodecontrolcapability" />
 
-*Node, capability: [OperationModeControlCapability](/pages/usage/capabilities-overview.html#operationmodecontrolcapability)*
+*Node, capability: [OperationModeControlCapability](/_pages/usage/capabilities-overview.md#operationmodecontrolcapability)*
 
 Status attributes managed by this node:
 
@@ -657,9 +652,9 @@ Home Assistant components controlled by this property:
 
 #### Pet Obstacle Avoidance (`PetObstacleAvoidanceControlCapability`) <a id="petobstacleavoidancepetobstacleavoidancecontrolcapability" />
 
-*Node, capability: [PetObstacleAvoidanceControlCapability](/pages/usage/capabilities-overview.html#petobstacleavoidancecontrolcapability)*
+*Node, capability: [PetObstacleAvoidanceControlCapability](/_pages/usage/capabilities-overview.md#petobstacleavoidancecontrolcapability)*
 
-**Note:** This is an optional exposed capability handle and thus will only be available via MQTT if enabled in the Valetudo configuration.
+**Note:** This is an optional exposed capability handle and thus will only be available via MQTT if enabled in the NoCloud configuration.
 
 ##### Pet Obstacle Avoidance (`enabled`) <a id="petobstacleavoidanceenabled" />
 
@@ -685,7 +680,7 @@ Home Assistant components controlled by this property:
 
 #### Speaker volume control (`SpeakerVolumeControlCapability`) <a id="speakervolumecontrolspeakervolumecontrolcapability" />
 
-*Node, capability: [SpeakerVolumeControlCapability](/pages/usage/capabilities-overview.html#speakervolumecontrolcapability)*
+*Node, capability: [SpeakerVolumeControlCapability](/_pages/usage/capabilities-overview.md#speakervolumecontrolcapability)*
 
 **Note:** This is an optional exposed capability handle and thus will only be available via MQTT if enabled in the NoCloud configuration.
 
@@ -715,7 +710,7 @@ Home Assistant components controlled by this property:
 
 #### Total Statistics (`TotalStatisticsCapability`) <a id="totalstatisticstotalstatisticscapability" />
 
-*Node, capability: [TotalStatisticsCapability](/pages/usage/capabilities-overview.html#totalstatisticscapability)*
+*Node, capability: [TotalStatisticsCapability](/_pages/usage/capabilities-overview.md#totalstatisticscapability)*
 
 **Note:** This is an optional exposed capability handle and thus will only be available via MQTT if enabled in the NoCloud configuration.
 
@@ -774,7 +769,7 @@ Home Assistant components controlled by this property:
 This handle returns the total statistics time in seconds
 
 - Read topic: `<TOPIC PREFIX>/<IDENTIFIER>/TotalStatisticsCapability/time`
-- Data type: [integer](https://homieiot.github.io/specification/#integer) (unit: seconds)
+- Data type: [integer](https://homieiot.github.io/specification/#integer) (unit: s)
 
 Sample value:
 
@@ -792,7 +787,7 @@ Home Assistant components controlled by this property:
 
 #### Water control (`WaterUsageControlCapability`) <a id="watercontrolwaterusagecontrolcapability" />
 
-*Node, capability: [WaterUsageControlCapability](/pages/usage/capabilities-overview.html#waterusagecontrolcapability)*
+*Node, capability: [WaterUsageControlCapability](/_pages/usage/capabilities-overview.md#waterusagecontrolcapability)*
 
 Status attributes managed by this node:
 
@@ -834,7 +829,7 @@ Home Assistant components controlled by this property:
 
 #### Wi-Fi configuration (`WifiConfigurationCapability`) <a id="wi-ficonfigurationwificonfigurationcapability" />
 
-*Node, capability: [WifiConfigurationCapability](/pages/usage/capabilities-overview.html#wificonfigurationcapability)*
+*Node, capability: [WifiConfigurationCapability](/_pages/usage/capabilities-overview.md#wificonfigurationcapability)*
 
 Home Assistant components controlled by this node:
 
@@ -880,7 +875,7 @@ Sample value:
 Sample value:
 
 ```json
--54
+-68
 ```
 
 
@@ -904,7 +899,7 @@ NoCloud Wi-Fi
 
 #### Zone cleaning (`ZoneCleaningCapability`) <a id="zonecleaningzonecleaningcapability" />
 
-*Node, capability: [ZoneCleaningCapability](/pages/usage/capabilities-overview.html#zonecleaningcapability)*
+*Node, capability: [ZoneCleaningCapability](/_pages/usage/capabilities-overview.md#zonecleaningcapability)*
 
 ##### Start zoned cleaning (`start`) <a id="startzonedcleaningstart" />
 
@@ -1010,11 +1005,11 @@ Home Assistant components controlled by this property:
 
 
 
-### NoCloud Events <a id="NoCloudevents" />
+### NoCloud Events <a id="nocloudevents" />
 
 *Node*
 
-#### Events (`NoCloud_events`) <a id="eventsNoCloudevents" />
+#### Events (`NoCloud_events`) <a id="eventsnocloudevents" />
 
 *Property, readable, retained*
 
@@ -1027,11 +1022,11 @@ Sample value:
 
 ```json
 {
-  "6ac59c61-349b-4c18-9e4f-f89be959ba19": {
+  "762ce3c1-9f8e-458a-aaf7-124c04ff1d8c": {
     "__class": "ErrorStateNoCloudEvent",
     "metaData": {},
-    "id": "6ac59c61-349b-4c18-9e4f-f89be959ba19",
-    "timestamp": "2024-02-14T19:35:20.283Z",
+    "id": "762ce3c1-9f8e-458a-aaf7-124c04ff1d8c",
+    "timestamp": "2026-01-20T16:21:00.836Z",
     "processed": false,
     "message": "This is an error message"
   },
@@ -1039,21 +1034,21 @@ Sample value:
     "__class": "PendingMapChangeNoCloudEvent",
     "metaData": {},
     "id": "pending_map_change",
-    "timestamp": "2024-02-14T19:35:20.283Z",
+    "timestamp": "2026-01-20T16:21:00.836Z",
     "processed": false
   },
   "mop_attachment_reminder": {
     "__class": "MopAttachmentReminderNoCloudEvent",
     "metaData": {},
     "id": "mop_attachment_reminder",
-    "timestamp": "2024-02-14T19:35:20.283Z",
+    "timestamp": "2026-01-20T16:21:00.836Z",
     "processed": false
   },
-  "e8061d9a-a8d8-4438-8186-600eeee456f9": {
+  "7576c332-0b73-4aad-9a36-b9e7b3acf7b4": {
     "__class": "DustBinFullNoCloudEvent",
     "metaData": {},
-    "id": "e8061d9a-a8d8-4438-8186-600eeee456f9",
-    "timestamp": "2024-02-14T19:35:20.283Z",
+    "id": "7576c332-0b73-4aad-9a36-b9e7b3acf7b4",
+    "timestamp": "2026-01-20T16:21:00.836Z",
     "processed": false
   }
 }
@@ -1065,7 +1060,7 @@ Home Assistant components controlled by this property:
 
 
 
-#### Interact with Events (`NoCloud_events/interact`) <a id="interactwitheventsNoCloudeventsinteract" />
+#### Interact with Events (`NoCloud_events/interact`) <a id="interactwitheventsnocloudeventsinteract" />
 
 *Property, command, not retained*
 

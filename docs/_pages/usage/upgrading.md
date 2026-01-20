@@ -52,7 +52,7 @@ If you don't have ssh available, you will need to do a full factory reset to re-
 1. SSH into the vacuum and kill NoCloud: `killall NoCloud`
 2. Replace the old NoCloud binary in `/data/NoCloud` with the new one
    - `wget https://github.com/DGAlexandru/NoCloud/releases/latest/download/NoCloud-{armv7,armv7-lowmem,aarch64} -O /data/NoCloud`
-   - Make sure to use the correct binary as documented in the [supported robots](https://Valetudo.Cloud/pages/general/supported-robots.html) section
+   - Make sure to use the correct binary as documented in the [supported robots](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/supported-robots.md) section
    - If you get a "Text file busy" error, it means NoCloud is still running. Try to kill it again.
    - If the issue still occurs, delete the old binary before uploading the new one
 3. Reboot your vacuum: `reboot`

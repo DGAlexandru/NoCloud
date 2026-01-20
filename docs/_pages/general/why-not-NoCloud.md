@@ -6,18 +6,43 @@ order: 7
 
 # Why not NoCloud?
 
-After having read through the [Why NoCloud?](https://Valetudo.Cloud/pages/general/why-NoCloud.html) page,
-you might also be wondering why you might **not** want to use NoCloud.
-To answer those questions, here's a list of a few common reasons in an attempt to reduce the amount of some incredibly exhausting discussions.
+After having read through the [Why NoCloud?](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/why-not-NoCloud.md) page, you might also be wondering why you might **not** want to use NoCloud.
 
-**Always remember:**<br/>
-The only person forcing you to use NoCloud is yourself. Using NoCloud is **your own conscious decision**.
+This page is (among other things) a collection of deconstructions of and counters to common pathologies of FOSS I've experienced over the years.
+Every word in here is the result of a (hopefully complete and productive) post-mortem analysis of one or maybe even many conflicts and failures.
 
-If the things listed here are a deal-breaker to you then that's fine. It's completely reasonable to have different
-opinions and thoughts on these things. You just won't be happy with NoCloud then.<br/><br/>
-Thank you for not acting entitled.
+In an effort of saving you time, the absolute minimum **TL;DR** I can provide is:
+> NoCloud is likely not what you expect and will also not try to be that.
+> It is **very different** from other projects you might be used to.
+>
+> This is not because I want to hurt anyone, but because I repeatedly got hurt from following what we currently consider "best practices".<br/>
+> As NoCloud itself is "doing things differently" from the "best practice" that is Cloud IoT (of which we all got hurt repeatedly),
+> it only makes sense to follow through with that spirit in all aspects.
+>
+> The core idea here being to build something in a sustainable, reliable, ethical and true-to-myself way.
+>
+> Regardless of these often unexpected differences, it manages to work fine for probably 95% of people (most of them enjoying that it "just works"),
+> but for those it doesn't work for, it _really_ doesn't work.
 
-## NoCloud is opinionated software
+With this said, I'd like to encourage you to approach this writing with curiosity and not view it as an obstacle that would require overcoming.
+
+It is reasonable, expected and likely that you might have different opinions and thoughts on the topics discussed here.
+This is just one of many small niches of the Internet. It might turn out not be the right one for you, but it also might turn out to be.
+
+## Table of Contents
+1. [NoCloud is opinionated software](#opinionated_software)
+2. [NoCloud is counterculture](#counterculture)
+3. [NoCloud is not a community](#not_a_community)
+4. [NoCloud is not about you](#not_about_you)
+5. [NoCloud replaces the Cloud](#replaces_the_cloud)
+6. [Reverting to stock is impossible](#reverting_impossible)
+7. [Feature-parity is a non-goal](#feature_parity_non_goal)
+8. [Only supported robots are supported](#only_supported_robots)
+9. [NoCloud is only available in english](#english_only)
+10. [No multi-floor/multi-map support](#no_multi_floor)
+
+
+## NoCloud is opinionated software<a id='opinionated_software'></a>
 
 _Opinionated software_ means that the software has a clear vision on how things should work, what it should do and also what it should not do.
 NoCloud is a piece of software that you could call _opinionated software_ that is used by the developer himself on a daily basis.
@@ -35,7 +60,7 @@ That's fine. It doesn't have to be. Neither do you have to change nor does the p
 
 Sometimes it's just not working out. You should see other software.
 
-## NoCloud is counterculture
+## NoCloud is counterculture<a id='counterculture'></a>
 
 Even though the project exists in the consumer electronics space and is polished as if it was a product, it is very much not that.<br/>
 Instead, it is highly idealistic, anti-consumerism, anti-hypergrowth and anti just-continuing-what-we-do-now.
@@ -53,35 +78,149 @@ There is no way of using it without being constantly confronted with them.
 
 If you're not willing to reflect, introspect, grow and most importantly **stop**, you will not be happy with NoCloud.
 
-## NoCloud replaces the Cloud
+___
 
-NoCloud is a cloud replacement, meaning that it replaces the cloud.<br/>
-As it stops all connectivity to the vendor cloud, the vendor app will also stop working.
+Before continuing, pause here for a second and think about what that _actually means_.
+
+1. To survive within a culture (and even more so to be successful within it), people will (to some degree) embed it into their thinking; usually subconsciously. 
+This is not an individual failing but human nature. It is how society works.<br/>
+Precisely because it is how society functions, if someone can selectively control whether they adhere to it, it often scares people, as it is a threat to reality itself.
+Society then usually attaches labels such as "psychopath" or "successful CEO" to such a person, though sometimes, reality might also just be a mundane "neurodivergent" or "philosophy major".
+
+2. The idea of "counter-culture" is to **counter** the dominant culture, meaning that it _will_ be painful with increasing intensity,
+the deeper one's beliefs anchor into said culture.
+
+Keep that in mind, as due to it, all the communication here is effectively throwing industrial quantities of salt from the sky.
+This means that _if_ there is an open figurative wound _somewhere_, no matter how small it might be, it will hurt.
+
+The sometimes perceived FOSS default culture stance is to **not** do this, as, for obvious reasons, it harms adaption and scaling.
+There is however no law stating that whatever you do must adhere to defaults and default goals other people believe exist.
+
+Unfortunately, "being counter-culture" itself has already been monetized by grifters pretending to do so as a selling point.<br/>
+This might also skew with perception and expectations.
+
+## NoCloud is not a community<a id='not_a_community'></a>
+
+Contrary to common expectations when it comes to software released under a FOSS-like license, NoCloud is not a community-driven project;
+nor does it even _have_ a **community** in that sense.
+
+What it has is **fans**. People that feel that the creative expression of the Author/Artist brings value to them.<br/>
+And, while purely optional and not why I do this, I am happy that it provides value to them.
+
+Still, as said, there is no community. There is just me.<br/>
+Think of it as a musician that **also** shares their raw fruity loops project with you.
+
+**No one in their right mind** would argue that fans are a better authority on the reasoning behind/meaning of the creative choices taken.<br/>
+**No one in their right mind** would argue that the artist should leave answering fan questions in his fan mailbox to other fans.<br/>
+**No one in their right mind** would argue that a musician should make a track in a specific style, just because some fans think it would be cool.<br/>
+**No one in their right mind** would argue that the artist should leave the creative vision of the next album to fans; selected by who screams the loudest.<br/>
+**No one in their right mind** would argue that once it has grown to a specific size of random unconnected unvetted self-declared fan individuals, the fanbase of an artist _becomes_ the artist.<br/>
+
+Being a fan also doesn't grant anyone anything. It doesn't give you an identity. It doesn't give you control.<br/>
+It does not add more weight to your opinion. It does not entitle you to special treatment.
+
+If you're looking to "become a community member", NoCloud ain't it.<br/>
+It does not offer that experience.
+
+Evidently, the world seems to be more than fine with this approach when Trent Reznor does it,
+so I do not think that this idea is in any way alien, new or incompatible with reality.
+
+## NoCloud is not about you<a id='not_about_you'></a>
+
+NoCloud is a solution I built to a problem I had that I shared with the world, because I naively assumed that the cost of sharing would be zero.<br/>
+That was a profound underestimation but now here we are. Can't stop now as that would be weird.
+
+This means one crucial thing: **NoCloud does not exist to solve your problems**.<br/>
+It might solve them, and that's great if it does, but that's coincidence, not purpose.
+
+<br/>
+
+While on the topic of what NoCloud is about, I need to address something.<br/>
+Something I've over the years observed countless times - always leading to entirely unnecessary conflict.
+
+It is people building their identity - or at least large chunks of it - around installing and using NoCloud (or any other FOSS software for that matter).
+And in principle, I could partially empathize with that and do agree that people can and should feel proud of themselves for taking control of their technology.
+
+That said, the reason I'm mentioning it here is that it's not always just people feeling proud in a healthy way.<br/>
+Instead, it sometimes turns pathological:
+It becomes a **make-believe hero story** where reality gets twisted to maintain that narrative.
+
+A story where someone isn't just a user of a piece of software that followed a guide in the docs both written by someone else.<br/>
+A story where someone becomes a powerful tech wizard who _purely on their own_ freed their robot, took agency and is generally better, smarter and more important than all the others.<br/>
+And when cognitive dissonance threatens that false story, people attack what they perceive as the source of it - me.
+
+What makes this truly, truly sad is the human suffering behind it.<br/>
+No one who is doing well in their life clings this desperately to a borrowed identity.
+
+And the tragedy is that it's unnecessary. Identity isn't a zero-sum game.
+You can achieve something and _also_ acknowledge achievements of other people that made your achievement possible.
+Those other achievements do not take away from your achievement.
+
+I know that it is weird for someone to just write such a text in such a place with such bold claims, but if you run into the same-style conflict for the better part of a decade, you eventually spot patterns.
+Sadly, this _could_ be a welcoming space for the people affected, but those patterns ruin any possibility for that to happen - and also my day on a weekly basis.
+
+
+
+The context, btw, is even bigger and not at all limited to me or NoCloud, because it's more or less _the_ primary business model the world currently operates on.<br/>
+There is _a lot_ of money to be made by catering to such pathological delusions and making sure to prevent people from ever developing healthier sources of self-worth.
+There is also a lot of political/societal influence to be had by encouraging people to continue exercising them.
+
+You can be \<cool identity>. Just buy \<thing>. <br/>- Brands, Products <br/>
+<br/>
+You can be \<cool other identity>. Just do what I tell you/repeat exactly what I say and do not critically think about it.<br/>- Influencers, Campaigns, The corporate ladder, Unfortunately also corpo-style run FOSS
+<br/><br/>
+
+Never create. Never stray from the set path.<br/>
+Become an evangelist. Consume product.
+
+What I find interesting is that this is nothing new. Everyone pretty much knows this. Intellectually at least.<br/>
+It is a super common talking point. Yet it still happens and works all the time in execution.
+
+And most mind-bogglingly, you get pushback if you try to do the ethical thing and push back against this highly disrespectful exploitation of human suffering, because you become the source of the negative emotion.
+
+Not just _a bit_ of pushback. You get pushback hard. People doxxing you and being angry at you on the Internet for years pushback.<br/>
+Pushback this harsh for the crime of having some backbone and not extracting value out of their pathologies for one's own benefit.<br/>
+Pushback for _actually being nice_ instead of _using nice words_.
+
+
+So please just don't be like that, okay?<br/>
+Use the software, be proud of yourself - but do so in a healthy fashion.
+
+And, if you feel like you've been mistreated, please be assured that I have your best interest in mind.<br/>
+You simply do not run a project this ideologically for this long if you'd be operating based on petty principles,
+nor would you pay this high of a price just to hurt other people for funsies.
+
+If you understand the systems, there are lots of much easier ways to do that, that come with either near-zero cost or even earn you money.
+
+## NoCloud replaces the Cloud<a id='replaces_the_cloud'></a>
+
+NoCloud is a Cloud replacement, meaning that it replaces the Cloud.<br/>
+As it stops all connectivity to the vendor Cloud, the vendor app will also stop working.
 
 It is **not possible** to use NoCloud and the vendor app simultaneously.
 
-## Reverting to stock is impossible
+## Reverting to stock is impossible<a id='reverting_impossible'></a>
 
 Rooting and installing NoCloud is a permanent change. There is no way back.
 
 If you're looking for an experience similar to trying out a Linux Live CD, this is not it.<br/>
 If you're unsure whether or not you should install NoCloud, the answer is no, you should not install NoCloud.
 
-## NoCloud is NoCloud
+## Feature-parity is a non-goal<a id='feature_parity_non_goal'></a>
 
-NoCloud is a solution for wanting _a_ vacuum robot that works local only. It is not "$VENDOR but without the cloud".
+NoCloud is a solution for wanting _a_ vacuum robot that works local only. It is not "$VENDOR but without the Cloud".
 
 Here's how that works:
 
 ✔ "I want to use NoCloud. This robot looks supported so I will use that."<br/>
-❌ "I want to use this robot but I don't like the cloud dependency of it. Guess I'll use NoCloud."
+❌ "I want to use this robot but I don't like the Cloud dependency of it. Guess I'll use NoCloud."
 
 
 This is _very important_ to understand as it means that **feature parity** with the vendor apps is a **non-goal** for the project.
 Instead, **feature completeness** for the NoCloud project is defined as "it does what it set out to do", which in this case means "a vacuum robot that works local only".
 That _can_ include new and fancy features, yes, but it doesn't _have_ to do that.
 
-While it's certainly understandable that one would want all the features of Vendor Model XYZ but without the cloud, this is simply not the right project for that.
+While it's certainly understandable that one would want all the features of Vendor Model XYZ but without the Cloud, this is simply not the right project for that.
 
 <details>
 <summary>"Why is this so important?", you may ask. (Click here for rant)</summary>
@@ -108,7 +247,7 @@ Again, it <i>could</i> do that, yes, but that would be bad because that cycle is
 
 <br/>
 
-## Only supported robots are supported
+## Only supported robots are supported<a id='only_supported_robots'></a>
 
 While this may sound incredibly dumb, it unfortunately needs saying nonetheless.
 
@@ -128,98 +267,7 @@ that could be utilized to provide support.
 It is possible to use NoCloud on unsupported robots or in unsupported ways.
 Just note that there will be no support for these unsupported scenarios.
 
-## No multi-floor/multi-map support
-
-Due to various major technical limitations, NoCloud does not support and will not support multiple maps.
-If you need multiple maps, NoCloud likely won't be an option for you.
-
-Not having multi-floor support actually isn't something all too terrible though, as investing in a second robot greatly improves the usefulness of the unit.
-Having to manually carry the robot to another floor very much degrades the benefits of a fully automated vacuum robot.
-This "fire and forget" mode of operation was why you've considered to buy a vacuum robot in the first place, remember?
-
-As far as financial reasons are concerned, 200€ should be more than enough to buy a factory new supported one even featuring LIDAR.
-If you're happy with buying a used unit, at least here in germany, supported ones usually cost around 70-125€ (2024-06-18)
-
-Rationally, there's a need (automated cloud-free cleaning on every floor) and there's also a budget for that.
-Make your buying decisions based on that and that alone instead of some arbitrary made-up additional constraint such as
-"Having more than one vacuum robot is insane!!111 I mean... Two robots! Who does that?!?!".
-
-We've been working a lot on making that buying decision easier for you by supporting more robots and enhancing the support
-for existing ones so that it should be possible for everyone to afford 1-n supported robots.
-
-<details>
-<summary>"But why?" (Click here for rant)</summary>
-<br/>
-<p>
-"Surely this must be possible." you might think.<br/>
-And, well, yeah. Kinda. But also Kinda not.<br/>
-</p>
-<p>
-If you only have one robot by one vendor with one firmware version - as you usually do if you're looking for this feature -
-then you're looking at a completely different problem space than when you're a project that strives for long-term sustainability
-and currently supports more than 20 robots by three vendors with likely more to come in the future.
-</p>
-
-<p>
-It will appear as an easy problem to solve/easy thing to implement because it is.<br/>
-Because you dropped most of the requirements.
-</p>
-<br/>
-<p>
-For the project, a non-exhaustive list of requirements looks like this:
-</p>
-<ul>
-<li>do not build something that will only work with one vendor</li>
-<li>do not break the current architecture</li>
-<li>do not complicate the architecture so much that it will collapse under its own weight 18 months from now</li> 
-<li>do not resort to ugly hacks that restart core OS processes and/or swap files on disk</li>
-<li>do not make maintaining the code unpleasant</li>
-</ul>
-
-<p>
-If you ignore all that then yes, it would be possible to implement some amount or some <i>kind</i> of multi-floor support.<br/>
-However, if you do that, then you'd end up with a different software project with entirely different goals.<br/>
-One that will very likely not survive long-term.
-</p>
-
-<p>
-
-While I have spent a lot of time investigating the issue to come to this conclusion, you - the angry reader that absolutely
-will not just be buying another used robot for 80€ to solve the problem in a much better way - are of course free to prove me wrong.
-<br/>
-I will happily admit that I misjudged the problem if someone comes along and implements proper multi-floor support
-<strong>while also sticking to the requirements set out</strong> and <strong>not just dropping half of them</strong> and calling it a day.
-
-</p>
-
-<p>
-Please <strong>only</strong> contact me about it when you're <strong>completely done</strong> with <strong>all of it</strong>.
-You personally.
-Not the magic invisible entity named "the community" that will just appear out of thin air and do your job for you
-because you really really really want this feature.
-</p>
-
-<p>
-This means
-</p>
-<ul>
-<li>Solid and fully thought-out architecture</li>
-<li>full implementation</li>
-<li>no to-dos</li>
-<li>tested with <strong>all supported robots</strong></li>
-<li>etc.</li>
-
-</ul>
-
-<p>
-I'll await your e-mail.
-</p>
-
-</details>
-
-<br/>
-
-## NoCloud is only available in english
+## NoCloud is only available in english<a id='english_only'></a>
 
 NoCloud does not feature any localization. Let me explain the reasoning behind this with a few examples.
 
@@ -281,3 +329,40 @@ This is also required even if the translation is done by someone else, because y
 
 As even huge corporations known for being user-friendly and also paired with insane budgets fail to do this all the time,
 I don't think that it is actually a feasible task.
+
+## No multi-floor/multi-map support<a id='no_multi_floor'></a>
+
+**2024 Update**
+
+At this point, the whole topic is honestly just legacy content.<br/>
+I'm getting the feeling that most of the time it is being brought up, it is being brought up not because people actually
+were looking for information on it, but instead because they read about it on this page.
+
+TL;DR:<br/>
+1. There are strong technical reasons against it.
+2. There are strong logical reasons against it.
+3. Most importantly: There are also strong opinions against it.
+
+
+Multi-floor to me always seemed like a feature cooked up by product management in an effort to have another feature for sales purposes,
+without getting too costly on the hardware and development side.
+It always broke the core idea of having an autonomous cleaning thing you don't have to care about, because it can't be autonomous if you have to put it somewhere.
+Some people used it regardless. Some due to real budget concerns; others due to fictional ones.
+
+But that all was back when robots just came with a simple small and light-weight charging station.
+Nowadays, the docks are _huge_. They auto-empty. They house clean and dirty water. They can even be permanently hooked up to the water supply.
+And the robots also need them.
+They can't mop without the dock, because they regularly clean the mops during cleanup.
+
+There is just no way that a reasonable person will use a current- or even last-gen robot on multiple floors.
+Some will try, yes, but only to eventually discover that it makes no sense to move the giant heavy dock from floor to floor every single time.
+<br/><br/>
+
+Regardless, this actually doesn't have to be a "does it make sense? Does it not make sense?" discussion.
+Not only because we'd never see the end of it, as in the end it's just opinions, but because it never was a discussion.
+
+Instead, it always was:<br/>
+"I'm not going to do it and here's some insight into why that is."
+
+Not because I'd be obligated to explain myself, but because I'd like to give others the opportunity to understand the viewpoint.
+I'm not expecting people to agree with it; just to respect my boundaries and for that I'm doing all I can by being transparent in my thoughts about this.
