@@ -30,6 +30,7 @@ Do not flame people for doing that. You can be a bit snarky about downtimes, lag
 4. [Good integration into FOSS smarthome systems](#good_integration)
 5. [No phone app requirement](#no_phone_app)
 6. [Open Knowledge](#open_knowledge)
+7. [Further remarks](#further_remarks)
 
 ## Goals
 
@@ -180,7 +181,7 @@ Git is decentralized by default. Use a local backup. Use a backup somewhere else
 NoCloud however will **not** force-feed you information.<br/>
 You will have to be willing to read and understand the information available.
 
-## Further remarks
+## Further remarks<a id='further_remarks'></a>
 
 Please note that NoCloud has no customers.<br/>
 It is provided free of charge with no warranty whatsoever.
