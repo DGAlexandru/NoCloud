@@ -7,7 +7,7 @@ order: 30
 
 To preface this with some general thoughts providing context:
 
-In a similar fashion to the [Why not NoCloud?](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/why-not-valetudo.md) page,
+In a similar fashion to the [Why not NoCloud?](./general/why-not-NoCloud.md) page,
 the way an FAQ grows is not proactive but reactive.<br/>
 Specifically, what you can find here will likely to some degree look defensive, because it is defensive; usually being the result
 of a post-mortem analysis of or just a rebuttal against a common conflict or pain-point.
