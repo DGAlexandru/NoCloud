@@ -10,21 +10,17 @@ Please check the [supported robots](https://github.com/DGAlexandru/NoCloud/blob/
 Also note that all rooting guides assume a factory-new robot that has never been connected to the vendor cloud.<br/>
 If you've used any vendor apps before, make sure to do a full factory-reset before starting with the rooting procedure.
 
-<div class="section-box" markdown="1">
 
 ## ADB <a id="adb"></a>
 
 This Guide assumes that you have booted a fresh copy of Debian 13 Live with some kind of GUI (e.g. KDE) on your laptop.<br/>
 Please use a native environment for this, as VMs will usually be troublesome.
 
-<div class="alert alert-important" role="alert">
-  <p>
-    <strong>Important:</strong><br/>
-    This method can permanently brick your robot if you're not careful.<br/>
-    These robots aren't exactly resilient or recoverable.<br/>
-    Make sure that you understand what you're doing before doing it.
-</p>
-</div>
+> [!CAUTION]
+> <strong>Important:</strong>
+> * This method can permanently brick your robot if you're not careful.
+> * These robots aren't exactly resilient or recoverable.
+> * Make sure that you understand what you're doing before doing it.
 
 Depending on the model, dock and robot communicate via BLE and need to be paired and connected while flashing.<br/>
 For rooting you will therefore need a laptop and sit down with it next to the dock housing the docked robot.
@@ -59,14 +55,14 @@ With the port located, the next step is to plug it in and run `adb shell`.
 
 After typing in `root` as the username, you should see one of the following:
 
-```
+```console
 midea login: root
 OTP Password:
 ```
 
 or
 
-```
+```console
 midea login: root
 Password:
 ```
@@ -90,7 +86,7 @@ This will later be used to transfer the update package to your robot.
 
 If you saw `OTP Password:`, the next step is to run `dmesg` and look for output looking like this:
 
-```
+```console
 [ 4479.875489] usb 1-4: new high-speed USB device number 11 using xhci_hcd
 [ 4480.016640] usb 1-4: New USB device found, idVendor=2207, idProduct=0019, bcdDevice= 3.10
 [ 4480.016658] usb 1-4: New USB device strings: Mfr=1, Product=2, SerialNumber=3
@@ -101,8 +97,10 @@ If you saw `OTP Password:`, the next step is to run `dmesg` and look for output 
 ```
 
 Then, use the SerialNumber with this nifty calculator:
+> [!CAUTION]
+> As embedding JS in GitHub Readme files doesn't work, use this [link](https://valetudo.cloud/pages/installation/midea.html) for the calculator!
 
-{% include midea_otp_calculator.html %}
+{% include ../../_includes/midea_otp_calculator.html %}
 
 You should then be able to login as root with the password calculated for your device.<br/>
 Remember that the robot needs to be factory-reset for it to work.
@@ -121,7 +119,7 @@ On robots where you just get a `Password:` prompt, things are a bit more hacky.<
 Here, we need to exploit a race condition in an init script to spawn a `telnetd` to eventually get a shell.
 
 First, you will need to create two files:
-```
+```console
 echo -n 'LMAO' > test.mod
 
 echo '#!/bin/sh' > payload.sh
@@ -131,7 +129,7 @@ chmod +x payload.sh
 ```
 
 Then, while connected via microUSB to the turned-off robot, start the loop:
-```
+```console
 while true; do adb push test.mod /oem/test.mod; adb push payload.sh /userdata/echo_pcbatest_server; done
 ```
 
@@ -153,7 +151,7 @@ If the AP needs a password, use `12345678`.
 
 
 Once connected, in a new terminal, you can then get a shell using:
-```
+```console
 telnet 10.201.126.1 1337
 ```
 
@@ -163,7 +161,7 @@ With shell access and the laptop connected to the Wi-Fi AP of the robot, in anot
 
 The server will create a new `www` directory right next to itself as well as print out a few sample commands explaining how to download from and upload to it.
 They will look somewhat like this:
-```
+```console
 wget http://10.201.126.2:1337/midea.j15u_fw.tar.gz
 ```
 
@@ -179,7 +177,7 @@ This makes the process a bit inelegant, as the robot might need to reboot multip
 The install script does take over all of the thinking though, so it's just a matter of running it a bunch of times.
 
 For the initial run, use this one-liner:
-```
+```console
 tar xvf midea.*_fw.tar.gz && rm -f midea.*_fw.tar.gz && chmod +x ./install.sh && ./install.sh
 ```
 
@@ -187,11 +185,10 @@ The installer will then copy itself to `/userdata/dust_update/` and relaunch fro
 From there on, just follow what it tells you to do and relaunch it after every reboot up until it deletes itself.
 
 After the first reboot, you relaunch it by running:
-```
+```console
 /userdata/dust_update/install.sh
 ```
 
-Eventually, NoCloud will be installed and you can continue with the [getting started guide](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/getting-started.md#joining_wifi).
+Eventually, NoCloud will be installed and you can continue with the [Getting Started Guide](../general/getting-started.md#joining_wifi).
 
 
-</div>
