@@ -80,4 +80,4 @@ Would be cool if we could just all get along and be happy little hackers.
 
 ## Disclaimer:
 
-[The harsh words adressed to Hypfer are actually his own words (writing)] (https://github.com/Hypfer/Valetudo/blob/master/docs/_pages/general/so-youve-been-banned.md)<br/>
+[The harsh words adressed to Hypfer are actually his own words (writing)](https://github.com/Hypfer/Valetudo/blob/master/docs/_pages/general/so-youve-been-banned.md)<br/>
