@@ -6,7 +6,7 @@ order: 7
 
 # Why not NoCloud?
 
-After having read through the [Why NoCloud?](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/why-not-NoCloud.md) page, you might also be wondering why you might **not** want to use NoCloud.
+After having read through the [Why NoCloud?](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/why-NoCloud.md) page, you might also be wondering why you might **not** want to use NoCloud.
 
 This page is (among other things) a collection of deconstructions of and counters to common pathologies of FOSS I've experienced over the years.
 Every word in here is the result of a (hopefully complete and productive) post-mortem analysis of one or maybe even many conflicts and failures.
