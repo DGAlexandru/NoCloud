@@ -7,7 +7,7 @@ order: 23
 # openHAB integration
 
 [openHAB](https://www.openhab.org/) supports MQTT autodiscovery using the Homie convention. Make sure MQTT is configured
-properly and that Homie autodiscovery is enabled (see [MQTT](./mqtt)).
+properly and that Homie autodiscovery is enabled (see [MQTT](./mqtt.md)).
 
 <div style="text-align: center;">
     <a href="https://homieiot.github.io" rel="noopener" target="_blank">
@@ -21,17 +21,15 @@ Unlike Home Assistant, openHAB does not come with a vacuum widget out of the box
 widgets for complex devices.
 
 A collection of custom widgets, rules and integrations for openHAB is available on GitHub:
-[github.com/DGAlexandru/NoCloud-Openhab](https://github.com/DGAlexandru/NoCloud-Openhab)
+[NoCloud-Openhab](https://github.com/Hypfer/Valetudo-Openhab)
 
 This document tries to explain in enough detail how to add a NoCloud robot to openHAB with the goal of minimizing
 inconsistencies between different users setups. This will make it easier to share custom integrations among the NoCloud
 community.
 
-{% include alert.html type="note" content="This document applies only to openHAB 3.0 and newer. openHAB 2 and 1 are out
-of scope.
-Homie must also be enabled in NoCloud.
-
-" %}
+> [!NOTE]
+> This document applies only to openHAB 3.0 and newer. openHAB 2 and 1 are out of scope.<br/>
+> Homie must also be enabled in NoCloud.
 
 <div style="text-align: center">
 
@@ -51,23 +49,20 @@ Homie must also be enabled in NoCloud.
 4. Go back to Things → [+ button] → MQTT Binding, but this time, if you configured the broker correctly, you should]
    find your NoCloud instance on top, with a subtitle `mqtt:homie300`. Choose a unique name for your robot.
 5. Now navigate to "Model"
-   {% include alert.html type="tip" content="If you haven't configured your semantic model, you should probably give it
-   a shot, it simplifies setting up devices by orders of
-   magnitude. [Docs](https://www.openhab.org/docs/tutorial/model.html)." %}
+> [!TIP]
+> If you haven't configured your semantic model, you should probably give it a shot.
+> You'll that it simplifies setting up devices by orders of magnitude. [Docs](https://www.openhab.org/docs/tutorial/model.html).
 6. Select the room you want to add your robot to, then click "Create Equipment from Thing" and select your newly created
    NoCloud Homie thing. Fill in the name, etc, then scroll towards the bottom before saving.
 7. Enable and configure the channels you want to import from the vacuum. You don't have to select all of them, and you
    don't need to add all the items you configure to your semantic model (to not add them to the model, set the
    \"Semantic class\" to \"None\"). The table below shows the recommended channels to enable and suggested parameters.
+
+> [!IMPORTANT]
+> Do not change the \"Name\" fields if you want to use or publish custom widgets and integrations.
    
-   {% include alert.html type="important" content="Do not change the \"Name\" fields if you want to use or publish
-   custom widgets and integrations.
-   
-   " %}
-   
-   {% include alert.html type="note" content="For channel Map you need
-[I Can't Believe It's Not NoCloud](https://github.com/DGAlexandru/ICantBelieveItsNotNoCloud) with \"mqtt.publishMapImage\" and \"mqtt.publishAsBase64\" set to \"true\". 
-   " %}
+> [!NOTE]
+> For channel Map you need [one of these](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/companion_apps/i_cant_believe_its_not_NoCloud.md) with \"mqtt.publishMapImage\" and \"mqtt.publishAsBase64\" set to \"true\".
    
    | Channel        | Type      | Category     | Semantic class | Semantic Property | Notes        |
    | -------------- | --------- | ------------ | -------------- | ----------------- | ------------ |
@@ -86,10 +81,8 @@ Homie must also be enabled in NoCloud.
    | Map            | String    |              | None           | None              | Change item to image type |
    | Map segments   | String    |              | None           | None              | Optional     |
 
-   {% include alert.html type="tip" content="If you need to add more channels later you can always select your vacuum
-   from the semantic model, then click \"Create Points from Thing\".
-   
-   " %}
+> [!TIP]
+> If you need to add more channels later you can always select your vacuum from the semantic model, then click \"Create Points from Thing\".
 
 8. Once the vacuum is added and linked, we are ready to add the custom widget. Go to Developer Tools → Widgets →
    [+ button] and paste the widget code at the end of this page.
