@@ -5,7 +5,7 @@ order: 14
 ---
 # NoCloud doesn't yet have a companion app
 
-This might change int the future, but untill then, you can use:
+This might change in the future, but untill then, you can use:
 
 # Valetudo Companion (Android) 
 
