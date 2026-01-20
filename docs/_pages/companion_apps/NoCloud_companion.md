@@ -3,9 +3,13 @@ title: NoCloud Companion (Android)
 category: Companion Apps
 order: 14
 ---
-# NoCloud Companion (Android)
+# NoCloud doesn't yet have a companion app
 
-The NoCloud Companion android app listens for Bonjour broadcasts of recent (2021.07.0++) NoCloud instances on your network
+This might change int the future, but untill then, you can use:
+
+# Valetudo Companion (Android) 
+
+The Valetudo Companion android app listens for Bonjour broadcasts of recent (2021.07.0++) NoCloud instances on your network
 and will display each one in a list to make it easy to access them without needing to set up
 static DHCP leases or looking into your routers webinterface.
 
@@ -15,22 +19,22 @@ Note that this app is completely optional and only exists to make NoCloud more a
 This app will not provide any UI to interface with NoCloud during normal operation.
 Basically, you can think of it as an automatically updating bookmark + some wizard stuff.
 
-Its sourcecode is available on GitHub (Apache-2.0): [https://github.com/DGAlexandru/NoCloud-companion](https://github.com/DGAlexandru/NoCloud-companion)
+Its sourcecode is available on GitHub (Apache-2.0): [https://github.com/Hypfer/valetudo-companion](https://github.com/Hypfer/valetudo-companion)
 
 ## How to Install
 
-The preferred way of obtaining the App is of course [F-Droid](https://f-droid.org/repository/browse/?fdid=cloud.NoCloud.companion).
+The preferred way of obtaining the App is of course [F-Droid](https://f-droid.org/repository/browse/?fdid=cloud.valetudo.companion).
 
-You can also find it on the [Google Play Store](https://play.google.com/store/apps/details?id=cloud.NoCloud.companion), however do note that even though this App itself doesn't contain any tracking,
+You can also find it on the [Google Play Store](https://play.google.com/store/apps/details?id=cloud.valetudo.companion), however do note that even though this App itself doesn't contain any tracking,
 the Play Store will in fact collect anonymous usage data. This applies to all Apps downloaded from there btw.
 
 ## Screenshots
 
-[<img src="https://github.com/DGAlexandru/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-01.png" width=250>](https://github.com/DGAlexandru/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-01.png)
-[<img src="https://github.com/DGAlexandru/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-02.png" width=250>](https://github.com/DGAlexandru/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-02.png)
-[<img src="https://github.com/DGAlexandru/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-03.png" width=250>](https://github.com/DGAlexandru/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-03.png)
-[<img src="https://github.com/DGAlexandru/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-04.png" width=250>](https://github.com/DGAlexandru/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-04.png)
-[<img src="https://github.com/DGAlexandru/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-05.png" width=250>](https://github.com/DGAlexandru/NoCloud-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-05.png)
+[<img src="https://github.com/Hypfer/valetudo-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-01.png" width=250>](https://github.com/Hypfer/valetudo-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-01.png)
+[<img src="https://github.com/Hypfer/valetudo-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-02.png" width=250>](https://github.com/Hypfer/valetudo-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-02.png)
+[<img src="https://github.com/Hypfer/valetudo-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-03.png" width=250>](https://github.com/Hypfer/valetudo-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-03.png)
+[<img src="https://github.com/Hypfer/valetudo-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-04.png" width=250>](https://github.com/Hypfer/valetudo-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-04.png)
+[<img src="https://github.com/Hypfer/valetudo-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-05.png" width=250>](https://github.com/Hypfer/valetudo-companion/raw/master/fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-05.png)
 
 ## Transparency
 
