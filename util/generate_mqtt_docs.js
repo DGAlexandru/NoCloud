@@ -28,7 +28,7 @@ const NoCloudEventStore = require("NoCloud-backend/lib/NoCloudEventStore");
 
 
 function jekyllAlert(type, content) {
-    return "{% include alert.html type=\"" + type + "\" content=\"" + content.replace(/"/g, "\\\"") + "\" %}\n\n";
+    return "> [!" + type.toUpperCase() + "]\n> " + content.replace(/\\/g, "\\\\").replace(/"/g, "\\\"") + "\n";
 }
 
 const markdownPreamble = `---
@@ -48,9 +48,9 @@ On this page you can also find the exact topic to which to send commands to or f
 See the specific integration pages for instructions on how to set up autodiscovery for your home automation software
 platform:
 
-- [Home Assistant](./home-assistant-integration)
-- [openHAB](./openhab-integration)
-- [Node-RED](./node-red)
+- [Home Assistant](./home-assistant-integration.md)
+- [openHAB](./openhab-integration.md)
+- [Node-RED](./node-red.md)
 
 Other home automation software that follows the [Homie convention](https://homieiot.github.io/) should also be able to
 automatically discover your NoCloud instance.
@@ -366,7 +366,7 @@ class FakeMqttController extends MqttController {
             attributes.push("Device");
         }
         if (handle instanceof CapabilityMqttHandle) {
-            attributes.push(`capability: [${handle.capability.getType()}](/_pages/usage/capabilities-overview.md#${this.generateAnchor(handle.capability.getType())})`);
+            attributes.push(`capability: [${handle.capability.getType()}](../usage/capabilities-overview.md#${this.generateAnchor(handle.capability.getType())}-)`);
         }
         markdown += `*${attributes.join(", ")}*` + "\n\n";
 
@@ -450,13 +450,11 @@ class FakeMqttController extends MqttController {
             let alert = "Some information contained in this document " +
                 "may not be exactly what is sent or expected by actual robots, since different vendors have different" +
                 " implementations. Refer to the table below.\n\n";
-            alert += "|------+--------|\n";
             alert += "| What | Reason |\n";
             alert += "|------|--------|\n";
             for (const [what, reason] of Object.entries(handle.helpMayChange)) {
                 alert += `| ${what} | ${reason} |` + "\n";
             }
-            alert += "|------+--------|\n\n";
             markdown += jekyllAlert("warning", alert);
         }
 
@@ -464,7 +462,7 @@ class FakeMqttController extends MqttController {
             try {
                 const sampleValue = await handle.getHomie();
                 if (sampleValue) {
-                    markdown += "Sample value:\n\n";
+                    markdown += "Sample value:\n";
                     if (handle.format === "json" || [DataType.BOOLEAN, DataType.INTEGER, DataType.FLOAT].includes(handle.dataType)) {
                         markdown += "```json\n";
                     } else {
@@ -524,7 +522,7 @@ class FakeMqttController extends MqttController {
             }
         }
 
-        markdown += "\n\n";
+        markdown += "\n";
 
         return {
             markdown: markdown,
