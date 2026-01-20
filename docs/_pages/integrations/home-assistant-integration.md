@@ -36,9 +36,9 @@ The new NoCloud Device will just be there.
 ![ha-demo-dashboard.png](./img/ha-demo-dashboard.png)
 
 If you'd like to use the NoCloud Iconset as part of your Dashboards, check out this repository:
-[https://github.com/DGAlexandru/hass-NoCloud-icons](https://github.com/DGAlexandru/hass-NoCloud-icons)
+[HASS NoCloud Icons](https://github.com/Hypfer/hass-valetudo-icons)
 
-To display the map of your robot in a Home Assistant dashboard, the [NoCloud Map Card](https://github.com/DGAlexandru/lovelace-NoCloud-map-card) is used.
+To display the map of your robot in a Home Assistant dashboard, the [Lovelace NoCloud Map Card](../companion_apps/lovelace_NoCloud_map_card.md) is used.
 Setup instructions for that can be found on [hass.valetudo.cloud](https://hass.valetudo.cloud/).
 
 ### Interacting with NoCloud
@@ -58,7 +58,7 @@ To determine the right topic to publish that payload to, first determine the `ba
 
 ![ha-demo-base-topic.png](./img/ha-demo-base-topic.png)
 
-Then, look up the rest of the topic + any other considerations for the desired Capability in the [MQTT documentation](/_pages/integrations/mqtt.md).
+Then, look up the rest of the topic + any other considerations for the desired Capability in the [MQTT documentation](./mqtt.md).
 
 For the example in these screenshots, the full service call would look like this:
 
