@@ -5,7 +5,7 @@
 NoCloud is an opinionated software solution for cloud-free vacuum robots installed on thousands of robots.<br/>
 Since it was started in 2018, it has matured to a reliable fire-and-forget solution that just works.
 
-NoCloud is a fork of [Valetudo] (https://github.com/Hypfer/Valetudo) (developed by Hypfer, <a href="https://hypfer.de" rel="noopener" target="_blank">Sören Beye</a>) in which I add my own touch by further adding other features or changing it's appearance.<br/>
+NoCloud is a fork of [Valetudo](https://github.com/Hypfer/Valetudo) (developed by Hypfer, <a href="https://hypfer.de" rel="noopener" target="_blank">Sören Beye</a>) in which I add my own touch by further adding other features or changing it's appearance.<br/>
 It would not exist without the work of <a href="https://dontvacuum.me/" rel="noopener" target="_blank">Dennis Giese</a>,
 who provided a way of liberating and gaining actual ownership of our robots.
 
