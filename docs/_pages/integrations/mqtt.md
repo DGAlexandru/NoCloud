@@ -15,9 +15,9 @@ On this page you can also find the exact topic to which to send commands to or f
 See the specific integration pages for instructions on how to set up autodiscovery for your home automation software
 platform:
 
-- [Home Assistant](./home-assistant-integration)
-- [openHAB](./openhab-integration)
-- [Node-RED](./node-red)
+- [Home Assistant](./home-assistant-integration.md)
+- [openHAB](./openhab-integration.md)
+- [Node-RED](./node-red.md)
 
 Other home automation software that follows the [Homie convention](https://homieiot.github.io/) should also be able to
 automatically discover your NoCloud instance.
@@ -174,7 +174,7 @@ Home Assistant components controlled by this device:
 
 #### Auto Empty Dock Manual Trigger (`AutoEmptyDockManualTriggerCapability`) <a id="autoemptydockmanualtriggerautoemptydockmanualtriggercapability" />
 
-*Node, capability: [AutoEmptyDockManualTriggerCapability](/_pages/usage/capabilities-overview.md#autoemptydockmanualtriggercapability)*
+*Node, capability: [AutoEmptyDockManualTriggerCapability](/docs/_pages/usage/capabilities-overview.md#autoemptydockmanualtriggercapability)*
 
 ##### Auto Empty Dock Manual Trigger (`trigger`) <a id="autoemptydockmanualtriggertrigger" />
 
@@ -194,7 +194,7 @@ Home Assistant components controlled by this property:
 
 #### Basic control (`BasicControlCapability`) <a id="basiccontrolbasiccontrolcapability" />
 
-*Node, capability: [BasicControlCapability](/_pages/usage/capabilities-overview.md#basiccontrolcapability)*
+*Node, capability: [BasicControlCapability](/docs/_pages/usage/capabilities-overview.md#basiccontrolcapability)*
 
 ##### Operation (`operation`) <a id="operationoperation" />
 
@@ -210,7 +210,7 @@ Home Assistant components controlled by this property:
 
 #### Carpet Mode (`CarpetModeControlCapability`) <a id="carpetmodecarpetmodecontrolcapability" />
 
-*Node, capability: [CarpetModeControlCapability](/_pages/usage/capabilities-overview.md#carpetmodecontrolcapability)*
+*Node, capability: [CarpetModeControlCapability](/docs/_pages/usage/capabilities-overview.md#carpetmodecontrolcapability)*
 
 **Note:** This is an optional exposed capability handle and thus will only be available via MQTT if enabled in the NoCloud configuration.
 
@@ -238,7 +238,7 @@ Home Assistant components controlled by this property:
 
 #### Carpet Sensor Mode (`CarpetSensorModeControlCapability`) <a id="carpetsensormodecarpetsensormodecontrolcapability" />
 
-*Node, capability: [CarpetSensorModeControlCapability](/_pages/usage/capabilities-overview.md#carpetsensormodecontrolcapability)*
+*Node, capability: [CarpetSensorModeControlCapability](/docs/_pages/usage/capabilities-overview.md#carpetsensormodecontrolcapability)*
 
 **Note:** This is an optional exposed capability handle and thus will only be available via MQTT if enabled in the NoCloud configuration.
 
@@ -252,18 +252,14 @@ This handle allows setting the Carpet Sensor Mode. It accepts the preset payload
 - Set topic: `<TOPIC PREFIX>/<IDENTIFIER>/CarpetSensorModeControlCapability/mode/set`
 - Data type: [enum](https://homieiot.github.io/specification/#enum) (allowed payloads: `lift`, `avoid`, `off`)
 
-{% include alert.html type="warning" content="Some information contained in this document may not be exactly what is sent or expected by actual robots, since different vendors have different implementations. Refer to the table below.
+> [!WARNING]
+> Some information contained in this document may not be exactly what is sent or expected by actual robots, since different vendors have different implementations. Refer to the table below.
 
-|------+--------|
 | What | Reason |
 |------|--------|
 | Enum payloads | Different robot models have different Carpet Sensor Modes. Always check `$format`/`json_attributes` during startup. |
-|------+--------|
-
-" %}
 
 Sample value:
-
 ```
 lift
 ```
@@ -278,20 +274,19 @@ Home Assistant components controlled by this property:
 
 #### Consumables monitoring (`ConsumableMonitoringCapability`) <a id="consumablesmonitoringconsumablemonitoringcapability" />
 
-*Node, capability: [ConsumableMonitoringCapability](/_pages/usage/capabilities-overview.md#consumablemonitoringcapability)*
+*Node, capability: [ConsumableMonitoringCapability](/docs/_pages/usage/capabilities-overview.md#consumablemonitoringcapability)*
 
 **Note:** This is an optional exposed capability handle and thus will only be available via MQTT if enabled in the NoCloud configuration.
 
-{% include alert.html type="warning" content="Some information contained in this document may not be exactly what is sent or expected by actual robots, since different vendors have different implementations. Refer to the table below.
+> [!WARNING]
+> Some information contained in this document may not be exactly what is sent or expected by actual robots, since different vendors have different implementations. Refer to the table below.
 
-|------+--------|
 | What | Reason |
 |------|--------|
 | Properties | Consumables depend on the robot model. |
 | Property datatype and units | Some robots send consumables as remaining time, others send them as endurance percent remaining. |
-|------+--------|
 
-" %}
+
 
 ##### Consumable (minutes) (`<CONSUMABLE-MINUTES>`) <a id="consumableminutesconsumable-minutes" />
 
@@ -367,19 +362,18 @@ Home Assistant components controlled by this property:
 
 #### Current Statistics (`CurrentStatisticsCapability`) <a id="currentstatisticscurrentstatisticscapability" />
 
-*Node, capability: [CurrentStatisticsCapability](/_pages/usage/capabilities-overview.md#currentstatisticscapability)*
+*Node, capability: [CurrentStatisticsCapability](/docs/_pages/usage/capabilities-overview.md#currentstatisticscapability)*
 
 **Note:** This is an optional exposed capability handle and thus will only be available via MQTT if enabled in the NoCloud configuration.
 
-{% include alert.html type="warning" content="Some information contained in this document may not be exactly what is sent or expected by actual robots, since different vendors have different implementations. Refer to the table below.
+> [!WARNING]
+> Some information contained in this document may not be exactly what is sent or expected by actual robots, since different vendors have different implementations. Refer to the table below.
 
-|------+--------|
 | What | Reason |
 |------|--------|
 | Properties | Available statistics depend on the robot model. |
-|------+--------|
 
-" %}
+
 
 ##### Current Statistics Area (`area`) <a id="currentstatisticsareaarea" />
 
@@ -425,7 +419,7 @@ Home Assistant components controlled by this property:
 
 #### Fan control (`FanSpeedControlCapability`) <a id="fancontrolfanspeedcontrolcapability" />
 
-*Node, capability: [FanSpeedControlCapability](/_pages/usage/capabilities-overview.md#fanspeedcontrolcapability)*
+*Node, capability: [FanSpeedControlCapability](/docs/_pages/usage/capabilities-overview.md#fanspeedcontrolcapability)*
 
 Status attributes managed by this node:
 
@@ -441,18 +435,14 @@ This handle allows setting the fan. It accepts the preset payloads specified in 
 - Set topic: `<TOPIC PREFIX>/<IDENTIFIER>/FanSpeedControlCapability/preset/set`
 - Data type: [enum](https://homieiot.github.io/specification/#enum) (allowed payloads: `off`, `min`, `low`, `medium`, `high`, `turbo`, `max`)
 
-{% include alert.html type="warning" content="Some information contained in this document may not be exactly what is sent or expected by actual robots, since different vendors have different implementations. Refer to the table below.
+> [!WARNING]
+> Some information contained in this document may not be exactly what is sent or expected by actual robots, since different vendors have different implementations. Refer to the table below
 
-|------+--------|
 | What | Reason |
 |------|--------|
 | Enum payloads | Different robot models have different fan presets. Always check `$format`/`json_attributes` during startup. |
-|------+--------|
-
-" %}
 
 Sample value:
-
 ```
 max
 ```
@@ -467,7 +457,7 @@ Home Assistant components controlled by this property:
 
 #### Go to location (`GoToLocationCapability`) <a id="gotolocationgotolocationcapability" />
 
-*Node, capability: [GoToLocationCapability](/_pages/usage/capabilities-overview.md#gotolocationcapability)*
+*Node, capability: [GoToLocationCapability](/docs/_pages/usage/capabilities-overview.md#gotolocationcapability)*
 
 ##### Go to location (`go`) <a id="gotolocationgo" />
 
@@ -499,7 +489,7 @@ Sample payload:
 
 #### Lock Keys (`KeyLockCapability`) <a id="lockkeyskeylockcapability" />
 
-*Node, capability: [KeyLockCapability](/_pages/usage/capabilities-overview.md#keylockcapability)*
+*Node, capability: [KeyLockCapability](/docs/_pages/usage/capabilities-overview.md#keylockcapability)*
 
 **Note:** This is an optional exposed capability handle and thus will only be available via MQTT if enabled in the NoCloud configuration.
 
@@ -527,7 +517,7 @@ Home Assistant components controlled by this property:
 
 #### Locate (`LocateCapability`) <a id="locatelocatecapability" />
 
-*Node, capability: [LocateCapability](/_pages/usage/capabilities-overview.md#locatecapability)*
+*Node, capability: [LocateCapability](/docs/_pages/usage/capabilities-overview.md#locatecapability)*
 
 ##### Locate (`locate`) <a id="locatelocate" />
 
@@ -547,7 +537,7 @@ Home Assistant components controlled by this property:
 
 #### Segment cleaning (`MapSegmentationCapability`) <a id="segmentcleaningmapsegmentationcapability" />
 
-*Node, capability: [MapSegmentationCapability](/_pages/usage/capabilities-overview.md#mapsegmentationcapability)*
+*Node, capability: [MapSegmentationCapability](/docs/_pages/usage/capabilities-overview.md#mapsegmentationcapability)*
 
 ##### Clean segments (`clean`) <a id="cleansegmentsclean" />
 
@@ -582,7 +572,7 @@ Sample payload:
 
 #### Obstacle Avoidance (`ObstacleAvoidanceControlCapability`) <a id="obstacleavoidanceobstacleavoidancecontrolcapability" />
 
-*Node, capability: [ObstacleAvoidanceControlCapability](/_pages/usage/capabilities-overview.md#obstacleavoidancecontrolcapability)*
+*Node, capability: [ObstacleAvoidanceControlCapability](/docs/_pages/usage/capabilities-overview.md#obstacleavoidancecontrolcapability)*
 
 **Note:** This is an optional exposed capability handle and thus will only be available via MQTT if enabled in the NoCloud configuration.
 
@@ -610,7 +600,7 @@ Home Assistant components controlled by this property:
 
 #### Mode control (`OperationModeControlCapability`) <a id="modecontroloperationmodecontrolcapability" />
 
-*Node, capability: [OperationModeControlCapability](/_pages/usage/capabilities-overview.md#operationmodecontrolcapability)*
+*Node, capability: [OperationModeControlCapability](/docs/_pages/usage/capabilities-overview.md#operationmodecontrolcapability)*
 
 Status attributes managed by this node:
 
@@ -626,18 +616,14 @@ This handle allows setting the mode. It accepts the preset payloads specified in
 - Set topic: `<TOPIC PREFIX>/<IDENTIFIER>/OperationModeControlCapability/preset/set`
 - Data type: [enum](https://homieiot.github.io/specification/#enum) (allowed payloads: `mop`, `vacuum`, `vacuum_and_mop`)
 
-{% include alert.html type="warning" content="Some information contained in this document may not be exactly what is sent or expected by actual robots, since different vendors have different implementations. Refer to the table below.
+> [!WARNING]
+> Some information contained in this document may not be exactly what is sent or expected by actual robots, since different vendors have different implementations. Refer to the table below.
 
-|------+--------|
 | What | Reason |
 |------|--------|
 | Enum payloads | Different robot models have different mode presets. Always check `$format`/`json_attributes` during startup. |
-|------+--------|
-
-" %}
 
 Sample value:
-
 ```
 vacuum
 ```
@@ -652,7 +638,7 @@ Home Assistant components controlled by this property:
 
 #### Pet Obstacle Avoidance (`PetObstacleAvoidanceControlCapability`) <a id="petobstacleavoidancepetobstacleavoidancecontrolcapability" />
 
-*Node, capability: [PetObstacleAvoidanceControlCapability](/_pages/usage/capabilities-overview.md#petobstacleavoidancecontrolcapability)*
+*Node, capability: [PetObstacleAvoidanceControlCapability](/docs/_pages/usage/capabilities-overview.md#petobstacleavoidancecontrolcapability)*
 
 **Note:** This is an optional exposed capability handle and thus will only be available via MQTT if enabled in the NoCloud configuration.
 
@@ -680,7 +666,7 @@ Home Assistant components controlled by this property:
 
 #### Speaker volume control (`SpeakerVolumeControlCapability`) <a id="speakervolumecontrolspeakervolumecontrolcapability" />
 
-*Node, capability: [SpeakerVolumeControlCapability](/_pages/usage/capabilities-overview.md#speakervolumecontrolcapability)*
+*Node, capability: [SpeakerVolumeControlCapability](/docs/_pages/usage/capabilities-overview.md#speakervolumecontrolcapability)*
 
 **Note:** This is an optional exposed capability handle and thus will only be available via MQTT if enabled in the NoCloud configuration.
 
@@ -710,19 +696,16 @@ Home Assistant components controlled by this property:
 
 #### Total Statistics (`TotalStatisticsCapability`) <a id="totalstatisticstotalstatisticscapability" />
 
-*Node, capability: [TotalStatisticsCapability](/_pages/usage/capabilities-overview.md#totalstatisticscapability)*
+*Node, capability: [TotalStatisticsCapability](/docs/_pages/usage/capabilities-overview.md#totalstatisticscapability)*
 
 **Note:** This is an optional exposed capability handle and thus will only be available via MQTT if enabled in the NoCloud configuration.
 
-{% include alert.html type="warning" content="Some information contained in this document may not be exactly what is sent or expected by actual robots, since different vendors have different implementations. Refer to the table below.
+> [!WARNING]
+> Some information contained in this document may not be exactly what is sent or expected by actual robots, since different vendors have different implementations. Refer to the table below.
 
-|------+--------|
 | What | Reason |
 |------|--------|
 | Properties | Available statistics depend on the robot model. |
-|------+--------|
-
-" %}
 
 ##### Total Statistics Area (`area`) <a id="totalstatisticsareaarea" />
 
@@ -732,7 +715,6 @@ Home Assistant components controlled by this property:
 - Data type: [integer](https://homieiot.github.io/specification/#integer) (unit: cm²)
 
 Sample value:
-
 ```json
 3150000
 ```
@@ -787,7 +769,7 @@ Home Assistant components controlled by this property:
 
 #### Water control (`WaterUsageControlCapability`) <a id="watercontrolwaterusagecontrolcapability" />
 
-*Node, capability: [WaterUsageControlCapability](/_pages/usage/capabilities-overview.md#waterusagecontrolcapability)*
+*Node, capability: [WaterUsageControlCapability](/docs/_pages/usage/capabilities-overview.md#waterusagecontrolcapability)*
 
 Status attributes managed by this node:
 
@@ -803,15 +785,12 @@ This handle allows setting the water. It accepts the preset payloads specified i
 - Set topic: `<TOPIC PREFIX>/<IDENTIFIER>/WaterUsageControlCapability/preset/set`
 - Data type: [enum](https://homieiot.github.io/specification/#enum) (allowed payloads: `off`, `min`, `low`, `medium`, `high`, `max`)
 
-{% include alert.html type="warning" content="Some information contained in this document may not be exactly what is sent or expected by actual robots, since different vendors have different implementations. Refer to the table below.
+> [!WARNING]
+> Some information contained in this document may not be exactly what is sent or expected by actual robots, since different vendors have different implementations. Refer to the table below.
 
-|------+--------|
 | What | Reason |
 |------|--------|
 | Enum payloads | Different robot models have different water presets. Always check `$format`/`json_attributes` during startup. |
-|------+--------|
-
-" %}
 
 Sample value:
 
@@ -829,7 +808,7 @@ Home Assistant components controlled by this property:
 
 #### Wi-Fi configuration (`WifiConfigurationCapability`) <a id="wi-ficonfigurationwificonfigurationcapability" />
 
-*Node, capability: [WifiConfigurationCapability](/_pages/usage/capabilities-overview.md#wificonfigurationcapability)*
+*Node, capability: [WifiConfigurationCapability](/docs/_pages/usage/capabilities-overview.md#wificonfigurationcapability)*
 
 Home Assistant components controlled by this node:
 
@@ -899,7 +878,7 @@ NoCloud Wi-Fi
 
 #### Zone cleaning (`ZoneCleaningCapability`) <a id="zonecleaningzonecleaningcapability" />
 
-*Node, capability: [ZoneCleaningCapability](/_pages/usage/capabilities-overview.md#zonecleaningcapability)*
+*Node, capability: [ZoneCleaningCapability](/docs/_pages/usage/capabilities-overview.md#zonecleaningcapability)*
 
 ##### Start zoned cleaning (`start`) <a id="startzonedcleaningstart" />
 
