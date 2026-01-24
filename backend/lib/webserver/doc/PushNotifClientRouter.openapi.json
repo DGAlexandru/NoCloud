@@ -86,6 +86,7 @@
                   "retry": 30,
                   "expire": 600,
                   "titleID": "Robot1",
+                  "url": "http://127.0.0.1/",
                   "rateLimit": 5,
                   "rateLimitTime": 60000,
                   "pushEvents": false,

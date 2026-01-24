@@ -402,6 +402,7 @@ export interface PushNotifClientConfiguration {
     retry: number;
     expire: number;
     titleID: string;
+    url: string;
     rateLimit: number;
     rateLimitTime: number;
     pushEvents: boolean;
@@ -416,6 +417,7 @@ export interface SendPushNotifClientParams {
     retry?: number;
     expire?: number;
     titleID?: string;
+    url?: string;
 }
 
 export interface NoCloudEvent {

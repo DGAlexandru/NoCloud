@@ -137,6 +137,7 @@ type PushNotifConfigState = {
     retry: number;
     expire: number;
     titleID: string;
+    url: string;
     rateLimit: number;
     rateLimitTime: number;
     pushEvents: boolean;
@@ -222,6 +223,7 @@ const PushNotifConnectivity: React.FC<{
         retry: 30,
         expire: 600,
         titleID: "Robot1",
+        url: "http://127.0.0.1/",
         rateLimit: 5,
         rateLimitTime: 60_000,
         pushEvents: false,
@@ -430,10 +432,21 @@ const PushNotifConnectivity: React.FC<{
                         fullWidth
                     />
                 </Grid>
+                <Grid size={{ xs: 12, sm: 4 }}>
+                    <TextField
+                        label="NoCloud URL"
+                        value={config.url}
+                        disabled={!config.enabled}
+                        variant="standard"
+                        onChange={(e) => updateConfig("url", e.target.value)}
+                        fullWidth
+                    />
+                </Grid>
                 <Grid size={{ xs: 6, sm: 2 }}>
                     <TextField
                         label="Notification Sound"
                         value={config.sound}
+                        disabled={!config.enabled}
                         variant="standard"
                         onChange={(e) => updateConfig("sound", e.target.value)}
                         fullWidth
@@ -470,6 +483,7 @@ const PushNotifConnectivity: React.FC<{
                                 label="Sec. between retries"
                                 type="number"
                                 value={config.retry}
+                                disabled={!config.enabled}
                                 variant="standard"
                                 onChange={(e) => updateConfig("retry", Number(e.target.value))}
                                 slotProps={{ htmlInput: { min: 30, max: 10*60 } }}
@@ -481,6 +495,7 @@ const PushNotifConnectivity: React.FC<{
                                 label="Expiration (sec)"
                                 type="number"
                                 value={config.expire}
+                                disabled={!config.enabled}
                                 variant="standard"
                                 onChange={(e) => updateConfig("expire", Number(e.target.value))}
                                 slotProps={{ htmlInput: { min: 10*60, max: 3*60*60 } }}

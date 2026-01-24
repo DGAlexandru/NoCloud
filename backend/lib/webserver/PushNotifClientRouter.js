@@ -36,7 +36,7 @@ class PushNotifClientRouter {
 
         // Update configuration Route
         this.router.put("/config", this.validator, (req, res) => {
-            const { enabled, server, port, path, token, user, sound, priority, retry, expire, titleID, rateLimit, rateLimitTime, pushEvents, processEvents } = req.body;
+            const { enabled, server, port, path, token, user, sound, priority, retry, expire, titleID, url, rateLimit, rateLimitTime, pushEvents, processEvents } = req.body;
 
             // Validate parameters and alert if any are missing or incorrect
             if (typeof enabled !== "boolean") {
@@ -81,6 +81,10 @@ class PushNotifClientRouter {
 
             if (typeof titleID !== "string") {
                 return res.status(400).send({ error: "PushNotif: invalid value for 'titleID' (expecting a string)" });
+            }
+
+            if (typeof url !== "string") {
+                return res.status(400).send({ error: "PushNotif: invalid value for 'url' (expecting a string)" });
             }
 
             if (typeof rateLimit !== "number" || rateLimit < 1 || rateLimit > 50) {

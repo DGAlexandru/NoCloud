@@ -49,10 +49,11 @@ class PushNotifClient {
      * @param {number} [params.priority=0] - Notification priority (-2..2)
      * @param {number} [params.retry] - Required for Emergency (priority = 2, seconds)
      * @param {number} [params.expire] - Required for Emergency (priority = 2, seconds)
+     * @param {string} [params.url] - Notification URL
      *
      * @returns {Promise<void>}
      */
-    async send({ message, title, sound, priority = 0, retry, expire }) {
+    async send({ message, title, sound, priority = 0, retry, expire, url }) {
         if (this.shuttingDown) {
             Logger.warn("PushNotifClient.send() called during shutdown");
             return;
@@ -102,6 +103,11 @@ class PushNotifClient {
                 payload.expire = pushNotifConfig.expire;
             }
         }
+        if (url) {
+            payload.url = url;
+        } else if (pushNotifConfig.url) {
+            payload.url = pushNotifConfig.url;
+        }
         const postData = querystring.stringify(payload); // format it for application/x-www-form-urlencoded
 
         const requestOptions = {
@@ -119,7 +125,8 @@ class PushNotifClient {
             title: title,
             message: message,
             sound: sound,
-            priority: priority
+            priority: priority,
+            url: url
         });
         this.inFlightRequests += 1;
 
