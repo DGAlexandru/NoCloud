@@ -19,6 +19,8 @@ import {
     useCarpetSensorModeQuery,
     useCollisionAvoidantNavigationControlMutation,
     useCollisionAvoidantNavigationControlQuery,
+    useFloorMaterialDirectionAwareNavigationControlMutation,
+    useFloorMaterialDirectionAwareNavigationControlQuery,
     useKeyLockStateMutation,
     useKeyLockStateQuery,
     useLocateMutation,
@@ -51,6 +53,7 @@ import {
     AutoDelete as AutoEmptyIntervalControlIcon,
     Cable as ObstacleAvoidanceControlIcon,
     DeviceThermostat as MopDockMopWashTemperatureControlIcon,
+    Explore as FloorMaterialDirectionAwareNavigationControlIcon,
     FlashlightOn as CameraLightControlIcon,
     Lock as KeyLockIcon,
     MiscellaneousServices as MiscIcon,
@@ -368,6 +371,32 @@ const CollisionAvoidantNavigationControlCapabilitySwitchListMenuItem = () => {
             primaryLabel={"Collision-avoidant Navigation"}
             secondaryLabel={"Uses a more conservative route for collision-avoidant navigation, but may result in missed spots."}
             icon={<CollisionAvoidantNavigationControlIcon/>}
+        />
+    );
+};
+
+const FloorMaterialDirectionAwareNavigationControlCapabilitySwitchListMenuItem = () => {
+    const {
+        data: data,
+        isFetching: isFetching,
+        isError: isError,
+    } = useFloorMaterialDirectionAwareNavigationControlQuery();
+
+    const {mutate: mutate, isPending: isChanging} = useFloorMaterialDirectionAwareNavigationControlMutation();
+    const loading = isFetching || isChanging;
+    const disabled = loading || isChanging || isError;
+
+    return (
+        <ToggleSwitchListMenuItem
+            value={data?.enabled ?? false}
+            setValue={(value) => {
+                mutate(value);
+            }}
+            disabled={disabled}
+            loadError={isError}
+            primaryLabel={"Material-aligned Navigation"}
+            secondaryLabel={"Clean along the direction of the configured/detected floor material (if applicable)."}
+            icon={<FloorMaterialDirectionAwareNavigationControlIcon/>}
         />
     );
 };
@@ -721,6 +750,7 @@ const RobotOptions = (): React.ReactElement => {
         carpetModeControlCapabilitySupported,
         carpetSensorModeControlCapabilitySupported,
         collisionAvoidantNavigationControlCapabilitySupported,
+        floorMaterialDirectionAwareNavigationControlSupported,
         doNotDisturbCapabilitySupported,
         keyLockControlCapabilitySupported,
         locateCapabilitySupported,
@@ -744,6 +774,7 @@ const RobotOptions = (): React.ReactElement => {
         Capability.CarpetSensorModeControl,
         Capability.CollisionAvoidantNavigation,
         Capability.DoNotDisturb,
+        Capability.FloorMaterialDirectionAwareNavigationControl,
         Capability.KeyLock,
         Capability.Locate,
         Capability.MopDockMopAutoDryingControl,
@@ -806,6 +837,12 @@ const RobotOptions = (): React.ReactElement => {
             );
         }
 
+        if (floorMaterialDirectionAwareNavigationControlSupported) {
+            items.push(
+                <FloorMaterialDirectionAwareNavigationControlCapabilitySwitchListMenuItem key="floorMaterialDirectionAwareNavigationControl"/>
+            );
+        }
+
         if (obstacleAvoidanceControlCapabilitySupported) {
             items.push(
                 <ObstacleAvoidanceControlCapabilitySwitchListMenuItem key={"obstacleAvoidanceControl"}/>
@@ -848,6 +885,7 @@ const RobotOptions = (): React.ReactElement => {
         carpetModeControlCapabilitySupported,
         carpetSensorModeControlCapabilitySupported,
         collisionAvoidantNavigationControlCapabilitySupported,
+        floorMaterialDirectionAwareNavigationControlSupported,
         mopExtensionControlCapabilitySupported,
         mopExtensionFurnitureLegHandlingControlSupported,
         mopGapControlCapabilitySupported,

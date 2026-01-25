@@ -1057,6 +1057,18 @@ export const sendManualControlInteraction = async (interaction: ManualControlInt
         });
 };
 
+export const fetchFloorMaterialDirectionAwareNavigationControlState = async (): Promise<SimpleToggleState> => {
+    return NoCloudAPI
+        .get<SimpleToggleState>(`/robot/capabilities/${Capability.FloorMaterialDirectionAwareNavigationControl}`)
+        .then(({ data }) => {
+            return data;
+        });
+};
+
+export const sendFloorMaterialDirectionAwareNavigationControlState = async (enable: boolean): Promise<void> => {
+    await sendToggleMutation(Capability.FloorMaterialDirectionAwareNavigationControl, enable);
+};
+
 export const fetchHighResolutionManualControlState = async (): Promise<SimpleToggleState> => {
     return NoCloudAPI
         .get<SimpleToggleState>(`/robot/capabilities/${Capability.HighResolutionManualControl}`)

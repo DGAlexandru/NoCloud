@@ -78,7 +78,7 @@ const SegmentRenameDialog = (props: SegmentRenameDialogProps) => {
     }, [open, currentName]);
 
     return (
-        <Dialog open={open} onClose={onClose}>
+        <Dialog open={open} onClose={onClose} sx={{userSelect: "none"}}>
             <DialogTitle>Rename Segment</DialogTitle>
             <DialogContent>
                 <DialogContentText>
@@ -142,7 +142,7 @@ const SegmentMaterialDialog = (props: SegmentMaterialDialogProps) => {
     const supportedMaterials = materialProperties?.supportedMaterials ?? [];
 
     return (
-        <Dialog open={open} onClose={onClose}>
+        <Dialog open={open} onClose={onClose} sx={{userSelect: "none"}}>
             <DialogTitle>Segment Material</DialogTitle>
             <DialogContent>
                 <DialogContentText style={{marginBottom: "1rem"}}>

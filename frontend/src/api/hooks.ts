@@ -28,6 +28,7 @@ import {
     fetchCurrentStatistics,
     fetchCurrentStatisticsProperties,
     fetchDoNotDisturbConfiguration,
+    fetchFloorMaterialDirectionAwareNavigationControlState,
     fetchHTTPBasicAuthConfiguration,
     fetchHighResolutionManualControlState,
     fetchKeyLockState,
@@ -99,6 +100,7 @@ import {
     sendConsumableReset,
     sendDismissWelcomeDialogAction,
     sendDoNotDisturbConfiguration,
+    sendFloorMaterialDirectionAwareNavigationControlState,
     sendGoToCommand,
     sendHTTPBasicAuthConfiguration,
     sendHighResolutionManualControlInteraction,
@@ -209,6 +211,7 @@ enum QueryKey {
     CurrentStatistics = "current_statistics",
     CurrentStatisticsProperties = "current_statistics_properties",
     DoNotDisturb = "do_not_disturb",
+    FloorMaterialDirectionAwareNavigationControl = "floor_material_direction_aware_navigation_control",
     HTTPBasicAuth = "http_basic_auth",
     HighResolutionManualControl = "high_resolution_manual_control",
     KeyLockInformation = "key_lock",
@@ -1395,6 +1398,25 @@ export const useMapSegmentMaterialControlPropertiesQuery = () => {
         queryFn: fetchMapSegmentMaterialControlProperties,
 
         staleTime: Infinity,
+    });
+};
+
+export const useFloorMaterialDirectionAwareNavigationControlQuery = () => {
+    return useQuery( {
+        queryKey: [QueryKey.FloorMaterialDirectionAwareNavigationControl],
+        queryFn: fetchFloorMaterialDirectionAwareNavigationControlState,
+
+        staleTime: Infinity
+    });
+};
+
+export const useFloorMaterialDirectionAwareNavigationControlMutation = () => {
+    return useNoCloudFetchingMutation({
+        queryKey: [QueryKey.FloorMaterialDirectionAwareNavigationControl],
+        mutationFn: (enable: boolean) => {
+            return sendFloorMaterialDirectionAwareNavigationControlState(enable).then(fetchFloorMaterialDirectionAwareNavigationControlState);
+        },
+        onError: useOnCommandError(Capability.FloorMaterialDirectionAwareNavigationControl)
     });
 };
 

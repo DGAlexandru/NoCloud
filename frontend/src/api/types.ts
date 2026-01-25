@@ -13,6 +13,7 @@ export enum Capability {
     CurrentStatistics = "CurrentStatisticsCapability",
     DoNotDisturb = "DoNotDisturbCapability",
     FanSpeedControl = "FanSpeedControlCapability",
+    FloorMaterialDirectionAwareNavigationControl = "FloorMaterialDirectionAwareNavigationControlCapability",
     GoToLocation = "GoToLocationCapability",
     HighResolutionManualControl = "HighResolutionManualControlCapability",
     KeyLock = "KeyLockCapability",
