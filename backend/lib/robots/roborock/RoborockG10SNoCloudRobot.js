@@ -54,13 +54,15 @@ class RoborockG10SNoCloudRobot extends RoborockGen4NoCloudRobot {
         [
             capabilities.RoborockAutoEmptyDockAutoEmptyIntervalControlCapability,
             capabilities.RoborockAutoEmptyDockManualTriggerCapability,
+            capabilities.RoborockCollisionAvoidantNavigationControlCapability,
+            capabilities.RoborockFloorMaterialDirectionAwareNavigationControlCapability,
+            capabilities.RoborockKeyLockCapability,
+            capabilities.RoborockMapSegmentMaterialControlCapability,
+            capabilities.RoborockMappingPassCapability,
             capabilities.RoborockMopDockCleanManualTriggerCapability,
             capabilities.RoborockMopDockDryManualTriggerCapability,
-            capabilities.RoborockKeyLockCapability,
-            capabilities.RoborockMappingPassCapability,
             capabilities.RoborockObstacleAvoidanceControlCapability,
             capabilities.RoborockPetObstacleAvoidanceControlCapability,
-            capabilities.RoborockCollisionAvoidantNavigationControlCapability
         ].forEach(capability => {
             this.registerCapability(new capability({robot: this}));
         });

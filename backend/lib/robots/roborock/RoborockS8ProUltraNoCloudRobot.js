@@ -54,12 +54,14 @@ class RoborockS8ProUltraNoCloudRobot extends RoborockGen4NoCloudRobot {
         [
             capabilities.RoborockAutoEmptyDockAutoEmptyIntervalControlCapability,
             capabilities.RoborockAutoEmptyDockManualTriggerCapability,
-            capabilities.RoborockMopDockDryManualTriggerCapability,
+            capabilities.RoborockCollisionAvoidantNavigationControlCapability,
+            capabilities.RoborockFloorMaterialDirectionAwareNavigationControlCapability,
             capabilities.RoborockKeyLockCapability,
+            capabilities.RoborockMapSegmentMaterialControlCapability,
             capabilities.RoborockMappingPassCapability,
+            capabilities.RoborockMopDockDryManualTriggerCapability,
             capabilities.RoborockObstacleAvoidanceControlCapability,
             capabilities.RoborockPetObstacleAvoidanceControlCapability,
-            capabilities.RoborockCollisionAvoidantNavigationControlCapability
         ].forEach(capability => {
             this.registerCapability(new capability({robot: this}));
         });
