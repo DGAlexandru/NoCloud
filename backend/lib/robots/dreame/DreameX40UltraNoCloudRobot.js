@@ -217,6 +217,7 @@ class DreameX40UltraNoCloudRobot extends DreameGen4NoCloudRobot {
             capabilities.DreameCameraLightControlCapability,
             capabilities.DreameCarpetModeControlCapability,
             capabilities.DreameCollisionAvoidantNavigationControlCapability,
+            capabilities.DreameFloorMaterialDirectionAwareNavigationControlCapability,
             capabilities.DreameKeyLockCapability,
             capabilities.DreameMopDockCleanManualTriggerCapability,
             capabilities.DreameMopDockDryManualTriggerCapability,
@@ -243,7 +244,7 @@ class DreameX40UltraNoCloudRobot extends DreameGen4NoCloudRobot {
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.DRAIN_INTERNAL_WATER_TANK),				//"3e1b0851-3a5a-4943-bea6-dea3d7284bff" : ["select_to_trigger", "trigger"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.EDGE_EXTENSION_FREQUENCY),				//"8f6a7013-794e-40d9-9bbe-8fdeed7c0b9d" : ["automatic", "each_cleanup", "every_7_days"]
                 //quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.EDGE_MOPPING),							//"7c71db1b-72b6-402e-89a4-d66c72cb9c8c" : ["off", "each_cleanup", "every_7_days"]
-                quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MATERIAL_DIRECTION_CLEANING),				//"2bb060c6-b8fb-41e6-962c-f42036d4ca54" : ["On", "Off"]
+                //quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MATERIAL_DIRECTION_CLEANING),				//"2bb060c6-b8fb-41e6-962c-f42036d4ca54" : ["On", "Off"]
                 //quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_AUTO_DRYING),					//"6efc4d62-b5a4-474e-b353-5746a99ee8f9" : ["On", "Off"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_AUTO_REPAIR_TRIGGER),			//"ae753798-aa4f-4b35-a60c-91e7e5ae76f3" : ["select_to_trigger", "trigger"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_CLEANING_PROCESS_TRIGGER),		//"42c7db4b-2cad-4801-a526-44de8944a41f" : ["select_to_trigger", "trigger"]

@@ -108,7 +108,7 @@ class DreameQuirkFactory {
                         );
                     }
                 });
-            case DreameQuirkFactory.KNOWN_QUIRKS.MATERIAL_DIRECTION_CLEANING:
+            /*case DreameQuirkFactory.KNOWN_QUIRKS.MATERIAL_DIRECTION_CLEANING:
                 return new Quirk({
                     id: id,
                     title: "Clean Along Floor Direction",
@@ -152,7 +152,7 @@ class DreameQuirkFactory {
                             })
                         );
                     }
-                });
+                }); */
             case DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_MOP_ONLY_MODE:
                 return new Quirk({
                     id: id,
