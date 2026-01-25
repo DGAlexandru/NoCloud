@@ -223,8 +223,8 @@ const menuTree: Array<MenuEntry | MenuSubEntry | MenuSubheader> = [
     },
     {
         kind: "MenuSubEntry",
-        route: "/options/robot/misc",
-        title: "Misc Options",
+        route: "/options/robot/system",
+        title: "System Options",
         parentRoute: "/options/robot"
     },
     {

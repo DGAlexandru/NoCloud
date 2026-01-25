@@ -2,13 +2,11 @@ import MapStructure from "./MapStructure";
 import {Canvas2DContextTrackingWrapper} from "../../utils/Canvas2DContextTrackingWrapper";
 import {considerHiDPI} from "../../utils/helpers";
 
-
 class VirtualWallMapStructure extends MapStructure {
-    public static TYPE = "VirtualWallMapStructure";
+    public static readonly TYPE = "VirtualWallMapStructure";
 
     private x1: number;
     private y1: number;
-
 
     constructor(
         x0: number, y0: number,
@@ -25,11 +23,9 @@ class VirtualWallMapStructure extends MapStructure {
         const p0 = new DOMPoint(this.x0, this.y0).matrixTransform(transformationMatrixToScreenSpace);
         const p1 = new DOMPoint(this.x1, this.y1).matrixTransform(transformationMatrixToScreenSpace);
 
-
         ctxWrapper.save();
 
-
-        ctx.strokeStyle = "rgb(255, 0, 0, 0.75)";
+        ctx.strokeStyle = "rgb(239, 68, 68, 0.75)";
         ctx.lineWidth = considerHiDPI(5);
         ctx.lineCap = "round";
 
@@ -38,12 +34,7 @@ class VirtualWallMapStructure extends MapStructure {
         ctx.lineTo(p1.x, p1.y);
         ctx.stroke();
 
-
         ctxWrapper.restore();
-    }
-
-    getType(): string {
-        return VirtualWallMapStructure.TYPE;
     }
 }
 

@@ -11,9 +11,8 @@ img.src = segmentIconSVG;
 const img_selected = new Image();
 img_selected.src = segmentSelectedIconSVG;
 
-
 class SegmentLabelMapStructure extends MapStructure {
-    public static TYPE = "SegmentLabelMapStructure";
+    public static readonly TYPE = "SegmentLabelMapStructure";
 
     id: string;
     selected: boolean;
@@ -23,7 +22,6 @@ class SegmentLabelMapStructure extends MapStructure {
     public name: string | undefined;
     public material: RawMapLayerMaterial | undefined;
     private scaledIconSize: { width: number; height: number } = {width: 1, height: 1};
-
 
     constructor(x0 : number ,y0 : number, id: string, selected: boolean, active: boolean, area: number, name?: string | undefined, material?: RawMapLayerMaterial | undefined) {
         super(x0, y0);
@@ -43,135 +41,101 @@ class SegmentLabelMapStructure extends MapStructure {
         const imageToUse = this.selected ? img_selected : img;
 
         this.scaledIconSize = {
-            width: Math.max(
-                considerHiDPI(imageToUse.width) * (scaleFactor / considerHiDPI(4)),
-                considerHiDPI(imageToUse.width) * 0.8
-            ),
-            height: Math.max(
-                considerHiDPI(imageToUse.height) * (scaleFactor / considerHiDPI(4)),
-                considerHiDPI(imageToUse.height) * 0.8
-            )
+            width: considerHiDPI(imageToUse.width) * (scaleFactor / considerHiDPI(4)),
+            height: considerHiDPI(imageToUse.height) * (scaleFactor / considerHiDPI(4))
         };
 
-        ctxWrapper.save();
+        const anchorX = this.scaledIconSize.width / 2;
+        const anchorY = (this.scaledIconSize.height / 3) * 2;
 
+        ctxWrapper.save();
+        ctxWrapper.translate(p0.x, p0.y);
         if (this.active) {
-            ctxWrapper.translate(p0.x, p0.y);
             ctxWrapper.rotate(Math.PI);
-            ctxWrapper.translate(-p0.x, -p0.y);
         }
 
         ctx.drawImage(
-            imageToUse,
-            p0.x - this.scaledIconSize.width / 2,
-            p0.y - (this.scaledIconSize.height / 3)*2,
+            this.getOptimizedImage(imageToUse, this.scaledIconSize.width, this.scaledIconSize.height),
+            -anchorX,
+            -anchorY,
             this.scaledIconSize.width,
             this.scaledIconSize.height
         );
 
         ctxWrapper.restore();
 
-        if (this.topLabel && scaleFactor >= considerHiDPI(1.2)) {
-            const yOffset = ((this.scaledIconSize.height/3)*2) + (this.active ? 0 : considerHiDPI(10));
+        if (this.topLabel) {
+            const distanceAnchorToTop = anchorY;
+            const distanceAnchorToBottom = this.scaledIconSize.height - anchorY;
 
-            // Based on previous "just looked right" numbers and regression
-            const fontSize = 5 * scaleFactor;
+            const iconTopEdgeY = this.active ?
+                p0.y - distanceAnchorToBottom :
+                p0.y - distanceAnchorToTop;
+
+            const textPadding = 1 * scaleFactor;
+            const finalY = iconTopEdgeY - textPadding;
 
             ctxWrapper.save();
 
             ctx.textAlign = "center";
-            ctx.font = `${considerHiDPI(fontSize)}px sans-serif`;
+            ctx.textBaseline = "bottom";
+            ctx.font = `${5 * scaleFactor}px "IBM Plex Sans", "Helvetica", sans-serif`;
             ctx.fillStyle = "rgba(255, 255, 255, 1)";
             ctx.strokeStyle = "rgba(18, 18, 18, 1)";
 
             ctx.lineWidth = considerHiDPI(2.5);
-            ctx.strokeText(this.topLabel, p0.x , p0.y - yOffset);
+            ctx.strokeText(this.topLabel, p0.x, finalY);
 
             ctx.lineWidth = considerHiDPI(1);
-            ctx.fillText(this.topLabel, p0.x , p0.y - yOffset);
+            ctx.fillText(this.topLabel, p0.x, finalY);
 
             ctxWrapper.restore();
         }
 
-        if (scaleFactor >= considerHiDPI(5)) {
-            // Based on previous "just looked right" numbers and regression
-            const fontSize = Math.floor(Math.log(scaleFactor)*11.89 + 6.84);
-            const maxNameLabelLength = Math.floor(Math.log(scaleFactor)*14.06 - 11.6);
+        const distanceAnchorToTop = anchorY;
+        const distanceAnchorToBottom = this.scaledIconSize.height - anchorY;
 
+        const iconBottomEdgeY = this.active ?
+            p0.y + distanceAnchorToTop :
+            p0.y + distanceAnchorToBottom;
+
+        const textPadding = 0.75 * scaleFactor;
+        const finalY = iconBottomEdgeY + textPadding;
+        const baseFontSize = 2.75 * scaleFactor;
+
+        const linesToDraw= [];
+
+        if (this.name) {
+            const maxNameLabelLength = Math.min(3 * scaleFactor, 48);
+            const nameLabel = this.name.length > maxNameLabelLength ?
+                `${this.name.substring(0, maxNameLabelLength - 3)}...` :
+                this.name;
+
+            linesToDraw.push({ text: nameLabel, fontSize: baseFontSize });
+        }
+
+        if (scaleFactor >= considerHiDPI(11)) {
+            let metaString = (this.area / 10000).toPrecision(2) + " m²";
+            metaString += ` (id=${this.id})`;
+
+            linesToDraw.push({ text: metaString, fontSize: baseFontSize - 5 });
+        }
+
+        if (linesToDraw.length > 0) {
             ctxWrapper.save();
-            ctx.textAlign = "center";
-            ctx.font = `${considerHiDPI(fontSize)}px sans-serif`;
-            ctx.fillStyle = "rgba(255, 255, 255, 1)";
-            ctx.strokeStyle = "rgba(18, 18, 18, 1)";
-
-            if (this.name) {
-                const nameLabel = this.name.length > maxNameLabelLength ? `${this.name.substring(0, maxNameLabelLength - 3)}...` : this.name;
-
-                ctx.lineWidth = considerHiDPI(2.5);
-                ctx.strokeText(
-                    nameLabel,
-                    p0.x ,
-                    p0.y + (
-                        (this.scaledIconSize.height/3)*2 +
-                        considerHiDPI(20) +
-                        (this.active ? considerHiDPI(25) : 0)
-                    )
-                );
-
-                ctx.lineWidth = considerHiDPI(1);
-                ctx.fillText(
-                    nameLabel,
-                    p0.x ,
-                    p0.y + (
-                        (this.scaledIconSize.height/3)*2 +
-                        considerHiDPI(20) +
-                        (this.active ? considerHiDPI(25) : 0)
-                    )
-                );
-            }
-
-            if (scaleFactor >= considerHiDPI(11)) {
-                let metaString = (this.area / 10000).toPrecision(2) + " m²";
-                metaString += ` (id=${this.id})`;
-
-                ctx.font = `${considerHiDPI(fontSize - 5)}px sans-serif`;
-
-                ctx.lineWidth = considerHiDPI(2.5);
-                ctx.strokeText(
-                    metaString,
-                    p0.x ,
-                    p0.y + (
-                        ((this.scaledIconSize.height/3) *2) +
-                        considerHiDPI(20) +
-                        (this.active ? considerHiDPI(25) : 0) +
-                        (this.name ? considerHiDPI(fontSize + 10) : 0)
-                    )
-                );
-
-                ctx.lineWidth = considerHiDPI(1);
-                ctx.fillText(
-                    metaString,
-                    p0.x ,
-                    p0.y + (
-                        ((this.scaledIconSize.height/3) *2) +
-                        considerHiDPI(20) +
-                        (this.active ? considerHiDPI(25) : 0) +
-                        (this.name ? considerHiDPI(fontSize + 10) : 0)
-                    )
-                );
-            }
-
-
+            this.drawPill(
+                ctx,
+                p0.x,
+                finalY,
+                linesToDraw,
+                { baseline: "top" }
+            );
             ctxWrapper.restore();
         }
     }
 
     onTap() {
         this.selected = !this.selected;
-    }
-
-    getType(): string {
-        return SegmentLabelMapStructure.TYPE;
     }
 }
 

@@ -254,9 +254,8 @@ const NTPConnectivity = (): React.ReactElement => {
                 }}
             >
                 <Typography color="info">
-                    NoCloud needs a synchronized clock for timers to work and the log timestamps to make sense.
-                    Furthermore, the integrated updater may not work if the clock is set wrongly due to TLS
-                    certificates usually only being valid within a particular period of time.
+                    NoCloud needs a synchronized clock for timers to work and the LOG timestamps to make sense.
+                    Additionally, anything using TLS (e.g. the inbuilt NoCloud Updater) also requires the correct date&time to work.
                 </Typography>
             </InfoBox>
 

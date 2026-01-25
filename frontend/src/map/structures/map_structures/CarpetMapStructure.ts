@@ -3,11 +3,10 @@ import {Canvas2DContextTrackingWrapper} from "../../utils/Canvas2DContextTrackin
 import {considerHiDPI} from "../../utils/helpers";
 
 class CarpetMapStructure extends MapStructure {
-    public static TYPE = "CarpetMapStructure";
+    public static readonly TYPE = "CarpetMapStructure";
     private static patternSourceCanvas: HTMLCanvasElement | null = null;
 
     private readonly points: Array<{x: number, y: number}>;
-
 
     constructor(
         points: Array<{x: number, y: number}>
@@ -86,10 +85,6 @@ class CarpetMapStructure extends MapStructure {
         }
 
         return ctx.createPattern(CarpetMapStructure.patternSourceCanvas, "repeat");
-    }
-
-    getType(): string {
-        return CarpetMapStructure.TYPE;
     }
 }
 

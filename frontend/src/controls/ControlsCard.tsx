@@ -19,7 +19,7 @@ const ControlsCard: React.FC<ControlsCardProps> = ({ icon: Icon, title, pending 
                 <Box px={1.5} py={1.5}>
                     <Grid container alignItems="center" spacing={1}>
                         <Grid><Icon fontSize="small" /></Grid>
-                        <Grid style={{paddingTop: 0}}>
+                        <Grid sx={{marginTop: "-8px" /* meh... */}}>
                             <Typography variant="subtitle1">
                                 {title}
                             </Typography>

@@ -2,9 +2,8 @@ import MapStructure from "./MapStructure";
 import {Canvas2DContextTrackingWrapper} from "../../utils/Canvas2DContextTrackingWrapper";
 import {considerHiDPI} from "../../utils/helpers";
 
-
 class NoGoAreaMapStructure extends MapStructure {
-    public static TYPE = "NoGoAreaMapStructure";
+    public static readonly TYPE = "NoGoAreaMapStructure";
 
     private x1: number;
     private y1: number;
@@ -36,12 +35,10 @@ class NoGoAreaMapStructure extends MapStructure {
         const p2 = new DOMPoint(this.x2, this.y2).matrixTransform(transformationMatrixToScreenSpace);
         const p3 = new DOMPoint(this.x3, this.y3).matrixTransform(transformationMatrixToScreenSpace);
 
-
         ctxWrapper.save();
 
-
-        ctx.strokeStyle = "rgb(255, 0, 0, 0.75)";
-        ctx.fillStyle = "rgba(255, 0, 0, 0.15)";
+        ctx.strokeStyle = "rgb(239, 68, 68, 0.75)";
+        ctx.fillStyle = "rgba(239, 68, 68, 0.15)";
         ctx.lineWidth = considerHiDPI(2);
 
         ctx.beginPath();
@@ -53,12 +50,7 @@ class NoGoAreaMapStructure extends MapStructure {
         ctx.stroke();
         ctx.fill();
 
-
         ctxWrapper.restore();
-    }
-
-    getType(): string {
-        return NoGoAreaMapStructure.TYPE;
     }
 }
 

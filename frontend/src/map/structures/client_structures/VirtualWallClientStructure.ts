@@ -2,7 +2,7 @@ import LineClientStructure from "./LineClientStructure";
 import {considerHiDPI} from "../../utils/helpers";
 
 class VirtualWallClientStructure extends LineClientStructure {
-    public static TYPE = "VirtualWallClientStructure";
+    public static readonly TYPE = "VirtualWallClientStructure";
 
     constructor(
         x0: number, y0: number,
@@ -17,10 +17,7 @@ class VirtualWallClientStructure extends LineClientStructure {
     }
 
     protected setLineStyle(ctx: CanvasRenderingContext2D) {
-        ctx.shadowColor = "rgba(0,0,0, 1)";
-        ctx.shadowBlur = considerHiDPI(2);
-
-        ctx.strokeStyle = "rgb(255, 0, 0)";
+        ctx.strokeStyle = "rgb(239, 68, 68)";
         ctx.lineWidth = considerHiDPI(5);
         ctx.lineCap = "round";
 
@@ -30,10 +27,6 @@ class VirtualWallClientStructure extends LineClientStructure {
                 considerHiDPI(5)
             ]);
         }
-    }
-
-    getType(): string {
-        return VirtualWallClientStructure.TYPE;
     }
 }
 

@@ -2,9 +2,8 @@ import { Canvas2DContextTrackingWrapper } from "../../utils/Canvas2DContextTrack
 import MapStructure from "./MapStructure";
 import {considerHiDPI} from "../../utils/helpers";
 
-
 class ActiveZoneMapStructure extends MapStructure {
-    public static TYPE = "ActiveZoneMapStructure";
+    public static readonly TYPE = "ActiveZoneMapStructure";
 
     private x1: number;
     private y1: number;
@@ -36,9 +35,7 @@ class ActiveZoneMapStructure extends MapStructure {
         const p2 = new DOMPoint(this.x2, this.y2).matrixTransform(transformationMatrixToScreenSpace);
         const p3 = new DOMPoint(this.x3, this.y3).matrixTransform(transformationMatrixToScreenSpace);
 
-
         ctxWrapper.save();
-
 
         ctx.strokeStyle = "rgb(53, 145, 26)";
         ctx.fillStyle = "rgba(107, 244, 66, 0.3)";
@@ -53,12 +50,7 @@ class ActiveZoneMapStructure extends MapStructure {
         ctx.stroke();
         ctx.fill();
 
-
         ctxWrapper.restore();
-    }
-
-    getType(): string {
-        return ActiveZoneMapStructure.TYPE;
     }
 }
 

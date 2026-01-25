@@ -38,7 +38,7 @@ const obstacleIcons: ObstacleIcons = {
 const hitboxPadding = 2.5;
 
 class ObstacleMapStructure extends MapStructure {
-    public static TYPE = "ObstacleMapStructure";
+    public static readonly TYPE = "ObstacleMapStructure";
     private label: string | undefined;
     private id: string | undefined;
     private scaledIconSize: { width: number; height: number } = {width: 1, height: 1};
@@ -61,14 +61,17 @@ class ObstacleMapStructure extends MapStructure {
         const name = (/^(.*) \(/.exec(this.label ?? "") ?? [])[1] ?? "";
         const img = obstacleIcons[name.toLowerCase()] ?? defaultImg;
         this.scaledIconSize = {
-            width: Math.max(considerHiDPI(img.width) / (considerHiDPI(8) / scaleFactor), considerHiDPI(img.width) * 0.3),
-            height: Math.max(considerHiDPI(img.height) / (considerHiDPI(8) / scaleFactor), considerHiDPI(img.height) * 0.3)
+            width: considerHiDPI(img.width) / (considerHiDPI(8) / scaleFactor),
+            height: considerHiDPI(img.height) / (considerHiDPI(8) / scaleFactor)
         };
 
+        const halfIconW = this.scaledIconSize.width / 2;
+        const halfIconH = this.scaledIconSize.height / 2;
+
         ctx.drawImage(
-            img,
-            p0.x - this.scaledIconSize.width / 2,
-            p0.y - this.scaledIconSize.height / 2,
+            this.getOptimizedImage(img, this.scaledIconSize.width, this.scaledIconSize.height),
+            p0.x - halfIconW,
+            p0.y - halfIconH,
             this.scaledIconSize.width,
             this.scaledIconSize.height
         );
@@ -76,16 +79,18 @@ class ObstacleMapStructure extends MapStructure {
         if (this.label && scaleFactor >= considerHiDPI(28)) {
             ctxWrapper.save();
 
-            ctx.textAlign = "center";
-            ctx.font = `${considerHiDPI(32)}px sans-serif`;
-            ctx.fillStyle = "rgba(255, 255, 255, 1)";
-            ctx.strokeStyle = "rgba(18, 18, 18, 1)";
+            const fontSize = 0.8 * scaleFactor;
+            const textPadding = 0.25 * scaleFactor;
 
-            ctx.lineWidth = considerHiDPI(2.5);
-            ctx.strokeText(this.label, p0.x , p0.y + (this.scaledIconSize.height/2) + considerHiDPI(32));
+            const textY = p0.y + halfIconH + textPadding;
 
-            ctx.lineWidth = considerHiDPI(1);
-            ctx.fillText(this.label, p0.x , p0.y + (this.scaledIconSize.height/2) + considerHiDPI(32));
+            this.drawPill(
+                ctx,
+                p0.x,
+                textY,
+                [{ text: this.label, fontSize: fontSize }],
+                { baseline: "top" }
+            );
 
             ctxWrapper.restore();
         }
@@ -119,10 +124,6 @@ class ObstacleMapStructure extends MapStructure {
         return {
             stopPropagation: false
         };
-    }
-
-    getType(): string {
-        return ObstacleMapStructure.TYPE;
     }
 }
 

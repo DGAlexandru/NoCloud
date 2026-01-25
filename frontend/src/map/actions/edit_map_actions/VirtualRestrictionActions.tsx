@@ -87,7 +87,7 @@ const VirtualRestrictionActions = (
         [...noGoAreas, ...noMopAreas].forEach((rZ : RestrictedZoneClientStructure) => {
             let type : NoCloudRestrictedZoneType = NoCloudRestrictedZoneType.Regular;
 
-            if (rZ.getType() === NoMopAreaClientStructure.TYPE) {
+            if (rZ.type === NoMopAreaClientStructure.TYPE) {
                 type = NoCloudRestrictedZoneType.Mop;
             }
 
