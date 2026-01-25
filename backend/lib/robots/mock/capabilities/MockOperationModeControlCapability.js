@@ -15,7 +15,8 @@ class MockOperationModeControlCapability extends OperationModeControlCapability 
         let presets = [
             new NoCloudSelectionPreset({name: entities.state.attributes.PresetSelectionStateAttribute.MODE.MOP, value: 0}),
             new NoCloudSelectionPreset({name: entities.state.attributes.PresetSelectionStateAttribute.MODE.VACUUM, value: 1}),
-            new NoCloudSelectionPreset({name: entities.state.attributes.PresetSelectionStateAttribute.MODE.VACUUM_AND_MOP, value: 2})
+            new NoCloudSelectionPreset({name: entities.state.attributes.PresetSelectionStateAttribute.MODE.VACUUM_AND_MOP, value: 2}),
+            new NoCloudSelectionPreset({name: entities.state.attributes.PresetSelectionStateAttribute.MODE.VACUUM_THEN_MOP, value: 3})
         ];
         super({
             robot: options.robot,

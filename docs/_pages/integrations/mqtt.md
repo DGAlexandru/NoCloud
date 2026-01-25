@@ -513,6 +513,9 @@ This handle accepts a JSON object identical to the one used by the REST API.
 Simply use the Map in the NoCloud UI, select the desired segments and iterations and then long-press the button that would start the action.<br/>
 This will open a modal containing the copy-pasteable payload.
 
+
+**Note:** Not all firmwares support customOrder.
+
 Sample payload:
 
 ```json
@@ -574,7 +577,7 @@ This handle allows setting the mode. It accepts the preset payloads specified in
 
 - Read topic: `<TOPIC PREFIX>/<IDENTIFIER>/OperationModeControlCapability/preset`
 - Set topic: `<TOPIC PREFIX>/<IDENTIFIER>/OperationModeControlCapability/preset/set`
-- Data type: [enum](https://homieiot.github.io/specification/#enum) (allowed payloads: `mop`, `vacuum`, `vacuum_and_mop`)
+- Data type: [enum](https://homieiot.github.io/specification/#enum) (allowed payloads: `mop`, `vacuum`, `vacuum_and_mop`, `vacuum_then_mop`)
 
 > [!WARNING]
 > Some information contained in this document may not be exactly what is sent or expected by actual robots, since different vendors have different implementations. Refer to the table below.
@@ -792,7 +795,7 @@ Sample value:
 
 Sample value:
 ```json
--48
+-56
 ```
 
 
@@ -927,11 +930,11 @@ This property contains all raised and not yet processed NoCloudEvents.
 Sample value:
 ```json
 {
-  "22a1e773-87ed-48e5-8530-d54dc396904f": {
+  "73ed2ad5-0b50-405e-aee3-162652765a8b": {
     "__class": "ErrorStateNoCloudEvent",
     "metaData": {},
-    "id": "22a1e773-87ed-48e5-8530-d54dc396904f",
-    "timestamp": "2026-01-20T21:47:24.946Z",
+    "id": "73ed2ad5-0b50-405e-aee3-162652765a8b",
+    "timestamp": "2026-01-25T15:45:32.712Z",
     "processed": false,
     "message": "This is an error message"
   },
@@ -939,21 +942,21 @@ Sample value:
     "__class": "PendingMapChangeNoCloudEvent",
     "metaData": {},
     "id": "pending_map_change",
-    "timestamp": "2026-01-20T21:47:24.946Z",
+    "timestamp": "2026-01-25T15:45:32.712Z",
     "processed": false
   },
   "mop_attachment_reminder": {
     "__class": "MopAttachmentReminderNoCloudEvent",
     "metaData": {},
     "id": "mop_attachment_reminder",
-    "timestamp": "2026-01-20T21:47:24.946Z",
+    "timestamp": "2026-01-25T15:45:32.712Z",
     "processed": false
   },
-  "199b73a3-6917-48b7-9c47-dd45963b4a47": {
+  "5f8811bd-bbf2-4587-abbb-b4b3313033e0": {
     "__class": "DustBinFullNoCloudEvent",
     "metaData": {},
-    "id": "199b73a3-6917-48b7-9c47-dd45963b4a47",
-    "timestamp": "2026-01-20T21:47:24.946Z",
+    "id": "5f8811bd-bbf2-4587-abbb-b4b3313033e0",
+    "timestamp": "2026-01-25T15:45:32.712Z",
     "processed": false
   }
 }
