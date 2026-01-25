@@ -2,6 +2,7 @@ const DreameMiotHelper = require("../DreameMiotHelper");
 const DreameMiotServices = require("../DreameMiotServices");
 const DreameUtils = require("../DreameUtils");
 const MopExtensionControlCapability = require("../../../core/capabilities/MopExtensionControlCapability");
+const {sleep} = require("../../../utils/misc");
 
 /**
  * @extends MopExtensionControlCapability<import("../DreameNoCloudRobot")>
@@ -43,6 +44,7 @@ class DreameMopExtensionControlCapabilityV2 extends MopExtensionControlCapabilit
                 MopExtrSwitch: 1
             })
         );
+        await sleep(100); // Allow the firmware to process the change
     }
 
     /**
@@ -56,6 +58,7 @@ class DreameMopExtensionControlCapabilityV2 extends MopExtensionControlCapabilit
                 MopExtrSwitch: 0
             })
         );
+        await sleep(100); // Allow the firmware to process the change
     }
 }
 

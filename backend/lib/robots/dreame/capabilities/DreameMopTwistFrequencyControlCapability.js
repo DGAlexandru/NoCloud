@@ -2,6 +2,7 @@ const DreameMiotHelper = require("../DreameMiotHelper");
 const DreameMiotServices = require("../DreameMiotServices");
 const DreameUtils = require("../DreameUtils");
 const MopTwistFrequencyControlCapability = require("../../../core/capabilities/MopTwistFrequencyControlCapability");
+const {sleep} = require("../../../utils/misc");
 
 /**
  * @extends MopTwistFrequencyControlCapability<import("../DreameNoCloudRobot")>
@@ -68,6 +69,7 @@ class DreameMopTwistFrequencyControlCapability extends MopTwistFrequencyControlC
             this.piid,
             DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE({ MeticulousTwist: val })
         );
+        await sleep(100); // Allow the firmware to process the change
     }
 
     getProperties() {
