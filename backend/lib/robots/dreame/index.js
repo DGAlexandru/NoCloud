@@ -25,6 +25,7 @@ module.exports = {
     "DreameW10NoCloudRobot": require("./DreameW10NoCloudRobot"),
     "DreameW10ProNoCloudRobot": require("./DreameW10ProNoCloudRobot"),
     "DreameX10PlusNoCloudRobot": require("./DreameX10PlusNoCloudRobot"),
+    "DreameX30UltraNoCloudRobot": require("./DreameX30UltraNoCloudRobot"),
     "DreameX40MasterNoCloudRobot": require("./DreameX40MasterNoCloudRobot"),
     "DreameX40UltraNoCloudRobot": require("./DreameX40UltraNoCloudRobot"),
     "DreameZ10ProNoCloudRobot": require("./DreameZ10ProNoCloudRobot")
