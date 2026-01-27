@@ -21,7 +21,7 @@ import {
     Typography
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import {ReactComponent as Logo} from "./assets/icons/NoCloud_logo_with_name.svg";
+import Logo from "./assets/icons/NoCloud_logo_with_name.svg?react";
 import React from "react";
 import {
     Refresh as RefreshIcon,

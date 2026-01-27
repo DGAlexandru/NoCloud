@@ -1,15 +1,15 @@
-import PaperContainer from "../components/PaperContainer";
-import {Box} from "@mui/material";
+import DetailPageHeaderRow from "../components/DetailPageHeaderRow";
+import gfm from "remark-gfm";
 import Grid from "@mui/material/Grid2";
-import {Info as AboutIcon} from "@mui/icons-material";
+import Logo from "../assets/icons/NoCloud_logo_with_name.svg?react";
+import PaperContainer from "../components/PaperContainer";
 import React from "react";
 import ReactMarkdown from "react-markdown";
-import gfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import style from "./About.module.css";
 import {AboutText} from "./res/AboutText";
-import {ReactComponent as Logo} from "../assets/icons/NoCloud_logo_with_name.svg";
-import DetailPageHeaderRow from "../components/DetailPageHeaderRow";
+import {Box} from "@mui/material";
+import {Info as AboutIcon} from "@mui/icons-material";
 
 const About = (): React.ReactElement => {
     return (

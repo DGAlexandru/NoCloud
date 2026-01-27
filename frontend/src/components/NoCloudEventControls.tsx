@@ -1,8 +1,7 @@
 import React, {FunctionComponent} from "react";
 import {ConsumableSubType, ConsumableType, NoCloudEvent, NoCloudEventInteraction} from "../api";
 import {Button, ButtonGroup, Stack, styled, Typography} from "@mui/material";
-import {getConsumableName} from "../utils";
-import {formatRelative} from "date-fns";
+import {format8601Ish, formatRelative, getConsumableName} from "../utils";
 
 export interface NoCloudEventRenderProps {
     event: NoCloudEvent;
@@ -23,8 +22,8 @@ const EventRow = styled("div")({
 
 const EventTimestamp : FunctionComponent<{timestamp: number | string}> = ({timestamp}) => {
     return (
-        <Typography variant="caption">
-            {formatRelative(new Date(timestamp), new Date())}
+        <Typography variant="caption" title={format8601Ish(new Date(timestamp))} style={{ cursor: "help" }}>
+            {formatRelative(timestamp)}
         </Typography>
     );
 };

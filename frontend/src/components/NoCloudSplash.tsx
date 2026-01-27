@@ -1,7 +1,7 @@
-import {ReactComponent as SplashLogo} from "../assets/icons/NoCloud_splash.svg";
-import {CircularProgress} from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import React from "react";
+import SplashLogo from "../assets/icons/NoCloud_splash.svg?react";
+import {CircularProgress} from "@mui/material";
 
 const NoCloudSplash = (): React.ReactElement => {
 

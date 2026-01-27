@@ -1,9 +1,9 @@
-import {Box, Icon, Paper, styled} from "@mui/material";
-import Grid from "@mui/material/Grid2";
 import ControlsBody from "./ControlsBody";
-import {ReactComponent as Logo} from "../assets/icons/NoCloud_logo_with_name.svg";
-import {ExpandLess as OpenIcon, ExpandMore as CloseIcon,} from "@mui/icons-material";
+import Grid from "@mui/material/Grid2";
+import Logo from "../assets/icons/NoCloud_logo_with_name.svg?react";
 import React from "react";
+import {Box, Icon, Paper, styled} from "@mui/material";
+import {ExpandLess as OpenIcon, ExpandMore as CloseIcon,} from "@mui/icons-material";
 
 const MobileControls: React.FunctionComponent<{ open: boolean, setOpen: (newOpen: boolean) => void }> = ({
     open,

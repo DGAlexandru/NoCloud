@@ -1,7 +1,8 @@
 // noinspection ES6PreferShortImport - Import cannot be shortened without ending up with a cyclic dependency in the build
-import {RawMapLayer, RawMapLayerMaterial} from "../api/RawMapData";
+import {darkPalette, lightPalette} from "../colors";
 import {FourColorTheoremSolver} from "./utils/colors/FourColorTheoremSolver";
 import {PaletteMode} from "@mui/material";
+import {RawMapLayer, RawMapLayerMaterial} from "../api/RawMapData";
 
 export type RGBColor = {
     r: number;
@@ -175,7 +176,7 @@ const fallbackPixelPatternHandler: PixelPatternHandler = (x, y) => {
 };
 
 const materialToPixelPatternHandler: {[key in RawMapLayerMaterial]: PixelPatternHandler} = {
-    [RawMapLayerMaterial.Carpet]: solidFillPixelPatternHandler, // ToDo: Define custom renderer
+    [RawMapLayerMaterial.Carpet]: fallbackPixelPatternHandler, // ToDo: Define custom renderer
     [RawMapLayerMaterial.Generic]: solidFillPixelPatternHandler,
     [RawMapLayerMaterial.LowPileCarpet]: solidFillPixelPatternHandler, // ToDo: Define custom renderer
     [RawMapLayerMaterial.MediumPileCarpet]: solidFillPixelPatternHandler, // ToDo: Define custom renderer
@@ -332,14 +333,14 @@ const TYPE_SORT_MAPPING = {
 };
 
 export const COLORS: LayerColors = {
-    floor: hexToRgb("#0076ff"),
-    wall: hexToRgb("#333333"),
+    floor: hexToRgb(lightPalette.blue),
+    wall: hexToRgb(lightPalette.mapWall),
     segments: [
-        hexToRgb("#19A1A1"),
-        hexToRgb("#7AC037"),
-        hexToRgb("#DF5618"),
-        hexToRgb("#F7C841"),
-        hexToRgb("#9966CC") // "fallback" color
+        hexToRgb(lightPalette.teal),
+        hexToRgb(lightPalette.green),
+        hexToRgb(lightPalette.red),
+        hexToRgb(lightPalette.yellow),
+        hexToRgb(lightPalette.purple) // "fallback" color
     ]
 };
 
@@ -362,9 +363,15 @@ export const BACKGROUND_ACCENT_COLORS: LayerColors = {
 };
 
 export const DARK_COLORS: LayerColors = {
-    floor: adjustRGBColorBrightness(COLORS.floor, -20),
-    wall: COLORS.wall,
-    segments: COLORS.segments.map(c => adjustRGBColorBrightness(c, -20))
+    floor: hexToRgb(darkPalette.blue),
+    wall: hexToRgb(darkPalette.mapWall),
+    segments: [
+        hexToRgb(darkPalette.teal),
+        hexToRgb(darkPalette.green),
+        hexToRgb(darkPalette.red),
+        hexToRgb(darkPalette.yellow),
+        hexToRgb(darkPalette.purple) // "fallback" color
+    ]
 };
 
 export const DARK_ACCENT_COLORS: LayerColors = {

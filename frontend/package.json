@@ -3,9 +3,10 @@
   "homepage": ".",
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
-    "eject": "react-scripts eject",
-    "watch": "cra-build-watch -p ''",
+    "build": "node scripts/build.js",
+    "build_stats": "node scripts/build.js --stats",
+    "analyze_stats": "npx webpack-bundle-analyzer ./build/bundle-stats.json",
+    "watch": "node scripts/watch.js",
     "ts-check": "tsc --noEmit --skipLibCheck",
     "lint": "eslint -c .automated.eslintrc.json .",
     "lint_fix": "eslint -c .automated.eslintrc.json . --fix",
@@ -14,8 +15,7 @@
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "react-app"
     ]
   },
   "browserslist": {
@@ -39,16 +39,14 @@
   "dependencies": {
     "@emotion/react": "~11.14.0",
     "@emotion/styled": "~11.14.1",
-    "@fontsource/jetbrains-mono": "~5.2.8",
     "@fontsource/ibm-plex-sans": "5.2.8",
+    "@fontsource/jetbrains-mono": "~5.2.8",
     "@mui/icons-material": "~6.5.0",
     "@mui/lab": "~6.0.1-beta.36",
     "@mui/material": "~6.5.0",
-    "@mui/x-date-pickers": "~6.20.2",
     "@tanstack/react-query": "~5.90.19",
     "@tanstack/react-query-devtools": "~5.91.2",
     "axios": "^1.13.2",
-    "date-fns": "~2.30.0",
     "notistack": "~3.0.2",
     "react": "~18.3.1",
     "react-div-100vh": "~0.7.0",
@@ -56,7 +54,6 @@
     "react-joystick-component": "~6.2.1",
     "react-markdown": "~9.1.0",
     "react-router-dom": "~6.30.3",
-    "react-scripts": "~5.0.1",
     "reconnecting-eventsource": "~1.6.4",
     "rehype-raw": "~7.0.0",
     "remark-gfm": "~4.0.1",
@@ -65,10 +62,36 @@
     "zustand": "~5.0.10"
   },
   "devDependencies": {
+    "@babel/core": "~7.28.6",
     "@babel/plugin-proposal-private-property-in-object": "~7.21.11",
-    "@types/react": "~18.3.12",
-    "@types/react-dom": "~18.3.0",
+    "@svgr/webpack": "~8.1.0",
+    "@types/react": "~18.3.18",
+    "@types/react-dom": "~18.3.5",
     "@types/uuid": "~10.0.0",
-    "cra-build-watch": "git+https://npm@github.com/DGAlexandru/cra-build-watch.git#5.0.0"
+    "babel-loader": "~10.0.0",
+    "babel-preset-react-app": "~10.1.0",
+    "case-sensitive-paths-webpack-plugin": "~2.4.0",
+    "css-loader": "~7.1.2",
+    "css-minimizer-webpack-plugin": "~7.0.4",
+    "eslint-config-react-app": "~7.0.1",
+    "eslint-webpack-plugin": "~3.2.0",
+    "fs-extra": "~9.0.1",
+    "html-webpack-plugin": "~5.5.0",
+    "mini-css-extract-plugin": "~2.10.0",
+    "postcss-flexbugs-fixes": "~5.0.2",
+    "postcss-loader": "~8.2.0",
+    "postcss-normalize": "~13.0.1",
+    "postcss-preset-env": "~11.1.1",
+    "react-dev-utils": "~12.0.1",
+    "resolve": "~1.22.11",
+    "style-loader": "~4.0.0",
+    "terser-webpack-plugin": "~5.3.16",
+    "webpack": "~5.104.1",
+    "webpack-manifest-plugin": "~6.0.1"
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ]
   }
 }

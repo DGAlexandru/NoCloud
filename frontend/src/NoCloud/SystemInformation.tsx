@@ -33,56 +33,49 @@ import {
 import RatioBar from "../components/RatioBar";
 import { convertSecondsToHumans } from "../utils";
 import { useIsMobileView } from "../hooks";
+import { useNoCloudColorsInverse } from "../hooks/useNoCloudColors";
 import ReloadableCard from "../components/ReloadableCard";
 import PaperContainer from "../components/PaperContainer";
 import TextInformationGrid from "../components/TextInformationGrid";
 
-// CPU colors
-const cpuUsageTypeColors: Record<CPUUsageType, string> = {
-    [CPUUsageType.USER]: "#7AC037",
-    [CPUUsageType.NICE]: "#19A1A1",
-    [CPUUsageType.SYS]: "#DF5618",
-    [CPUUsageType.IRQ]: "#9966CC",
-    [CPUUsageType.IDLE]: "#000000", // not used
-};
-
 // CPU helper
-function cpuUsageToPartitions(usage: Record<CPUUsageType, number>) {
+function cpuUsageToPartitions(
+    usage: Record<CPUUsageType, number>,
+    colors: Record<CPUUsageType, string>
+) {
     return Object.entries(usage)
         .filter(([type]) => type !== CPUUsageType.IDLE)
         .map(([type, value]) => ({
             label: type,
             value: value,
             valueLabel: `${value} %`,
-            color: cpuUsageTypeColors[type as CPUUsageType],
+            color: colors[type as CPUUsageType],
         }));
 }
 
 // RAM helper
-function memoryToPartitions(mem: {
-    total: number;
-    free: number;
-    NoCloud_current: number;
-    NoCloud_max: number;
-}) {
+function memoryToPartitions(
+    mem: { total: number; free: number; NoCloud_current: number; NoCloud_max: number; },
+    colors: { system: string; nocloud: string; nocloudMax: string; }
+) {
     return [
         {
             label: "System",
             value: mem.total - mem.free - mem.NoCloud_current,
             valueLabel: `${((mem.total - mem.free - mem.NoCloud_current) / 1024 / 1024).toFixed(2)} MiB`,
-            color: "#7AC037",
+            color: colors.system,
         },
         {
             label: "NoCloud",
             value: mem.NoCloud_current,
             valueLabel: `${(mem.NoCloud_current / 1024 / 1024).toFixed(2)} MiB`,
-            color: "#DF5618",
+            color: colors.nocloud,
         },
         {
             label: "NoCloud (Max)",
             value: mem.NoCloud_max - mem.NoCloud_current,
             valueLabel: `${((mem.NoCloud_max - mem.NoCloud_current) / 1024 / 1024).toFixed(2)} MiB`,
-            color: "#19A1A1",
+            color: colors.nocloudMax,
         },
     ];
 }
@@ -210,6 +203,25 @@ const SystemRuntimeInfo = (): React.ReactElement => {
 
 // --- SystemInformation Component ---
 const SystemInformation = (): React.ReactElement => {
+    const palette = useNoCloudColorsInverse();
+    const cpuUsageTypeColors = React.useMemo(
+        () => ({
+            [CPUUsageType.USER]: palette.green,
+            [CPUUsageType.NICE]: palette.teal,
+            [CPUUsageType.SYS]: palette.red,
+            [CPUUsageType.IRQ]: palette.purple,
+            [CPUUsageType.IDLE]: "#000000",
+        }),
+        [palette]
+    );
+    const memoryColors = React.useMemo(
+        () => ({
+            system: palette.green,
+            nocloud: palette.red,
+            nocloudMax: palette.teal,
+        }),
+        [palette]
+    );
     const { data: robotInformation, isPending: robotInformationPending } = useRobotInformationQuery();
     const { data: version, isPending: versionPending } = useNoCloudVersionQuery();
     const { data: NoCloudInformation, isPending: NoCloudInformationPending } = useNoCloudInformationQuery();
@@ -268,7 +280,7 @@ const SystemInformation = (): React.ReactElement => {
                     <RatioBar
                         total={systemHostInfo.mem.total}
                         totalLabel={`${(systemHostInfo.mem.free / 1024 / 1024).toFixed(2)} MiB`}
-                        partitions={memoryToPartitions(systemHostInfo.mem)}
+                        partitions={memoryToPartitions(systemHostInfo.mem, memoryColors)}
                         noneLegendLabel="Free"
                     />
                 </Grid>
@@ -280,7 +292,7 @@ const SystemInformation = (): React.ReactElement => {
                             key={`cpu_${i}`}
                             style={{ marginTop: "4px" }}
                             total={100}
-                            partitions={cpuUsageToPartitions(cpu.usage)}
+                            partitions={cpuUsageToPartitions(cpu.usage, cpuUsageTypeColors)}
                             hideLegend={i !== systemHostInfo.cpus.length - 1}
                             noneLegendLabel="idle"
                         />

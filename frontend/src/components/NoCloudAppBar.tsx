@@ -71,9 +71,6 @@ interface MenuSubheader {
         type: "allof" | "anyof"
     };
 }
-
-
-
 //Note that order is important here
 const menuTree: Array<MenuEntry | MenuSubEntry | MenuSubheader> = [
     {
@@ -144,10 +141,8 @@ const menuTree: Array<MenuEntry | MenuSubEntry | MenuSubheader> = [
                 Capability.PersistentMapControl,
                 Capability.MappingPass,
                 Capability.MapReset,
-
                 Capability.MapSegmentEdit,
                 Capability.MapSegmentRename,
-
                 Capability.CombinedVirtualRestrictions
             ],
             type: "anyof"
@@ -288,6 +283,33 @@ const menuTree: Array<MenuEntry | MenuSubEntry | MenuSubheader> = [
     },
 ];
 
+function hasRoute(
+    item: MenuEntry | MenuSubEntry | MenuSubheader
+): item is MenuEntry | MenuSubEntry {
+    return "route" in item;
+}
+
+function hasRequiredCapabilities(
+    required: {
+        capabilities: Capability[];
+        type: "allof" | "anyof";
+    } | undefined,
+    supported: boolean[],
+    capabilityList: Capability[]
+): boolean {
+    if (!required) {
+        return true;
+    }
+
+    const indices = required.capabilities.map(
+        cap => capabilityList.indexOf(cap)
+    );
+
+    return required.type === "allof" ?
+        indices.every(i => supported[i]) :
+        indices.some(i => supported[i]);
+}
+
 const NoCloudAppBar: React.FunctionComponent<{ paletteMode: PaletteMode, setPaletteMode: (newMode: PaletteMode) => void }> = ({
     paletteMode,
     setPaletteMode
@@ -295,51 +317,47 @@ const NoCloudAppBar: React.FunctionComponent<{ paletteMode: PaletteMode, setPale
     const [drawerOpen, setDrawerOpen] = React.useState<boolean>(false);
     const currentLocation = useLocation()?.pathname;
     const robotCapabilities = useCapabilitiesSupported(...Object.values(Capability));
+    const capabilityList = React.useMemo(() => Object.values(Capability), []);
 
-    //@ts-ignore
-    const currentMenuEntry = menuTree.find(element => element.route === currentLocation) ?? menuTree[0];
+    const currentMenuEntry = menuTree.find(item => hasRoute(item) && item.route === currentLocation) ?? menuTree[0];
 
     const pageTitle = React.useMemo(() => {
-        let ret = "";
+        const titles = menuTree
+            .filter((item): item is MenuEntry | MenuSubEntry =>
+                hasRoute(item) &&
+                item.route !== "/" &&
+                currentLocation.startsWith(item.route)
+            )
+            .map(item => item.title);
 
-        menuTree.forEach((element) => {
-            //@ts-ignore
-            if (currentLocation.includes(element.route) && element.route !== "/" && element.title) {
-                if (ret !== "") {
-                    ret += " - ";
-                }
-
-                ret += element.title;
-            }
-        });
-
-        if (ret !== "") {
-            document.title = `NoCloud - ${ret}`;
-        } else {
-            document.title = "NoCloud";
-        }
+        document.title = titles.length ?
+            `NoCloud - ${titles.join(" - ")}` :
+            "NoCloud";
 
         return currentMenuEntry.title;
     }, [currentLocation, currentMenuEntry]);
+
+    const visibleMenuItems = React.useMemo(() => {
+        return menuTree.filter(item =>
+            item.kind !== "MenuSubEntry" &&
+            hasRequiredCapabilities(item.requiredCapabilities, robotCapabilities, capabilityList)
+        );
+    }, [robotCapabilities, capabilityList]);
 
     const drawerContent = React.useMemo(() => {
         return (
             <Box
                 sx={{width: 250}}
                 role="presentation"
-                onClick={() => {
-                    setDrawerOpen(false);
-                }}
-                onKeyDown={() => {
-                    setDrawerOpen(false);
-                }}
+                onClick={() => {setDrawerOpen(false);}}
+                onKeyDown={() => {setDrawerOpen(false);}}
                 style={{
                     scrollbarWidth: "thin",
                     overflowX: "hidden"
                 }}
             >
                 <List>
-                    <ListItem>
+                    <ListItem onClick={(e) => e.stopPropagation()} sx={{userSelect: "none"}}>
                         <ListItemIcon>
                             <DarkModeIcon/>
                         </ListItemIcon>
@@ -348,77 +366,27 @@ const NoCloudAppBar: React.FunctionComponent<{ paletteMode: PaletteMode, setPale
                             edge="end"
                             onChange={(e) => {
                                 setPaletteMode(e.target.checked ? "dark" : "light");
+                                setTimeout(() => {setDrawerOpen(false);}, 400); // 0.4 seconds
                             }}
                             checked={paletteMode === "dark"}
                         />
                     </ListItem>
                     <Divider/>
-                    {menuTree.filter(item => {
-                        return item.kind !== "MenuSubEntry";
-                    }).map((value, idx) => {
+                    {visibleMenuItems.map((value, idx) => {
                         switch (value.kind) {
                             case "Subheader":
-                                if (value.requiredCapabilities) {
-                                    switch (value.requiredCapabilities.type) {
-                                        case "allof": {
-                                            if (!value.requiredCapabilities.capabilities.every(capability => {
-                                                const idx = Object.values(Capability).indexOf(capability);
-                                                return robotCapabilities[idx];
-                                            })) {
-                                                return null;
-                                            }
-
-                                            break;
-                                        }
-                                        case "anyof": {
-                                            if (!value.requiredCapabilities.capabilities.some(capability => {
-                                                const idx = Object.values(Capability).indexOf(capability);
-                                                return robotCapabilities[idx];
-                                            })) {
-                                                return null;
-                                            }
-
-                                            break;
-                                        }
-                                    }
-                                }
-
                                 return (
                                     <ListSubheader
                                         key={`${idx}`}
-                                        sx={{background: "transparent"}}
+                                        sx={{background: "transparent", userSelect: "none"}}
                                         disableSticky={true}
+                                        onClick={(e) => e.stopPropagation()}
                                     >
                                         {value.title}
                                     </ListSubheader>
                                 );
 
                             case "MenuEntry": {
-                                if (value.requiredCapabilities) {
-                                    switch (value.requiredCapabilities.type) {
-                                        case "allof": {
-                                            if (!value.requiredCapabilities.capabilities.every(capability => {
-                                                const idx = Object.values(Capability).indexOf(capability);
-                                                return robotCapabilities[idx];
-                                            })) {
-                                                return null;
-                                            }
-
-                                            break;
-                                        }
-                                        case "anyof": {
-                                            if (!value.requiredCapabilities.capabilities.some(capability => {
-                                                const idx = Object.values(Capability).indexOf(capability);
-                                                return robotCapabilities[idx];
-                                            })) {
-                                                return null;
-                                            }
-
-                                            break;
-                                        }
-                                    }
-                                }
-
                                 const ItemIcon = value.menuIcon;
 
                                 return (
@@ -437,12 +405,11 @@ const NoCloudAppBar: React.FunctionComponent<{ paletteMode: PaletteMode, setPale
                             }
                         }
                     })}
-
                     <Divider/>
-
-
                     <ListSubheader
-                        sx={{background: "transparent"}}>
+                        sx={{background: "transparent", userSelect: "none"}}
+                        onClick={(e) => e.stopPropagation()}
+                    >
                         Links
                     </ListSubheader>
                     <ListItemButton
@@ -457,12 +424,10 @@ const NoCloudAppBar: React.FunctionComponent<{ paletteMode: PaletteMode, setPale
                         <ListItemText primary="Swagger UI"/>
                     </ListItemButton>
                     <Divider/>
-                    <Divider/>
-                    <Divider/>
                 </List>
             </Box>
         );
-    }, [currentLocation, paletteMode, setPaletteMode, robotCapabilities]);
+    }, [currentLocation, paletteMode, setPaletteMode, visibleMenuItems]);
 
     const toolbarContent = React.useMemo(() => {
         switch (currentMenuEntry.kind) {
@@ -475,9 +440,7 @@ const NoCloudAppBar: React.FunctionComponent<{ paletteMode: PaletteMode, setPale
                             color="inherit"
                             aria-label="menu"
                             sx={{mr: 2}}
-                            onClick={() => {
-                                setDrawerOpen(true);
-                            }}
+                            onClick={() => {setDrawerOpen(true);}}
                             title="Menu"
                         >
                             <MenuIcon/>
@@ -496,7 +459,6 @@ const NoCloudAppBar: React.FunctionComponent<{ paletteMode: PaletteMode, setPale
                             color="inherit"
                             aria-label="back"
                             sx={{mr: 2}}
-
                             component={Link}
                             to={currentMenuEntry.parentRoute}
                         >
@@ -514,11 +476,7 @@ const NoCloudAppBar: React.FunctionComponent<{ paletteMode: PaletteMode, setPale
     }, [currentMenuEntry, setDrawerOpen, pageTitle]);
 
     return (
-        <Box
-            sx={{
-                userSelect: "none"
-            }}
-        >
+        <Box sx={{userSelect: "none"}}>
             <AppBar position="fixed">
                 <Toolbar>
                     {toolbarContent}
@@ -533,9 +491,7 @@ const NoCloudAppBar: React.FunctionComponent<{ paletteMode: PaletteMode, setPale
                 <Drawer
                     anchor={"left"}
                     open={drawerOpen}
-                    onClose={() => {
-                        setDrawerOpen(false);
-                    }}
+                    onClose={() => {setDrawerOpen(false);}}
                 >
                     {drawerContent}
                 </Drawer>

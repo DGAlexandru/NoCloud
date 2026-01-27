@@ -211,7 +211,9 @@ const UpdaterStateComponent : React.FunctionComponent<{ state: UpdaterState | un
                             state.changelog &&
                             <Accordion defaultExpanded={false}>
                                 <AccordionSummary expandIcon={<ExpandMoreIcon/>}>
-                                    <Typography>Changelog for NoCloud {state.currentVersion}</Typography>
+                                    <Typography sx={{ wordBreak: "break-all" }}>
+                                        Changelog for NoCloud {state.currentVersion}
+                                    </Typography>
                                 </AccordionSummary>
                                 <AccordionDetails>
                                     <Box style={{width:"100%", paddingLeft: "1rem", paddingRight:"1rem"}}>
