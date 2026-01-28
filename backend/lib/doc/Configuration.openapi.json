@@ -4,6 +4,22 @@
       "Configuration": {
         "type": "object",
         "additionalProperties": false,
+        "required": [
+          "embedded",
+          "robot",
+          "webserver",
+          "mqtt",
+          "pushNotifClient",
+          "ntpClient",
+          "networkAdvertisement",
+          "updater",
+          "timers",
+          "logLevel",
+          "debug",
+          "oobe",
+          "NoCloud",
+          "_version"
+        ],
         "properties": {
           "embedded": {
             "type": "boolean",
