@@ -7,6 +7,7 @@ export enum Capability {
     CameraLightControl = "CameraLightControlCapability",
     CarpetModeControl = "CarpetModeControlCapability",
     CarpetSensorModeControl = "CarpetSensorModeControlCapability",
+    CleanRouteControl = "CleanRouteControlCapability",
     CollisionAvoidantNavigation = "CollisionAvoidantNavigationControlCapability",
     CombinedVirtualRestrictions = "CombinedVirtualRestrictionsCapability",
     ConsumableMonitoring = "ConsumableMonitoringCapability",
@@ -196,6 +197,18 @@ export interface MapSegmentRenameRequestParameters {
     name: string;
 }
 
+export type CleanRoute = "quick" | "normal" | "intensive" | "deep";
+
+export interface CleanRoutePayload {
+    route: CleanRoute
+}
+
+export interface CleanRouteControlProperties {
+    supportedRoutes: Array<CleanRoute>,
+    mopOnly: Array<CleanRoute>,
+    oneTime: Array<CleanRoute>,
+}
+
 export type ConsumableType = "filter" | "brush" | "mop" | "detergent" | "bin" | "cleaning";
 export type ConsumableSubType = "none" | "all" | "main" | "secondary" | "side_left" | "side_right" | "dock" | "sensor" | "wheel";
 export type ConsumableUnit = "minutes" | "percent";
@@ -224,7 +237,6 @@ export interface ConsumableMeta {
 export interface ConsumableProperties {
     availableConsumables: Array<ConsumableMeta>
 }
-
 
 export enum NoCloudTimerActionType {
     FULL_CLEANUP = "full_cleanup",

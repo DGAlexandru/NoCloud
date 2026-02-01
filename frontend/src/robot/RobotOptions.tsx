@@ -5,6 +5,7 @@ import {
     AutoEmptyDockAutoEmptyInterval,
     Capability,
     CarpetSensorMode,
+    CleanRoute,
     MopDockMopWashTemperature,
     MopTwistFrequency,
     useAutoEmptyDockAutoEmptyIntervalMutation,
@@ -17,6 +18,9 @@ import {
     useCarpetSensorModeMutation,
     useCarpetSensorModePropertiesQuery,
     useCarpetSensorModeQuery,
+    useCleanRouteControlPropertiesQuery,
+    useCleanRouteQuery,
+    useCleanRouteMutation,
     useCollisionAvoidantNavigationControlMutation,
     useCollisionAvoidantNavigationControlQuery,
     useFloorMaterialDirectionAwareNavigationControlMutation,
@@ -55,21 +59,22 @@ import {
     DeviceThermostat as MopDockMopWashTemperatureControlIcon,
     Explore as FloorMaterialDirectionAwareNavigationControlIcon,
     FlashlightOn as CameraLightControlIcon,
+    KeyboardDoubleArrowUp as CarpetModeIcon,
     Lock as KeyLockIcon,
     MiscellaneousServices as SystemIcon,
     NotListedLocation as LocateIcon,
     Pets as PetObstacleAvoidanceControlIcon,
     Photo as ObstacleImagesIcon,
     RoundaboutRight as CollisionAvoidantNavigationControlIcon,
+    Route as CleanRouteControlIcon,
     SatelliteAlt as PerceptionIcon,
     Schema as BehaviourIcon,
-    Sensors as CarpetModeIcon,
     Settings as GeneralIcon,
     Star as QuirksIcon,
     TableBar as MopExtensionFurnitureLegHandlingControlIcon,
+    Troubleshoot as CarpetSensorModeIcon,
     Tune as MiscIcon,
     Villa as DockIcon,
-    Waves as CarpetSensorModeIcon,
 } from "@mui/icons-material";
 import {SpacerListMenuItem} from "../components/list_menu/SpacerListMenuItem";
 import {LinkListMenuItem} from "../components/list_menu/LinkListMenuItem";
@@ -351,6 +356,108 @@ const CarpetSensorModeControlCapabilitySelectListMenuItem = () => {
             primaryLabel="Carpet Sensor"
             secondaryLabel="Select what action the robot should take if it detects carpet while mopping."
             icon={<CarpetSensorModeIcon/>}
+        />
+    );
+};
+
+const CleanRouteControlCapabilitySelectListMenuItem = () => {
+    const SORT_ORDER = {
+        "quick": 1,
+        "normal": 2,
+        "intensive": 3,
+        "deep": 4
+    };
+
+    const {
+        data: cleanRouteControlProperties,
+        isPending: cleanRouteControlPropertiesPending,
+        isError: cleanRouteControlPropertiesError
+    } = useCleanRouteControlPropertiesQuery();
+
+    const options: Array<SelectListMenuItemOption> = (
+        cleanRouteControlProperties?.supportedRoutes ?? []
+    ).sort((a, b) => {
+        const aMapped = SORT_ORDER[a] ?? 10;
+        const bMapped = SORT_ORDER[b] ?? 10;
+
+        if (aMapped < bMapped) {
+            return -1;
+        } else if (bMapped < aMapped) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }).map((val: CleanRoute) => {
+        let label;
+
+        switch (val) {
+            case "quick":
+                label = "Quick";
+                break;
+            case "normal":
+                label = "Normal";
+                break;
+            case "intensive":
+                label = "Intensive";
+                break;
+            case "deep":
+                label = "Deep";
+                break;
+        }
+        return {
+            value: val,
+            label: label
+        };
+    });
+
+    const description = React.useMemo(() => {
+        let desc = "Trade speed for thoroughness and vice-versa.";
+
+        if (cleanRouteControlProperties) {
+            if (cleanRouteControlProperties.mopOnly.length > 0) {
+                const labels = cleanRouteControlProperties.mopOnly.map(route => {
+                    const label = options.find(o => o.value === route)?.label ?? "unknown";
+                    return `"${label}"`;
+                });
+                desc += ` ${labels.join(", ")} only ${labels.length > 1 ? "apply" : "applies"} when mopping.`;
+            }
+            if (cleanRouteControlProperties.oneTime.length > 0) {
+                const labels = cleanRouteControlProperties.oneTime.map(route => {
+                    const label = options.find(o => o.value === route)?.label ?? "unknown";
+                    return `"${label}"`;
+                });
+                desc += ` ${labels.join(", ")} ${labels.length > 1 ? "are" : "is"} one-time only.`;
+            }
+        }
+        return desc;
+    }, [cleanRouteControlProperties, options]);
+
+    const {
+        data: data,
+        isPending: isPending,
+        isFetching: isFetching,
+        isError: isError,
+    } = useCleanRouteQuery();
+
+    const {mutate: mutate, isPending: isChanging} = useCleanRouteMutation();
+    const loading = isFetching || isChanging;
+    const disabled = loading || isChanging || isError;
+
+    const currentValue = options.find(mode => {
+        return mode.value === data;
+    }) ?? {value: "", label: ""};
+
+    return (
+        <SelectListMenuItem
+            options={options}
+            currentValue={currentValue}
+            setValue={(e) => {mutate(e.value as CleanRoute);}}
+            disabled={disabled}
+            loadingOptions={cleanRouteControlPropertiesPending || isPending}
+            loadError={cleanRouteControlPropertiesError}
+            primaryLabel="Clean Route"
+            secondaryLabel={description}
+            icon={<CleanRouteControlIcon/>}
         />
     );
 };
@@ -755,6 +862,7 @@ const RobotOptions = (): React.ReactElement => {
         cameraLightControlSupported,
         carpetModeControlCapabilitySupported,
         carpetSensorModeControlCapabilitySupported,
+        cleanRouteControlSupported,
         collisionAvoidantNavigationControlCapabilitySupported,
         floorMaterialDirectionAwareNavigationControlSupported,
         doNotDisturbCapabilitySupported,
@@ -778,6 +886,7 @@ const RobotOptions = (): React.ReactElement => {
         Capability.CameraLightControl,
         Capability.CarpetModeControl,
         Capability.CarpetSensorModeControl,
+        Capability.CleanRouteControl,
         Capability.CollisionAvoidantNavigation,
         Capability.DoNotDisturb,
         Capability.FloorMaterialDirectionAwareNavigationControl,
@@ -834,7 +943,12 @@ const RobotOptions = (): React.ReactElement => {
             );
         }
 
-        if (collisionAvoidantNavigationControlCapabilitySupported || floorMaterialDirectionAwareNavigationControlSupported) {
+        if (cleanRouteControlSupported) {
+            items.push(<CleanRouteControlCapabilitySelectListMenuItem key="cleanRouteControl"/>);
+        }
+
+        if (collisionAvoidantNavigationControlCapabilitySupported || floorMaterialDirectionAwareNavigationControlSupported ||
+            cleanRouteControlSupported) {
             items.push(<SpacerListMenuItem key={"spacer-navigation"} halfHeight={true}/>);
         }
 
@@ -886,6 +1000,7 @@ const RobotOptions = (): React.ReactElement => {
     }, [
         carpetModeControlCapabilitySupported,
         carpetSensorModeControlCapabilitySupported,
+        cleanRouteControlSupported,
         collisionAvoidantNavigationControlCapabilitySupported,
         floorMaterialDirectionAwareNavigationControlSupported,
         mopExtensionControlCapabilitySupported,

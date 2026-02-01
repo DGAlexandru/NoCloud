@@ -9,6 +9,9 @@ import {
     CarpetSensorMode,
     CarpetSensorModeControlProperties,
     CarpetSensorModePayload,
+    CleanRoute,
+    CleanRouteControlProperties,
+    CleanRoutePayload,
     CombinedVirtualRestrictionsProperties,
     CombinedVirtualRestrictionsUpdateRequestParameters,
     ConsumableId,
@@ -390,6 +393,35 @@ export const sendAutoEmptyDockManualTriggerCommand = async (): Promise<void> => 
     await NoCloudAPI.put(`/robot/capabilities/${Capability.AutoEmptyDockManualTrigger}`, {
         action: "trigger",
     });
+};
+
+export const fetchCleanRoute = async (): Promise<CleanRoute> => {
+    return NoCloudAPI
+        .get<CleanRoutePayload>(`/robot/capabilities/${Capability.CleanRouteControl}`)
+        .then(({data}) => {
+            return data.route;
+        });
+};
+
+export const fetchCleanRouteControlProperties = async (): Promise<CleanRouteControlProperties> => {
+    return NoCloudAPI
+        .get<CleanRouteControlProperties>(
+            `/robot/capabilities/${Capability.CleanRouteControl}/properties`
+        )
+        .then(({data}) => {
+            return data;
+        });
+};
+
+export const sendCleanRoute = async (payload: CleanRoutePayload): Promise<void> => {
+
+    return NoCloudAPI
+        .put(`/robot/capabilities/${Capability.CleanRouteControl}`, payload)
+        .then(({status}) => {
+            if (status !== 200) {
+                throw new Error("Could not send Clean Route");
+            }
+        });
 };
 
 export const fetchConsumableStateInformation = async (): Promise<Array<ConsumableState>> => {

@@ -21,6 +21,8 @@ import {
     fetchCarpetModeState,
     fetchCarpetSensorMode,
     fetchCarpetSensorModeProperties,
+    fetchCleanRoute,
+    fetchCleanRouteControlProperties,
     fetchCollisionAvoidantNavigationControlState,
     fetchCombinedVirtualRestrictionsProperties,
     fetchConsumableProperties,
@@ -93,6 +95,7 @@ import {
     sendCameraLightControlState,
     sendCarpetModeEnable,
     sendCarpetSensorMode,
+    sendCleanRoute,
     sendCleanSegmentsCommand,
     sendCleanZonesCommand,
     sendCollisionAvoidantNavigationControlState,
@@ -161,6 +164,7 @@ import {
     AutoEmptyDockAutoEmptyInterval,
     Capability,
     CarpetSensorMode,
+    CleanRoute,
     CombinedVirtualRestrictionsUpdateRequestParameters,
     ConsumableId,
     DoNotDisturbConfiguration,
@@ -203,6 +207,8 @@ enum QueryKey {
     Capabilities = "capabilities",
     CarpetMode = "carpet_mode",
     CarpetSensorMode = "carpet_sensor_mode",
+    CleanRouteControl = "clean_route_control",
+    CleanRouteControlProperties = "clean_route_control_properties",
     CarpetSensorModeProperties = "carpet_sensor_mode_properties",
     CollisionAvoidantNavigation = "collision_avoidant_navigation",
     CombinedVirtualRestrictionsProperties = "combined_virtual_restrictions_properties",
@@ -1239,6 +1245,32 @@ export const useCarpetSensorModePropertiesQuery = () => {
     return useQuery({
         queryKey: [QueryKey.CarpetSensorModeProperties],
         queryFn: fetchCarpetSensorModeProperties,
+
+        staleTime: Infinity
+    });
+};
+
+export const useCleanRouteQuery = () => {
+    return useQuery({
+        queryKey: [QueryKey.CleanRouteControl],
+        queryFn: fetchCleanRoute
+    });
+};
+
+export const useCleanRouteMutation = () => {
+    return useNoCloudFetchingMutation({
+        queryKey: [QueryKey.CleanRouteControl],
+        mutationFn: (route: CleanRoute) => {
+            return sendCleanRoute({route: route}).then(fetchCleanRoute);
+        },
+        onError: useOnCommandError(Capability.CleanRouteControl)
+    });
+};
+
+export const useCleanRouteControlPropertiesQuery = () => {
+    return useQuery({
+        queryKey: [QueryKey.CleanRouteControlProperties],
+        queryFn: fetchCleanRouteControlProperties,
 
         staleTime: Infinity
     });
