@@ -22,7 +22,6 @@ function hexToRgb(hex: string) : RGBColor {
     if (result === null) {
         throw new Error(`Invalid color ${hex}`);
     }
-
     return {
         r: parseInt(result[1], 16),
         g: parseInt(result[2], 16),
@@ -30,13 +29,15 @@ function hexToRgb(hex: string) : RGBColor {
     } ;
 }
 
+const clampRGB = (value: number, min = 0, max = 255) => Math.round(Math.min(max, Math.max(min, value)));
+
 export function adjustRGBColorBrightness(color: RGBColor, percent: number): RGBColor {
     const multiplier = (100 + percent) / 100;
 
     return {
-        r: Math.round(Math.min(255, Math.max(0, color.r * multiplier))),
-        g: Math.round(Math.min(255, Math.max(0, color.g * multiplier))),
-        b: Math.round(Math.min(255, Math.max(0, color.b * multiplier)))
+        r: clampRGB(color.r * multiplier),
+        g: clampRGB(color.g * multiplier),
+        b: clampRGB(color.b * multiplier)
     };
 }
 
@@ -47,6 +48,47 @@ type PixelPatternHandler = (x: number, y: number) => boolean;
 
 const solidFillPixelPatternHandler: PixelPatternHandler = (x, y) => {
     return false;
+};
+
+/**
+ * Pile shading config — one entry per carpet variant.
+ *
+ * jitterMask – bitmask passed to pileBrightnessJitter.
+ *       Controls the *range* of brightness levels (pile scale/density).
+ *       Must be (2^n - 1) for clean bit-masking: 1, 3, 7, 15, …
+ *       A higher value → more distinct brightness levels → coarser,
+ *       more visible fiber variation. Lower → subtler, denser pile.
+ * contrastScale – multiplier applied to the jitter output before it reaches adjustRGBColorBrightness.
+ *       Controls how far apart the brightness levels actually are (visual contrast).
+ *       Higher → more dramatic light/dark difference between fibers.
+ */
+type PileShadingConfig = {jitterMask: number; contrastScale: number;};
+
+const PILE_SHADING: Record<string, PileShadingConfig> = {
+    [RawMapLayerMaterial.Carpet]:           {jitterMask: 1, contrastScale: 5},
+    [RawMapLayerMaterial.LowPileCarpet]:    {jitterMask: 3, contrastScale: 3},
+    [RawMapLayerMaterial.MediumPileCarpet]: {jitterMask: 7, contrastScale: 2},
+};
+
+/**
+ * Generate a very small variation without visible noise: -1..+2
+ * Deterministic, cheap pseudo-noise.
+ * Output range is determined by the jitterMask from PileShadingConfig.
+ * @private
+ * @param {number} x
+ * @param {number} y
+ * @param {number} jitterMask
+ */
+const pileBrightnessJitter = (x: number, y: number, jitterMask: number) => {
+    return ((x * 13 + y * 7) & jitterMask) - 1; // For more variation increase "& value"
+};
+
+// Decide which materials get pile shading (and therefore have a config entry)
+const getPileShadingConfig = (material?: RawMapLayerMaterial): PileShadingConfig | undefined => {
+    if (material === undefined) {
+        return undefined;
+    }
+    return PILE_SHADING[material];
 };
 
 /*
@@ -115,7 +157,6 @@ const chevronPixelPatternHandler: PixelPatternHandler = (x, y) => {
     return diagonalValue % PLANK_WIDTH === 0;
 };
 
-
 /*
  * +-----+-----+
  * | ||| | === |
@@ -176,10 +217,10 @@ const fallbackPixelPatternHandler: PixelPatternHandler = (x, y) => {
 };
 
 const materialToPixelPatternHandler: {[key in RawMapLayerMaterial]: PixelPatternHandler} = {
-    [RawMapLayerMaterial.Carpet]: fallbackPixelPatternHandler, // ToDo: Define custom renderer
+    [RawMapLayerMaterial.Carpet]: solidFillPixelPatternHandler, // Fiber texture is handled separately via PILE_SHADING.
     [RawMapLayerMaterial.Generic]: solidFillPixelPatternHandler,
-    [RawMapLayerMaterial.LowPileCarpet]: solidFillPixelPatternHandler, // ToDo: Define custom renderer
-    [RawMapLayerMaterial.MediumPileCarpet]: solidFillPixelPatternHandler, // ToDo: Define custom renderer
+    [RawMapLayerMaterial.LowPileCarpet]: solidFillPixelPatternHandler, // Fiber texture is handled separately via PILE_SHADING.
+    [RawMapLayerMaterial.MediumPileCarpet]: solidFillPixelPatternHandler, // Fiber texture is handled separately via PILE_SHADING.
     [RawMapLayerMaterial.Tile]: tilePixelPatternHandler,
     [RawMapLayerMaterial.Wood]: chevronPixelPatternHandler,
     [RawMapLayerMaterial.WoodHorizontal]: createPlankPixelPatternHandler(true),
@@ -193,12 +234,11 @@ export function PROCESS_LAYERS(layers: Array<RawMapLayer>, pixelSize: number, pa
 
     const pixelData = new Uint8ClampedArray( width * height * 4 ); // RGBA
     const segmentLookupData = new Uint8ClampedArray( width * height);
-    const segmentLookupIdMapping = new Map(); //Because segment IDs are arbitrary strings, we need this mapping to an int for the lookup data
+    const segmentLookupIdMapping = new Map<number, string>(); // Because segment IDs are arbitrary strings, we need this mapping to an int for the lookup data
 
     const colorFinder = new FourColorTheoremSolver(layers, pixelSize);
 
-
-    const hasSelectedSegments = selectedSegmentIds.length === 0;
+    const hasNoSelectedSegments = selectedSegmentIds.length === 0;
 
     let colors: LayerColors = COLORS;
     let backgroundColors: LayerColors = BACKGROUND_COLORS;
@@ -220,7 +260,7 @@ export function PROCESS_LAYERS(layers: Array<RawMapLayer>, pixelSize: number, pa
 
         switch (layer.type) {
             case "floor":
-                if (hasSelectedSegments) {
+                if (hasNoSelectedSegments) {
                     color = colors.floor;
                     accentColor = accentColors.floor;
                 } else {
@@ -229,7 +269,7 @@ export function PROCESS_LAYERS(layers: Array<RawMapLayer>, pixelSize: number, pa
                 }
                 break;
             case "wall":
-                if (hasSelectedSegments) {
+                if (hasNoSelectedSegments) {
                     color = colors.wall;
                     accentColor = accentColors.wall;
                 } else {
@@ -240,7 +280,7 @@ export function PROCESS_LAYERS(layers: Array<RawMapLayer>, pixelSize: number, pa
             case "segment": {
                 const colorId = colorFinder.getColor((layer.metaData.segmentId ?? ""));
 
-                if (hasSelectedSegments || selectedSegmentIds.includes(layer.metaData.segmentId ?? "")) {
+                if (hasNoSelectedSegments || selectedSegmentIds.includes(layer.metaData.segmentId ?? "")) {
                     color = colors.segments[colorId];
                     accentColor = accentColors.segments[colorId];
                 } else {
@@ -261,6 +301,8 @@ export function PROCESS_LAYERS(layers: Array<RawMapLayer>, pixelSize: number, pa
         if (layer.metaData.material) {
             pixelPatternHandler = materialToPixelPatternHandler[layer.metaData.material] ?? fallbackPixelPatternHandler;
         }
+        // Resolve pile shading config once per layer ( = undefined for non-carpet materials)
+        const pileShading = getPileShadingConfig(layer.metaData.material);
 
         for (let i = 0; i < layer.pixels.length; i = i + 2) {
             const offset = (
@@ -272,7 +314,14 @@ export function PROCESS_LAYERS(layers: Array<RawMapLayer>, pixelSize: number, pa
             const pixelX = layer.pixels[i];
             const pixelY = layer.pixels[i+1];
 
-            const pixelColor = pixelPatternHandler(pixelX, pixelY) ? accentColor : color;
+            let pixelColor = pixelPatternHandler(pixelX, pixelY) ? accentColor : color;
+
+            if (pileShading) {
+                pixelColor = adjustRGBColorBrightness(
+                    pixelColor,
+                    pileBrightnessJitter(pixelX, pixelY, pileShading.jitterMask) * pileShading.contrastScale // Fluffines control: "* value"; e.g: 2 → 4 fluffier
+                );
+            }
 
             pixelData[imgDataOffset] = pixelColor.r;
             pixelData[imgDataOffset + 1] = pixelColor.g;
@@ -310,17 +359,14 @@ function CALCULATE_REQUIRED_DIMENSIONS(layers: Array<RawMapLayer>) {
     };
 
     layers.forEach(layer => {
-        dimensions.x.min = layer.dimensions.x.min < dimensions.x.min ? layer.dimensions.x.min : dimensions.x.min;
-        dimensions.x.max = layer.dimensions.x.max > dimensions.x.max ? layer.dimensions.x.max : dimensions.x.max;
-
-        dimensions.y.min = layer.dimensions.y.min < dimensions.y.min ? layer.dimensions.y.min : dimensions.y.min;
-        dimensions.y.max = layer.dimensions.y.max > dimensions.y.max ? layer.dimensions.y.max : dimensions.y.max;
+        dimensions.x.min = Math.min(dimensions.x.min, layer.dimensions.x.min);
+        dimensions.x.max = Math.max(dimensions.x.max, layer.dimensions.x.max);
+        dimensions.y.min = Math.min(dimensions.y.min, layer.dimensions.y.min);
+        dimensions.y.max = Math.max(dimensions.y.max, layer.dimensions.y.max);
     });
 
-    dimensions.x.sum = (dimensions.x.max - dimensions.x.min) + 1;
-    dimensions.y.sum = (dimensions.y.max - dimensions.y.min) + 1;
-    dimensions.x.sum = isFinite(dimensions.x.sum) ? dimensions.x.sum : 0;
-    dimensions.y.sum = isFinite(dimensions.y.sum) ? dimensions.y.sum : 0;
+    dimensions.x.sum = Math.max(0, dimensions.x.max - dimensions.x.min + 1);
+    dimensions.y.sum = Math.max(0, dimensions.y.max - dimensions.y.min + 1);
 
     return dimensions;
 }
@@ -377,13 +423,13 @@ export const DARK_COLORS: LayerColors = {
 export const DARK_ACCENT_COLORS: LayerColors = {
     floor: adjustRGBColorBrightness(DARK_COLORS.floor, -25),
     wall: adjustRGBColorBrightness(DARK_COLORS.wall, -15),
-    segments: COLORS.segments.map(c => adjustRGBColorBrightness(c, -25))
+    segments: DARK_COLORS.segments.map(c => adjustRGBColorBrightness(c, -25))
 };
 
 export const DARK_BACKGROUND_COLORS: LayerColors = {
-    floor: adjustRGBColorBrightness(COLORS.floor, -50),
-    wall: adjustRGBColorBrightness(COLORS.wall, -20),
-    segments: COLORS.segments.map(c => adjustRGBColorBrightness(c, -50))
+    floor: adjustRGBColorBrightness(DARK_COLORS.floor, -50),
+    wall: adjustRGBColorBrightness(DARK_COLORS.wall, -20),
+    segments: DARK_COLORS.segments.map(c => adjustRGBColorBrightness(c, -50))
 };
 
 export const DARK_BACKGROUND_ACCENT_COLORS: LayerColors = {
