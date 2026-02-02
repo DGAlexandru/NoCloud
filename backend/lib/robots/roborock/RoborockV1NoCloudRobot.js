@@ -20,6 +20,10 @@ class RoborockV1NoCloudRobot extends RoborockNoCloudRobot {
             robot: this,
             velocityLimit: 0.29
         }));
+
+        this.registerCapability(new capabilities.RoborockCarpetModeControlCapability({
+            robot: this,
+        }));
     }
 
     getModelName() {

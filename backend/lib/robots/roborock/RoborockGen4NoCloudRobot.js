@@ -99,6 +99,7 @@ class RoborockGen4NoCloudRobot extends RoborockNoCloudRobot {
         super(Object.assign({}, options, {fanSpeeds: FAN_SPEEDS}));
 
         [
+            capabilities.RoborockCarpetModeControlCapability,
             capabilities.RoborockHighResolutionManualControlCapability,
             capabilities.RoborockMapSegmentEditCapability,
             capabilities.RoborockMapSegmentRenameCapability,

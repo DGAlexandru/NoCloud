@@ -42,6 +42,7 @@ class RoborockS5MaxNoCloudRobot extends RoborockNoCloudRobot {
         }));
 
         [
+            capabilities.RoborockCarpetModeControlCapability,
             capabilities.RoborockHighResolutionManualControlCapability,
             capabilities.RoborockMapSegmentEditCapability,
             capabilities.RoborockMapSegmentRenameCapability,

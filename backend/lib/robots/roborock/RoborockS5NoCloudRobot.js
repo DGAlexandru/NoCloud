@@ -17,6 +17,7 @@ class RoborockS5NoCloudRobot extends RoborockNoCloudRobot {
         super(Object.assign({}, options, {fanSpeeds: FAN_SPEEDS}));
 
         [
+            capabilities.RoborockCarpetModeControlCapability,
             capabilities.RoborockCombinedVirtualRestrictionsCapability,
             capabilities.RoborockHighResolutionManualControlCapability,
             capabilities.RoborockMapResetCapability,

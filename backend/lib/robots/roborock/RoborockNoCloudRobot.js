@@ -59,7 +59,6 @@ class RoborockNoCloudRobot extends MiioNoCloudRobot {
 
         [
             capabilities.RoborockBasicControlCapability,
-            capabilities.RoborockCarpetModeControlCapability,
             capabilities.RoborockCurrentStatisticsCapability,
             capabilities.RoborockDoNotDisturbCapability,
             capabilities.RoborockGoToLocationCapability,
