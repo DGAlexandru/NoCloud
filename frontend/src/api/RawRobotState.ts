@@ -15,6 +15,7 @@ export enum RobotAttributeClass {
     BatteryState = "BatteryStateAttribute",
     PresetSelectionState = "PresetSelectionStateAttribute",
     AttachmentState = "AttachmentStateAttribute",
+    DockComponentState = "DockComponentStateAttribute",
     DockStatusState = "DockStatusStateAttribute"
 }
 
@@ -58,6 +59,16 @@ export interface AttachmentState {
     attached: boolean;
 }
 
+export type DockComponentStateAttributeType = "water_tank_clean" | "water_tank_dirty" | "dustbag" | "detergent";
+export type DockComponentStateAttributeValue = "ok" | "missing" | "empty" | "full" | "unknown";
+
+export interface DockComponentState {
+    __class: RobotAttributeClass.DockComponentState;
+    metaData: Record<string, never>;
+    type: DockComponentStateAttributeType;
+    value: DockComponentStateAttributeValue;
+}
+
 export interface DockStatusState {
     __class: RobotAttributeClass.DockStatusState;
     metaData: Record<string, never>;
@@ -75,4 +86,5 @@ export type RobotAttribute =
     | BatteryState
     | PresetSelectionState
     | AttachmentState
+    | DockComponentState
     | DockStatusState;
