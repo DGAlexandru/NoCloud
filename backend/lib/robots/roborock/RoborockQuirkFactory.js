@@ -14,7 +14,7 @@ class RoborockQuirkFactory {
      */
     getQuirk(id) {
         switch (id) {
-            case RoborockQuirkFactory.KNOWN_QUIRKS.AUTO_EMPTY_DURATION:
+            /*case RoborockQuirkFactory.KNOWN_QUIRKS.AUTO_EMPTY_DURATION:
                 return new Quirk({
                     id: id,
                     title: "Auto Empty Duration",
@@ -58,7 +58,7 @@ class RoborockQuirkFactory {
 
                         return this.robot.sendCommand("set_dust_collection_mode", { "mode": val }, {});
                     }
-                });
+                });*/
             case RoborockQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_MOP_CLEANING_MODE:
                 return new Quirk({
                     id: id,
@@ -396,7 +396,7 @@ class RoborockQuirkFactory {
 }
 
 RoborockQuirkFactory.KNOWN_QUIRKS = {
-    AUTO_EMPTY_DURATION: "7e33281f-d1bd-4e11-a100-b2c792284883",
+    //AUTO_EMPTY_DURATION: "7e33281f-d1bd-4e11-a100-b2c792284883",
     BUTTON_LEDS: "57ffd1d3-306e-4451-b89c-934ec917fe7e",
     STATUS_LED: "1daf5179-0689-48a5-8f1b-0a23e11836dc",
     //MOP_PATTERN: "767fc859-3383-4485-bfdf-7aa800cf487e",
