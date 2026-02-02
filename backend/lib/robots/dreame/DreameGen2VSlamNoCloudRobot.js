@@ -1,7 +1,6 @@
 const DreameGen2NoCloudRobot = require("./DreameGen2NoCloudRobot");
 
 const capabilities = require("./capabilities");
-const entities = require("../../entities");
 const NoCloudSelectionPreset = require("../../entities/core/NoCloudSelectionPreset");
 
 
@@ -47,11 +46,6 @@ class DreameGen2VSlamNoCloudRobot extends DreameGen2NoCloudRobot {
         }));
 
         this.registerCapability(new capabilities.DreameCarpetModeControlCapability({robot: this}));
-
-        this.state.upsertFirstMatchingAttribute(new entities.state.attributes.AttachmentStateAttribute({
-            type: entities.state.attributes.AttachmentStateAttribute.TYPE.WATERTANK,
-            attached: false
-        }));
     }
 }
 

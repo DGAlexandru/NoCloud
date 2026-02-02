@@ -145,11 +145,6 @@ class DreameD10SProNoCloudRobot extends DreameGen2LidarNoCloudRobot {
                 //quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.TIGHT_MOP_PATTERN),
             ]
         }));
-
-        this.state.upsertFirstMatchingAttribute(new entities.state.attributes.AttachmentStateAttribute({
-            type: entities.state.attributes.AttachmentStateAttribute.TYPE.MOP,
-            attached: false
-        }));
     }
 
     getModelName() {

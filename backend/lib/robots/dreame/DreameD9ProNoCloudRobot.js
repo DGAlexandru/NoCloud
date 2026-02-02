@@ -2,7 +2,6 @@ const capabilities = require("./capabilities");
 const DreameGen2LidarNoCloudRobot = require("./DreameGen2LidarNoCloudRobot");
 const DreameGen2NoCloudRobot = require("./DreameGen2NoCloudRobot");
 const DreameNoCloudRobot = require("./DreameNoCloudRobot");
-const entities = require("../../entities");
 const fs = require("fs");
 const MiioNoCloudRobot = require("../MiioNoCloudRobot");
 const NoCloudSelectionPreset = require("../../entities/core/NoCloudSelectionPreset");
@@ -98,11 +97,6 @@ class DreameD9ProNoCloudRobot extends DreameGen2LidarNoCloudRobot {
                     aiid: DreameGen2NoCloudRobot.MIOT_SERVICES.FILTER.ACTIONS.RESET.AIID
                 }
             },
-        }));
-
-        this.state.upsertFirstMatchingAttribute(new entities.state.attributes.AttachmentStateAttribute({
-            type: entities.state.attributes.AttachmentStateAttribute.TYPE.WATERTANK,
-            attached: false
         }));
     }
 

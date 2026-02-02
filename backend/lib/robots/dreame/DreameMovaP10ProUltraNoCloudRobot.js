@@ -249,11 +249,6 @@ class DreameMovaP10ProUltraNoCloudRobot extends DreameGen4NoCloudRobot {
         this.state.upsertFirstMatchingAttribute(new entities.state.attributes.DockStatusStateAttribute({
             value: entities.state.attributes.DockStatusStateAttribute.VALUE.IDLE
         }));
-
-        this.state.upsertFirstMatchingAttribute(new entities.state.attributes.AttachmentStateAttribute({
-            type: entities.state.attributes.AttachmentStateAttribute.TYPE.MOP,
-            attached: false
-        }));
     }
 
     parseAndUpdateState(data) {

@@ -41,6 +41,14 @@ class NoCloudRobot {
         this.postActiveStateMapPollCooldownCredits = 0;
 
         this.initInternalSubscriptions();
+
+        const modelDetails = this.getModelDetails();
+        for (const attachmentType of modelDetails.supportedAttachments) {
+            this.state.upsertFirstMatchingAttribute(new entities.state.attributes.AttachmentStateAttribute({
+                type: attachmentType,
+                attached: false
+            }));
+        }
     }
 
     /**

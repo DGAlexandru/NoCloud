@@ -3,7 +3,6 @@ const DreameGen2LidarNoCloudRobot = require("./DreameGen2LidarNoCloudRobot");
 const DreameGen2NoCloudRobot = require("./DreameGen2NoCloudRobot");
 const DreameNoCloudRobot = require("./DreameNoCloudRobot");
 const DreameQuirkFactory = require("./DreameQuirkFactory");
-const entities = require("../../entities");
 const MiioNoCloudRobot = require("../MiioNoCloudRobot");
 const NoCloudSelectionPreset = require("../../entities/core/NoCloudSelectionPreset");
 const QuirksCapability = require("../../core/capabilities/QuirksCapability");
@@ -134,11 +133,6 @@ class DreameL10ProNoCloudRobot extends DreameGen2LidarNoCloudRobot {
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.CARPET_MODE_SENSITIVITY),
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.TIGHT_MOP_PATTERN)
             ]
-        }));
-
-        this.state.upsertFirstMatchingAttribute(new entities.state.attributes.AttachmentStateAttribute({
-            type: entities.state.attributes.AttachmentStateAttribute.TYPE.WATERTANK,
-            attached: false
         }));
     }
 

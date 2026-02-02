@@ -186,11 +186,6 @@ class DreameX10PlusNoCloudRobot extends DreameGen2LidarNoCloudRobot {
         this.state.upsertFirstMatchingAttribute(new entities.state.attributes.DockStatusStateAttribute({
             value: entities.state.attributes.DockStatusStateAttribute.VALUE.IDLE
         }));
-
-        this.state.upsertFirstMatchingAttribute(new entities.state.attributes.AttachmentStateAttribute({
-            type: entities.state.attributes.AttachmentStateAttribute.TYPE.MOP,
-            attached: false
-        }));
     }
 
     getStatePropertiesToPoll() {

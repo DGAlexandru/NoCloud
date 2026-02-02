@@ -194,11 +194,6 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
         ].forEach(capability => {
             this.registerCapability(new capability({robot: this}));
         });
-
-        this.state.upsertFirstMatchingAttribute(new entities.state.attributes.AttachmentStateAttribute({
-            type: entities.state.attributes.AttachmentStateAttribute.TYPE.MOP,
-            attached: false
-        }));
     }
 
     onIncomingCloudMessage(msg) {
@@ -678,14 +673,14 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
 
 
                             if (supportedAttachments.includes(stateAttrs.AttachmentStateAttribute.TYPE.WATERTANK)) {
-                                this.state.upsertFirstMatchingAttribute(new entities.state.attributes.AttachmentStateAttribute({
+                                this.state.upsertFirstMatchingAttribute(new stateAttrs.AttachmentStateAttribute({
                                     type: stateAttrs.AttachmentStateAttribute.TYPE.WATERTANK,
                                     attached: parsedAttachmentStates[stateAttrs.AttachmentStateAttribute.TYPE.WATERTANK]
                                 }));
                             }
 
                             if (supportedAttachments.includes(stateAttrs.AttachmentStateAttribute.TYPE.MOP)) {
-                                this.state.upsertFirstMatchingAttribute(new entities.state.attributes.AttachmentStateAttribute({
+                                this.state.upsertFirstMatchingAttribute(new stateAttrs.AttachmentStateAttribute({
                                     type: stateAttrs.AttachmentStateAttribute.TYPE.MOP,
                                     attached: parsedAttachmentStates[stateAttrs.AttachmentStateAttribute.TYPE.MOP]
                                 }));
@@ -915,7 +910,7 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
                 fullDockState = mappedAutoEmptyDockState;
             }
 
-            this.state.upsertFirstMatchingAttribute(new entities.state.attributes.DockStatusStateAttribute({
+            this.state.upsertFirstMatchingAttribute(new stateAttrs.DockStatusStateAttribute({
                 value: fullDockState
             }));
         }
