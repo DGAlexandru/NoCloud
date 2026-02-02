@@ -195,6 +195,7 @@ class DreameL10SProUltraHeatNoCloudRobot extends DreameGen4NoCloudRobot {
             capabilities.DreameAutoEmptyDockAutoEmptyIntervalControlCapabilityV2,
             capabilities.DreameAutoEmptyDockManualTriggerCapability,
             capabilities.DreameCarpetModeControlCapability,
+            capabilities.DreameCleanRouteControlCapability,
             capabilities.DreameCollisionAvoidantNavigationControlCapability,
             capabilities.DreameFloorMaterialDirectionAwareNavigationControlCapability,
             capabilities.DreameKeyLockCapability,
@@ -218,7 +219,7 @@ class DreameL10SProUltraHeatNoCloudRobot extends DreameGen4NoCloudRobot {
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.CARPET_DETECTION_AUTO_DEEP_CLEANING),		//"9450a668-88d7-4ff3-9455-a78b485fb33b" : ["On", "Off"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.CARPET_MODE_SENSITIVITY),					//"f8cb91ab-a47a-445f-b300-0aac0d4937c0" : ["low", "medium", "high"]
                 //quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.CLEAN_ROUTE),								//"ce44b688-f8bc-43a4-b44d-6db0d003c859" : ["Standard", "Intensive", "Deep"]
-                quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.CLEAN_ROUTE_WITH_QUICK),					//"924c82a8-1c3f-4363-9303-e6158e0ca41c" : ["Standard", "Intensive", "Deep", "Quick"]
+                //quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.CLEAN_ROUTE_WITH_QUICK),					//"924c82a8-1c3f-4363-9303-e6158e0ca41c" : ["Standard", "Intensive", "Deep", "Quick"]
                 //quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.DETACH_MOPS),								//"4a52e16b-3c73-479d-b308-7f0bbdde0884" : ["On", "Off"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.DRAIN_INTERNAL_WATER_TANK),				//"3e1b0851-3a5a-4943-bea6-dea3d7284bff" : ["select_to_trigger", "trigger"]
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.EDGE_EXTENSION_FREQUENCY),				//"8f6a7013-794e-40d9-9bbe-8fdeed7c0b9d" : ["automatic", "each_cleanup", "every_7_days"]

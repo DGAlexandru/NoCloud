@@ -43,8 +43,6 @@ class DreameD9NoCloudRobot extends DreameGen2LidarNoCloudRobot {
             robot: this
         });
 
-        this.registerCapability(new capabilities.DreameCarpetModeControlCapability({robot: this}));
-
         this.registerCapability(new capabilities.DreameWaterUsageControlCapability({
             robot: this,
             presets: Object.keys(this.waterGrades).map(k => {
@@ -118,11 +116,17 @@ class DreameD9NoCloudRobot extends DreameGen2LidarNoCloudRobot {
             attached: false
         }));
 
+        [
+            capabilities.DreameCarpetModeControlCapability,
+            capabilities.DreameMopTightPatternControlCapability,
+        ].forEach(capability => {
+            this.registerCapability(new capability({robot: this}));
+        });
         this.registerCapability(new QuirksCapability({
             robot: this,
             quirks: [
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.CARPET_MODE_SENSITIVITY),
-                quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.TIGHT_MOP_PATTERN)
+                //quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.TIGHT_MOP_PATTERN)
             ]
         }));
 

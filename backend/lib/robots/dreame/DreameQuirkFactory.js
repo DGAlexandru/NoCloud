@@ -66,7 +66,7 @@ class DreameQuirkFactory {
                         );
                     }
                 });
-            case DreameQuirkFactory.KNOWN_QUIRKS.TIGHT_MOP_PATTERN:
+                /*case DreameQuirkFactory.KNOWN_QUIRKS.TIGHT_MOP_PATTERN:
                 return new Quirk({
                     id: id,
                     title: "Tight Mop Pattern",
@@ -107,7 +107,7 @@ class DreameQuirkFactory {
                             val
                         );
                     }
-                });
+                });*/
             /*case DreameQuirkFactory.KNOWN_QUIRKS.MATERIAL_DIRECTION_CLEANING:
                 return new Quirk({
                     id: id,
@@ -1256,7 +1256,7 @@ class DreameQuirkFactory {
                         }
                     }
                 });
-            case DreameQuirkFactory.KNOWN_QUIRKS.CLEAN_ROUTE:
+                /*case DreameQuirkFactory.KNOWN_QUIRKS.CLEAN_ROUTE:
                 return new Quirk({
                     id: id,
                     title: "Clean Route",
@@ -1305,8 +1305,8 @@ class DreameQuirkFactory {
                             })
                         );
                     }
-                });
-            case DreameQuirkFactory.KNOWN_QUIRKS.CLEAN_ROUTE_WITH_QUICK:
+                });*/
+            /*case DreameQuirkFactory.KNOWN_QUIRKS.CLEAN_ROUTE_WITH_QUICK:
                 return new Quirk({
                     id: id,
                     title: "Clean Route",
@@ -1360,7 +1360,7 @@ class DreameQuirkFactory {
                             })
                         );
                     }
-                });
+                });*/
             case DreameQuirkFactory.KNOWN_QUIRKS.SIDE_BRUSH_ON_CARPET:
                 return new Quirk({
                     id: id,
@@ -1413,8 +1413,8 @@ DreameQuirkFactory.KNOWN_QUIRKS = {
     //CAMERA_LIGHT: "bba079c2-293b-4ad5-99b8-4102a1220b12",
     CARPET_DETECTION_AUTO_DEEP_CLEANING: "9450a668-88d7-4ff3-9455-a78b485fb33b",
     CARPET_MODE_SENSITIVITY: "f8cb91ab-a47a-445f-b300-0aac0d4937c0",
-    CLEAN_ROUTE: "ce44b688-f8bc-43a4-b44d-6db0d003c859",
-    CLEAN_ROUTE_WITH_QUICK: "924c82a8-1c3f-4363-9303-e6158e0ca41c",
+    //CLEAN_ROUTE: "ce44b688-f8bc-43a4-b44d-6db0d003c859",
+    //CLEAN_ROUTE_WITH_QUICK: "924c82a8-1c3f-4363-9303-e6158e0ca41c",
     DETACH_MOPS: "4a52e16b-3c73-479d-b308-7f0bbdde0884",
     DRAIN_INTERNAL_WATER_TANK: "3e1b0851-3a5a-4943-bea6-dea3d7284bff",
     EDGE_EXTENSION_FREQUENCY: "8f6a7013-794e-40d9-9bbe-8fdeed7c0b9d",
@@ -1438,7 +1438,7 @@ DreameQuirkFactory.KNOWN_QUIRKS = {
     //MOP_EXTEND_EDGE_MOPPING_V2: "0c6dd70d-4a42-4400-a9ea-d4743015edbd",
     SIDE_BRUSH_EXTEND: "e560d60c-76de-4ccc-8c01-8ccbcece850e",
     SIDE_BRUSH_ON_CARPET: "d23d7e7e-ef74-42a6-8a0a-4163742e437b",
-    TIGHT_MOP_PATTERN: "8471c118-f1e1-4866-ad2e-3c11865a5ba8",
+    //TIGHT_MOP_PATTERN: "8471c118-f1e1-4866-ad2e-3c11865a5ba8",
     WATER_HOOKUP_TEST_TRIGGER: "86094736-d66e-40c3-807c-3f5ef33cbf09",
 };
 
