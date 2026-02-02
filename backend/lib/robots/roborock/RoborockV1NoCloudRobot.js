@@ -30,6 +30,19 @@ class RoborockV1NoCloudRobot extends RoborockNoCloudRobot {
         return "V1";
     }
 
+    getModelDetails() {
+        return Object.assign(
+            {},
+            super.getModelDetails(),
+            {
+                supportedAttachments: [
+                    entities.state.attributes.AttachmentStateAttribute.TYPE.WATERTANK,
+                    entities.state.attributes.AttachmentStateAttribute.TYPE.MOP,
+                ]
+            }
+        );
+    }
+
     static IMPLEMENTATION_AUTO_DETECTION_HANDLER() {
         const deviceConf = MiioNoCloudRobot.READ_DEVICE_CONF(RoborockNoCloudRobot.DEVICE_CONF_PATH);
 

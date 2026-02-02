@@ -26,7 +26,6 @@ class RoborockNoCloudRobot extends MiioNoCloudRobot {
      * @param {import("../../NoCloudEventStore")} options.NoCloudEventStore
      * @param {object} options.fanSpeeds
      * @param {object} [options.waterGrades]
-     * @param {Array<import("../../entities/state/attributes/AttachmentStateAttribute").AttachmentStateAttributeType>} [options.supportedAttachments]
      * @param {import("./RoborockConst").DOCK_TYPE} [options.dockType]
      */
     constructor(options) {
@@ -35,7 +34,6 @@ class RoborockNoCloudRobot extends MiioNoCloudRobot {
         this.mapPollMiioCommand = MAP_POLL_COMMANDS.GetFreshMap;
         this.fanSpeeds = options.fanSpeeds;
         this.waterGrades = options.waterGrades ?? {};
-        this.supportedAttachments = options.supportedAttachments ?? [];
         this.dockType = options.dockType ?? RoborockConst.DOCK_TYPE.CHARGING;
 
         this.registerCapability(new capabilities.RoborockFanSpeedControlCapability({
@@ -242,6 +240,7 @@ class RoborockNoCloudRobot extends MiioNoCloudRobot {
 
     //TODO: viomi repolls the map on status change to quick poll states. We probably should do the same
     parseAndUpdateState(data) {
+        const supportedAttachments = this.getModelDetails().supportedAttachments;
         let newStateAttr;
 
         if (this.dockType === RoborockConst.DOCK_TYPE.ULTRA) {
@@ -373,7 +372,7 @@ class RoborockNoCloudRobot extends MiioNoCloudRobot {
 
         if (
             data["water_box_status"] !== undefined &&
-            this.supportedAttachments.includes(stateAttrs.AttachmentStateAttribute.TYPE.WATERTANK)
+            supportedAttachments.includes(stateAttrs.AttachmentStateAttribute.TYPE.WATERTANK)
         ) {
             this.state.upsertFirstMatchingAttribute(new stateAttrs.AttachmentStateAttribute({
                 type: stateAttrs.AttachmentStateAttribute.TYPE.WATERTANK,
@@ -383,7 +382,7 @@ class RoborockNoCloudRobot extends MiioNoCloudRobot {
 
         if (
             data["water_box_carriage_status"] !== undefined &&
-            this.supportedAttachments.includes(stateAttrs.AttachmentStateAttribute.TYPE.MOP)
+            supportedAttachments.includes(stateAttrs.AttachmentStateAttribute.TYPE.MOP)
         ) {
             this.state.upsertFirstMatchingAttribute(new stateAttrs.AttachmentStateAttribute({
                 type: stateAttrs.AttachmentStateAttribute.TYPE.MOP,
@@ -566,16 +565,6 @@ class RoborockNoCloudRobot extends MiioNoCloudRobot {
 
             return null;
         }
-    }
-
-    getModelDetails() {
-        return Object.assign(
-            {},
-            super.getModelDetails(),
-            {
-                supportedAttachments: this.supportedAttachments
-            }
-        );
     }
 
     /**
@@ -889,6 +878,7 @@ RoborockNoCloudRobot.MAP_ERROR_CODE = (vendorErrorCode) => {
             parameters.subsystem = NoCloudRobotError.SUBSYSTEM.DOCK;
             parameters.message = "Auto-Empty Dock filter clogged";
             break;
+
         case 35:
             parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.PERMANENT;
             parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.WARNING;

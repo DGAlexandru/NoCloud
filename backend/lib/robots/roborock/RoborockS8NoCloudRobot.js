@@ -24,7 +24,6 @@ class RoborockS8NoCloudRobot extends RoborockGen4NoCloudRobot {
                 options,
                 {
                     waterGrades: WATER_GRADES,
-                    supportedAttachments: SUPPORTED_ATTACHMENTS,
                     dockType: RoborockConst.DOCK_TYPE.AUTO_EMPTY
                 }
             )
@@ -103,6 +102,19 @@ class RoborockS8NoCloudRobot extends RoborockGen4NoCloudRobot {
         }
     }
 
+    getModelDetails() {
+        return Object.assign(
+            {},
+            super.getModelDetails(),
+            {
+                supportedAttachments: [
+                    entities.state.attributes.AttachmentStateAttribute.TYPE.WATERTANK,
+                    entities.state.attributes.AttachmentStateAttribute.TYPE.MOP,
+                ]
+            }
+        );
+    }
+
     static IMPLEMENTATION_AUTO_DETECTION_HANDLER() {
         const deviceConf = MiioNoCloudRobot.READ_DEVICE_CONF(RoborockNoCloudRobot.DEVICE_CONF_PATH);
 
@@ -116,11 +128,5 @@ const WATER_GRADES = {
     [entities.state.attributes.PresetSelectionStateAttribute.INTENSITY.MEDIUM]: 202,
     [entities.state.attributes.PresetSelectionStateAttribute.INTENSITY.HIGH]: 203
 };
-
-const SUPPORTED_ATTACHMENTS = [
-    entities.state.attributes.AttachmentStateAttribute.TYPE.WATERTANK,
-    entities.state.attributes.AttachmentStateAttribute.TYPE.MOP,
-];
-
 
 module.exports = RoborockS8NoCloudRobot;

@@ -1,5 +1,6 @@
 const capabilities = require("./capabilities");
 const entities = require("../../entities");
+const fs = require("fs");
 const MiioNoCloudRobot = require("../MiioNoCloudRobot");
 const NoCloudRestrictedZone = require("../../entities/core/NoCloudRestrictedZone");
 const QuirksCapability = require("../../core/capabilities/QuirksCapability");
@@ -21,7 +22,6 @@ class RoborockS5MaxNoCloudRobot extends RoborockNoCloudRobot {
                 {
                     fanSpeeds: FAN_SPEEDS,
                     waterGrades: WATER_GRADES,
-                    supportedAttachments: SUPPORTED_ATTACHMENTS
                 }
             )
         );
@@ -69,12 +69,39 @@ class RoborockS5MaxNoCloudRobot extends RoborockNoCloudRobot {
         return "S5 Max";
     }
 
+    setEmbeddedParameters() {
+        super.setEmbeddedParameters();
+
+        if (fs.existsSync(RESERVE_CONF_PATH)) {
+            this.deviceConfPath = RESERVE_CONF_PATH;
+        }
+    }
+
+    getModelDetails() {
+        return Object.assign(
+            {},
+            super.getModelDetails(),
+            {
+                supportedAttachments: [
+                    entities.state.attributes.AttachmentStateAttribute.TYPE.WATERTANK,
+                    entities.state.attributes.AttachmentStateAttribute.TYPE.MOP,
+                ]
+            }
+        );
+    }
+
     static IMPLEMENTATION_AUTO_DETECTION_HANDLER() {
-        const deviceConf = MiioNoCloudRobot.READ_DEVICE_CONF(RoborockNoCloudRobot.DEVICE_CONF_PATH);
+        const deviceConfPath = fs.existsSync(RESERVE_CONF_PATH) ? RESERVE_CONF_PATH : RoborockNoCloudRobot.DEVICE_CONF_PATH;
+        const deviceConf = MiioNoCloudRobot.READ_DEVICE_CONF(deviceConfPath);
 
         return !!(deviceConf && deviceConf.model === "roborock.vacuum.s5e");
     }
 }
+
+// As it should turn out, some of these robots actually have two identities of which the regular one stays unused.
+// Roborock added logic in their stock firmware that prioritizes this second device.conf if it exists
+// Hence, NoCloud shall do the same
+const RESERVE_CONF_PATH = "/mnt/reserve/device.conf";
 
 const FAN_SPEEDS = {
     [entities.state.attributes.PresetSelectionStateAttribute.INTENSITY.LOW]: 101,
@@ -90,10 +117,5 @@ const WATER_GRADES = {
     [entities.state.attributes.PresetSelectionStateAttribute.INTENSITY.MEDIUM]: 202,
     [entities.state.attributes.PresetSelectionStateAttribute.INTENSITY.HIGH]: 203
 };
-
-const SUPPORTED_ATTACHMENTS = [
-    entities.state.attributes.AttachmentStateAttribute.TYPE.WATERTANK,
-    entities.state.attributes.AttachmentStateAttribute.TYPE.MOP,
-];
 
 module.exports = RoborockS5MaxNoCloudRobot;

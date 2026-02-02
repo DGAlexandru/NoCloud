@@ -93,7 +93,6 @@ class RoborockGen4NoCloudRobot extends RoborockNoCloudRobot {
      * @param {object} options
      * @param {import("../../Configuration")} options.config
      * @param {import("../../NoCloudEventStore")} options.NoCloudEventStore
-     * @param {Array<import("../../entities/state/attributes/AttachmentStateAttribute").AttachmentStateAttributeType>} [options.supportedAttachments]
      */
     constructor(options) {
         super(Object.assign({}, options, {fanSpeeds: FAN_SPEEDS}));

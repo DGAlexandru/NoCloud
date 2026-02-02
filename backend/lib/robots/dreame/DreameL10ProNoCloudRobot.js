@@ -123,6 +123,7 @@ class DreameL10ProNoCloudRobot extends DreameGen2LidarNoCloudRobot {
             capabilities.DreameCarpetModeControlCapability,
             capabilities.DreameKeyLockCapability,
             capabilities.DreameLineLaserObstacleAvoidanceControlCapability,
+            capabilities.DreameMopTightPatternControlCapability,
         ].forEach(capability => {
             this.registerCapability(new capability({robot: this}));
         });
@@ -131,7 +132,7 @@ class DreameL10ProNoCloudRobot extends DreameGen2LidarNoCloudRobot {
             robot: this,
             quirks: [
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.CARPET_MODE_SENSITIVITY),
-                quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.TIGHT_MOP_PATTERN)
+                //quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.TIGHT_MOP_PATTERN)
             ]
         }));
     }
