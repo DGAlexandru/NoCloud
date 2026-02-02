@@ -6,6 +6,7 @@ module.exports = {
     CameraLightControlCapability: require("./CameraLightControlCapability"),
     CarpetModeControlCapability: require("./CarpetModeControlCapability"),
     CarpetSensorModeControlCapability: require("./CarpetSensorModeControlCapability"),
+    CleanCarpetsFirstControlCapability: require("./CleanCarpetsFirstControlCapability"),
     CleanRouteControlCapability: require("./CleanRouteControlCapability"),
     CollisionAvoidantNavigationControlCapability: require("./CollisionAvoidantNavigationControlCapability"),
     CombinedVirtualRestrictionsCapability: require("./CombinedVirtualRestrictionsCapability"),
