@@ -293,6 +293,22 @@ class DreameL10SProUltraHeatNoCloudRobot extends DreameGen4NoCloudRobot {
             {
                 siid: DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.SIID,
                 piid: DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.PROPERTIES.MOP_DOCK_SETTINGS.PIID
+            },
+            {
+                siid: DreameGen2NoCloudRobot.MIOT_SERVICES.MISC_STATES.SIID,
+                piid: DreameGen2NoCloudRobot.MIOT_SERVICES.MISC_STATES.PROPERTIES.DOCK_FRESHWATER_TANK_ATTACHMENT.PIID
+            },
+            {
+                siid: DreameGen2NoCloudRobot.MIOT_SERVICES.MISC_STATES.SIID,
+                piid: DreameGen2NoCloudRobot.MIOT_SERVICES.MISC_STATES.PROPERTIES.DOCK_WASTEWATER_TANK_ATTACHMENT.PIID
+            },
+            {
+                siid: DreameGen2NoCloudRobot.MIOT_SERVICES.MISC_STATES.SIID,
+                piid: DreameGen2NoCloudRobot.MIOT_SERVICES.MISC_STATES.PROPERTIES.DOCK_DUSTBAG_ATTACHMENT.PIID
+            },
+            {
+                siid: DreameGen2NoCloudRobot.MIOT_SERVICES.MISC_STATES.SIID,
+                piid: DreameGen2NoCloudRobot.MIOT_SERVICES.MISC_STATES.PROPERTIES.DOCK_DETERGENT_ATTACHMENT.PIID
             }
         ];
     }
@@ -309,6 +325,12 @@ class DreameL10SProUltraHeatNoCloudRobot extends DreameGen4NoCloudRobot {
             {
                 supportedAttachments: [
                     stateAttrs.AttachmentStateAttribute.TYPE.MOP,
+                ],
+                supportedDockComponents: [
+                    stateAttrs.DockComponentStateAttribute.TYPE.WATER_TANK_CLEAN,
+                    stateAttrs.DockComponentStateAttribute.TYPE.WATER_TANK_DIRTY,
+                    stateAttrs.DockComponentStateAttribute.TYPE.DETERGENT,
+                    stateAttrs.DockComponentStateAttribute.TYPE.DUSTBAG,
                 ]
             }
         );
