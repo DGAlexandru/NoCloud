@@ -216,6 +216,7 @@ class DreameL20UltraNoCloudRobot extends DreameGen4NoCloudRobot {
             capabilities.DreameAutoEmptyDockManualTriggerCapability,
             capabilities.DreameCameraLightControlCapability,
             capabilities.DreameCarpetModeControlCapability,
+            capabilities.DreameCleanCarpetsFirstControlCapability,
             capabilities.DreameCleanRouteControlCapability,
             capabilities.DreameCollisionAvoidantNavigationControlCapability,
             capabilities.DreameFloorMaterialDirectionAwareNavigationControlCapability,

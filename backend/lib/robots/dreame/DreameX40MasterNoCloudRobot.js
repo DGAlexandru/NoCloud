@@ -200,6 +200,7 @@ class DreameX40MasterNoCloudRobot extends DreameGen4NoCloudRobot {
             capabilities.DreameAutoEmptyDockManualTriggerCapability,
             capabilities.DreameCameraLightControlCapability,
             capabilities.DreameCarpetModeControlCapability,
+            capabilities.DreameCleanCarpetsFirstControlCapability,
             capabilities.DreameCleanRouteControlCapability,
             capabilities.DreameCollisionAvoidantNavigationControlCapability,
             capabilities.DreameFloorMaterialDirectionAwareNavigationControlCapability,
