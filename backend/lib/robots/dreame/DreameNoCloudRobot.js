@@ -871,6 +871,13 @@ DreameNoCloudRobot.MAP_ERROR_CODE = (vendorErrorCode) => {
             parameters.message = "Failed to attach mop pads";
             break;
 
+        case "82":
+            parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.TRANSIENT;
+            parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.WARNING;
+            parameters.subsystem = NoCloudRobotError.SUBSYSTEM.NAVIGATION;
+            parameters.message = "Robot stuck or trapped";
+            break;
+
         case "91":
             parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.TRANSIENT;
             parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.WARNING;
@@ -883,6 +890,13 @@ DreameNoCloudRobot.MAP_ERROR_CODE = (vendorErrorCode) => {
             parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.WARNING;
             parameters.subsystem = NoCloudRobotError.SUBSYSTEM.NAVIGATION;
             parameters.message = "Cannot reach target";
+            break;
+
+        case "98":
+            parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.TRANSIENT;
+            parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.WARNING;
+            parameters.subsystem = NoCloudRobotError.SUBSYSTEM.NAVIGATION;
+            parameters.message = "Robot stuck or trapped";
             break;
 
         case "101":
