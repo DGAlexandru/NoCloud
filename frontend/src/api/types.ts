@@ -35,6 +35,7 @@ export enum Capability {
     MopExtensionControl = "MopExtensionControlCapability",
     MopExtensionFurnitureLegHandlingControl = "MopExtensionFurnitureLegHandlingControlCapability",
     MopGapControl = "MopGapControlCapability",
+    MopTightPatternControl = "MopTightPatternControlCapability",
     MopTwistFrequencyControl = "MopTwistFrequencyControlCapability",
     ObstacleAvoidanceControl = "ObstacleAvoidanceControlCapability",
     ObstacleImages = "ObstacleImagesCapability",

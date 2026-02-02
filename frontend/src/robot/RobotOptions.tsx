@@ -39,6 +39,8 @@ import {
     useMopExtensionFurnitureLegHandlingControlQuery,
     useMopGapControlMutation,
     useMopGapControlQuery,
+    useMopTightPatternControlMutation,
+    useMopTightPatternControlQuery,
     useMopTwistFrequencyMutation,
     useMopTwistFrequencyPropertiesQuery,
     useMopTwistFrequencyQuery,
@@ -59,6 +61,7 @@ import {
     DeviceThermostat as MopDockMopWashTemperatureControlIcon,
     Explore as FloorMaterialDirectionAwareNavigationControlIcon,
     FlashlightOn as CameraLightControlIcon,
+    Flood as MopTightPatternControlIcon,
     KeyboardDoubleArrowUp as CarpetModeIcon,
     Lock as KeyLockIcon,
     MiscellaneousServices as SystemIcon,
@@ -122,9 +125,7 @@ const KeyLockCapabilitySwitchListMenuItem = () => {
     return (
         <ToggleSwitchListMenuItem
             value={data?.enabled ?? false}
-            setValue={(value) => {
-                mutate(value);
-            }}
+            setValue={(value) => {mutate(value);}}
             disabled={disabled}
             loadError={isError}
             primaryLabel={"Lock Keys"}
@@ -233,9 +234,7 @@ const CameraLightControlCapabilitySwitchListMenuItem = () => {
     return (
         <ToggleSwitchListMenuItem
             value={data?.enabled ?? false}
-            setValue={(value) => {
-                mutate(value);
-            }}
+            setValue={(value) => {mutate(value);}}
             disabled={disabled}
             loadError={isError}
             primaryLabel={"Camera Light"}
@@ -259,9 +258,7 @@ const CarpetModeControlCapabilitySwitchListMenuItem = () => {
     return (
         <ToggleSwitchListMenuItem
             value={data?.enabled ?? false}
-            setValue={(value) => {
-                mutate(value);
-            }}
+            setValue={(value) => {mutate(value);}}
             disabled={disabled}
             loadError={isError}
             primaryLabel={"Carpet Mode"}
@@ -476,9 +473,7 @@ const CollisionAvoidantNavigationControlCapabilitySwitchListMenuItem = () => {
     return (
         <ToggleSwitchListMenuItem
             value={data?.enabled ?? false}
-            setValue={(value) => {
-                mutate(value);
-            }}
+            setValue={(value) => {mutate(value);}}
             disabled={disabled}
             loadError={isError}
             primaryLabel={"Collision-avoidant Navigation"}
@@ -502,9 +497,7 @@ const FloorMaterialDirectionAwareNavigationControlCapabilitySwitchListMenuItem =
     return (
         <ToggleSwitchListMenuItem
             value={data?.enabled ?? false}
-            setValue={(value) => {
-                mutate(value);
-            }}
+            setValue={(value) => {mutate(value);}}
             disabled={disabled}
             loadError={isError}
             primaryLabel={"Material-aligned Navigation"}
@@ -528,9 +521,7 @@ const MopDockMopAutoDryingControlCapabilitySwitchListMenuItem = () => {
     return (
         <ToggleSwitchListMenuItem
             value={data?.enabled ?? false}
-            setValue={(value) => {
-                mutate(value);
-            }}
+            setValue={(value) => {mutate(value);}}
             disabled={disabled}
             loadError={isError}
             primaryLabel={"Mop Auto-Drying"}
@@ -635,9 +626,7 @@ const MopExtensionControlCapabilitySwitchListMenuItem = () => {
     return (
         <ToggleSwitchListMenuItem
             value={data?.enabled ?? false}
-            setValue={(value) => {
-                mutate(value);
-            }}
+            setValue={(value) => {mutate(value);}}
             disabled={disabled}
             loadError={isError}
             primaryLabel={"Mop Extension"}
@@ -661,9 +650,7 @@ const MopExtensionFurnitureLegHandlingControlCapabilitySwitchListMenuItem = () =
     return (
         <ToggleSwitchListMenuItem
             value={data?.enabled ?? false}
-            setValue={(value) => {
-                mutate(value);
-            }}
+            setValue={(value) => {mutate(value);}}
             disabled={disabled}
             loadError={isError}
             primaryLabel={"Extend Mop for Furniture Legs"}
@@ -687,14 +674,36 @@ const MopGapControlCapabilitySwitchListMenuItem = () => {
     return (
         <ToggleSwitchListMenuItem
             value={data?.enabled ?? false}
-            setValue={(value) => {
-                mutate(value);
-            }}
+            setValue={(value) => {mutate(value);}}
             disabled={disabled}
             loadError={isError}
             primaryLabel={"Extend Mop when robot twists"}
             secondaryLabel={"Extend the mop when the robot twists to further reach under furniture with overhangs." }
             icon={<MopGapControlCapabilityIcon/>}
+        />
+    );
+};
+
+const MopTightPatternControlCapabilitySwitchListMenuItem = () => {
+    const {
+        data: data,
+        isFetching: isFetching,
+        isError: isError,
+    } = useMopTightPatternControlQuery();
+
+    const {mutate: mutate, isPending: isChanging} = useMopTightPatternControlMutation();
+    const loading = isFetching || isChanging;
+    const disabled = loading || isChanging || isError;
+
+    return (
+        <ToggleSwitchListMenuItem
+            value={data?.enabled ?? false}
+            setValue={(value) => {mutate(value);}}
+            disabled={disabled}
+            loadError={isError}
+            primaryLabel={"Tight Mop Pattern"}
+            secondaryLabel={"Enabling this makes your robot move in a much tighter pattern when mopping."}
+            icon={<MopTightPatternControlIcon/>}
         />
     );
 };
@@ -765,9 +774,7 @@ const MopTwistFrequencyControlCapabilitySelectListMenuItem = () => {
         <SelectListMenuItem
             options={options}
             currentValue={currentValue}
-            setValue={(e) => {
-                mutate(e.value as MopTwistFrequency);
-            }}
+            setValue={(e) => {mutate(e.value as MopTwistFrequency);}}
             disabled={disabled}
             loadingOptions={mopTwistFrequencyPropertiesPending || isPending}
             loadError={mopTwistFrequencyPropertiesError}
@@ -792,9 +799,7 @@ const ObstacleAvoidanceControlCapabilitySwitchListMenuItem = () => {
     return (
         <ToggleSwitchListMenuItem
             value={data?.enabled ?? false}
-            setValue={(value) => {
-                mutate(value);
-            }}
+            setValue={(value) => {mutate(value);}}
             disabled={disabled}
             loadError={isError}
             primaryLabel={"Obstacle Avoidance"}
@@ -818,9 +823,7 @@ const ObstacleImagesCapabilitySwitchListMenuItem = () => {
     return (
         <ToggleSwitchListMenuItem
             value={data?.enabled ?? false}
-            setValue={(value) => {
-                mutate(value);
-            }}
+            setValue={(value) => {mutate(value);}}
             disabled={disabled}
             loadError={isError}
             primaryLabel={"Obstacle Images"}
@@ -844,9 +847,7 @@ const PetObstacleAvoidanceControlCapabilitySwitchListMenuItem = () => {
     return (
         <ToggleSwitchListMenuItem
             value={data?.enabled ?? false}
-            setValue={(value) => {
-                mutate(value);
-            }}
+            setValue={(value) => {mutate(value);}}
             disabled={disabled}
             loadError={isError}
             primaryLabel={"Pet Obstacle Avoidance"}
@@ -873,6 +874,7 @@ const RobotOptions = (): React.ReactElement => {
         mopExtensionControlCapabilitySupported,
         mopExtensionFurnitureLegHandlingControlSupported,
         mopGapControlCapabilitySupported,
+        mopTightPatternControlSupported,
         mopTwistFrequencyControlSupported,
         obstacleAvoidanceControlCapabilitySupported,
         obstacleImagesSupported,
@@ -897,6 +899,7 @@ const RobotOptions = (): React.ReactElement => {
         Capability.MopExtensionControl,
         Capability.MopExtensionFurnitureLegHandlingControl,
         Capability.MopGapControl,
+        Capability.MopTightPatternControl,
         Capability.MopTwistFrequencyControl,
         Capability.ObstacleAvoidanceControl,
         Capability.ObstacleImages,
@@ -986,6 +989,10 @@ const RobotOptions = (): React.ReactElement => {
             );
         }
 
+        if (mopTightPatternControlSupported) {
+            items.push(<MopTightPatternControlCapabilitySwitchListMenuItem key="mopTightPatternControl"/>);
+        }
+
         if (mopTwistFrequencyControlSupported) {
             items.push(
                 <MopTwistFrequencyControlCapabilitySelectListMenuItem key={"mopTwistFrequencyControl"}/>
@@ -1006,6 +1013,7 @@ const RobotOptions = (): React.ReactElement => {
         mopExtensionControlCapabilitySupported,
         mopExtensionFurnitureLegHandlingControlSupported,
         mopGapControlCapabilitySupported,
+        mopTightPatternControlSupported,
         mopTwistFrequencyControlSupported,
     ]);
 

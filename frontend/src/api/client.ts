@@ -1358,6 +1358,18 @@ export const sendMopTwistFrequency = async (payload: MopTwistFrequencyPayload): 
         });
 };
 
+export const fetchMopTightPatternControlState = async (): Promise<SimpleToggleState> => {
+    return NoCloudAPI
+        .get<SimpleToggleState>(`/robot/capabilities/${Capability.MopTightPatternControl}`)
+        .then(({ data }) => {
+            return data;
+        });
+};
+
+export const sendMopTightPatternControlState = async (enable: boolean): Promise<void> => {
+    await sendToggleMutation(Capability.MopTightPatternControl, enable);
+};
+
 export const fetchMopTwistFrequency = async (): Promise<MopTwistFrequency> => {
     return NoCloudAPI
         .get<MopTwistFrequencyPayload>(`/robot/capabilities/${Capability.MopTwistFrequencyControl}`)

@@ -50,6 +50,7 @@ import {
     fetchMopExtensionControlState,
     fetchMopExtensionFurnitureLegHandlingControlState,
     fetchMopGapControlState,
+    fetchMopTightPatternControlState,
     fetchMopTwistFrequency,
     fetchMopTwistFrequencyProperties,
     fetchNTPClientConfiguration,
@@ -121,6 +122,7 @@ import {
     sendMopExtensionControlState,
     sendMopExtensionFurnitureLegHandlingControlState,
     sendMopGapControlState,
+    sendMopTightPatternControlState,
     sendMopTwistFrequency,
     sendNTPClientConfiguration,
     sendNetworkAdvertisementConfiguration,
@@ -239,6 +241,7 @@ enum QueryKey {
     MopExtensionControl = "mop_extension_control",
     MopExtensionFurnitureLegHandlingControl = "mop_extension_furniture_leg_handling_control",
     MopGapControl = "mop_gap_control",
+    MopTightPatternControl = "mop_tight_pattern_control",
     MopTwistFrequency = "mop_twist_frequency",
     MopTwistFrequencyProperties = "mop_twist_frequency_properties",
     NTPClientConfiguration = "ntp_client_configuration",
@@ -1776,6 +1779,25 @@ export const useMopGapControlMutation = () => {
             return sendMopGapControlState(enable).then(fetchMopGapControlState);
         },
         onError: useOnCommandError(Capability.MopGapControl)
+    });
+};
+
+export const useMopTightPatternControlQuery = () => {
+    return useQuery( {
+        queryKey: [QueryKey.MopTightPatternControl],
+        queryFn: fetchMopTightPatternControlState,
+
+        staleTime: Infinity
+    });
+};
+
+export const useMopTightPatternControlMutation = () => {
+    return useNoCloudFetchingMutation({
+        queryKey: [QueryKey.MopTightPatternControl],
+        mutationFn: (enable: boolean) => {
+            return sendMopTightPatternControlState(enable).then(fetchMopTightPatternControlState);
+        },
+        onError: useOnCommandError(Capability.MopTightPatternControl)
     });
 };
 
