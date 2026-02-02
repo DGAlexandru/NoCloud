@@ -2,6 +2,9 @@ import axios from "axios";
 import { RawMapData } from "./RawMapData";
 import { PresetSelectionState, PresetValue, RobotAttribute } from "./RawRobotState";
 import {
+    AutoEmptyDockAutoEmptyDuration,
+    AutoEmptyDockAutoEmptyDurationControlProperties,
+    AutoEmptyDockAutoEmptyDurationPayload,
     AutoEmptyDockAutoEmptyInterval,
     AutoEmptyDockAutoEmptyIntervalPayload,
     AutoEmptyDockAutoEmptyIntervalProperties,
@@ -869,6 +872,34 @@ export const fetchKeyLockState = async (): Promise<SimpleToggleState> => {
 
 export const sendKeyLockEnable = async (enable: boolean): Promise<void> => {
     await sendToggleMutation(Capability.KeyLock, enable);
+};
+
+export const sendAutoEmptyDockAutoEmptyDuration = async (payload: AutoEmptyDockAutoEmptyDurationPayload): Promise<void> => {
+    return NoCloudAPI
+        .put(`/robot/capabilities/${Capability.AutoEmptyDockAutoEmptyDurationControl}`, payload)
+        .then(({status}) => {
+            if (status !== 200) {
+                throw new Error("Could not send auto empty dock auto empty duration");
+            }
+        });
+};
+
+export const fetchAutoEmptyDockAutoEmptyDuration = async (): Promise<AutoEmptyDockAutoEmptyDuration> => {
+    return NoCloudAPI
+        .get<AutoEmptyDockAutoEmptyDurationPayload>(`/robot/capabilities/${Capability.AutoEmptyDockAutoEmptyDurationControl}`)
+        .then(({data}) => {
+            return data.duration;
+        });
+};
+
+export const fetchAutoEmptyDockAutoEmptyDurationControlProperties = async (): Promise<AutoEmptyDockAutoEmptyDurationControlProperties> => {
+    return NoCloudAPI
+        .get<AutoEmptyDockAutoEmptyDurationControlProperties>(
+            `/robot/capabilities/${Capability.AutoEmptyDockAutoEmptyDurationControl}/properties`
+        )
+        .then(({data}) => {
+            return data;
+        });
 };
 
 export const sendAutoEmptyDockAutoEmptyInterval = async (payload: AutoEmptyDockAutoEmptyIntervalPayload): Promise<void> => {

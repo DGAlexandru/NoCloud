@@ -1,6 +1,7 @@
 import {AttachmentStateAttributeType} from "./RawRobotState";
 
 export enum Capability {
+    AutoEmptyDockAutoEmptyDurationControl = "AutoEmptyDockAutoEmptyDurationControlCapability",
     AutoEmptyDockAutoEmptyIntervalControl = "AutoEmptyDockAutoEmptyIntervalControlCapability",
     AutoEmptyDockManualTrigger = "AutoEmptyDockManualTriggerCapability",
     BasicControl = "BasicControlCapability",
@@ -677,6 +678,16 @@ export interface CarpetSensorModePayload {
 
 export interface CarpetSensorModeControlProperties {
     supportedModes: Array<CarpetSensorMode>
+}
+
+export type AutoEmptyDockAutoEmptyDuration = "auto" | "short" | "medium" | "long";
+
+export interface AutoEmptyDockAutoEmptyDurationPayload {
+    duration: AutoEmptyDockAutoEmptyDuration
+}
+
+export interface AutoEmptyDockAutoEmptyDurationControlProperties {
+    supportedDurations: Array<AutoEmptyDockAutoEmptyDuration>,
 }
 
 export type AutoEmptyDockAutoEmptyInterval = "off" | "infrequent" | "normal" | "frequent" ;

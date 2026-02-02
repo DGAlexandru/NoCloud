@@ -14,6 +14,8 @@ import {
     MopDockCleanManualTriggerCommand,
     MopDockDryManualTriggerCommand,
     deleteTimer,
+    fetchAutoEmptyDockAutoEmptyDuration,
+    fetchAutoEmptyDockAutoEmptyDurationControlProperties,
     fetchAutoEmptyDockAutoEmptyInterval,
     fetchAutoEmptyDockAutoEmptyIntervalProperties,
     fetchCameraLightControlState,
@@ -92,6 +94,7 @@ import {
     fetchWifiScan,
     fetchWifiStatus,
     fetchZoneProperties,
+    sendAutoEmptyDockAutoEmptyDuration,
     sendAutoEmptyDockAutoEmptyInterval,
     sendAutoEmptyDockManualTriggerCommand,
     sendBasicControlCommand,
@@ -166,6 +169,7 @@ import {
 } from "./RawRobotState";
 import { isAttribute } from "./utils";
 import {
+    AutoEmptyDockAutoEmptyDuration,
     AutoEmptyDockAutoEmptyInterval,
     Capability,
     CarpetSensorMode,
@@ -207,6 +211,8 @@ import type { MutationFunction } from "@tanstack/query-core";
 
 enum QueryKey {
     Attributes = "attributes",
+    AutoEmptyDockAutoEmptyDurationControl = "auto_empty_dock_auto_empty_duration_control",
+    AutoEmptyDockAutoEmptyDurationControlProperties = "auto_empty_dock_auto_empty_duration_control_properties",
     AutoEmptyDockAutoEmptyInterval = "auto_empty_dock_auto_empty_interval",
     AutoEmptyDockAutoEmptyIntervalProperties = "auto_empty_dock_auto_empty_interval_properties",
     CameraLightControl = "camera_light_control",
@@ -1166,6 +1172,32 @@ export const useKeyLockStateMutation = () => {
             return sendKeyLockEnable(enable).then(fetchKeyLockState);
         },
         onError: useOnCommandError(Capability.KeyLock)
+    });
+};
+
+export const useAutoEmptyDockAutoEmptyDurationQuery = () => {
+    return useQuery({
+        queryKey: [QueryKey.AutoEmptyDockAutoEmptyDurationControl],
+        queryFn: fetchAutoEmptyDockAutoEmptyDuration
+    });
+};
+
+export const useAutoEmptyDockAutoEmptyDurationMutation = () => {
+    return useNoCloudFetchingMutation({
+        queryKey: [QueryKey.AutoEmptyDockAutoEmptyDurationControl],
+        mutationFn: (duration: AutoEmptyDockAutoEmptyDuration) => {
+            return sendAutoEmptyDockAutoEmptyDuration({duration: duration}).then(fetchAutoEmptyDockAutoEmptyDuration);
+        },
+        onError: useOnCommandError(Capability.AutoEmptyDockAutoEmptyDurationControl)
+    });
+};
+
+export const useAutoEmptyDockAutoEmptyDurationControlPropertiesQuery = () => {
+    return useQuery({
+        queryKey: [QueryKey.AutoEmptyDockAutoEmptyDurationControlProperties],
+        queryFn: fetchAutoEmptyDockAutoEmptyDurationControlProperties,
+
+        staleTime: Infinity
     });
 };
 

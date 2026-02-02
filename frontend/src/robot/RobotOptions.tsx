@@ -2,6 +2,7 @@
 
 import {useCapabilitiesSupported} from "../CapabilitiesProvider";
 import {
+    AutoEmptyDockAutoEmptyDuration,
     AutoEmptyDockAutoEmptyInterval,
     Capability,
     CarpetSensorMode,
@@ -9,6 +10,9 @@ import {
     MopDockMopDryingDuration,
     MopDockMopWashTemperature,
     MopTwistFrequency,
+    useAutoEmptyDockAutoEmptyDurationControlPropertiesQuery,
+    useAutoEmptyDockAutoEmptyDurationMutation,
+    useAutoEmptyDockAutoEmptyDurationQuery,
     useAutoEmptyDockAutoEmptyIntervalMutation,
     useAutoEmptyDockAutoEmptyIntervalPropertiesQuery,
     useAutoEmptyDockAutoEmptyIntervalQuery,
@@ -61,6 +65,7 @@ import {ToggleSwitchListMenuItem} from "../components/list_menu/ToggleSwitchList
 import {
     Air as MopDockMopAutoDryingControlIcon,
     AutoDelete as AutoEmptyIntervalControlIcon,
+    AvTimer as AutoEmptyDockAutoEmptyDurationControlIcon,
     AvTimer as MopDockMopDryingTimeControlIcon,
     Cable as ObstacleAvoidanceControlIcon,
     DeviceThermostat as MopDockMopWashTemperatureControlIcon,
@@ -136,6 +141,90 @@ const KeyLockCapabilitySwitchListMenuItem = () => {
             primaryLabel={"Lock Keys"}
             secondaryLabel={"Prevents the robot from being operated via its physical buttons."}
             icon={<KeyLockIcon/>}
+        />
+    );
+};
+
+const AutoEmptyDockAutoEmptyDurationControlCapabilitySelectListMenuItem = () => {
+    const SORT_ORDER = {
+        "auto": 1,
+        "short": 2,
+        "medium": 3,
+        "long": 4
+    };
+
+    const {
+        data: autoEmptyDurationProperties,
+        isPending: autoEmptyDurationPropertiesPending,
+        isError: autoEmptyDurationPropertiesError
+    } = useAutoEmptyDockAutoEmptyDurationControlPropertiesQuery();
+
+    const options: Array<SelectListMenuItemOption> = (
+        autoEmptyDurationProperties?.supportedDurations ?? []
+    ).sort((a, b) => {
+        const aMapped = SORT_ORDER[a] ?? 10;
+        const bMapped = SORT_ORDER[b] ?? 10;
+
+        if (aMapped < bMapped) {
+            return -1;
+        } else if (bMapped < aMapped) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }).map((val: AutoEmptyDockAutoEmptyDuration) => {
+        let label;
+
+        switch (val) {
+            case "auto":
+                label = "Auto";
+                break;
+            case "short":
+                label = "Short";
+                break;
+            case "medium":
+                label = "Medium";
+                break;
+            case "long":
+                label = "Long";
+                break;
+        }
+
+        return {
+            value: val,
+            label: label
+        };
+    });
+
+    const {
+        data: data,
+        isPending: isPending,
+        isFetching: isFetching,
+        isError: isError,
+    } = useAutoEmptyDockAutoEmptyDurationQuery();
+
+    const {mutate: mutate, isPending: isChanging} = useAutoEmptyDockAutoEmptyDurationMutation();
+    const loading = isFetching || isChanging;
+    const disabled = loading || isChanging || isError;
+
+    const currentValue = options.find(mode => {
+        return mode.value === data;
+    }) ?? {value: "", label: ""};
+
+
+    return (
+        <SelectListMenuItem
+            options={options}
+            currentValue={currentValue}
+            setValue={(e) => {
+                mutate(e.value as AutoEmptyDockAutoEmptyDuration);
+            }}
+            disabled={disabled}
+            loadingOptions={autoEmptyDurationPropertiesPending || isPending}
+            loadError={autoEmptyDurationPropertiesError}
+            primaryLabel="Dock Auto-Empty Duration"
+            secondaryLabel={"Configure the duration of the auto-empty cycle."}
+            icon={<AutoEmptyDockAutoEmptyDurationControlIcon/>}
         />
     );
 };
@@ -529,7 +618,7 @@ const MopDockMopAutoDryingControlCapabilitySwitchListMenuItem = () => {
             setValue={(value) => {mutate(value);}}
             disabled={disabled}
             loadError={isError}
-            primaryLabel={"Mop Auto-Drying"}
+            primaryLabel={"Mop Pads Auto-Drying"}
             secondaryLabel={"Automatically dry the mop pads after a finished cleanup."}
             icon={<MopDockMopAutoDryingControlIcon/>}
         />
@@ -709,7 +798,7 @@ const MopDockMopWashTemperatureControlCapabilitySelectListMenuItem = () => {
             disabled={disabled}
             loadingOptions={mopDockMopWashTemperaturePropertiesPending || isPending}
             loadError={mopDockMopWashTemperaturePropertiesError}
-            primaryLabel="Mop Wash Temperature"
+            primaryLabel="Mop Pads Wash Temperature"
             secondaryLabel="Select if and/or how much the dock should heat the water used to rinse the mop pads."
             icon={<MopDockMopWashTemperatureControlIcon/>}
         />
@@ -963,6 +1052,7 @@ const PetObstacleAvoidanceControlCapabilitySwitchListMenuItem = () => {
 
 const RobotOptions = (): React.ReactElement => {
     const [
+        autoEmptyDockAutoEmptyDurationControlCapabilitySupported,
         autoEmptyDockAutoEmptyIntervalControlCapabilitySupported,
         cameraLightControlSupported,
         carpetModeControlCapabilitySupported,
@@ -989,6 +1079,7 @@ const RobotOptions = (): React.ReactElement => {
         speakerVolumeControlCapabilitySupported,
         voicePackManagementCapabilitySupported,
     ] = useCapabilitiesSupported(
+        Capability.AutoEmptyDockAutoEmptyDurationControl,
         Capability.AutoEmptyDockAutoEmptyIntervalControl,
         Capability.CameraLightControl,
         Capability.CarpetModeControl,
@@ -1020,15 +1111,11 @@ const RobotOptions = (): React.ReactElement => {
         const items = [];
 
         if (locateCapabilitySupported) {
-            items.push(
-                <LocateButtonListMenuItem key={"locateAction"}/>
-            );
+            items.push(<LocateButtonListMenuItem key={"locateAction"}/>);
         }
 
         if (keyLockControlCapabilitySupported) {
-            items.push(
-                <KeyLockCapabilitySwitchListMenuItem key={"keyLockControl"}/>
-            );
+            items.push(<KeyLockCapabilitySwitchListMenuItem key={"keyLockControl"}/>);
         }
 
         return items;
@@ -1056,31 +1143,25 @@ const RobotOptions = (): React.ReactElement => {
             items.push(<CleanRouteControlCapabilitySelectListMenuItem key="cleanRouteControl"/>);
         }
 
-        if (collisionAvoidantNavigationControlCapabilitySupported || floorMaterialDirectionAwareNavigationControlSupported ||
-            cleanRouteControlSupported) {
+        if ([collisionAvoidantNavigationControlCapabilitySupported, floorMaterialDirectionAwareNavigationControlSupported,
+            cleanRouteControlSupported].filter(Boolean).length > 1) {
             items.push(<SpacerListMenuItem key={"spacer-navigation"} halfHeight={true}/>);
         }
 
         if (carpetModeControlCapabilitySupported) {
-            items.push(
-                <CarpetModeControlCapabilitySwitchListMenuItem key={"carpetModeControl"}/>
-            );
+            items.push(<CarpetModeControlCapabilitySwitchListMenuItem key={"carpetModeControl"}/>);
         }
 
         if (carpetSensorModeControlCapabilitySupported) {
-            items.push(
-                <CarpetSensorModeControlCapabilitySelectListMenuItem key={"carpetSensorModeControl"}/>
-            );
+            items.push(<CarpetSensorModeControlCapabilitySelectListMenuItem key={"carpetSensorModeControl"}/>);
         }
 
-        if (carpetModeControlCapabilitySupported || carpetSensorModeControlCapabilitySupported) {
+        if (carpetModeControlCapabilitySupported && carpetSensorModeControlCapabilitySupported) {
             items.push(<SpacerListMenuItem key={"spacer-carpet"} halfHeight={true}/>);
         }
 
         if (mopExtensionControlCapabilitySupported) {
-            items.push(
-                <MopExtensionControlCapabilitySwitchListMenuItem key={"mopExtensionControl"}/>
-            );
+            items.push(<MopExtensionControlCapabilitySwitchListMenuItem key={"mopExtensionControl"}/>);
         }
 
         if (mopExtensionFurnitureLegHandlingControlSupported) {
@@ -1090,9 +1171,7 @@ const RobotOptions = (): React.ReactElement => {
         }
 
         if (mopGapControlCapabilitySupported) {
-            items.push(
-                <MopGapControlCapabilitySwitchListMenuItem key={"mopGapControl"}/>
-            );
+            items.push(<MopGapControlCapabilitySwitchListMenuItem key={"mopGapControl"}/>);
         }
 
         if (mopTightPatternControlSupported) {
@@ -1100,9 +1179,7 @@ const RobotOptions = (): React.ReactElement => {
         }
 
         if (mopTwistFrequencyControlSupported) {
-            items.push(
-                <MopTwistFrequencyControlCapabilitySelectListMenuItem key={"mopTwistFrequencyControl"}/>
-            );
+            items.push(<MopTwistFrequencyControlCapabilitySelectListMenuItem key={"mopTwistFrequencyControl"}/>);
         }
 
         if (items.at(-1)?.type === SpacerListMenuItem) {
@@ -1125,29 +1202,21 @@ const RobotOptions = (): React.ReactElement => {
 
     const navigationListItems = React.useMemo(() => {
         const items = [];
-
+        // The order of the IFs generate the shown order of Capabilities in UI
         if (obstacleAvoidanceControlCapabilitySupported) {
-            items.push(
-                <ObstacleAvoidanceControlCapabilitySwitchListMenuItem key={"obstacleAvoidanceControl"}/>
-            );
+            items.push(<ObstacleAvoidanceControlCapabilitySwitchListMenuItem key={"obstacleAvoidanceControl"}/>);
         }
 
         if (petObstacleAvoidanceControlCapabilitySupported) {
-            items.push(
-                <PetObstacleAvoidanceControlCapabilitySwitchListMenuItem key={"petObstacleAvoidanceControl"}/>
-            );
+            items.push(<PetObstacleAvoidanceControlCapabilitySwitchListMenuItem key={"petObstacleAvoidanceControl"}/>);
         }
 
         if (obstacleImagesSupported) {
-            items.push(
-                <ObstacleImagesCapabilitySwitchListMenuItem key={"obstacleImages"}/>
-            );
+            items.push(<ObstacleImagesCapabilitySwitchListMenuItem key={"obstacleImages"}/>);
         }
 
         if (cameraLightControlSupported) {
-            items.push(
-                <CameraLightControlCapabilitySwitchListMenuItem key={"cameraLightControl"}/>
-            );
+            items.push(<CameraLightControlCapabilitySwitchListMenuItem key={"cameraLightControl"}/>);
         }
 
         return items;
@@ -1160,11 +1229,21 @@ const RobotOptions = (): React.ReactElement => {
 
     const dockListItems = React.useMemo(() => {
         const items = [];
-
+        // The order of the IFs generate the shown order of Capabilities in UI
         if (autoEmptyDockAutoEmptyIntervalControlCapabilitySupported) {
             items.push(
                 <AutoEmptyDockAutoEmptyIntervalControlCapabilitySelectListMenuItem key={"autoEmptyDockAutoEmptyIntervalControl"}/>
             );
+        }
+
+        if (autoEmptyDockAutoEmptyDurationControlCapabilitySupported) {
+            items.push(
+                <AutoEmptyDockAutoEmptyDurationControlCapabilitySelectListMenuItem key={"autoEmptyDockAutoEmptyDurationControl"}/>
+            );
+        }
+
+        if (autoEmptyDockAutoEmptyIntervalControlCapabilitySupported && autoEmptyDockAutoEmptyDurationControlCapabilitySupported) {
+            items.push(<SpacerListMenuItem key={"spacer-auto-empty"} halfHeight={true}/>);
         }
 
         if (mopDockMopAutoDryingControlSupported) {
@@ -1183,6 +1262,7 @@ const RobotOptions = (): React.ReactElement => {
 
         return items;
     }, [
+        autoEmptyDockAutoEmptyDurationControlCapabilitySupported,
         autoEmptyDockAutoEmptyIntervalControlCapabilitySupported,
         mopDockMopAutoDryingControlSupported,
         mopDockMopDryingTimeControlSupported,
@@ -1192,10 +1272,8 @@ const RobotOptions = (): React.ReactElement => {
     const miscListItems = React.useMemo(() => {
         const items = [];
 
-        if (
-            speakerVolumeControlCapabilitySupported || speakerTestCapabilitySupported ||
-            voicePackManagementCapabilitySupported ||
-            doNotDisturbCapabilitySupported
+        if (speakerVolumeControlCapabilitySupported || speakerTestCapabilitySupported ||
+            voicePackManagementCapabilitySupported || doNotDisturbCapabilitySupported
         ) {
             const label = [];
 
