@@ -16,9 +16,12 @@ class ViomiV6NoCloudRobot extends ViomiNoCloudRobot {
     constructor(options) {
         super(options);
 
-        this.registerCapability(new capabilities.ViomiVoicePackManagementCapability({
-            robot: this
-        }));
+        [
+            capabilities.ViomiCleanRouteControlCapability,
+            capabilities.ViomiVoicePackManagementCapability,
+        ].forEach(capability => {
+            this.registerCapability(new capability({robot: this}));
+        });
 
         const quirkFactory = new ViomiQuirkFactory({
             robot: this
@@ -27,7 +30,7 @@ class ViomiV6NoCloudRobot extends ViomiNoCloudRobot {
             robot: this,
             quirks: [
                 quirkFactory.getQuirk(ViomiQuirkFactory.KNOWN_QUIRKS.BUTTON_LEDS),
-                quirkFactory.getQuirk(ViomiQuirkFactory.KNOWN_QUIRKS.MOP_PATTERN),
+                //quirkFactory.getQuirk(ViomiQuirkFactory.KNOWN_QUIRKS.MOP_PATTERN),
                 quirkFactory.getQuirk(ViomiQuirkFactory.KNOWN_QUIRKS.OUTLINE_MODE),
             ]
         }));

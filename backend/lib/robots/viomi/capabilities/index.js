@@ -1,6 +1,7 @@
 module.exports = {
     ViomiBasicControlCapability: require("./ViomiBasicControlCapability"),
     ViomiCarpetModeControlCapability: require("./ViomiCarpetModeControlCapability"),
+    ViomiCleanRouteControlCapability: require("./ViomiCleanRouteControlCapability"),
     ViomiCombinedVirtualRestrictionsCapability: require("./ViomiCombinedVirtualRestrictionsCapability"),
     ViomiConsumableMonitoringCapability: require("./ViomiConsumableMonitoringCapability"),
     ViomiCurrentStatisticsCapability: require("./ViomiCurrentStatisticsCapability"),

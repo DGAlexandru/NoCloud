@@ -54,7 +54,7 @@ class ViomiQuirkFactory {
                         return this.robot.sendCommand("set_light", [val], {});
                     }
                 });
-            case ViomiQuirkFactory.KNOWN_QUIRKS.MOP_PATTERN:
+            /*case ViomiQuirkFactory.KNOWN_QUIRKS.MOP_PATTERN:
                 return new Quirk({
                     id: id,
                     title: "Mop Pattern",
@@ -93,7 +93,7 @@ class ViomiQuirkFactory {
 
                         return this.robot.sendCommand("set_moproute", [val], {});
                     }
-                });
+                });*/
             case ViomiQuirkFactory.KNOWN_QUIRKS.OUTLINE_MODE:
                 return new Quirk({
                     id: id,
@@ -147,7 +147,7 @@ class ViomiQuirkFactory {
 
 ViomiQuirkFactory.KNOWN_QUIRKS = {
     BUTTON_LEDS: "977c5972-1f12-4ef1-9622-ce71fd085193",
-    MOP_PATTERN: "0ae06cb4-8cc7-429f-95fb-f3d0bbfc06de",
+    //MOP_PATTERN: "0ae06cb4-8cc7-429f-95fb-f3d0bbfc06de",
     OUTLINE_MODE: "061b826c-417c-46a0-b6ad-807260cd4f70",
 };
 
