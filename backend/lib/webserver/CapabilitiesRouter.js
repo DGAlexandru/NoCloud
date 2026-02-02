@@ -89,6 +89,7 @@ const CAPABILITY_TYPE_TO_ROUTER_MAPPING = {
     [capabilities.MopDockCleanManualTriggerCapability.TYPE]: capabilityRouters.MopDockCleanManualTriggerCapabilityRouter,
     [capabilities.MopDockDryManualTriggerCapability.TYPE]: capabilityRouters.MopDockDryManualTriggerCapabilityRouter,
     [capabilities.MopDockMopAutoDryingControlCapability.TYPE]: capabilityRouters.SimpleToggleCapabilityRouter,
+    [capabilities.MopDockMopDryingTimeControlCapability.TYPE]: capabilityRouters.MopDockMopDryingTimeControlCapabilityRouter,
     [capabilities.MopDockMopWashTemperatureControlCapability.TYPE]: capabilityRouters.MopDockMopWashTemperatureControlCapabilityRouter,
     [capabilities.MopExtensionControlCapability.TYPE]: capabilityRouters.SimpleToggleCapabilityRouter,
     [capabilities.MopExtensionFurnitureLegHandlingControlCapability.TYPE]: capabilityRouters.SimpleToggleCapabilityRouter,
