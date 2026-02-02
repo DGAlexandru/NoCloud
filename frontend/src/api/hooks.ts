@@ -45,6 +45,8 @@ import {
     fetchMapSegmentationProperties,
     fetchMapSegmentMaterialControlProperties,
     fetchMopDockMopAutoDryingControlState,
+    fetchMopDockMopDryingTime,
+    fetchMopDockMopDryingTimeControlProperties,
     fetchMopDockMopWashTemperature,
     fetchMopDockMopWashTemperatureProperties,
     fetchMopExtensionControlState,
@@ -118,6 +120,7 @@ import {
     sendMopDockCleanManualTriggerCommand,
     sendMopDockDryManualTriggerCommand,
     sendMopDockMopAutoDryingControlState,
+    sendMopDockMopDryingTime,
     sendMopDockMopWashTemperature,
     sendMopExtensionControlState,
     sendMopExtensionFurnitureLegHandlingControlState,
@@ -179,6 +182,7 @@ import {
     MapSegmentEditSplitRequestParameters,
     MapSegmentMaterialControlRequestParameters,
     MapSegmentRenameRequestParameters,
+    MopDockMopDryingDuration,
     MopDockMopWashTemperature,
     MopTwistFrequency,
     MQTTConfiguration,
@@ -236,6 +240,8 @@ enum QueryKey {
     MapSegmentationProperties = "map_segmentation_properties",
     MapSegmentMaterialControlProperties = "map_segment_material_control_properties",
     MopDockMopAutoDryingControl = "mop_dock_mop_auto_drying_control",
+    MopDockMopDryingTimeControl = "mop_dock_mop_drying_time_control",
+    MopDockMopDryingTimeControlProperties = "mop_dock_mop_drying_time_control_properties",
     MopDockMopWashTemperature = "mop_dock_mop_wash_temperature",
     MopDockMopWashTemperatureProperties = "mop_dock_mop_wash_temperature_properties",
     MopExtensionControl = "mop_extension_control",
@@ -1694,6 +1700,32 @@ export const useMopDockMopAutoDryingControlMutation = () => {
             return sendMopDockMopAutoDryingControlState(enable).then(fetchMopDockMopAutoDryingControlState);
         },
         onError: useOnCommandError(Capability.MopDockMopAutoDryingControl)
+    });
+};
+
+export const useMopDockMopDryingTimeQuery = () => {
+    return useQuery({
+        queryKey: [QueryKey.MopDockMopDryingTimeControl],
+        queryFn: fetchMopDockMopDryingTime
+    });
+};
+
+export const useMopDockMopDryingTimeMutation = () => {
+    return useNoCloudFetchingMutation({
+        queryKey: [QueryKey.MopDockMopDryingTimeControl],
+        mutationFn: (duration: MopDockMopDryingDuration) => {
+            return sendMopDockMopDryingTime({duration: duration}).then(fetchMopDockMopDryingTime);
+        },
+        onError: useOnCommandError(Capability.MopDockMopDryingTimeControl)
+    });
+};
+
+export const useMopDockMopDryingTimeControlPropertiesQuery = () => {
+    return useQuery({
+        queryKey: [QueryKey.MopDockMopDryingTimeControlProperties],
+        queryFn: fetchMopDockMopDryingTimeControlProperties,
+
+        staleTime: Infinity
     });
 };
 

@@ -6,6 +6,7 @@ import {
     Capability,
     CarpetSensorMode,
     CleanRoute,
+    MopDockMopDryingDuration,
     MopDockMopWashTemperature,
     MopTwistFrequency,
     useAutoEmptyDockAutoEmptyIntervalMutation,
@@ -30,6 +31,9 @@ import {
     useLocateMutation,
     useMopDockMopAutoDryingControlMutation,
     useMopDockMopAutoDryingControlQuery,
+    useMopDockMopDryingTimeControlPropertiesQuery,
+    useMopDockMopDryingTimeMutation,
+    useMopDockMopDryingTimeQuery,
     useMopDockMopWashTemperatureMutation,
     useMopDockMopWashTemperaturePropertiesQuery,
     useMopDockMopWashTemperatureQuery,
@@ -57,6 +61,7 @@ import {ToggleSwitchListMenuItem} from "../components/list_menu/ToggleSwitchList
 import {
     Air as MopDockMopAutoDryingControlIcon,
     AutoDelete as AutoEmptyIntervalControlIcon,
+    AvTimer as MopDockMopDryingTimeControlIcon,
     Cable as ObstacleAvoidanceControlIcon,
     DeviceThermostat as MopDockMopWashTemperatureControlIcon,
     Explore as FloorMaterialDirectionAwareNavigationControlIcon,
@@ -531,6 +536,105 @@ const MopDockMopAutoDryingControlCapabilitySwitchListMenuItem = () => {
     );
 };
 
+const MopDockMopDryingTimeControlCapabilitySelectListMenuItem = () => {
+    const SORT_ORDER = {
+        "2h": 1,
+        "1h": 2,
+        "3h": 3,
+        "4h": 4,
+        "cold": 5
+    };
+
+    const {
+        data: mopDryingTimeProperties,
+        isPending: mopDryingTimePropertiesPending,
+        isError: mopDryingTimePropertiesError
+    } = useMopDockMopDryingTimeControlPropertiesQuery();
+
+    const options: Array<SelectListMenuItemOption> = (
+        mopDryingTimeProperties?.supportedDurations ?? []
+    ).sort((a, b) => {
+        const aMapped = SORT_ORDER[a] ?? 10;
+        const bMapped = SORT_ORDER[b] ?? 10;
+
+        if (aMapped < bMapped) {
+            return -1;
+        } else if (bMapped < aMapped) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }).map((val: MopDockMopDryingDuration) => {
+        let label;
+
+        switch (val) {
+            case "1h":
+                label = "1 Hour";
+                break;
+            case "2h":
+                label = "2 Hours";
+                break;
+            case "3h":
+                label = "3 Hours";
+                break;
+            case "4h":
+                label = "4 Hours";
+                break;
+            case "cold":
+                label = "Cold";
+                break;
+        }
+
+        return {
+            value: val,
+            label: label
+        };
+    });
+
+    const description = React.useMemo(() => {
+        let desc = "Select how long the mop pads should be dried with hot air after a finished cleanup.";
+
+        if (mopDryingTimeProperties?.supportedDurations?.includes("cold")) {
+            desc += " \"Cold\" disables the heater but compensates with far longer ventilation time.";
+        }
+
+        return desc;
+    }, [mopDryingTimeProperties]);
+
+
+    const {
+        data: data,
+        isPending: isPending,
+        isFetching: isFetching,
+        isError: isError,
+    } = useMopDockMopDryingTimeQuery();
+
+    const {mutate: mutate, isPending: isChanging} = useMopDockMopDryingTimeMutation();
+    const loading = isFetching || isChanging;
+    const disabled = loading || isChanging || isError;
+
+    const currentValue = options.find(mode => {
+        return mode.value === data;
+    }) ?? {value: "", label: ""};
+
+
+    return (
+        <SelectListMenuItem
+            options={options}
+            currentValue={currentValue}
+            setValue={(e) => {
+                mutate(e.value as MopDockMopDryingDuration);
+            }}
+            disabled={disabled}
+            loadingOptions={mopDryingTimePropertiesPending || isPending}
+            loadError={mopDryingTimePropertiesError}
+            primaryLabel="Mop Pads Drying Time"
+            secondaryLabel={description}
+            icon={<MopDockMopDryingTimeControlIcon/>}
+        />
+    );
+};
+
 const MopDockMopWashTemperatureControlCapabilitySelectListMenuItem = () => {
     const SORT_ORDER: Record<MopDockMopWashTemperature, number> = {
         "cold": 1,
@@ -870,6 +974,7 @@ const RobotOptions = (): React.ReactElement => {
         keyLockControlCapabilitySupported,
         locateCapabilitySupported,
         mopDockMopAutoDryingControlSupported,
+        mopDockMopDryingTimeControlSupported,
         mopDockMopWashTemperatureControlSupported,
         mopExtensionControlCapabilitySupported,
         mopExtensionFurnitureLegHandlingControlSupported,
@@ -895,6 +1000,7 @@ const RobotOptions = (): React.ReactElement => {
         Capability.KeyLock,
         Capability.Locate,
         Capability.MopDockMopAutoDryingControl,
+        Capability.MopDockMopDryingTimeControl,
         Capability.MopDockMopWashTemperatureControl,
         Capability.MopExtensionControl,
         Capability.MopExtensionFurnitureLegHandlingControl,
@@ -1065,6 +1171,10 @@ const RobotOptions = (): React.ReactElement => {
             items.push(<MopDockMopAutoDryingControlCapabilitySwitchListMenuItem key="mopDockAutoDrying"/>);
         }
 
+        if (mopDockMopDryingTimeControlSupported) {
+            items.push(<MopDockMopDryingTimeControlCapabilitySelectListMenuItem key="mopDockMopDryingTimeControl"/>);
+        }
+
         if (mopDockMopWashTemperatureControlSupported) {
             items.push(
                 <MopDockMopWashTemperatureControlCapabilitySelectListMenuItem key={"mopDockMopWashTemperatureControl"}/>
@@ -1075,6 +1185,7 @@ const RobotOptions = (): React.ReactElement => {
     }, [
         autoEmptyDockAutoEmptyIntervalControlCapabilitySupported,
         mopDockMopAutoDryingControlSupported,
+        mopDockMopDryingTimeControlSupported,
         mopDockMopWashTemperatureControlSupported,
     ]);
 

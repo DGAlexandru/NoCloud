@@ -31,6 +31,7 @@ export enum Capability {
     MopDockCleanManualTrigger = "MopDockCleanManualTriggerCapability",
     MopDockDryManualTrigger = "MopDockDryManualTriggerCapability",
     MopDockMopAutoDryingControl = "MopDockMopAutoDryingControlCapability",
+    MopDockMopDryingTimeControl = "MopDockMopDryingTimeControlCapability",
     MopDockMopWashTemperatureControl = "MopDockMopWashTemperatureControlCapability",
     MopExtensionControl = "MopExtensionControlCapability",
     MopExtensionFurnitureLegHandlingControl = "MopExtensionFurnitureLegHandlingControlCapability",
@@ -693,6 +694,16 @@ export interface ObstacleImagesProperties {
         width: number,
         height: number
     }
+}
+
+export type MopDockMopDryingDuration = "1h" | "2h" | "3h" | "4h" | "cold";
+
+export interface MopDockMopDryingTimePayload {
+    duration: MopDockMopDryingDuration
+}
+
+export interface MopDockMopDryingTimeControlProperties {
+    supportedDurations: Array<MopDockMopDryingDuration>,
 }
 
 export type MopDockMopWashTemperature = "cold" | "warm" | "hot" | "scalding" | "boiling";

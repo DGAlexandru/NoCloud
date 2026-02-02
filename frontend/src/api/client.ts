@@ -35,6 +35,9 @@ import {
     MapSegmentRenameRequestParameters,
     MapSegmentationActionRequestParameters,
     MapSegmentationProperties,
+    MopDockMopDryingDuration,
+    MopDockMopDryingTimeControlProperties,
+    MopDockMopDryingTimePayload,
     MopDockMopWashTemperature,
     MopDockMopWashTemperaturePayload,
     MopDockMopWashTemperatureProperties,
@@ -1281,6 +1284,34 @@ export const fetchMopDockMopAutoDryingControlState = async (): Promise<SimpleTog
 
 export const sendMopDockMopAutoDryingControlState = async (enable: boolean): Promise<void> => {
     await sendToggleMutation(Capability.MopDockMopAutoDryingControl, enable);
+};
+
+export const sendMopDockMopDryingTime = async (payload: MopDockMopDryingTimePayload): Promise<void> => {
+    return NoCloudAPI
+        .put(`/robot/capabilities/${Capability.MopDockMopDryingTimeControl}`, payload)
+        .then(({status}) => {
+            if (status !== 200) {
+                throw new Error("Could not send mop dock mop drying time");
+            }
+        });
+};
+
+export const fetchMopDockMopDryingTime = async (): Promise<MopDockMopDryingDuration> => {
+    return NoCloudAPI
+        .get<MopDockMopDryingTimePayload>(`/robot/capabilities/${Capability.MopDockMopDryingTimeControl}`)
+        .then(({data}) => {
+            return data.duration;
+        });
+};
+
+export const fetchMopDockMopDryingTimeControlProperties = async (): Promise<MopDockMopDryingTimeControlProperties> => {
+    return NoCloudAPI
+        .get<MopDockMopDryingTimeControlProperties>(
+            `/robot/capabilities/${Capability.MopDockMopDryingTimeControl}/properties`
+        )
+        .then(({data}) => {
+            return data;
+        });
 };
 
 export const sendMopDockMopWashTemperature = async (payload: MopDockMopWashTemperaturePayload): Promise<void> => {
