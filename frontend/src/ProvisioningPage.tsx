@@ -1,11 +1,13 @@
 import {
     Box,
+    Button,
     Dialog,
     DialogContent,
     DialogContentText,
     DialogTitle,
     Divider,
     FormControl,
+    Grid2,
     IconButton,
     Input,
     InputAdornment,
@@ -20,7 +22,6 @@ import {
     TextField,
     Typography
 } from "@mui/material";
-import Grid from "@mui/material/Grid2";
 import Logo from "./assets/icons/NoCloud_logo_with_name.svg?react";
 import React from "react";
 import {
@@ -41,7 +42,6 @@ import {
     useWifiConfigurationMutation,
     useWifiScanQuery,
 } from "./api";
-import {LoadingButton} from "@mui/lab";
 import {useCapabilitiesSupported} from "./CapabilitiesProvider";
 
 const SCAN_RESULT_BATCH_SIZE = 5;
@@ -234,18 +234,18 @@ const ProvisioningPage = (): React.ReactElement => {
         ];
 
         return (
-            <Grid container direction="row" sx={{padding: "1rem", justifyContent: "space-around"}}>
+            <Grid2 container direction="row" sx={{padding: "1rem", justifyContent: "space-around"}}>
                 {items.map(([header, body]) => {
                     return (
-                        <Grid key={header}>
+                        <Grid2 key={header}>
                             <Typography variant="caption" color="textSecondary">
                                 {header}
                             </Typography>
                             <Typography variant="body2">{body}</Typography>
-                        </Grid>
+                        </Grid2>
                     );
                 })}
-            </Grid>
+            </Grid2>
         );
     }, [robotInformation, robotInformationPending, version, versionPending]);
 
@@ -262,11 +262,11 @@ const ProvisioningPage = (): React.ReactElement => {
                     maxWidth: "600px"
                 }}
             >
-                <Grid
+                <Grid2
                     container
                     direction="row"
                 >
-                    <Grid>
+                    <Grid2>
                         <Box px={2} pt={2} pb={1}>
                             <Logo
                                 style={{
@@ -275,8 +275,8 @@ const ProvisioningPage = (): React.ReactElement => {
                                 }}
                             />
                         </Box>
-                    </Grid>
-                </Grid>
+                    </Grid2>
+                </Grid2>
                 <Typography
                     variant="body1"
                     style={{
@@ -306,8 +306,8 @@ const ProvisioningPage = (): React.ReactElement => {
                     </>
                 }
 
-                <Grid container sx={{padding: "1rem"}} direction="column">
-                    <Grid sx={{paddingLeft: "1rem", paddingRight: "1rem"}}>
+                <Grid2 container sx={{padding: "1rem"}} direction="column">
+                    <Grid2 sx={{paddingLeft: "1rem", paddingRight: "1rem"}}>
                         <TextField
                             label="SSID/Wi-Fi name"
                             variant="standard"
@@ -317,9 +317,9 @@ const ProvisioningPage = (): React.ReactElement => {
                                 setNewSSID(e.target.value);
                             }}
                         />
-                    </Grid>
+                    </Grid2>
 
-                    <Grid sx={{paddingLeft: "1rem", paddingRight: "1rem"}}>
+                    <Grid2 sx={{paddingLeft: "1rem", paddingRight: "1rem"}}>
                         <FormControl style={{width: "100%"}} variant="standard">
                             <InputLabel htmlFor="standard-adornment-password">PSK/Password</InputLabel>
                             <Input
@@ -347,10 +347,10 @@ const ProvisioningPage = (): React.ReactElement => {
                                     setNewPSK(e.target.value);
                                 }}/>
                         </FormControl>
-                    </Grid>
+                    </Grid2>
 
-                    <Grid sx={{marginLeft: "auto", marginTop: "0.75rem"}}>
-                        <LoadingButton
+                    <Grid2 sx={{marginLeft: "auto", marginTop: "0.75rem"}}>
+                        <Button
                             loading={wifiConfigurationUpdating}
                             variant="outlined"
                             color="success"
@@ -368,10 +368,10 @@ const ProvisioningPage = (): React.ReactElement => {
                             }}
                         >
                             Apply
-                        </LoadingButton>
-                    </Grid>
+                        </Button>
+                    </Grid2>
 
-                </Grid>
+                </Grid2>
             </Paper>
 
             <Dialog open={successDialogOpen}>

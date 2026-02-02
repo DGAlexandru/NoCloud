@@ -1,7 +1,5 @@
 import React from "react";
-import {useMediaQuery, useTheme} from "@mui/material";
-import Grid from "@mui/material/Grid2";
-import Masonry from "@mui/lab/Masonry";
+import {Box, Grid2, useMediaQuery, useTheme} from "@mui/material";
 import ReloadableCard from "../../components/ReloadableCard";
 
 const useWideLayout = (): boolean => {
@@ -13,21 +11,28 @@ export const CapabilityContainer: React.FunctionComponent<{ children: React.Reac
     const wideLayout = useWideLayout();
     if (wideLayout && children) {
         return (
-            <Masonry columns={3} spacing={2}>
+            <Box sx={{
+                columnCount: 3,
+                columnGap: 2,
+                "& > *": {
+                    breakInside: "avoid",
+                    marginBottom: 2,
+                    display: "block"
+                }
+            }}>
                 {children}
-            </Masonry>
+            </Box>
         );
     } else {
         return (
-            <Grid container spacing={2}>
+            <Grid2 container spacing={2}>
                 {children}
-            </Grid>
+            </Grid2>
         );
     }
 };
 
-export const CapabilityItem: React.FunctionComponent<
-{
+export const CapabilityItem: React.FunctionComponent<{
     children: React.ReactNode,
     title: string,
     loading?: boolean,
@@ -42,24 +47,26 @@ export const CapabilityItem: React.FunctionComponent<
 }): React.ReactElement => {
     const wideLayout = useWideLayout();
     const content = (
-        <ReloadableCard
-            title={title}
-            onReload={onReload}
-            loading={loading}
-            boxShadow={3}
-            helpText={helpText}
-        >
-            {children}
-        </ReloadableCard>
+        <Box sx={{ width: "100%" }}>
+            <ReloadableCard
+                title={title}
+                onReload={onReload}
+                loading={loading}
+                boxShadow={3}
+                helpText={helpText}
+            >
+                {children}
+            </ReloadableCard>
+        </Box>
     );
 
     if (wideLayout) {
         return content;
     } else {
         return (
-            <Grid size={{xs: 12, sm: 6, md: 4}}>
+            <Grid2 size={{xs: 12, sm: 6, md: 4}}>
                 {content}
-            </Grid>
+            </Grid2>
         );
     }
 };

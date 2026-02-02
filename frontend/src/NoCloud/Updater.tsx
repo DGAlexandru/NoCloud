@@ -20,14 +20,14 @@ import {
     AccordionDetails,
     AccordionSummary,
     Box,
+    Button,
     Divider,
+    Grid2,
     LinearProgress,
     Skeleton,
     Typography
 } from "@mui/material";
-import Grid from "@mui/material/Grid2";
 import React from "react";
-import {LoadingButton} from "@mui/lab";
 import ConfirmationDialog from "../components/ConfirmationDialog";
 
 import style from "./Updater.module.css";
@@ -58,7 +58,7 @@ const Updater = (): React.ReactElement => {
 
     return (
         <PaperContainer>
-            <Grid container direction="row">
+            <Grid2 container direction="row">
                 <Box style={{width: "100%"}}>
                     <DetailPageHeaderRow
                         title="Let's check for new versions of NoCloud :)"
@@ -79,7 +79,7 @@ const Updater = (): React.ReactElement => {
                         isRebooting={isRebooting}
                     />
                 </Box>
-            </Grid>
+            </Grid2>
         </PaperContainer>
     );
 };
@@ -175,13 +175,14 @@ const UpdaterStateComponent : React.FunctionComponent<{ state: UpdaterState | un
                         </AccordionSummary>
                         <AccordionDetails>
                             <Box style={{width:"100%", paddingLeft: "1rem", paddingRight:"1rem"}}>
-                                <ReactMarkdown
-                                    remarkPlugins={[gfm]}
-                                    rehypePlugins={[rehypeRaw]}
-                                    className={style.reactMarkDown}
-                                >
-                                    {state.changelog ? state.changelog: ""}
-                                </ReactMarkdown>
+                                <div className={style.reactMarkDown}>
+                                    <ReactMarkdown
+                                        remarkPlugins={[gfm]}
+                                        rehypePlugins={[rehypeRaw]}
+                                    >
+                                        {state.changelog ? state.changelog: ""}
+                                    </ReactMarkdown>
+                                </div>
                             </Box>
                         </AccordionDetails>
                     </Accordion>
@@ -217,13 +218,14 @@ const UpdaterStateComponent : React.FunctionComponent<{ state: UpdaterState | un
                                 </AccordionSummary>
                                 <AccordionDetails>
                                     <Box style={{width:"100%", paddingLeft: "1rem", paddingRight:"1rem"}}>
-                                        <ReactMarkdown
-                                            remarkPlugins={[gfm]}
-                                            rehypePlugins={[rehypeRaw]}
-                                            className={style.reactMarkDown}
-                                        >
-                                            {state.changelog}
-                                        </ReactMarkdown>
+                                        <div className={style.reactMarkDown}>
+                                            <ReactMarkdown
+                                                remarkPlugins={[gfm]}
+                                                rehypePlugins={[rehypeRaw]}
+                                            >
+                                                {state.changelog}
+                                            </ReactMarkdown>
+                                        </div>
                                     </Box>
                                 </AccordionDetails>
                             </Accordion>
@@ -235,18 +237,18 @@ const UpdaterStateComponent : React.FunctionComponent<{ state: UpdaterState | un
 
     return (
         <>
-            <Grid container alignItems="center" direction="column" style={{paddingBottom:"1rem"}}>
-                <Grid style={{marginTop:"1rem"}}>
+            <Grid2 container alignItems="center" direction="column" style={{paddingBottom:"1rem"}}>
+                <Grid2 style={{marginTop:"1rem"}}>
                     {getIconForState()}
-                </Grid>
-                <Grid
+                </Grid2>
+                <Grid2
                     sx={{
                         maxWidth: "100% !important", //Why, MUI? Why?
                         wordWrap: "break-word"
                     }}
                 >
                     {getContentForState()}
-                </Grid>
+                </Grid2>
                 {
                     !isRebooting && state.__class === "NoCloudUpdaterApplyPendingState" && !state.busy &&
                     <Typography color="red" style={{marginTop:"1rem", width: "80%"}}>
@@ -254,7 +256,7 @@ const UpdaterStateComponent : React.FunctionComponent<{ state: UpdaterState | un
                         Make sure that you&apos;ve thoroughly read the changelog to be aware of possible breaking changes.
                     </Typography>
                 }
-            </Grid>
+            </Grid2>
             <Divider sx={{mt: 1}}/>
             <UpdaterControls
                 state={state} onApplyStarted={onApplyStarted}
@@ -267,8 +269,8 @@ const UpdaterControls : React.FunctionComponent<{ state: UpdaterState, onApplySt
     state, onApplyStarted
 }) => {
     return (
-        <Grid container justifyContent="flex-end" direction="row" style={{paddingTop: "1rem", paddingBottom:"1rem"}}>
-            <Grid>
+        <Grid2 container justifyContent="flex-end" direction="row" style={{paddingTop: "1rem", paddingBottom:"1rem"}}>
+            <Grid2>
                 {
                     (
                         state.__class === "NoCloudUpdaterIdleState" ||
@@ -285,8 +287,8 @@ const UpdaterControls : React.FunctionComponent<{ state: UpdaterState, onApplySt
                     (state.__class === "NoCloudUpdaterApplyPendingState") &&
                     <ApplyUpdateControls busyState={state.busy} onApplyStarted={onApplyStarted}/>
                 }
-            </Grid>
-        </Grid>
+            </Grid2>
+        </Grid2>
     );
 };
 
@@ -298,7 +300,7 @@ const StartUpdateControls: React.FunctionComponent<{
     const {mutate: sendCommand, isPending: commandExecuting} = useUpdaterCommandMutation();
 
     return (
-        <LoadingButton
+        <Button
             loading={commandExecuting}
             variant="outlined"
             disabled={busyState}
@@ -306,7 +308,7 @@ const StartUpdateControls: React.FunctionComponent<{
             sx={{mt: 1, mb: 1}}
         >
             Check for Updates
-        </LoadingButton>
+        </Button>
     );
 };
 
@@ -320,7 +322,7 @@ const DownloadUpdateControls: React.FunctionComponent<{
 
     return (
         <>
-            <LoadingButton
+            <Button
                 loading={commandExecuting}
                 variant="outlined"
                 disabled={busyState}
@@ -328,7 +330,7 @@ const DownloadUpdateControls: React.FunctionComponent<{
                 sx={{mt: 1, mb: 1}}
             >
                 Download Update
-            </LoadingButton>
+            </Button>
             <ConfirmationDialog
                 title="Download Update?"
                 text={(
@@ -353,7 +355,7 @@ const ApplyUpdateControls: React.FunctionComponent<{
 
         return (
             <>
-                <LoadingButton
+                <Button
                     loading={commandExecuting}
                     disabled={busyState}
                     variant="outlined"
@@ -361,7 +363,7 @@ const ApplyUpdateControls: React.FunctionComponent<{
                     sx={{mt: 1, mb: 1}}
                 >
                     Apply Update
-                </LoadingButton>
+                </Button>
                 <ConfirmationDialog
                     title="Apply Update?"
                     text="Do you want to apply the downloaded update? The robot will reboot during this procedure."

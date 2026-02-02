@@ -1,9 +1,11 @@
 import {
     Box,
+    Button,
     Checkbox,
     Divider,
     FormControl,
     FormControlLabel,
+    Grid2,
     IconButton,
     Input,
     InputAdornment,
@@ -12,10 +14,8 @@ import {
     TextField,
     Typography
 } from "@mui/material";
-import Grid from "@mui/material/Grid2";
 import React from "react";
 import {useHTTPBasicAuthConfigurationMutation, useHTTPBasicAuthConfigurationQuery} from "../../api";
-import {LoadingButton} from "@mui/lab";
 import InfoBox from "../../components/InfoBox";
 import PaperContainer from "../../components/PaperContainer";
 import {
@@ -74,8 +74,8 @@ const AuthSettings = (): React.ReactElement => {
                 label="HTTP Basic Auth enabled"
                 sx={{mb: 1}}
             />
-            <Grid container spacing={1} sx={{mb: 1}} direction="row">
-                <Grid size="grow" style={{flexGrow: 1}}>
+            <Grid2 container spacing={1} sx={{mb: 1}} direction="row">
+                <Grid2 size="grow" style={{flexGrow: 1}}>
                     <TextField
                         style={{width: "100%"}}
                         label="Username"
@@ -87,8 +87,8 @@ const AuthSettings = (): React.ReactElement => {
                             setConfigurationModified(true);
                         }}
                     />
-                </Grid>
-                <Grid size="grow" style={{flexGrow: 1}}>
+                </Grid2>
+                <Grid2 size="grow" style={{flexGrow: 1}}>
                     <FormControl style={{width: "100%"}} variant="standard">
                         <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                         <Input
@@ -117,8 +117,8 @@ const AuthSettings = (): React.ReactElement => {
                                 setConfigurationModified(true);
                             }}/>
                     </FormControl>
-                </Grid>
-            </Grid>
+                </Grid2>
+            </Grid2>
 
             <InfoBox
                 boxShadow={5}
@@ -142,9 +142,9 @@ const AuthSettings = (): React.ReactElement => {
             </InfoBox>
 
             <Divider sx={{mt: 1}} style={{marginBottom: "1rem"}}/>
-            <Grid container>
-                <Grid style={{marginLeft: "auto"}}>
-                    <LoadingButton
+            <Grid2 container>
+                <Grid2 style={{marginLeft: "auto"}}>
+                    <Button
                         loading={configurationUpdating}
                         color="primary"
                         variant="outlined"
@@ -159,9 +159,9 @@ const AuthSettings = (): React.ReactElement => {
                         }}
                     >
                         Save configuration
-                    </LoadingButton>
-                </Grid>
-            </Grid>
+                    </Button>
+                </Grid2>
+            </Grid2>
         </>
     );
 };
@@ -169,7 +169,7 @@ const AuthSettings = (): React.ReactElement => {
 const AuthSettingsPage = (): React.ReactElement => {
     return (
         <PaperContainer>
-            <Grid container direction="row">
+            <Grid2 container direction="row">
                 <Box style={{width: "100%"}}>
                     <DetailPageHeaderRow
                         title="HTTP Basic Auth"
@@ -177,7 +177,7 @@ const AuthSettingsPage = (): React.ReactElement => {
                     />
                     <AuthSettings/>
                 </Box>
-            </Grid>
+            </Grid2>
         </PaperContainer>
     );
 };

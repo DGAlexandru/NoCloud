@@ -1,14 +1,12 @@
-import {Divider, IconButton, styled, Typography} from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import {Button, Divider, Grid2, IconButton, styled, Typography} from "@mui/material";
 import React, {FunctionComponent} from "react";
 import {
     Help as HelpIcon,
     Refresh as RefreshIcon,
 } from "@mui/icons-material";
-import {LoadingButton} from "@mui/lab";
 import HelpDialog from "./HelpDialog";
 
-const TopRightRefreshButton = styled(LoadingButton)(({theme}) => {
+const TopRightRefreshButton = styled(Button)(({theme}) => {
     return {
         minWidth: 0
     };
@@ -33,21 +31,21 @@ const DetailPageHeaderRow: FunctionComponent<DetailPageHeaderRowProps> = ({
 
     return (
         <>
-            <Grid container alignItems="center" spacing={1} justifyContent="space-between">
-                <Grid style={{display:"flex"}}>
-                    <Grid style={{paddingRight: "8px"}}>
+            <Grid2 container alignItems="center" spacing={1} justifyContent="space-between">
+                <Grid2 style={{display:"flex"}}>
+                    <Grid2 style={{paddingRight: "8px"}}>
                         {icon}
-                    </Grid>
-                    <Grid>
+                    </Grid2>
+                    <Grid2>
                         <Typography>{title}</Typography>
-                    </Grid>
-                </Grid>
-                <Grid>
-                    <Grid container>
+                    </Grid2>
+                </Grid2>
+                <Grid2>
+                    <Grid2 container>
                         {
                             helpText !== undefined &&
                             <>
-                                <Grid
+                                <Grid2
                                     style={{marginTop:"-0.125rem"}} //:(
                                 >
                                     <IconButton
@@ -58,7 +56,7 @@ const DetailPageHeaderRow: FunctionComponent<DetailPageHeaderRowProps> = ({
                                     >
                                         <HelpIcon/>
                                     </IconButton>
-                                </Grid>
+                                </Grid2>
 
                                 <HelpDialog
                                     dialogOpen={helpDialogOpen}
@@ -72,7 +70,7 @@ const DetailPageHeaderRow: FunctionComponent<DetailPageHeaderRowProps> = ({
 
                         {
                             onRefreshClick !== undefined &&
-                            <Grid>
+                            <Grid2>
                                 <TopRightRefreshButton
                                     loading={isRefreshing ?? false}
                                     onClick={onRefreshClick}
@@ -80,11 +78,11 @@ const DetailPageHeaderRow: FunctionComponent<DetailPageHeaderRowProps> = ({
                                 >
                                     <RefreshIcon/>
                                 </TopRightRefreshButton>
-                            </Grid>
+                            </Grid2>
                         }
-                    </Grid>
-                </Grid>
-            </Grid>
+                    </Grid2>
+                </Grid2>
+            </Grid2>
             <Divider sx={{mt: 1}}/>
         </>
     );

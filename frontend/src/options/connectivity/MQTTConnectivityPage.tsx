@@ -1,5 +1,6 @@
 import {
     Box,
+    Button,
     Card,
     CardContent,
     Checkbox,
@@ -10,6 +11,7 @@ import {
     FormControlLabel,
     FormGroup,
     FormHelperText,
+    Grid2,
     IconButton,
     Input,
     InputAdornment,
@@ -20,7 +22,6 @@ import {
     Typography,
     useTheme,
 } from "@mui/material";
-import Grid from "@mui/material/Grid2";
 import {
     ArrowUpward,
     Visibility as VisibilityIcon,
@@ -46,7 +47,6 @@ import {InputProps} from "@mui/material/Input/Input";
 import InfoBox from "../../components/InfoBox";
 import PaperContainer from "../../components/PaperContainer";
 import {MQTTIcon} from "../../components/CustomIcons";
-import {LoadingButton} from "@mui/lab";
 import TextInformationGrid from "../../components/TextInformationGrid";
 import DetailPageHeaderRow from "../../components/DetailPageHeaderRow";
 
@@ -154,11 +154,11 @@ const MQTTStatusComponent: React.FunctionComponent<{
 
 
     return (
-        <Grid container alignItems="center" direction="column" style={{paddingBottom: "1rem"}}>
-            <Grid style={{marginTop: "1rem"}}>
+        <Grid2 container alignItems="center" direction="column" style={{paddingBottom: "1rem"}}>
+            <Grid2 style={{marginTop: "1rem"}}>
                 {getIconForState()}
-            </Grid>
-            <Grid
+            </Grid2>
+            <Grid2
                 sx={{
                     maxWidth: "100% !important", //Why, MUI? Why?
                     wordWrap: "break-word",
@@ -167,13 +167,13 @@ const MQTTStatusComponent: React.FunctionComponent<{
                 }}
             >
                 {getContentForState()}
-            </Grid>
-            <Grid
+            </Grid2>
+            <Grid2
                 container
                 direction="row"
                 style={{marginTop: "1rem"}}
             >
-                <Grid
+                <Grid2
                     style={{flexGrow: 1}}
                     p={1}
                 >
@@ -188,8 +188,8 @@ const MQTTStatusComponent: React.FunctionComponent<{
                             {getMessageStats()}
                         </CardContent>
                     </Card>
-                </Grid>
-                <Grid
+                </Grid2>
+                <Grid2
                     style={{flexGrow: 1}}
                     p={1}
                 >
@@ -204,9 +204,9 @@ const MQTTStatusComponent: React.FunctionComponent<{
                             {getConnectionStats()}
                         </CardContent>
                     </Card>
-                </Grid>
-            </Grid>
-        </Grid>
+                </Grid2>
+            </Grid2>
+        </Grid2>
     );
 };
 
@@ -812,9 +812,9 @@ const MQTTConnectivity = (): React.ReactElement => {
 
             <Divider sx={{mt: 1}} style={{marginBottom: "1rem"}}/>
 
-            <Grid container>
-                <Grid style={{marginLeft: "auto"}}>
-                    <LoadingButton
+            <Grid2 container>
+                <Grid2 style={{marginLeft: "auto"}}>
+                    <Button
                         disabled={!configurationModified}
                         loading={mqttConfigurationUpdating}
                         color="primary"
@@ -827,9 +827,9 @@ const MQTTConnectivity = (): React.ReactElement => {
                         }}
                     >
                         Save configuration
-                    </LoadingButton>
-                </Grid>
-            </Grid>
+                    </Button>
+                </Grid2>
+            </Grid2>
         </>
     );
 };
@@ -842,7 +842,7 @@ const MQTTConnectivityPage = (): React.ReactElement => {
 
     return (
         <PaperContainer>
-            <Grid container direction="row">
+            <Grid2 container direction="row">
                 <Box style={{width: "100%"}}>
                     <DetailPageHeaderRow
                         title="MQTT Connectivity"
@@ -856,7 +856,7 @@ const MQTTConnectivityPage = (): React.ReactElement => {
                     />
                     <MQTTConnectivity/>
                 </Box>
-            </Grid>
+            </Grid2>
         </PaperContainer>
     );
 };

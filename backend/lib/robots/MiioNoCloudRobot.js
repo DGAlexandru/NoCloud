@@ -76,7 +76,7 @@ class MiioNoCloudRobot extends NoCloudRobot {
 
         this.fdsMockServer = http.createServer(this.expressApp);
 
-        this.expressApp.put("/api/miio/fds_upload_handler/:filename?", (req, res) => {
+        this.expressApp.put("/api/miio/fds_upload_handler{/:filename}", (req, res) => {
             Logger.debug("FDS upload started with:", {
                 query: req.query,
                 params: req.params

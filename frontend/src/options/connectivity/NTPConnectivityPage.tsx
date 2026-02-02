@@ -1,13 +1,14 @@
 import {
     Box,
+    Button,
     Checkbox,
     Divider,
     FormControlLabel,
+    Grid2,
     Skeleton,
     TextField,
     Typography,
 } from "@mui/material";
-import Grid from "@mui/material/Grid2";
 import React from "react";
 import {
     NTPClientStatus,
@@ -15,7 +16,6 @@ import {
     useNTPClientConfigurationQuery,
     useNTPClientStatusQuery
 } from "../../api";
-import {LoadingButton} from "@mui/lab";
 
 import {
     AccessTime as NTPIcon,
@@ -90,11 +90,11 @@ const NTPClientStatusComponent: React.FunctionComponent<{
 
 
     return (
-        <Grid container alignItems="center" direction="column" style={{paddingBottom: "1rem"}}>
-            <Grid style={{marginTop: "1rem"}}>
+        <Grid2 container alignItems="center" direction="column" style={{paddingBottom: "1rem"}}>
+            <Grid2 style={{marginTop: "1rem"}}>
                 {getIconForState()}
-            </Grid>
-            <Grid
+            </Grid2>
+            <Grid2
                 sx={{
                     maxWidth: "100% !important", //Why, MUI? Why?
                     wordWrap: "break-word",
@@ -103,8 +103,8 @@ const NTPClientStatusComponent: React.FunctionComponent<{
                 }}
             >
                 {getContentForState()}
-            </Grid>
-            <Grid
+            </Grid2>
+            <Grid2
                 sx={{
                     maxWidth: "100% !important", //Why, MUI? Why?
                     wordWrap: "break-word",
@@ -114,8 +114,8 @@ const NTPClientStatusComponent: React.FunctionComponent<{
                 }}
             >
                 Current robot time: {status.robotTime}
-            </Grid>
-        </Grid>
+            </Grid2>
+        </Grid2>
     );
 };
 
@@ -183,8 +183,8 @@ const NTPConnectivity = (): React.ReactElement => {
                 label="NTP enabled"
                 sx={{mb: 1}}
             />
-            <Grid container spacing={1} sx={{mb: 2}}>
-                <Grid style={{flexGrow: 1}}>
+            <Grid2 container spacing={1} sx={{mb: 2}}>
+                <Grid2 style={{flexGrow: 1}}>
                     <TextField
                         style={{width: "100%"}}
                         label="Server"
@@ -196,8 +196,8 @@ const NTPConnectivity = (): React.ReactElement => {
                             setConfigurationModified(true);
                         }}
                     />
-                </Grid>
-                <Grid style={{flexGrow: 1}}>
+                </Grid2>
+                <Grid2 style={{flexGrow: 1}}>
                     <TextField
                         style={{width: "100%"}}
                         label="Port"
@@ -211,8 +211,8 @@ const NTPConnectivity = (): React.ReactElement => {
                             setConfigurationModified(true);
                         }}
                     />
-                </Grid>
-                <Grid style={{flexGrow: 1}}>
+                </Grid2>
+                <Grid2 style={{flexGrow: 1}}>
                     <TextField
                         style={{width: "100%"}}
                         label="Interval (hours)"
@@ -227,8 +227,8 @@ const NTPConnectivity = (): React.ReactElement => {
                             setConfigurationModified(true);
                         }}
                     />
-                </Grid>
-                <Grid style={{flexGrow: 1}}>
+                </Grid2>
+                <Grid2 style={{flexGrow: 1}}>
                     <TextField
                         style={{width: "100%"}}
                         label="Timeout (seconds)"
@@ -243,8 +243,8 @@ const NTPConnectivity = (): React.ReactElement => {
                             setConfigurationModified(true);
                         }}
                     />
-                </Grid>
-            </Grid>
+                </Grid2>
+            </Grid2>
 
             <InfoBox
                 boxShadow={5}
@@ -260,9 +260,9 @@ const NTPConnectivity = (): React.ReactElement => {
             </InfoBox>
 
             <Divider sx={{mt: 1}} style={{marginBottom: "1rem"}}/>
-            <Grid container>
-                <Grid style={{marginLeft: "auto"}}>
-                    <LoadingButton
+            <Grid2 container>
+                <Grid2 style={{marginLeft: "auto"}}>
+                    <Button
                         loading={configurationUpdating}
                         color="primary"
                         variant="outlined"
@@ -279,9 +279,9 @@ const NTPConnectivity = (): React.ReactElement => {
                         }}
                     >
                         Save configuration
-                    </LoadingButton>
-                </Grid>
-            </Grid>
+                    </Button>
+                </Grid2>
+            </Grid2>
         </>
     );
 };
@@ -294,7 +294,7 @@ const NTPConnectivityPage = (): React.ReactElement => {
 
     return (
         <PaperContainer>
-            <Grid container direction="row">
+            <Grid2 container direction="row">
                 <Box style={{width: "100%"}}>
                     <DetailPageHeaderRow
                         title="NTP Connectivity"
@@ -309,7 +309,7 @@ const NTPConnectivityPage = (): React.ReactElement => {
 
                     <NTPConnectivity/>
                 </Box>
-            </Grid>
+            </Grid2>
         </PaperContainer>
     );
 };

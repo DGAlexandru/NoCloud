@@ -1,14 +1,15 @@
 import {
     Box,
+    Button,
     Checkbox,
     Divider,
     FormControlLabel,
+    Grid2,
     MenuItem,
     Skeleton,
     TextField,
     Typography,
 } from "@mui/material";
-import Grid from "@mui/material/Grid2";
 import React from "react";
 import {
     PushNotifClientStatus,
@@ -18,7 +19,6 @@ import {
     usePushNotifClientConfigurationQuery,
     usePushNotifClientStatusQuery,
 } from "../../api";
-import { LoadingButton } from "@mui/lab";
 
 import { PushNotifIcon } from "../../components/CustomIcons";
 import {
@@ -94,9 +94,9 @@ const PushNotifClientStatusComponent: React.FC<{
     const stateDef = STATE_MAP[status.state.__class];
 
     return (
-        <Grid container alignItems="center" direction="column" sx={{ paddingBottom: "1rem" }}>
-            <Grid sx={{ marginTop: "1rem" }}>{stateDef?.icon}</Grid>
-            <Grid
+        <Grid2 container alignItems="center" direction="column" sx={{ paddingBottom: "1rem" }}>
+            <Grid2 sx={{ marginTop: "1rem" }}>{stateDef?.icon}</Grid2>
+            <Grid2
                 sx={{
                     maxWidth: "100% !important",
                     wordWrap: "break-word",
@@ -105,8 +105,8 @@ const PushNotifClientStatusComponent: React.FC<{
                 }}
             >
                 {stateDef?.content(status)}
-            </Grid>
-            <Grid
+            </Grid2>
+            <Grid2
                 sx={{
                     maxWidth: "100% !important",
                     wordWrap: "break-word",
@@ -116,8 +116,8 @@ const PushNotifClientStatusComponent: React.FC<{
                 }}
             >
                 Current robot time: {status.robotTime}
-            </Grid>
-        </Grid>
+            </Grid2>
+        </Grid2>
     );
 };
 
@@ -334,8 +334,8 @@ const PushNotifConnectivity: React.FC<{
             <Divider sx={{ mt: 1, mb: 1 }} />
 
             {/* Configuration Section */}
-            <Grid container spacing={1} sx={{ mb: 1 }}>
-                <Grid size={{ xs: 5, sm: 5 }}>
+            <Grid2 container spacing={1} sx={{ mb: 1 }}>
+                <Grid2 size={{ xs: 5, sm: 5 }}>
                     <FormControlLabel
                         control={
                             <Checkbox
@@ -346,8 +346,8 @@ const PushNotifConnectivity: React.FC<{
                         label="PushNotif enabled"
                         sx={{ mb: 1 }}
                     />
-                </Grid>
-                <Grid size={{ xs: 3, sm: 3 }}>
+                </Grid2>
+                <Grid2 size={{ xs: 3, sm: 3 }}>
                     <TextField
                         label="Robot Name"
                         value={config.titleID}
@@ -356,9 +356,9 @@ const PushNotifConnectivity: React.FC<{
                         onChange={(e) => updateConfig("titleID", e.target.value)}
                         fullWidth
                     />
-                </Grid>
-                <Grid container size={{ xs: 4, sm: 4 }} justifyContent="flex-end">
-                    <LoadingButton
+                </Grid2>
+                <Grid2 container size={{ xs: 4, sm: 4 }} justifyContent="flex-end">
+                    <Button
                         loading={configurationUpdating}
                         color="primary"
                         variant="outlined"
@@ -366,12 +366,12 @@ const PushNotifConnectivity: React.FC<{
                         onClick={() => updateConfiguration(config)}
                     >
                         Save config
-                    </LoadingButton>
-                </Grid>
-            </Grid>
+                    </Button>
+                </Grid2>
+            </Grid2>
             <Divider sx={{ mt: 1, mb: 1 }} />
-            <Grid container spacing={1} sx={{ mb: 1 }}>
-                <Grid size={{ xs: 5, sm: 5 }}>
+            <Grid2 container spacing={1} sx={{ mb: 1 }}>
+                <Grid2 size={{ xs: 5, sm: 5 }}>
                     <TextField
                         label="Server"
                         value={config.server}
@@ -382,8 +382,8 @@ const PushNotifConnectivity: React.FC<{
                         }
                         fullWidth
                     />
-                </Grid>
-                <Grid size={{ xs: 2, sm: 2 }}>
+                </Grid2>
+                <Grid2 size={{ xs: 2, sm: 2 }}>
                     <TextField
                         label="Port"
                         type="number"
@@ -399,8 +399,8 @@ const PushNotifConnectivity: React.FC<{
                         slotProps={{ htmlInput: { min: 1, max: 65535 } }}
                         fullWidth
                     />
-                </Grid>
-                <Grid size={{ xs: 5, sm: 5 }}>
+                </Grid2>
+                <Grid2 size={{ xs: 5, sm: 5 }}>
                     <TextField
                         label="Path"
                         value={config.path}
@@ -409,8 +409,8 @@ const PushNotifConnectivity: React.FC<{
                         onChange={(e) => updateConfig("path", e.target.value)}
                         fullWidth
                     />
-                </Grid>
-                <Grid size={{ xs: 12, sm: 4 }}>
+                </Grid2>
+                <Grid2 size={{ xs: 12, sm: 4 }}>
                     <TextField
                         label="Application API Token/Key"
                         value={config.token}
@@ -420,8 +420,8 @@ const PushNotifConnectivity: React.FC<{
                         onChange={(e) => updateConfig("token", e.target.value)}
                         fullWidth
                     />
-                </Grid>
-                <Grid size={{ xs: 12, sm: 4 }}>
+                </Grid2>
+                <Grid2 size={{ xs: 12, sm: 4 }}>
                     <TextField
                         label="User API Key"
                         value={config.user}
@@ -431,8 +431,8 @@ const PushNotifConnectivity: React.FC<{
                         onChange={(e) => updateConfig("user", e.target.value)}
                         fullWidth
                     />
-                </Grid>
-                <Grid size={{ xs: 12, sm: 4 }}>
+                </Grid2>
+                <Grid2 size={{ xs: 12, sm: 4 }}>
                     <TextField
                         label="NoCloud URL"
                         value={config.url}
@@ -441,8 +441,8 @@ const PushNotifConnectivity: React.FC<{
                         onChange={(e) => updateConfig("url", e.target.value)}
                         fullWidth
                     />
-                </Grid>
-                <Grid size={{ xs: 6, sm: 2 }}>
+                </Grid2>
+                <Grid2 size={{ xs: 6, sm: 2 }}>
                     <TextField
                         label="Notification Sound"
                         value={config.sound}
@@ -458,8 +458,8 @@ const PushNotifConnectivity: React.FC<{
                             </MenuItem>
                         ))}
                     </TextField>
-                </Grid>
-                <Grid size={{ xs: 6, sm: 2 }}>
+                </Grid2>
+                <Grid2 size={{ xs: 6, sm: 2 }}>
                     <TextField
                         label="Notification Priority"
                         value={config.priority}
@@ -475,10 +475,10 @@ const PushNotifConnectivity: React.FC<{
                             </MenuItem>
                         ))}
                     </TextField>
-                </Grid>
+                </Grid2>
                 {(config.priority === 2) && (
                     <>
-                        <Grid size={{ xs: 6, sm: 2 }}>
+                        <Grid2 size={{ xs: 6, sm: 2 }}>
                             <TextField
                                 label="Sec. between retries"
                                 type="number"
@@ -489,8 +489,8 @@ const PushNotifConnectivity: React.FC<{
                                 slotProps={{ htmlInput: { min: 30, max: 10*60 } }}
                                 fullWidth
                             />
-                        </Grid>
-                        <Grid size={{ xs: 6, sm: 2 }}>
+                        </Grid2>
+                        <Grid2 size={{ xs: 6, sm: 2 }}>
                             <TextField
                                 label="Expiration (sec)"
                                 type="number"
@@ -501,10 +501,10 @@ const PushNotifConnectivity: React.FC<{
                                 slotProps={{ htmlInput: { min: 10*60, max: 3*60*60 } }}
                                 fullWidth
                             />
-                        </Grid>
+                        </Grid2>
                     </>
                 )}
-                <Grid size={{ xs: 6, sm: 2 }}>
+                <Grid2 size={{ xs: 6, sm: 2 }}>
                     <TextField
                         label="RateLimit"
                         type="number"
@@ -520,8 +520,8 @@ const PushNotifConnectivity: React.FC<{
                         slotProps={{ htmlInput: { min: 1, max: 50 } }}
                         fullWidth
                     />
-                </Grid>
-                <Grid size={{ xs: 6, sm: 2 }}>
+                </Grid2>
+                <Grid2 size={{ xs: 6, sm: 2 }}>
                     <TextField
                         label="RateLimitTimeMS"
                         type="number"
@@ -537,8 +537,8 @@ const PushNotifConnectivity: React.FC<{
                         slotProps={{ htmlInput: { min: 30_000, max: 5*60_000 } }}
                         fullWidth
                     />
-                </Grid>
-                <Grid size={{ xs: 6, sm: 2 }}>
+                </Grid2>
+                <Grid2 size={{ xs: 6, sm: 2 }}>
                     <FormControlLabel
                         control={
                             <Checkbox
@@ -549,8 +549,8 @@ const PushNotifConnectivity: React.FC<{
                         label="Push Events"
                         sx={{ mb: 1 }}
                     />
-                </Grid>
-                <Grid size={{ xs: 6, sm: 2 }}>
+                </Grid2>
+                <Grid2 size={{ xs: 6, sm: 2 }}>
                     <FormControlLabel
                         control={
                             <Checkbox
@@ -561,8 +561,8 @@ const PushNotifConnectivity: React.FC<{
                         label="Acknowledge Events"
                         sx={{ mb: 1 }}
                     />
-                </Grid>
-            </Grid>
+                </Grid2>
+            </Grid2>
             <Divider sx={{ mt: 1, mb: 1 }} />
 
             {/* Status */}
@@ -577,8 +577,8 @@ const PushNotifConnectivity: React.FC<{
             <Typography variant="h6" gutterBottom>
                 Test Push Notification
             </Typography>
-            <Grid container spacing={2}>
-                <Grid size={{ xs: 12, sm: 6 }}>
+            <Grid2 container spacing={2}>
+                <Grid2 size={{ xs: 12, sm: 6 }}>
                     <TextField
                         label="Title"
                         value={test.title}
@@ -586,8 +586,8 @@ const PushNotifConnectivity: React.FC<{
                         onChange={(e) => updateTest("title", e.target.value)}
                         fullWidth
                     />
-                </Grid>
-                <Grid size={{ xs: 12, sm: 6 }}>
+                </Grid2>
+                <Grid2 size={{ xs: 12, sm: 6 }}>
                     <TextField
                         label="Message"
                         value={test.message}
@@ -595,8 +595,8 @@ const PushNotifConnectivity: React.FC<{
                         onChange={(e) => updateTest("message", e.target.value)}
                         fullWidth
                     />
-                </Grid>
-                <Grid size={{ xs: 12, sm: 4 }}>
+                </Grid2>
+                <Grid2 size={{ xs: 12, sm: 4 }}>
                     <TextField
                         label="Priority"
                         value={test.priority}
@@ -611,10 +611,10 @@ const PushNotifConnectivity: React.FC<{
                             </MenuItem>
                         ))}
                     </TextField>
-                </Grid>
+                </Grid2>
                 {isEmergency && (
                     <>
-                        <Grid size={{ xs: 12, sm: 4 }}>
+                        <Grid2 size={{ xs: 12, sm: 4 }}>
                             <TextField
                                 label="Sec. between retries"
                                 type="number"
@@ -624,8 +624,8 @@ const PushNotifConnectivity: React.FC<{
                                 slotProps={{ htmlInput: { min: 30, max: 10*60 } }}
                                 fullWidth
                             />
-                        </Grid>
-                        <Grid size={{ xs: 12, sm: 4 }}>
+                        </Grid2>
+                        <Grid2 size={{ xs: 12, sm: 4 }}>
                             <TextField
                                 label="Expiration (sec)"
                                 type="number"
@@ -635,10 +635,10 @@ const PushNotifConnectivity: React.FC<{
                                 slotProps={{ htmlInput: { min: 10*60, max: 3*60*60 } }}
                                 fullWidth
                             />
-                        </Grid>
+                        </Grid2>
                     </>
                 )}
-                <Grid size={{ xs: 12, sm: 6 }}>
+                <Grid2 size={{ xs: 12, sm: 6 }}>
                     <TextField
                         label="Notif Test Sound"
                         value={test.sound}
@@ -653,9 +653,9 @@ const PushNotifConnectivity: React.FC<{
                             </MenuItem>
                         ))}
                     </TextField>
-                </Grid>
-                <Grid size={{ xs: 12, sm: 6 }} sx={{ display: "flex", alignItems: "flex-end" }}>
-                    <LoadingButton
+                </Grid2>
+                <Grid2 size={{ xs: 12, sm: 6 }} sx={{ display: "flex", alignItems: "flex-end" }}>
+                    <Button
                         loading={test.sending}
                         color="secondary"
                         variant="outlined"
@@ -663,19 +663,19 @@ const PushNotifConnectivity: React.FC<{
                         onClick={sendTestPushNotification}
                     >
                         Try Test Notification
-                    </LoadingButton>
-                </Grid>
+                    </Button>
+                </Grid2>
                 {test.result && (
-                    <Grid size={{ xs: 12, sm: 6 }} sx={{ display: "flex", alignItems: "flex-end" }}>
+                    <Grid2 size={{ xs: 12, sm: 6 }} sx={{ display: "flex", alignItems: "flex-end" }}>
                         <Typography
                             sx={{ mt: 1 }}
                             color={test.result.includes("Failed") ? "error" : "success.main"}
                         >
                             {test.result}
                         </Typography>
-                    </Grid>
+                    </Grid2>
                 )}
-            </Grid>
+            </Grid2>
         </>
     );
 };
@@ -688,7 +688,7 @@ const PushNotifConnectivityPage = (): React.ReactElement => {
 
     return (
         <PaperContainer>
-            <Grid container direction="row">
+            <Grid2 container direction="row">
                 <Box sx={{ width: "100%" }}>
                     <DetailPageHeaderRow
                         title="Push Notifications Connectivity"
@@ -698,7 +698,7 @@ const PushNotifConnectivityPage = (): React.ReactElement => {
                     />
                     <PushNotifConnectivity statusQuery={statusQuery} />
                 </Box>
-            </Grid>
+            </Grid2>
         </PaperContainer>
     );
 };

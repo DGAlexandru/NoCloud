@@ -1,6 +1,5 @@
 import PaperContainer from "../components/PaperContainer";
-import {Box} from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import {Box, Grid2} from "@mui/material";
 import {Help as HelpIcon} from "@mui/icons-material";
 import React from "react";
 import ReactMarkdown from "react-markdown";
@@ -13,22 +12,23 @@ import DetailPageHeaderRow from "../components/DetailPageHeaderRow";
 const Help = (): React.ReactElement => {
     return (
         <PaperContainer>
-            <Grid container direction="row">
+            <Grid2 container direction="row">
                 <Box style={{width: "100%"}}>
                     <DetailPageHeaderRow
                         title="General Help"
                         icon={<HelpIcon/>}
                     />
 
-                    <ReactMarkdown
-                        remarkPlugins={[gfm]}
-                        rehypePlugins={[rehypeRaw]}
-                        className={style.reactMarkDown}
-                    >
-                        {HelpText}
-                    </ReactMarkdown>
+                    <div className={style.reactMarkDown}>
+                        <ReactMarkdown
+                            remarkPlugins={[gfm]}
+                            rehypePlugins={[rehypeRaw]}
+                        >
+                            {HelpText}
+                        </ReactMarkdown>
+                    </div>
                 </Box>
-            </Grid>
+            </Grid2>
         </PaperContainer>
     );
 };

@@ -22,7 +22,8 @@
     "check_dependencies_for_update": "npx check-outdated --ignore-pre-releases --ignore-packages typescript,axios,@types/node",
     "generate_changelog": "npx auto-changelog --commit-limit false --tag-pattern .+ --handlebars-setup ./util/res/auto_changelog_handlebars_helpers.js --template ./util/res/auto_changelog_template.hbs --output ./build/changelog.md",
     "generate_nightly_changelog": "npx auto-changelog --commit-limit false --tag-pattern .+ --unreleased-only --handlebars-setup ./util/res/auto_changelog_handlebars_helpers.js --template ./util/res/auto_changelog_template.hbs --output ./build/changelog_nightly.md",
-    "generate_eslintrc_flavors": "node util/generate_eslintrc_flavors.js"
+    "generate_eslintrc_flavors": "node util/generate_eslintrc_flavors.js",
+    "postinstall": "patch-package"
   },
   "overrides": {
     "is-async-function": "2.1.0",
@@ -45,6 +46,7 @@
     "eslint-plugin-regexp": "~2.6.0",
     "eslint-plugin-sort-keys-fix": "~1.1.2",
     "eslint-plugin-sort-requires": "git+https://npm@github.com/Hypfer/eslint-plugin-sort-requires.git#2.1.1",
+    "patch-package": "^8.0.1",
     "swagger-jsdoc": "git+https://npm@github.com/Hypfer/swagger-jsdoc.git#7.0.0-rc.6-noyaml-monorepo-fix",
     "swagger-parser": "~10.0.3",
     "typescript": "~4.8.4",

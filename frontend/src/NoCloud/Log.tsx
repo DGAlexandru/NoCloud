@@ -1,7 +1,9 @@
 import {
     alpha,
+    Button,
     Autocomplete,
     FormControl,
+    Grid2,
     InputBase,
     InputLabel,
     MenuItem,
@@ -10,7 +12,6 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
-import Grid from "@mui/material/Grid2";
 import {Refresh as RefreshIcon, FilterAlt as FilterAltIcon} from "@mui/icons-material";
 import React from "react";
 import styles from "./Log.module.css";
@@ -25,7 +26,6 @@ import {
     useNoCloudLogQuery
 } from "../api";
 import LogViewer from "../components/LogViewer";
-import {LoadingButton} from "@mui/lab";
 import PaperContainer from "../components/PaperContainer";
 
 const Search = styled("div")(({theme}) => {
@@ -192,8 +192,8 @@ const Log = (): React.ReactElement => {
         }
 
         return (
-            <Grid container>
-                <Grid
+            <Grid2 container>
+                <Grid2
                     container
                     alignItems={"center"}
                     columnSpacing={1}
@@ -205,7 +205,7 @@ const Log = (): React.ReactElement => {
                         userSelect: "none"
                     }}
                 >
-                    <Grid size={{xs: 4, sm: 9}}>
+                    <Grid2 size={{xs: 4, sm: 9}}>
                         <Search>
                             <SearchIconWrapper>
                                 <FilterAltIcon/>
@@ -221,8 +221,8 @@ const Log = (): React.ReactElement => {
                                 }}
                             />
                         </Search>
-                    </Grid>
-                    <Grid size={{xs: 3, sm:2}}>
+                    </Grid2>
+                    <Grid2 size={{xs: 3, sm:2}}>
                         <FormControl fullWidth>
                             <InputLabel id="log-level-selector">Current Level</InputLabel>
                             <Select
@@ -240,9 +240,9 @@ const Log = (): React.ReactElement => {
                                 })}
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid size={{xs: 1, sm: 1}}>
-                        <LoadingButton
+                    </Grid2>
+                    <Grid2 size={{xs: 1, sm: 1}}>
+                        <Button
                             loading={logDataFetching}
                             onClick={() => {
                                 logLevelRefetch().catch(err => {
@@ -257,10 +257,10 @@ const Log = (): React.ReactElement => {
                             title="Refresh"
                         >
                             <RefreshIcon/>
-                        </LoadingButton>
-                    </Grid>
-                </Grid>
-                <Grid
+                        </Button>
+                    </Grid2>
+                </Grid2>
+                <Grid2
                     sx={{
                         width: "100%"
                     }}
@@ -272,13 +272,13 @@ const Log = (): React.ReactElement => {
                         }}
                         logLines={filteredLog}
                     />
-                </Grid>
+                </Grid2>
                 {/* UI for the menu that allows running manual MIoT commands */}
                 {showManualMIoTCommandUI && (
-                    <Grid container spacing={1} alignItems="center" columns={{ xs: 7, sm: 16 }}
+                    <Grid2 container spacing={1} alignItems="center" columns={{ xs: 7, sm: 16 }}
                         justifyContent="space-evenly" className={styles.logInputLine}
                     >
-                        <Grid size={{ xs: 3, sm: 4 }} className={styles.logInputItem} component="div">
+                        <Grid2 size={{ xs: 3, sm: 4 }} className={styles.logInputItem} component="div">
                             <Typography variant="caption" component="label" htmlFor="miotcmd-input">
                                 Command
                             </Typography>
@@ -289,8 +289,8 @@ const Log = (): React.ReactElement => {
                                 onInputChange={(event, newInputValue) => setMiotCmd(newInputValue)}
                                 renderInput={(params) => ( <StyledTextField {...params} id="miotcmd-input" variant="outlined" size="small" /> )}
                             />
-                        </Grid>
-                        <Grid size={{ xs: 2, sm: 2 }} className={styles.logInputItem} component="div">
+                        </Grid2>
+                        <Grid2 size={{ xs: 2, sm: 2 }} className={styles.logInputItem} component="div">
                             <Typography variant="caption" component="label" htmlFor="siid-input">
                                 SIID
                             </Typography>
@@ -306,8 +306,8 @@ const Log = (): React.ReactElement => {
                                     inputProps={{ min: 1, max: 99999, step: 1 }}
                                 />
                             </Search>
-                        </Grid>
-                        <Grid size={{ xs: 1, sm: 2 }} className={styles.logInputItem} component="div">
+                        </Grid2>
+                        <Grid2 size={{ xs: 1, sm: 2 }} className={styles.logInputItem} component="div">
                             <Typography variant="caption" component="label" htmlFor="piid-input">
                                 PIID
                             </Typography>
@@ -323,20 +323,20 @@ const Log = (): React.ReactElement => {
                                     inputProps={{ min: 1, max: 9999, step: 1 }}
                                 />
                             </Search>
-                        </Grid>
-                        <Grid size={{ xs: 1, sm: 1 }} component="div" sx={{ order: { xs: 4, sm: 5 } }}>
+                        </Grid2>
+                        <Grid2 size={{ xs: 1, sm: 1 }} component="div" sx={{ order: { xs: 4, sm: 5 } }}>
                             <Typography variant="caption" component="label" sx={{ visibility: "hidden" }}>
                                 Run
                             </Typography>
-                            <LoadingButton id="run-button-xs" variant="contained" fullWidth
+                            <Button id="run-button-xs" variant="contained" fullWidth
                                 onClick={handleRun}
                                 disabled={isHandleRunPending}
                                 loading={isHandleRunPending}
                             >
                                 Run
-                            </LoadingButton>
-                        </Grid>
-                        <Grid size={{ xs: 7, sm: 7 }} className={styles.logInputItem} component="div"
+                            </Button>
+                        </Grid2>
+                        <Grid2 size={{ xs: 7, sm: 7 }} className={styles.logInputItem} component="div"
                             sx={{ order: { xs: 5, sm: 4 } }}
                         >
                             <Typography variant="caption" component="label" htmlFor="value-input">
@@ -352,11 +352,11 @@ const Log = (): React.ReactElement => {
                                     onBlur={(e: React.FocusEvent<HTMLInputElement>) => { if (e.target.value === "") { setValue("0"); } }}
                                 />
                             </Search>
-                        </Grid>
-                    </Grid>
+                        </Grid2>
+                    </Grid2>
                 )}
 
-            </Grid>
+            </Grid2>
         );
     }, [
         logData, logDataFetching, logError, logRefetch,
