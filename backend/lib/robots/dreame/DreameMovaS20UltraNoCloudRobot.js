@@ -210,6 +210,7 @@ class DreameMovaS20UltraNoCloudRobot extends DreameGen4NoCloudRobot {
             capabilities.DreameMopDockCleanManualTriggerCapability,
             capabilities.DreameMopDockDryManualTriggerCapability,
             capabilities.DreameMopDockMopAutoDryingControlCapability,
+            capabilities.DreameMopDockMopDryingTimeControlCapability,
             capabilities.DreameMopTwistFrequencyControlCapability,
             capabilities.DreamePetObstacleAvoidanceControlCapability,
         ].forEach(capability => {
@@ -233,7 +234,7 @@ class DreameMovaS20UltraNoCloudRobot extends DreameGen4NoCloudRobot {
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_MOP_CLEANING_FREQUENCY),
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_WATER_USAGE),
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_WET_DRY_SWITCH),
-                quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DRYING_TIME),
+                //quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.MOP_DRYING_TIME),
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.WATER_HOOKUP_TEST_TRIGGER)
             ]
         }));

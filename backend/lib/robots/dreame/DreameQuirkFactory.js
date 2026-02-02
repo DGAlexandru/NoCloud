@@ -333,7 +333,7 @@ class DreameQuirkFactory {
                         );
                     }
                 });
-            case DreameQuirkFactory.KNOWN_QUIRKS.MOP_DRYING_TIME:
+            /*case DreameQuirkFactory.KNOWN_QUIRKS.MOP_DRYING_TIME:
                 return new Quirk({
                     id: id,
                     title: "Mop Drying Time",
@@ -384,7 +384,7 @@ class DreameQuirkFactory {
                             val
                         );
                     }
-                });
+                });*/
             case DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_DETERGENT:
                 return new Quirk({
                     id: id,
@@ -1431,7 +1431,7 @@ DreameQuirkFactory.KNOWN_QUIRKS = {
     //MOP_DOCK_WATER_HEATER: "d6f07d8a-5708-478e-925f-42db1b58d016",
     MOP_DOCK_WATER_USAGE: "2d4ce805-ebf7-4dcf-b919-c5fe4d4f2de3",
     MOP_DOCK_WET_DRY_SWITCH: "66adac0f-0a16-4049-b6ac-080ef702bb39",
-    MOP_DRYING_TIME: "516a1025-9c56-46e0-ac9b-a5007088d24a",
+    //MOP_DRYING_TIME: "516a1025-9c56-46e0-ac9b-a5007088d24a",
     //MOP_EXTEND_EDGE_MOPPING: "5e1bbac8-78d1-433e-9868-4229463e2761",
     //MOP_EXTEND_EDGE_MOPPING_FURNITURE_LEGS: "08658d53-5d7b-4bfd-a179-25ceb3c70fe2",
     //MOP_EXTEND_EDGE_MOPPING_TWIST: "3759ae19-3723-4aad-a55e-4f9d8078185d",
