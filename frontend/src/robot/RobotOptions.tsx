@@ -23,6 +23,8 @@ import {
     useCarpetSensorModeMutation,
     useCarpetSensorModePropertiesQuery,
     useCarpetSensorModeQuery,
+    useCleanCarpetsFirstControlMutation,
+    useCleanCarpetsFirstControlQuery,
     useCleanRouteControlPropertiesQuery,
     useCleanRouteQuery,
     useCleanRouteMutation,
@@ -68,6 +70,7 @@ import {
     AvTimer as AutoEmptyDockAutoEmptyDurationControlIcon,
     AvTimer as MopDockMopDryingTimeControlIcon,
     Cable as ObstacleAvoidanceControlIcon,
+    CleaningServices as CleanCarpetsFirstControlIcon,
     DeviceThermostat as MopDockMopWashTemperatureControlIcon,
     Explore as FloorMaterialDirectionAwareNavigationControlIcon,
     FlashlightOn as CameraLightControlIcon,
@@ -447,6 +450,30 @@ const CarpetSensorModeControlCapabilitySelectListMenuItem = () => {
             primaryLabel="Carpet Sensor"
             secondaryLabel="Select what action the robot should take if it detects carpet while mopping."
             icon={<CarpetSensorModeIcon/>}
+        />
+    );
+};
+
+const CleanCarpetsFirstControlCapabilitySwitchListMenuItem = () => {
+    const {
+        data: data,
+        isFetching: isFetching,
+        isError: isError,
+    } = useCleanCarpetsFirstControlQuery();
+
+    const {mutate: mutate, isPending: isChanging} = useCleanCarpetsFirstControlMutation();
+    const loading = isFetching || isChanging;
+    const disabled = loading || isChanging || isError;
+
+    return (
+        <ToggleSwitchListMenuItem
+            value={data?.enabled ?? false}
+            setValue={(value) => {mutate(value);}}
+            disabled={disabled}
+            loadError={isError}
+            primaryLabel={"Clean Carpets First"}
+            secondaryLabel={"When enabled, the robot will first clean all carpet areas, then will continue with the rest of the cleanup."}
+            icon={<CleanCarpetsFirstControlIcon/>}
         />
     );
 };
@@ -1057,6 +1084,7 @@ const RobotOptions = (): React.ReactElement => {
         cameraLightControlSupported,
         carpetModeControlCapabilitySupported,
         carpetSensorModeControlCapabilitySupported,
+        cleanCarpetsFirstControlSupported,
         cleanRouteControlSupported,
         collisionAvoidantNavigationControlCapabilitySupported,
         floorMaterialDirectionAwareNavigationControlSupported,
@@ -1084,6 +1112,7 @@ const RobotOptions = (): React.ReactElement => {
         Capability.CameraLightControl,
         Capability.CarpetModeControl,
         Capability.CarpetSensorModeControl,
+        Capability.CleanCarpetsFirstControl,
         Capability.CleanRouteControl,
         Capability.CollisionAvoidantNavigation,
         Capability.DoNotDisturb,
@@ -1156,7 +1185,11 @@ const RobotOptions = (): React.ReactElement => {
             items.push(<CarpetSensorModeControlCapabilitySelectListMenuItem key={"carpetSensorModeControl"}/>);
         }
 
-        if (carpetModeControlCapabilitySupported && carpetSensorModeControlCapabilitySupported) {
+        if (cleanCarpetsFirstControlSupported) {
+            items.push(<CleanCarpetsFirstControlCapabilitySwitchListMenuItem key="cleanCarpetsFirstControl"/>);
+        }
+
+        if ([carpetModeControlCapabilitySupported, carpetSensorModeControlCapabilitySupported, cleanCarpetsFirstControlSupported].filter(Boolean).length > 1) {
             items.push(<SpacerListMenuItem key={"spacer-carpet"} halfHeight={true}/>);
         }
 
@@ -1190,6 +1223,7 @@ const RobotOptions = (): React.ReactElement => {
     }, [
         carpetModeControlCapabilitySupported,
         carpetSensorModeControlCapabilitySupported,
+        cleanCarpetsFirstControlSupported,
         cleanRouteControlSupported,
         collisionAvoidantNavigationControlCapabilitySupported,
         floorMaterialDirectionAwareNavigationControlSupported,

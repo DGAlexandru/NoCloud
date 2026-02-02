@@ -8,6 +8,7 @@ export enum Capability {
     CameraLightControl = "CameraLightControlCapability",
     CarpetModeControl = "CarpetModeControlCapability",
     CarpetSensorModeControl = "CarpetSensorModeControlCapability",
+    CleanCarpetsFirstControl = "CleanCarpetsFirstControlCapability",
     CleanRouteControl = "CleanRouteControlCapability",
     CollisionAvoidantNavigation = "CollisionAvoidantNavigationControlCapability",
     CombinedVirtualRestrictions = "CombinedVirtualRestrictionsCapability",

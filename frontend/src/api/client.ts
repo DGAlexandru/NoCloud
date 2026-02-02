@@ -401,6 +401,18 @@ export const sendAutoEmptyDockManualTriggerCommand = async (): Promise<void> => 
     });
 };
 
+export const fetchCleanCarpetsFirstControlState = async (): Promise<SimpleToggleState> => {
+    return NoCloudAPI
+        .get<SimpleToggleState>(`/robot/capabilities/${Capability.CleanCarpetsFirstControl}`)
+        .then(({ data }) => {
+            return data;
+        });
+};
+
+export const sendCleanCarpetsFirstControlState = async (enable: boolean): Promise<void> => {
+    await sendToggleMutation(Capability.CleanCarpetsFirstControl, enable);
+};
+
 export const fetchCleanRoute = async (): Promise<CleanRoute> => {
     return NoCloudAPI
         .get<CleanRoutePayload>(`/robot/capabilities/${Capability.CleanRouteControl}`)

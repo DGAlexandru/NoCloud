@@ -23,6 +23,7 @@ import {
     fetchCarpetModeState,
     fetchCarpetSensorMode,
     fetchCarpetSensorModeProperties,
+    fetchCleanCarpetsFirstControlState,
     fetchCleanRoute,
     fetchCleanRouteControlProperties,
     fetchCollisionAvoidantNavigationControlState,
@@ -101,6 +102,7 @@ import {
     sendCameraLightControlState,
     sendCarpetModeEnable,
     sendCarpetSensorMode,
+    sendCleanCarpetsFirstControlState,
     sendCleanRoute,
     sendCleanSegmentsCommand,
     sendCleanZonesCommand,
@@ -219,6 +221,7 @@ enum QueryKey {
     Capabilities = "capabilities",
     CarpetMode = "carpet_mode",
     CarpetSensorMode = "carpet_sensor_mode",
+    CleanCarpetsFirstControl = "clean_carpets_first_control",
     CleanRouteControl = "clean_route_control",
     CleanRouteControlProperties = "clean_route_control_properties",
     CarpetSensorModeProperties = "carpet_sensor_mode_properties",
@@ -1288,6 +1291,25 @@ export const useCarpetSensorModePropertiesQuery = () => {
         queryFn: fetchCarpetSensorModeProperties,
 
         staleTime: Infinity
+    });
+};
+
+export const useCleanCarpetsFirstControlQuery = () => {
+    return useQuery( {
+        queryKey: [QueryKey.CleanCarpetsFirstControl],
+        queryFn: fetchCleanCarpetsFirstControlState,
+
+        staleTime: Infinity
+    });
+};
+
+export const useCleanCarpetsFirstControlMutation = () => {
+    return useNoCloudFetchingMutation({
+        queryKey: [QueryKey.CleanCarpetsFirstControl],
+        mutationFn: (enable: boolean) => {
+            return sendCleanCarpetsFirstControlState(enable).then(fetchCleanCarpetsFirstControlState);
+        },
+        onError: useOnCommandError(Capability.CleanCarpetsFirstControl)
     });
 };
 
