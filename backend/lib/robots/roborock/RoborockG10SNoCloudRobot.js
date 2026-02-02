@@ -55,6 +55,7 @@ class RoborockG10SNoCloudRobot extends RoborockGen4NoCloudRobot {
             capabilities.RoborockAutoEmptyDockAutoEmptyIntervalControlCapability,
             capabilities.RoborockAutoEmptyDockManualTriggerCapability,
             capabilities.RoborockCollisionAvoidantNavigationControlCapability,
+            capabilities.RoborockCleanRouteControlCapability,
             capabilities.RoborockFloorMaterialDirectionAwareNavigationControlCapability,
             capabilities.RoborockKeyLockCapability,
             capabilities.RoborockMapSegmentMaterialControlCapability,
@@ -77,7 +78,7 @@ class RoborockG10SNoCloudRobot extends RoborockGen4NoCloudRobot {
                 quirkFactory.getQuirk(RoborockQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_MOP_CLEANING_MODE),
                 quirkFactory.getQuirk(RoborockQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_MOP_CLEANING_FREQUENCY),
                 quirkFactory.getQuirk(RoborockQuirkFactory.KNOWN_QUIRKS.BUTTON_LEDS),
-                quirkFactory.getQuirk(RoborockQuirkFactory.KNOWN_QUIRKS.MOP_PATTERN),
+                //quirkFactory.getQuirk(RoborockQuirkFactory.KNOWN_QUIRKS.MOP_PATTERN),
                 quirkFactory.getQuirk(RoborockQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_AUTO_DRYING),
                 quirkFactory.getQuirk(RoborockQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_AUTO_DRYING_TIME),
             ]

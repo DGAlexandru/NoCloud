@@ -52,6 +52,7 @@ class RoborockS7NoCloudRobot extends RoborockGen4NoCloudRobot {
         [
             capabilities.RoborockAutoEmptyDockAutoEmptyIntervalControlCapability,
             capabilities.RoborockAutoEmptyDockManualTriggerCapability,
+            capabilities.RoborockCleanRouteControlCapability,
             capabilities.RoborockKeyLockCapability,
             capabilities.RoborockMappingPassCapability
         ].forEach(capability => {
@@ -67,7 +68,7 @@ class RoborockS7NoCloudRobot extends RoborockGen4NoCloudRobot {
                 quirkFactory.getQuirk(RoborockQuirkFactory.KNOWN_QUIRKS.AUTO_EMPTY_DURATION),
                 quirkFactory.getQuirk(RoborockQuirkFactory.KNOWN_QUIRKS.BUTTON_LEDS),
                 quirkFactory.getQuirk(RoborockQuirkFactory.KNOWN_QUIRKS.STATUS_LED),
-                quirkFactory.getQuirk(RoborockQuirkFactory.KNOWN_QUIRKS.MOP_PATTERN),
+                //quirkFactory.getQuirk(RoborockQuirkFactory.KNOWN_QUIRKS.MOP_PATTERN),
             ]
         }));
     }

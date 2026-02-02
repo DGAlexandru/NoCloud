@@ -55,6 +55,7 @@ class RoborockS8NoCloudRobot extends RoborockGen4NoCloudRobot {
             capabilities.RoborockAutoEmptyDockAutoEmptyIntervalControlCapability,
             capabilities.RoborockAutoEmptyDockManualTriggerCapability,
             capabilities.RoborockCollisionAvoidantNavigationControlCapability,
+            capabilities.RoborockCleanRouteControlCapability,
             capabilities.RoborockFloorMaterialDirectionAwareNavigationControlCapability,
             capabilities.RoborockKeyLockCapability,
             capabilities.RoborockMapSegmentMaterialControlCapability,
@@ -73,7 +74,7 @@ class RoborockS8NoCloudRobot extends RoborockGen4NoCloudRobot {
             quirks: [
                 quirkFactory.getQuirk(RoborockQuirkFactory.KNOWN_QUIRKS.AUTO_EMPTY_DURATION),
                 quirkFactory.getQuirk(RoborockQuirkFactory.KNOWN_QUIRKS.BUTTON_LEDS),
-                quirkFactory.getQuirk(RoborockQuirkFactory.KNOWN_QUIRKS.MOP_PATTERN),
+                //quirkFactory.getQuirk(RoborockQuirkFactory.KNOWN_QUIRKS.MOP_PATTERN),
             ]
         }));
     }

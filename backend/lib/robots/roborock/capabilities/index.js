@@ -4,6 +4,7 @@ module.exports = {
     RoborockBasicControlCapability: require("./RoborockBasicControlCapability"),
     RoborockCarpetModeControlCapability: require("./RoborockCarpetModeControlCapability"),
     RoborockCarpetSensorModeControlCapability: require("./RoborockCarpetSensorModeControlCapability"),
+    RoborockCleanRouteControlCapability: require("./RoborockCleanRouteControlCapability"),
     RoborockCollisionAvoidantNavigationControlCapability: require("./RoborockCollisionAvoidantNavigationControlCapability"),
     RoborockCombinedVirtualRestrictionsCapability: require("./RoborockCombinedVirtualRestrictionsCapability"),
     RoborockConsumableMonitoringCapability: require("./RoborockConsumableMonitoringCapability"),
