@@ -306,7 +306,7 @@ class RoborockQuirkFactory {
                         }
                     }
                 });
-            case RoborockQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_AUTO_DRYING:
+                /*case RoborockQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_AUTO_DRYING:
                 return new Quirk({
                     id: id,
                     title: "Mop Auto Drying",
@@ -336,9 +336,9 @@ class RoborockQuirkFactory {
                                 break;
                             default:
                                 throw new Error(`Received invalid value ${value}`);
-                        }
+                        }*/
 
-                        /*
+                /*
                         const config = {
                             "status": val,
                             "on":  { "cliff_on": 1000, "cliff_off": 1000 },
@@ -346,10 +346,10 @@ class RoborockQuirkFactory {
                         };
                         return this.robot.sendCommand("app_set_dryer_setting", config, {});
                         */
-                        return this.robot.sendCommand("app_set_dryer_setting", { "status": val }, {});
+                /*return this.robot.sendCommand("app_set_dryer_setting", { "status": val }, {});
                     }
-                });
-            case RoborockQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_AUTO_DRYING_TIME:
+                });*/
+            /*case RoborockQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_AUTO_DRYING_TIME:
                 return new Quirk({
                     id: id,
                     title: "Mop Auto Drying Time",
@@ -388,7 +388,7 @@ class RoborockQuirkFactory {
 
                         return this.robot.sendCommand("app_set_dryer_setting", {"on": { "dry_time": val } }, {});
                     }
-                });
+                });*/
             default:
                 throw new Error(`There's no quirk with id ${id}`);
         }
@@ -403,8 +403,8 @@ RoborockQuirkFactory.KNOWN_QUIRKS = {
     MANUAL_MAP_SEGMENT_TRIGGER: "3e467ac1-7d14-4e66-b09b-8d0554a3194e",
     MOP_DOCK_MOP_CLEANING_FREQUENCY: "c50d98fb-7e29-4d09-a577-70c95ac33239",
     MOP_DOCK_MOP_CLEANING_MODE: "b4ca6500-a461-49cb-966a-4726a33ad3df",
-    MOP_DOCK_AUTO_DRYING: "308bd55a-9c94-480e-a7bb-d6c706526203",
-    MOP_DOCK_AUTO_DRYING_TIME: "b6ad439c-6665-4ffd-a038-cc72821e5fb1"
+    //MOP_DOCK_AUTO_DRYING: "308bd55a-9c94-480e-a7bb-d6c706526203",
+    //MOP_DOCK_AUTO_DRYING_TIME: "b6ad439c-6665-4ffd-a038-cc72821e5fb1"
 };
 
 module.exports = RoborockQuirkFactory;
