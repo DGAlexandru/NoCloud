@@ -49,6 +49,12 @@ class NoCloudRobot {
                 attached: false
             }));
         }
+        for (const dockComponentType of modelDetails.supportedDockComponents) {
+            this.state.upsertFirstMatchingAttribute(new entities.state.attributes.DockComponentStateAttribute({
+                type: dockComponentType,
+                value: entities.state.attributes.DockComponentStateAttribute.VALUE.UNKNOWN
+            }));
+        }
     }
 
     /**
@@ -260,6 +266,7 @@ class NoCloudRobot {
     /**
      * @typedef {object} ModelDetails
      * @property {Array<import("../entities/state/attributes/AttachmentStateAttribute").AttachmentStateAttributeType>} supportedAttachments
+     * @property {Array<import("../entities/state/attributes/DockComponentStateAttribute").DockComponentStateAttributeType>} supportedDockComponents
      */
 
     /**
@@ -270,7 +277,8 @@ class NoCloudRobot {
      */
     getModelDetails() {
         return {
-            supportedAttachments: []
+            supportedAttachments: [],
+            supportedDockComponents: []
         };
     }
 
