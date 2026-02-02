@@ -59,6 +59,7 @@ class CapabilitiesRouter {
 }
 
 const CAPABILITY_TYPE_TO_ROUTER_MAPPING = {
+    [capabilities.AutoEmptyDockAutoEmptyDurationControlCapability.TYPE]: capabilityRouters.AutoEmptyDockAutoEmptyDurationControlCapabilityRouter,
     [capabilities.AutoEmptyDockAutoEmptyIntervalControlCapability.TYPE]: capabilityRouters.AutoEmptyDockAutoEmptyIntervalControlCapabilityRouter,
     [capabilities.AutoEmptyDockManualTriggerCapability.TYPE]: capabilityRouters.AutoEmptyDockManualTriggerCapabilityRouter,
     [capabilities.BasicControlCapability.TYPE]: capabilityRouters.BasicControlCapabilityRouter,
