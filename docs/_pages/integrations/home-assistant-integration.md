@@ -35,8 +35,8 @@ The new NoCloud Device will just be there.
 
 ![ha-demo-dashboard.png](./img/ha-demo-dashboard.png)
 
-If you'd like to use the NoCloud Iconset as part of your Dashboards, check out this repository:
-[HASS NoCloud Icons](https://github.com/Hypfer/hass-valetudo-icons)
+If you'd for example like to use the NoCloud Iconset as part of your Dashboards, check out this repository:
+[HASS NoCloud](https://github.com/Hypfer/hass-valetudo)
 
 To display the map of your robot in a Home Assistant dashboard, the [Lovelace NoCloud Map Card](../companion_apps/lovelace_NoCloud_map_card.md) is used.
 Setup instructions for that can be found on [hass.valetudo.cloud](https://hass.valetudo.cloud/).
