@@ -9,6 +9,7 @@ import {
     useQueryClient,
     UseQueryResult
 } from "@tanstack/react-query";
+import { SIMPLE_TOGGLE_CAPABILITIES } from "./simpleToggleCapabilities";
 import {
     BasicControlCommand,
     MopDockCleanManualTriggerCommand,
@@ -18,25 +19,19 @@ import {
     fetchAutoEmptyDockAutoEmptyDurationControlProperties,
     fetchAutoEmptyDockAutoEmptyInterval,
     fetchAutoEmptyDockAutoEmptyIntervalProperties,
-    fetchCameraLightControlState,
     fetchCapabilities,
-    fetchCarpetModeState,
     fetchCarpetSensorMode,
     fetchCarpetSensorModeProperties,
-    fetchCleanCarpetsFirstControlState,
     fetchCleanRoute,
     fetchCleanRouteControlProperties,
-    fetchCollisionAvoidantNavigationControlState,
     fetchCombinedVirtualRestrictionsProperties,
     fetchConsumableProperties,
     fetchConsumableStateInformation,
     fetchCurrentStatistics,
     fetchCurrentStatisticsProperties,
     fetchDoNotDisturbConfiguration,
-    fetchFloorMaterialDirectionAwareNavigationControlState,
     fetchHTTPBasicAuthConfiguration,
     fetchHighResolutionManualControlState,
-    fetchKeyLockState,
     fetchMQTTConfiguration,
     fetchMQTTProperties,
     fetchMQTTStatus,
@@ -47,15 +42,10 @@ import {
     fetchMap,
     fetchMapSegmentationProperties,
     fetchMapSegmentMaterialControlProperties,
-    fetchMopDockMopAutoDryingControlState,
     fetchMopDockMopDryingTime,
     fetchMopDockMopDryingTimeControlProperties,
     fetchMopDockMopWashTemperature,
     fetchMopDockMopWashTemperatureProperties,
-    fetchMopExtensionControlState,
-    fetchMopExtensionFurnitureLegHandlingControlState,
-    fetchMopGapControlState,
-    fetchMopTightPatternControlState,
     fetchMopTwistFrequency,
     fetchMopTwistFrequencyProperties,
     fetchNTPClientConfiguration,
@@ -68,11 +58,8 @@ import {
     fetchNoCloudLog,
     fetchNoCloudLogLevel,
     fetchNoCloudVersionInformation,
-    fetchObstacleAvoidanceControlState,
     fetchObstacleImagesProperties,
-    fetchObstacleImagesState,
     fetchPersistentMapState,
-    fetchPetObstacleAvoidanceControlState,
     fetchPresetSelections,
     fetchPushNotifClientConfiguration,
     fetchPushNotifClientStatus,
@@ -80,6 +67,7 @@ import {
     fetchRobotInformation,
     fetchRobotProperties,
     fetchSegments,
+    fetchSimpleToggleState, // All "fetch" Simple Toggle States
     fetchSpeakerVolumeState,
     fetchStateAttributes,
     fetchSystemHostInfo,
@@ -99,24 +87,18 @@ import {
     sendAutoEmptyDockAutoEmptyInterval,
     sendAutoEmptyDockManualTriggerCommand,
     sendBasicControlCommand,
-    sendCameraLightControlState,
-    sendCarpetModeEnable,
     sendCarpetSensorMode,
-    sendCleanCarpetsFirstControlState,
     sendCleanRoute,
     sendCleanSegmentsCommand,
     sendCleanZonesCommand,
-    sendCollisionAvoidantNavigationControlState,
     sendCombinedVirtualRestrictionsUpdate,
     sendConsumableReset,
     sendDismissWelcomeDialogAction,
     sendDoNotDisturbConfiguration,
-    sendFloorMaterialDirectionAwareNavigationControlState,
     sendGoToCommand,
     sendHTTPBasicAuthConfiguration,
     sendHighResolutionManualControlInteraction,
     sendJoinSegmentsCommand,
-    sendKeyLockEnable,
     sendLocateCommand,
     sendMQTTConfiguration,
     sendManualControlInteraction,
@@ -124,23 +106,15 @@ import {
     sendMapReset,
     sendMopDockCleanManualTriggerCommand,
     sendMopDockDryManualTriggerCommand,
-    sendMopDockMopAutoDryingControlState,
     sendMopDockMopDryingTime,
     sendMopDockMopWashTemperature,
-    sendMopExtensionControlState,
-    sendMopExtensionFurnitureLegHandlingControlState,
-    sendMopGapControlState,
-    sendMopTightPatternControlState,
     sendMopTwistFrequency,
     sendNTPClientConfiguration,
     sendNetworkAdvertisementConfiguration,
     sendNoCloudCustomizations,
     sendNoCloudEventInteraction,
     sendNoCloudLogLevel,
-    sendObstacleAvoidanceControlState,
-    sendObstacleImagesState,
     sendPersistentMapEnabled,
-    sendPetObstacleAvoidanceControlState,
     sendPushNotifClientConfiguration,
     sendPushNotifClientMessage,
     sendRenameSegmentCommand,
@@ -154,6 +128,7 @@ import {
     sendTimerAction,
     sendTimerCreation,
     sendTimerUpdate,
+    sendToggleMutation, // All "send" (Simple) Toggle Mutations
     sendUpdaterCommand,
     sendUpdaterConfiguration,
     sendVoicePackManagementCommand,
@@ -217,25 +192,19 @@ enum QueryKey {
     AutoEmptyDockAutoEmptyDurationControlProperties = "auto_empty_dock_auto_empty_duration_control_properties",
     AutoEmptyDockAutoEmptyInterval = "auto_empty_dock_auto_empty_interval",
     AutoEmptyDockAutoEmptyIntervalProperties = "auto_empty_dock_auto_empty_interval_properties",
-    CameraLightControl = "camera_light_control",
     Capabilities = "capabilities",
-    CarpetMode = "carpet_mode",
     CarpetSensorMode = "carpet_sensor_mode",
-    CleanCarpetsFirstControl = "clean_carpets_first_control",
     CleanRouteControl = "clean_route_control",
     CleanRouteControlProperties = "clean_route_control_properties",
     CarpetSensorModeProperties = "carpet_sensor_mode_properties",
-    CollisionAvoidantNavigation = "collision_avoidant_navigation",
     CombinedVirtualRestrictionsProperties = "combined_virtual_restrictions_properties",
     ConsumableProperties = "consumable_properties",
     Consumables = "consumables",
     CurrentStatistics = "current_statistics",
     CurrentStatisticsProperties = "current_statistics_properties",
     DoNotDisturb = "do_not_disturb",
-    FloorMaterialDirectionAwareNavigationControl = "floor_material_direction_aware_navigation_control",
     HTTPBasicAuth = "http_basic_auth",
     HighResolutionManualControl = "high_resolution_manual_control",
-    KeyLockInformation = "key_lock",
     Log = "log",
     LogLevel = "log_level",
     MQTTConfiguration = "mqtt_configuration",
@@ -248,15 +217,10 @@ enum QueryKey {
     Map = "map",
     MapSegmentationProperties = "map_segmentation_properties",
     MapSegmentMaterialControlProperties = "map_segment_material_control_properties",
-    MopDockMopAutoDryingControl = "mop_dock_mop_auto_drying_control",
     MopDockMopDryingTimeControl = "mop_dock_mop_drying_time_control",
     MopDockMopDryingTimeControlProperties = "mop_dock_mop_drying_time_control_properties",
     MopDockMopWashTemperature = "mop_dock_mop_wash_temperature",
     MopDockMopWashTemperatureProperties = "mop_dock_mop_wash_temperature_properties",
-    MopExtensionControl = "mop_extension_control",
-    MopExtensionFurnitureLegHandlingControl = "mop_extension_furniture_leg_handling_control",
-    MopGapControl = "mop_gap_control",
-    MopTightPatternControl = "mop_tight_pattern_control",
     MopTwistFrequency = "mop_twist_frequency",
     MopTwistFrequencyProperties = "mop_twist_frequency_properties",
     NTPClientConfiguration = "ntp_client_configuration",
@@ -267,11 +231,8 @@ enum QueryKey {
     NoCloudEvents = "NoCloud_events",
     NoCloudInformation = "NoCloud_information",
     NoCloudVersion = "NoCloud_version",
-    ObstacleAvoidance = "obstacle_avoidance",
-    ObstacleImages = "obstacle_image",
     ObstacleImagesProperties = "obstacle_image_properties",
     PersistentMap = "persistent_map",
-    PetObstacleAvoidance = "pet_obstacle_avoidance",
     PresetSelections = "preset_selections",
     PushNotifClientConfiguration = "pushnotif_client_configuration",
     PushNotifClientStatus = "pushnotif_client_status",
@@ -444,6 +405,34 @@ export function useRobotStatusQuery(select?: (status: StatusState) => any) {
         },
     });
 }
+//Generic hooks for Simple Toggle Capabilities
+export const useSimpleToggleQuery = (capability: Capability) => {
+    const config = Object.values(SIMPLE_TOGGLE_CAPABILITIES).find(c => c.capability === capability);
+    if (!config) {
+        throw new Error(`Query: Unknown Simple Toggle Capability: ${capability}`);
+    }
+
+    return useQuery({
+        queryKey: [config.queryKey],
+        queryFn: () => fetchSimpleToggleState(capability),
+        staleTime: Infinity
+    });
+};
+
+export const useSimpleToggleMutation = (capability: Capability) => {
+    const config = Object.values(SIMPLE_TOGGLE_CAPABILITIES).find(c => c.capability === capability);
+    if (!config) {
+        throw new Error(`Mutation: Unknown Simple Toggle Capability: ${capability}`);
+    }
+
+    return useNoCloudFetchingMutation({
+        queryKey: [config.queryKey as QueryKey],
+        mutationFn: (enable: boolean) => {
+            return sendToggleMutation(capability, enable).then(() => fetchSimpleToggleState(capability));
+        },
+        onError: useOnCommandError(capability)
+    });
+};
 
 export const usePresetSelectionsQuery = (
     capability: Capability.FanSpeedControl | Capability.WaterUsageControl | Capability.OperationModeControl
@@ -1159,25 +1148,6 @@ export const useVoicePackManagementMutation = () => {
     });
 };
 
-export const useKeyLockStateQuery = () => {
-    return useQuery( {
-        queryKey: [QueryKey.KeyLockInformation],
-        queryFn: fetchKeyLockState,
-
-        staleTime: Infinity
-    });
-};
-
-export const useKeyLockStateMutation = () => {
-    return useNoCloudFetchingMutation({
-        queryKey: [QueryKey.KeyLockInformation],
-        mutationFn: (enable: boolean) => {
-            return sendKeyLockEnable(enable).then(fetchKeyLockState);
-        },
-        onError: useOnCommandError(Capability.KeyLock)
-    });
-};
-
 export const useAutoEmptyDockAutoEmptyDurationQuery = () => {
     return useQuery({
         queryKey: [QueryKey.AutoEmptyDockAutoEmptyDurationControl],
@@ -1230,44 +1200,6 @@ export const useAutoEmptyDockAutoEmptyIntervalPropertiesQuery = () => {
     });
 };
 
-export const useCameraLightControlQuery = () => {
-    return useQuery( {
-        queryKey: [QueryKey.CameraLightControl],
-        queryFn: fetchCameraLightControlState,
-
-        staleTime: Infinity
-    });
-};
-
-export const useCameraLightControlMutation = () => {
-    return useNoCloudFetchingMutation({
-        queryKey: [QueryKey.CameraLightControl],
-        mutationFn: (enable: boolean) => {
-            return sendCameraLightControlState(enable).then(fetchCameraLightControlState);
-        },
-        onError: useOnCommandError(Capability.CameraLightControl)
-    });
-};
-
-export const useCarpetModeStateQuery = () => {
-    return useQuery( {
-        queryKey: [QueryKey.CarpetMode],
-        queryFn: fetchCarpetModeState,
-
-        staleTime: Infinity
-    });
-};
-
-export const useCarpetModeStateMutation = () => {
-    return useNoCloudFetchingMutation({
-        queryKey: [QueryKey.CarpetMode],
-        mutationFn: (enable: boolean) => {
-            return sendCarpetModeEnable(enable).then(fetchCarpetModeState);
-        },
-        onError: useOnCommandError(Capability.CarpetModeControl)
-    });
-};
-
 export const useCarpetSensorModeQuery = () => {
     return useQuery({
         queryKey: [QueryKey.CarpetSensorMode],
@@ -1294,25 +1226,6 @@ export const useCarpetSensorModePropertiesQuery = () => {
     });
 };
 
-export const useCleanCarpetsFirstControlQuery = () => {
-    return useQuery( {
-        queryKey: [QueryKey.CleanCarpetsFirstControl],
-        queryFn: fetchCleanCarpetsFirstControlState,
-
-        staleTime: Infinity
-    });
-};
-
-export const useCleanCarpetsFirstControlMutation = () => {
-    return useNoCloudFetchingMutation({
-        queryKey: [QueryKey.CleanCarpetsFirstControl],
-        mutationFn: (enable: boolean) => {
-            return sendCleanCarpetsFirstControlState(enable).then(fetchCleanCarpetsFirstControlState);
-        },
-        onError: useOnCommandError(Capability.CleanCarpetsFirstControl)
-    });
-};
-
 export const useCleanRouteQuery = () => {
     return useQuery({
         queryKey: [QueryKey.CleanRouteControl],
@@ -1336,25 +1249,6 @@ export const useCleanRouteControlPropertiesQuery = () => {
         queryFn: fetchCleanRouteControlProperties,
 
         staleTime: Infinity
-    });
-};
-
-export const useCollisionAvoidantNavigationControlQuery = () => {
-    return useQuery( {
-        queryKey: [QueryKey.CollisionAvoidantNavigation],
-        queryFn: fetchCollisionAvoidantNavigationControlState,
-
-        staleTime: Infinity
-    });
-};
-
-export const useCollisionAvoidantNavigationControlMutation = () => {
-    return useNoCloudFetchingMutation({
-        queryKey: [QueryKey.CollisionAvoidantNavigation],
-        mutationFn: (enable: boolean) => {
-            return sendCollisionAvoidantNavigationControlState(enable).then(fetchCollisionAvoidantNavigationControlState);
-        },
-        onError: useOnCommandError(Capability.CollisionAvoidantNavigation)
     });
 };
 
@@ -1493,25 +1387,6 @@ export const useMapSegmentMaterialControlPropertiesQuery = () => {
         queryFn: fetchMapSegmentMaterialControlProperties,
 
         staleTime: Infinity,
-    });
-};
-
-export const useFloorMaterialDirectionAwareNavigationControlQuery = () => {
-    return useQuery( {
-        queryKey: [QueryKey.FloorMaterialDirectionAwareNavigationControl],
-        queryFn: fetchFloorMaterialDirectionAwareNavigationControlState,
-
-        staleTime: Infinity
-    });
-};
-
-export const useFloorMaterialDirectionAwareNavigationControlMutation = () => {
-    return useNoCloudFetchingMutation({
-        queryKey: [QueryKey.FloorMaterialDirectionAwareNavigationControl],
-        mutationFn: (enable: boolean) => {
-            return sendFloorMaterialDirectionAwareNavigationControlState(enable).then(fetchFloorMaterialDirectionAwareNavigationControlState);
-        },
-        onError: useOnCommandError(Capability.FloorMaterialDirectionAwareNavigationControl)
     });
 };
 
@@ -1738,25 +1613,6 @@ export const useMopDockDryManualTriggerMutation = () => {
     });
 };
 
-export const useMopDockMopAutoDryingControlQuery = () => {
-    return useQuery( {
-        queryKey: [QueryKey.MopDockMopAutoDryingControl],
-        queryFn: fetchMopDockMopAutoDryingControlState,
-
-        staleTime: Infinity
-    });
-};
-
-export const useMopDockMopAutoDryingControlMutation = () => {
-    return useNoCloudFetchingMutation({
-        queryKey: [QueryKey.MopDockMopAutoDryingControl],
-        mutationFn: (enable: boolean) => {
-            return sendMopDockMopAutoDryingControlState(enable).then(fetchMopDockMopAutoDryingControlState);
-        },
-        onError: useOnCommandError(Capability.MopDockMopAutoDryingControl)
-    });
-};
-
 export const useMopDockMopDryingTimeQuery = () => {
     return useQuery({
         queryKey: [QueryKey.MopDockMopDryingTimeControl],
@@ -1811,82 +1667,6 @@ export const useMopDockMopWashTemperaturePropertiesQuery = () => {
     });
 };
 
-export const useMopExtensionControlQuery = () => {
-    return useQuery( {
-        queryKey: [QueryKey.MopExtensionControl],
-        queryFn: fetchMopExtensionControlState,
-
-        staleTime: Infinity
-    });
-};
-
-export const useMopExtensionControlMutation = () => {
-    return useNoCloudFetchingMutation({
-        queryKey: [QueryKey.MopExtensionControl],
-        mutationFn: (enable: boolean) => {
-            return sendMopExtensionControlState(enable).then(fetchMopExtensionControlState);
-        },
-        onError: useOnCommandError(Capability.MopExtensionControl)
-    });
-};
-
-export const useMopExtensionFurnitureLegHandlingControlQuery = () => {
-    return useQuery( {
-        queryKey: [QueryKey.MopExtensionFurnitureLegHandlingControl],
-        queryFn: fetchMopExtensionFurnitureLegHandlingControlState,
-
-        staleTime: Infinity
-    });
-};
-
-export const useMopExtensionFurnitureLegHandlingControlMutation = () => {
-    return useNoCloudFetchingMutation({
-        queryKey: [QueryKey.MopExtensionFurnitureLegHandlingControl],
-        mutationFn: (enable: boolean) => {
-            return sendMopExtensionFurnitureLegHandlingControlState(enable).then(fetchMopExtensionFurnitureLegHandlingControlState);
-        },
-        onError: useOnCommandError(Capability.MopExtensionFurnitureLegHandlingControl)
-    });
-};
-
-export const useMopGapControlQuery = () => {
-    return useQuery( {
-        queryKey: [QueryKey.MopGapControl],
-        queryFn: fetchMopGapControlState,
-
-        staleTime: Infinity
-    });
-};
-
-export const useMopGapControlMutation = () => {
-    return useNoCloudFetchingMutation({
-        queryKey: [QueryKey.MopGapControl],
-        mutationFn: (enable: boolean) => {
-            return sendMopGapControlState(enable).then(fetchMopGapControlState);
-        },
-        onError: useOnCommandError(Capability.MopGapControl)
-    });
-};
-
-export const useMopTightPatternControlQuery = () => {
-    return useQuery( {
-        queryKey: [QueryKey.MopTightPatternControl],
-        queryFn: fetchMopTightPatternControlState,
-
-        staleTime: Infinity
-    });
-};
-
-export const useMopTightPatternControlMutation = () => {
-    return useNoCloudFetchingMutation({
-        queryKey: [QueryKey.MopTightPatternControl],
-        mutationFn: (enable: boolean) => {
-            return sendMopTightPatternControlState(enable).then(fetchMopTightPatternControlState);
-        },
-        onError: useOnCommandError(Capability.MopTightPatternControl)
-    });
-};
-
 export const useMopTwistFrequencyQuery = () => {
     return useQuery({
         queryKey: [QueryKey.MopTwistFrequency],
@@ -1932,44 +1712,6 @@ export const useNoCloudCustomizationsMutation = () => {
     });
 };
 
-export const useObstacleAvoidanceControlQuery = () => {
-    return useQuery( {
-        queryKey: [QueryKey.ObstacleAvoidance],
-        queryFn: fetchObstacleAvoidanceControlState,
-
-        staleTime: Infinity
-    });
-};
-
-export const useObstacleAvoidanceControlMutation = () => {
-    return useNoCloudFetchingMutation({
-        queryKey: [QueryKey.ObstacleAvoidance],
-        mutationFn: (enable: boolean) => {
-            return sendObstacleAvoidanceControlState(enable).then(fetchObstacleAvoidanceControlState);
-        },
-        onError: useOnCommandError(Capability.ObstacleAvoidanceControl)
-    });
-};
-
-export const useObstacleImagesQuery = () => {
-    return useQuery( {
-        queryKey: [QueryKey.ObstacleImages],
-        queryFn: fetchObstacleImagesState,
-
-        staleTime: Infinity
-    });
-};
-
-export const useObstacleImagesMutation = () => {
-    return useNoCloudFetchingMutation({
-        queryKey: [QueryKey.ObstacleImages],
-        mutationFn: (enable: boolean) => {
-            return sendObstacleImagesState(enable).then(fetchObstacleImagesState);
-        },
-        onError: useOnCommandError(Capability.ObstacleImages)
-    });
-};
-
 export const useObstacleImagesPropertiesQuery = () => {
     return useQuery( {
         queryKey: [QueryKey.ObstacleImagesProperties],
@@ -1989,23 +1731,3 @@ export const prefetchObstacleImagesProperties = async (queryClient : QueryClient
         });
     }
 };
-
-export const usePetObstacleAvoidanceControlQuery = () => {
-    return useQuery( {
-        queryKey: [QueryKey.PetObstacleAvoidance],
-        queryFn: fetchPetObstacleAvoidanceControlState,
-
-        staleTime: Infinity
-    });
-};
-
-export const usePetObstacleAvoidanceControlMutation = () => {
-    return useNoCloudFetchingMutation({
-        queryKey: [QueryKey.PetObstacleAvoidance],
-        mutationFn: (enable: boolean) => {
-            return sendPetObstacleAvoidanceControlState(enable).then(fetchPetObstacleAvoidanceControlState);
-        },
-        onError: useOnCommandError(Capability.PetObstacleAvoidanceControl)
-    });
-};
-

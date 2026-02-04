@@ -209,6 +209,12 @@ export const fetchMap = (): Promise<RawMapData> => {
         return preprocessMap(data);
     });
 };
+// Generic fetch for Simple Toggle Capabilities
+export const fetchSimpleToggleState = async (capability: Capability): Promise<SimpleToggleState> => {
+    return NoCloudAPI
+        .get<SimpleToggleState>(`/robot/capabilities/${capability}`)
+        .then(({ data }) => data);
+};
 
 export const fetchMapSegmentMaterialControlProperties = async (): Promise<MapSegmentMaterialControlProperties> => {
     return NoCloudAPI
@@ -399,18 +405,6 @@ export const sendAutoEmptyDockManualTriggerCommand = async (): Promise<void> => 
     await NoCloudAPI.put(`/robot/capabilities/${Capability.AutoEmptyDockManualTrigger}`, {
         action: "trigger",
     });
-};
-
-export const fetchCleanCarpetsFirstControlState = async (): Promise<SimpleToggleState> => {
-    return NoCloudAPI
-        .get<SimpleToggleState>(`/robot/capabilities/${Capability.CleanCarpetsFirstControl}`)
-        .then(({ data }) => {
-            return data;
-        });
-};
-
-export const sendCleanCarpetsFirstControlState = async (enable: boolean): Promise<void> => {
-    await sendToggleMutation(Capability.CleanCarpetsFirstControl, enable);
 };
 
 export const fetchCleanRoute = async (): Promise<CleanRoute> => {
@@ -789,7 +783,7 @@ export const fetchPersistentMapState = async (): Promise<SimpleToggleState> => {
         });
 };
 
-const sendToggleMutation = async (capability: Capability, enable: boolean): Promise<void> => {
+export const sendToggleMutation = async (capability: Capability, enable: boolean): Promise<void> => {
     await NoCloudAPI
         .put(`/robot/capabilities/${capability}`, {
             action: enable ? "enable" : "disable"
@@ -874,18 +868,6 @@ export const sendSpeakerTestCommand = async (): Promise<void> => {
     });
 };
 
-export const fetchKeyLockState = async (): Promise<SimpleToggleState> => {
-    return NoCloudAPI
-        .get<SimpleToggleState>(`/robot/capabilities/${Capability.KeyLock}`)
-        .then(({ data }) => {
-            return data;
-        });
-};
-
-export const sendKeyLockEnable = async (enable: boolean): Promise<void> => {
-    await sendToggleMutation(Capability.KeyLock, enable);
-};
-
 export const sendAutoEmptyDockAutoEmptyDuration = async (payload: AutoEmptyDockAutoEmptyDurationPayload): Promise<void> => {
     return NoCloudAPI
         .put(`/robot/capabilities/${Capability.AutoEmptyDockAutoEmptyDurationControl}`, payload)
@@ -942,30 +924,6 @@ export const fetchAutoEmptyDockAutoEmptyIntervalProperties = async (): Promise<A
         });
 };
 
-export const fetchCameraLightControlState = async (): Promise<SimpleToggleState> => {
-    return NoCloudAPI
-        .get<SimpleToggleState>(`/robot/capabilities/${Capability.CameraLightControl}`)
-        .then(({ data }) => {
-            return data;
-        });
-};
-
-export const sendCameraLightControlState = async (enable: boolean): Promise<void> => {
-    await sendToggleMutation(Capability.CameraLightControl, enable);
-};
-
-export const fetchCarpetModeState = async (): Promise<SimpleToggleState> => {
-    return NoCloudAPI
-        .get<SimpleToggleState>(`/robot/capabilities/${Capability.CarpetModeControl}`)
-        .then(({ data }) => {
-            return data;
-        });
-};
-
-export const sendCarpetModeEnable = async (enable: boolean): Promise<void> => {
-    await sendToggleMutation(Capability.CarpetModeControl, enable);
-};
-
 export const sendCarpetSensorMode = async (payload: CarpetSensorModePayload): Promise<void> => {
     return NoCloudAPI
         .put(`/robot/capabilities/${Capability.CarpetSensorModeControl}`, payload)
@@ -992,43 +950,6 @@ export const fetchCarpetSensorModeProperties = async (): Promise<CarpetSensorMod
         .then(({data}) => {
             return data;
         });
-};
-
-export const fetchObstacleAvoidanceControlState = async (): Promise<SimpleToggleState> => {
-    return NoCloudAPI
-        .get<SimpleToggleState>(`/robot/capabilities/${Capability.ObstacleAvoidanceControl}`)
-        .then(({ data }) => {
-            return data;
-        });
-};
-
-export const sendObstacleAvoidanceControlState = async (enable: boolean): Promise<void> => {
-    await sendToggleMutation(Capability.ObstacleAvoidanceControl, enable);
-};
-
-export const fetchPetObstacleAvoidanceControlState = async (): Promise<SimpleToggleState> => {
-    return NoCloudAPI
-        .get<SimpleToggleState>(`/robot/capabilities/${Capability.PetObstacleAvoidanceControl}`)
-        .then(({ data }) => {
-            return data;
-        });
-};
-
-export const sendPetObstacleAvoidanceControlState = async (enable: boolean): Promise<void> => {
-    await sendToggleMutation(Capability.PetObstacleAvoidanceControl, enable);
-};
-
-export const fetchCollisionAvoidantNavigationControlState = async (): Promise<SimpleToggleState> => {
-    return NoCloudAPI
-        .get<SimpleToggleState>(`/robot/capabilities/${Capability.CollisionAvoidantNavigation}`)
-        .then(({ data }) => {
-            return data;
-        });
-};
-
-export const sendCollisionAvoidantNavigationControlState = async (enable: boolean): Promise<void> => {
-    await sendToggleMutation(Capability.CollisionAvoidantNavigation, enable);
-    await fetchCollisionAvoidantNavigationControlState(); //force status update; TODO: why do we need this for this one???
 };
 
 export const fetchDoNotDisturbConfiguration = async (): Promise<DoNotDisturbConfiguration> => {
@@ -1133,18 +1054,6 @@ export const sendManualControlInteraction = async (interaction: ManualControlInt
                 throw new Error("Could not send manual control interaction");
             }
         });
-};
-
-export const fetchFloorMaterialDirectionAwareNavigationControlState = async (): Promise<SimpleToggleState> => {
-    return NoCloudAPI
-        .get<SimpleToggleState>(`/robot/capabilities/${Capability.FloorMaterialDirectionAwareNavigationControl}`)
-        .then(({ data }) => {
-            return data;
-        });
-};
-
-export const sendFloorMaterialDirectionAwareNavigationControlState = async (enable: boolean): Promise<void> => {
-    await sendToggleMutation(Capability.FloorMaterialDirectionAwareNavigationControl, enable);
 };
 
 export const fetchHighResolutionManualControlState = async (): Promise<SimpleToggleState> => {
@@ -1317,18 +1226,6 @@ export const sendMopDockDryManualTriggerCommand = async (
     );
 };
 
-export const fetchMopDockMopAutoDryingControlState = async (): Promise<SimpleToggleState> => {
-    return NoCloudAPI
-        .get<SimpleToggleState>(`/robot/capabilities/${Capability.MopDockMopAutoDryingControl}`)
-        .then(({ data }) => {
-            return data;
-        });
-};
-
-export const sendMopDockMopAutoDryingControlState = async (enable: boolean): Promise<void> => {
-    await sendToggleMutation(Capability.MopDockMopAutoDryingControl, enable);
-};
-
 export const sendMopDockMopDryingTime = async (payload: MopDockMopDryingTimePayload): Promise<void> => {
     return NoCloudAPI
         .put(`/robot/capabilities/${Capability.MopDockMopDryingTimeControl}`, payload)
@@ -1385,43 +1282,6 @@ export const fetchMopDockMopWashTemperatureProperties = async (): Promise<MopDoc
         });
 };
 
-export const fetchMopExtensionControlState = async (): Promise<SimpleToggleState> => {
-    return NoCloudAPI
-        .get<SimpleToggleState>(`/robot/capabilities/${Capability.MopExtensionControl}`)
-        .then(({ data }) => {
-            return data;
-        });
-};
-
-export const sendMopExtensionControlState = async (enable: boolean): Promise<void> => {
-    await sendToggleMutation(Capability.MopExtensionControl, enable);
-    await fetchMopExtensionControlState(); //force status update; TODO: why do we need this???
-};
-
-export const fetchMopExtensionFurnitureLegHandlingControlState = async (): Promise<SimpleToggleState> => {
-    return NoCloudAPI
-        .get<SimpleToggleState>(`/robot/capabilities/${Capability.MopExtensionFurnitureLegHandlingControl}`)
-        .then(({ data }) => {
-            return data;
-        });
-};
-
-export const sendMopExtensionFurnitureLegHandlingControlState = async (enable: boolean): Promise<void> => {
-    await sendToggleMutation(Capability.MopExtensionFurnitureLegHandlingControl, enable);
-};
-
-export const fetchMopGapControlState = async (): Promise<SimpleToggleState> => {
-    return NoCloudAPI
-        .get<SimpleToggleState>(`/robot/capabilities/${Capability.MopGapControl}`)
-        .then(({ data }) => {
-            return data;
-        });
-};
-
-export const sendMopGapControlState = async (enable: boolean): Promise<void> => {
-    await sendToggleMutation(Capability.MopGapControl, enable);
-};
-
 export const sendMopTwistFrequency = async (payload: MopTwistFrequencyPayload): Promise<void> => {
     return NoCloudAPI
         .put(`/robot/capabilities/${Capability.MopTwistFrequencyControl}`, payload)
@@ -1430,18 +1290,6 @@ export const sendMopTwistFrequency = async (payload: MopTwistFrequencyPayload): 
                 throw new Error("Could not send robot twist for mopping frequency");
             }
         });
-};
-
-export const fetchMopTightPatternControlState = async (): Promise<SimpleToggleState> => {
-    return NoCloudAPI
-        .get<SimpleToggleState>(`/robot/capabilities/${Capability.MopTightPatternControl}`)
-        .then(({ data }) => {
-            return data;
-        });
-};
-
-export const sendMopTightPatternControlState = async (enable: boolean): Promise<void> => {
-    await sendToggleMutation(Capability.MopTightPatternControl, enable);
 };
 
 export const fetchMopTwistFrequency = async (): Promise<MopTwistFrequency> => {
@@ -1478,18 +1326,6 @@ export const sendNoCloudCustomizations = async (customizations: NoCloudCustomiza
                 throw new Error("Could not update NoCloudCustomizations");
             }
         });
-};
-
-export const fetchObstacleImagesState = async (): Promise<SimpleToggleState> => {
-    return NoCloudAPI
-        .get<SimpleToggleState>(`/robot/capabilities/${Capability.ObstacleImages}`)
-        .then(({ data }) => {
-            return data;
-        });
-};
-
-export const sendObstacleImagesState = async (enable: boolean): Promise<void> => {
-    await sendToggleMutation(Capability.ObstacleImages, enable);
 };
 
 export const fetchObstacleImagesProperties = async (): Promise<ObstacleImagesProperties> => {

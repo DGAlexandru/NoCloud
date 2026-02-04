@@ -16,78 +16,39 @@ import {
     useAutoEmptyDockAutoEmptyIntervalMutation,
     useAutoEmptyDockAutoEmptyIntervalPropertiesQuery,
     useAutoEmptyDockAutoEmptyIntervalQuery,
-    useCameraLightControlMutation,
-    useCameraLightControlQuery,
-    useCarpetModeStateMutation,
-    useCarpetModeStateQuery,
     useCarpetSensorModeMutation,
     useCarpetSensorModePropertiesQuery,
     useCarpetSensorModeQuery,
-    useCleanCarpetsFirstControlMutation,
-    useCleanCarpetsFirstControlQuery,
     useCleanRouteControlPropertiesQuery,
     useCleanRouteQuery,
     useCleanRouteMutation,
-    useCollisionAvoidantNavigationControlMutation,
-    useCollisionAvoidantNavigationControlQuery,
-    useFloorMaterialDirectionAwareNavigationControlMutation,
-    useFloorMaterialDirectionAwareNavigationControlQuery,
-    useKeyLockStateMutation,
-    useKeyLockStateQuery,
     useLocateMutation,
-    useMopDockMopAutoDryingControlMutation,
-    useMopDockMopAutoDryingControlQuery,
     useMopDockMopDryingTimeControlPropertiesQuery,
     useMopDockMopDryingTimeMutation,
     useMopDockMopDryingTimeQuery,
     useMopDockMopWashTemperatureMutation,
     useMopDockMopWashTemperaturePropertiesQuery,
     useMopDockMopWashTemperatureQuery,
-    useMopExtensionControlMutation,
-    useMopExtensionControlQuery,
-    useMopExtensionFurnitureLegHandlingControlMutation,
-    useMopExtensionFurnitureLegHandlingControlQuery,
-    useMopGapControlMutation,
-    useMopGapControlQuery,
-    useMopTightPatternControlMutation,
-    useMopTightPatternControlQuery,
     useMopTwistFrequencyMutation,
     useMopTwistFrequencyPropertiesQuery,
     useMopTwistFrequencyQuery,
-    useObstacleAvoidanceControlMutation,
-    useObstacleAvoidanceControlQuery,
-    useObstacleImagesMutation,
-    useObstacleImagesQuery,
-    usePetObstacleAvoidanceControlMutation,
-    usePetObstacleAvoidanceControlQuery,
 } from "../api";
 import React from "react";
 import {ListMenu} from "../components/list_menu/ListMenu";
-import {ToggleSwitchListMenuItem} from "../components/list_menu/ToggleSwitchListMenuItem";
+import {SimpleToggleCapabilitySwitch} from "../components/SimpleToggleCapabilitySwitch";
+import {SIMPLE_TOGGLE_UI_CONFIGS} from "./simpleToggleConfigs";
 import {
-    Air as MopDockMopAutoDryingControlIcon,
     AutoDelete as AutoEmptyIntervalControlIcon,
     AvTimer as AutoEmptyDockAutoEmptyDurationControlIcon,
     AvTimer as MopDockMopDryingTimeControlIcon,
-    Cable as ObstacleAvoidanceControlIcon,
-    CleaningServices as CleanCarpetsFirstControlIcon,
     DeviceThermostat as MopDockMopWashTemperatureControlIcon,
-    Explore as FloorMaterialDirectionAwareNavigationControlIcon,
-    FlashlightOn as CameraLightControlIcon,
-    Flood as MopTightPatternControlIcon,
-    KeyboardDoubleArrowUp as CarpetModeIcon,
-    Lock as KeyLockIcon,
     MiscellaneousServices as SystemIcon,
     NotListedLocation as LocateIcon,
-    Pets as PetObstacleAvoidanceControlIcon,
-    Photo as ObstacleImagesIcon,
-    RoundaboutRight as CollisionAvoidantNavigationControlIcon,
     Route as CleanRouteControlIcon,
     SatelliteAlt as PerceptionIcon,
     Schema as BehaviourIcon,
     Settings as GeneralIcon,
     Star as QuirksIcon,
-    TableBar as MopExtensionFurnitureLegHandlingControlIcon,
     Troubleshoot as CarpetSensorModeIcon,
     Tune as MiscIcon,
     Villa as DockIcon,
@@ -99,9 +60,7 @@ import {ButtonListMenuItem} from "../components/list_menu/ButtonListMenuItem";
 import {SelectListMenuItem, SelectListMenuItemOption} from "../components/list_menu/SelectListMenuItem";
 import {SubHeaderListMenuItem} from "../components/list_menu/SubHeaderListMenuItem";
 import {
-    MopExtensionControlCapability as MopExtensionControlCapabilityIcon,
     MopTwistControlCapability as MopTwistFrequencyControlIcon,
-    MopTwistControlCapabilityExtended as MopGapControlCapabilityIcon,
 } from "../components/CustomIcons";
 
 const LocateButtonListMenuItem = (): React.ReactElement => {
@@ -120,30 +79,6 @@ const LocateButtonListMenuItem = (): React.ReactElement => {
                 locate();
             }}
             actionLoading={locateIsExecuting}
-        />
-    );
-};
-
-const KeyLockCapabilitySwitchListMenuItem = () => {
-    const {
-        data: data,
-        isFetching: isFetching,
-        isError: isError,
-    } = useKeyLockStateQuery();
-
-    const {mutate: mutate, isPending: isChanging} = useKeyLockStateMutation();
-    const loading = isFetching || isChanging;
-    const disabled = loading || isChanging || isError;
-
-    return (
-        <ToggleSwitchListMenuItem
-            value={data?.enabled ?? false}
-            setValue={(value) => {mutate(value);}}
-            disabled={disabled}
-            loadError={isError}
-            primaryLabel={"Lock Keys"}
-            secondaryLabel={"Prevents the robot from being operated via its physical buttons."}
-            icon={<KeyLockIcon/>}
         />
     );
 };
@@ -317,54 +252,6 @@ const AutoEmptyDockAutoEmptyIntervalControlCapabilitySelectListMenuItem = () => 
     );
 };
 
-const CameraLightControlCapabilitySwitchListMenuItem = () => {
-    const {
-        data: data,
-        isFetching: isFetching,
-        isError: isError,
-    } = useCameraLightControlQuery();
-
-    const {mutate: mutate, isPending: isChanging} = useCameraLightControlMutation();
-    const loading = isFetching || isChanging;
-    const disabled = loading || isChanging || isError;
-
-    return (
-        <ToggleSwitchListMenuItem
-            value={data?.enabled ?? false}
-            setValue={(value) => {mutate(value);}}
-            disabled={disabled}
-            loadError={isError}
-            primaryLabel={"Camera Light"}
-            secondaryLabel={"Illuminate the dark to improve the AI's image recognition for obstacle avoidance."}
-            icon={<CameraLightControlIcon/>}
-        />
-    );
-};
-
-const CarpetModeControlCapabilitySwitchListMenuItem = () => {
-    const {
-        data: data,
-        isFetching: isFetching,
-        isError: isError,
-    } = useCarpetModeStateQuery();
-
-    const {mutate: mutate, isPending: isChanging} = useCarpetModeStateMutation();
-    const loading = isFetching || isChanging;
-    const disabled = loading || isChanging || isError;
-
-    return (
-        <ToggleSwitchListMenuItem
-            value={data?.enabled ?? false}
-            setValue={(value) => {mutate(value);}}
-            disabled={disabled}
-            loadError={isError}
-            primaryLabel={"Carpet Mode"}
-            secondaryLabel={"When enabled, the robot will automatically recognize carpets and increase suction."}
-            icon={<CarpetModeIcon/>}
-        />
-    );
-};
-
 const CarpetSensorModeControlCapabilitySelectListMenuItem = () => {
     const SORT_ORDER = {
         "off": 5,
@@ -420,7 +307,6 @@ const CarpetSensorModeControlCapabilitySelectListMenuItem = () => {
         };
     });
 
-
     const {
         data: data,
         isPending: isPending,
@@ -436,7 +322,6 @@ const CarpetSensorModeControlCapabilitySelectListMenuItem = () => {
         return mode.value === data;
     }) ?? {value: "", label: ""};
 
-
     return (
         <SelectListMenuItem
             options={options}
@@ -450,30 +335,6 @@ const CarpetSensorModeControlCapabilitySelectListMenuItem = () => {
             primaryLabel="Carpet Sensor"
             secondaryLabel="Select what action the robot should take if it detects carpet while mopping."
             icon={<CarpetSensorModeIcon/>}
-        />
-    );
-};
-
-const CleanCarpetsFirstControlCapabilitySwitchListMenuItem = () => {
-    const {
-        data: data,
-        isFetching: isFetching,
-        isError: isError,
-    } = useCleanCarpetsFirstControlQuery();
-
-    const {mutate: mutate, isPending: isChanging} = useCleanCarpetsFirstControlMutation();
-    const loading = isFetching || isChanging;
-    const disabled = loading || isChanging || isError;
-
-    return (
-        <ToggleSwitchListMenuItem
-            value={data?.enabled ?? false}
-            setValue={(value) => {mutate(value);}}
-            disabled={disabled}
-            loadError={isError}
-            primaryLabel={"Clean Carpets First"}
-            secondaryLabel={"When enabled, the robot will first clean all carpet areas, then will continue with the rest of the cleanup."}
-            icon={<CleanCarpetsFirstControlIcon/>}
         />
     );
 };
@@ -580,78 +441,6 @@ const CleanRouteControlCapabilitySelectListMenuItem = () => {
     );
 };
 
-const CollisionAvoidantNavigationControlCapabilitySwitchListMenuItem = () => {
-    const {
-        data: data,
-        isFetching: isFetching,
-        isError: isError,
-    } = useCollisionAvoidantNavigationControlQuery();
-
-    const {mutate: mutate, isPending: isChanging} = useCollisionAvoidantNavigationControlMutation();
-    const loading = isFetching || isChanging;
-    const disabled = loading || isChanging || isError;
-
-    return (
-        <ToggleSwitchListMenuItem
-            value={data?.enabled ?? false}
-            setValue={(value) => {mutate(value);}}
-            disabled={disabled}
-            loadError={isError}
-            primaryLabel={"Collision-avoidant Navigation"}
-            secondaryLabel={"Uses a more conservative route for collision-avoidant navigation, but may result in missed spots."}
-            icon={<CollisionAvoidantNavigationControlIcon/>}
-        />
-    );
-};
-
-const FloorMaterialDirectionAwareNavigationControlCapabilitySwitchListMenuItem = () => {
-    const {
-        data: data,
-        isFetching: isFetching,
-        isError: isError,
-    } = useFloorMaterialDirectionAwareNavigationControlQuery();
-
-    const {mutate: mutate, isPending: isChanging} = useFloorMaterialDirectionAwareNavigationControlMutation();
-    const loading = isFetching || isChanging;
-    const disabled = loading || isChanging || isError;
-
-    return (
-        <ToggleSwitchListMenuItem
-            value={data?.enabled ?? false}
-            setValue={(value) => {mutate(value);}}
-            disabled={disabled}
-            loadError={isError}
-            primaryLabel={"Material-aligned Navigation"}
-            secondaryLabel={"Clean along the direction of the configured/detected floor material (if applicable)."}
-            icon={<FloorMaterialDirectionAwareNavigationControlIcon/>}
-        />
-    );
-};
-
-const MopDockMopAutoDryingControlCapabilitySwitchListMenuItem = () => {
-    const {
-        data: data,
-        isFetching: isFetching,
-        isError: isError,
-    } = useMopDockMopAutoDryingControlQuery();
-
-    const {mutate: mutate, isPending: isChanging} = useMopDockMopAutoDryingControlMutation();
-    const loading = isFetching || isChanging;
-    const disabled = loading || isChanging || isError;
-
-    return (
-        <ToggleSwitchListMenuItem
-            value={data?.enabled ?? false}
-            setValue={(value) => {mutate(value);}}
-            disabled={disabled}
-            loadError={isError}
-            primaryLabel={"Mop Pads Auto-Drying"}
-            secondaryLabel={"Automatically dry the mop pads after a finished cleanup."}
-            icon={<MopDockMopAutoDryingControlIcon/>}
-        />
-    );
-};
-
 const MopDockMopDryingTimeControlCapabilitySelectListMenuItem = () => {
     const SORT_ORDER = {
         "2h": 1,
@@ -732,7 +521,6 @@ const MopDockMopDryingTimeControlCapabilitySelectListMenuItem = () => {
     const currentValue = options.find(mode => {
         return mode.value === data;
     }) ?? {value: "", label: ""};
-
 
     return (
         <SelectListMenuItem
@@ -832,102 +620,6 @@ const MopDockMopWashTemperatureControlCapabilitySelectListMenuItem = () => {
     );
 };
 
-const MopExtensionControlCapabilitySwitchListMenuItem = () => {
-    const {
-        data: data,
-        isFetching: isFetching,
-        isError: isError,
-    } = useMopExtensionControlQuery();
-
-    const {mutate: mutate, isPending: isChanging} = useMopExtensionControlMutation();
-    const loading = isFetching || isChanging;
-    const disabled = loading || isChanging || isError;
-
-    return (
-        <ToggleSwitchListMenuItem
-            value={data?.enabled ?? false}
-            setValue={(value) => {mutate(value);}}
-            disabled={disabled}
-            loadError={isError}
-            primaryLabel={"Mop Extension"}
-            secondaryLabel={"Extend the mop outward to reach closer to walls and furniture."}
-            icon={<MopExtensionControlCapabilityIcon/>}
-        />
-    );
-};
-
-const MopExtensionFurnitureLegHandlingControlCapabilitySwitchListMenuItem = () => {
-    const {
-        data: data,
-        isFetching: isFetching,
-        isError: isError,
-    } = useMopExtensionFurnitureLegHandlingControlQuery();
-
-    const {mutate: mutate, isPending: isChanging} = useMopExtensionFurnitureLegHandlingControlMutation();
-    const loading = isFetching || isChanging;
-    const disabled = loading || isChanging || isError;
-
-    return (
-        <ToggleSwitchListMenuItem
-            value={data?.enabled ?? false}
-            setValue={(value) => {mutate(value);}}
-            disabled={disabled}
-            loadError={isError}
-            primaryLabel={"Extend Mop for Furniture Legs"}
-            secondaryLabel={"Use the extending mop to mop closer to furniture legs."}
-            icon={<MopExtensionFurnitureLegHandlingControlIcon/>}
-        />
-    );
-};
-
-const MopGapControlCapabilitySwitchListMenuItem = () => {
-    const {
-        data: data,
-        isFetching: isFetching,
-        isError: isError,
-    } = useMopGapControlQuery();
-
-    const {mutate: mutate, isPending: isChanging} = useMopGapControlMutation();
-    const loading = isFetching || isChanging;
-    const disabled = loading || isChanging || isError;
-
-    return (
-        <ToggleSwitchListMenuItem
-            value={data?.enabled ?? false}
-            setValue={(value) => {mutate(value);}}
-            disabled={disabled}
-            loadError={isError}
-            primaryLabel={"Extend Mop when robot twists"}
-            secondaryLabel={"Extend the mop when the robot twists to further reach under furniture with overhangs." }
-            icon={<MopGapControlCapabilityIcon/>}
-        />
-    );
-};
-
-const MopTightPatternControlCapabilitySwitchListMenuItem = () => {
-    const {
-        data: data,
-        isFetching: isFetching,
-        isError: isError,
-    } = useMopTightPatternControlQuery();
-
-    const {mutate: mutate, isPending: isChanging} = useMopTightPatternControlMutation();
-    const loading = isFetching || isChanging;
-    const disabled = loading || isChanging || isError;
-
-    return (
-        <ToggleSwitchListMenuItem
-            value={data?.enabled ?? false}
-            setValue={(value) => {mutate(value);}}
-            disabled={disabled}
-            loadError={isError}
-            primaryLabel={"Tight Mop Pattern"}
-            secondaryLabel={"Enabling this makes your robot move in a much tighter pattern when mopping."}
-            icon={<MopTightPatternControlIcon/>}
-        />
-    );
-};
-
 const MopTwistFrequencyControlCapabilitySelectListMenuItem = () => {
     const SORT_ORDER = {
         "every_7_days" : 7,
@@ -1005,78 +697,6 @@ const MopTwistFrequencyControlCapabilitySelectListMenuItem = () => {
     );
 };
 
-const ObstacleAvoidanceControlCapabilitySwitchListMenuItem = () => {
-    const {
-        data: data,
-        isFetching: isFetching,
-        isError: isError,
-    } = useObstacleAvoidanceControlQuery();
-
-    const {mutate: mutate, isPending: isChanging} = useObstacleAvoidanceControlMutation();
-    const loading = isFetching || isChanging;
-    const disabled = loading || isChanging || isError;
-
-    return (
-        <ToggleSwitchListMenuItem
-            value={data?.enabled ?? false}
-            setValue={(value) => {mutate(value);}}
-            disabled={disabled}
-            loadError={isError}
-            primaryLabel={"Obstacle Avoidance"}
-            secondaryLabel={"Avoid obstacles using sensors such as lasers or cameras. This may result in false positives."}
-            icon={<ObstacleAvoidanceControlIcon/>}
-        />
-    );
-};
-
-const ObstacleImagesCapabilitySwitchListMenuItem = () => {
-    const {
-        data: data,
-        isFetching: isFetching,
-        isError: isError,
-    } = useObstacleImagesQuery();
-
-    const {mutate: mutate, isPending: isChanging} = useObstacleImagesMutation();
-    const loading = isFetching || isChanging;
-    const disabled = loading || isChanging || isError;
-
-    return (
-        <ToggleSwitchListMenuItem
-            value={data?.enabled ?? false}
-            setValue={(value) => {mutate(value);}}
-            disabled={disabled}
-            loadError={isError}
-            primaryLabel={"Obstacle Images"}
-            secondaryLabel={"Take pictures of all obstacles encountered."}
-            icon={<ObstacleImagesIcon/>}
-        />
-    );
-};
-
-const PetObstacleAvoidanceControlCapabilitySwitchListMenuItem = () => {
-    const {
-        data: data,
-        isFetching: isFetching,
-        isError: isError,
-    } = usePetObstacleAvoidanceControlQuery();
-
-    const {mutate: mutate, isPending: isChanging} = usePetObstacleAvoidanceControlMutation();
-    const loading = isFetching || isChanging;
-    const disabled = loading || isChanging || isError;
-
-    return (
-        <ToggleSwitchListMenuItem
-            value={data?.enabled ?? false}
-            setValue={(value) => {mutate(value);}}
-            disabled={disabled}
-            loadError={isError}
-            primaryLabel={"Pet Obstacle Avoidance"}
-            secondaryLabel={"Fine-tune obstacle avoidance to avoid pets and/or obstacles left by pets. This may increase the general false positive rate."}
-            icon={<PetObstacleAvoidanceControlIcon/>}
-        />
-    );
-};
-
 const RobotOptions = (): React.ReactElement => {
     const [
         autoEmptyDockAutoEmptyDurationControlCapabilitySupported,
@@ -1144,7 +764,7 @@ const RobotOptions = (): React.ReactElement => {
         }
 
         if (keyLockControlCapabilitySupported) {
-            items.push(<KeyLockCapabilitySwitchListMenuItem key={"keyLockControl"}/>);
+            items.push(<SimpleToggleCapabilitySwitch key={"keyLock"} {...SIMPLE_TOGGLE_UI_CONFIGS.keyLock}/>);
         }
 
         return items;
@@ -1157,19 +777,15 @@ const RobotOptions = (): React.ReactElement => {
         const items = [];
         // The order of the IFs generate the shown order of Capabilities in UI
         if (collisionAvoidantNavigationControlCapabilitySupported) {
-            items.push(
-                <CollisionAvoidantNavigationControlCapabilitySwitchListMenuItem key={"collisionAvoidantNavigationControl"}/>
-            );
+            items.push(<SimpleToggleCapabilitySwitch key={"collisionAvoidantNavigation"} {...SIMPLE_TOGGLE_UI_CONFIGS.collisionAvoidantNavigation}/>);
         }
 
         if (floorMaterialDirectionAwareNavigationControlSupported) {
-            items.push(
-                <FloorMaterialDirectionAwareNavigationControlCapabilitySwitchListMenuItem key="floorMaterialDirectionAwareNavigationControl"/>
-            );
+            items.push(<SimpleToggleCapabilitySwitch key={"floorMaterialDirectionAwareNavigation"} {...SIMPLE_TOGGLE_UI_CONFIGS.floorMaterialDirectionAwareNavigation}/>);
         }
 
         if (cleanRouteControlSupported) {
-            items.push(<CleanRouteControlCapabilitySelectListMenuItem key="cleanRouteControl"/>);
+            items.push(<CleanRouteControlCapabilitySelectListMenuItem key={"cleanRouteControl"}/>);
         }
 
         if ([collisionAvoidantNavigationControlCapabilitySupported, floorMaterialDirectionAwareNavigationControlSupported,
@@ -1178,7 +794,7 @@ const RobotOptions = (): React.ReactElement => {
         }
 
         if (carpetModeControlCapabilitySupported) {
-            items.push(<CarpetModeControlCapabilitySwitchListMenuItem key={"carpetModeControl"}/>);
+            items.push(<SimpleToggleCapabilitySwitch key={"carpetMode"} {...SIMPLE_TOGGLE_UI_CONFIGS.carpetMode}/>);
         }
 
         if (carpetSensorModeControlCapabilitySupported) {
@@ -1186,7 +802,7 @@ const RobotOptions = (): React.ReactElement => {
         }
 
         if (cleanCarpetsFirstControlSupported) {
-            items.push(<CleanCarpetsFirstControlCapabilitySwitchListMenuItem key="cleanCarpetsFirstControl"/>);
+            items.push(<SimpleToggleCapabilitySwitch key={"cleanCarpetsFirst"} {...SIMPLE_TOGGLE_UI_CONFIGS.cleanCarpetsFirst}/>);
         }
 
         if ([carpetModeControlCapabilitySupported, carpetSensorModeControlCapabilitySupported, cleanCarpetsFirstControlSupported].filter(Boolean).length > 1) {
@@ -1194,21 +810,19 @@ const RobotOptions = (): React.ReactElement => {
         }
 
         if (mopExtensionControlCapabilitySupported) {
-            items.push(<MopExtensionControlCapabilitySwitchListMenuItem key={"mopExtensionControl"}/>);
+            items.push(<SimpleToggleCapabilitySwitch key={"mopExtension"} {...SIMPLE_TOGGLE_UI_CONFIGS.mopExtension}/>);
         }
 
         if (mopExtensionFurnitureLegHandlingControlSupported) {
-            items.push(
-                <MopExtensionFurnitureLegHandlingControlCapabilitySwitchListMenuItem key={"mopExtensionFurnitureLegHandlingControl"}/>
-            );
+            items.push(<SimpleToggleCapabilitySwitch key={"mopExtensionFurnitureLegHandling"} {...SIMPLE_TOGGLE_UI_CONFIGS.mopExtensionFurnitureLegHandling}/>);
         }
 
         if (mopGapControlCapabilitySupported) {
-            items.push(<MopGapControlCapabilitySwitchListMenuItem key={"mopGapControl"}/>);
+            items.push(<SimpleToggleCapabilitySwitch key={"mopGap"} {...SIMPLE_TOGGLE_UI_CONFIGS.mopGap}/>);
         }
 
         if (mopTightPatternControlSupported) {
-            items.push(<MopTightPatternControlCapabilitySwitchListMenuItem key="mopTightPatternControl"/>);
+            items.push(<SimpleToggleCapabilitySwitch key={"mopTightPattern"} {...SIMPLE_TOGGLE_UI_CONFIGS.mopTightPattern}/>);
         }
 
         if (mopTwistFrequencyControlSupported) {
@@ -1238,19 +852,19 @@ const RobotOptions = (): React.ReactElement => {
         const items = [];
         // The order of the IFs generate the shown order of Capabilities in UI
         if (obstacleAvoidanceControlCapabilitySupported) {
-            items.push(<ObstacleAvoidanceControlCapabilitySwitchListMenuItem key={"obstacleAvoidanceControl"}/>);
+            items.push(<SimpleToggleCapabilitySwitch key={"obstacleAvoidance"} {...SIMPLE_TOGGLE_UI_CONFIGS.obstacleAvoidance}/>);
         }
 
         if (petObstacleAvoidanceControlCapabilitySupported) {
-            items.push(<PetObstacleAvoidanceControlCapabilitySwitchListMenuItem key={"petObstacleAvoidanceControl"}/>);
+            items.push(<SimpleToggleCapabilitySwitch key={"petObstacleAvoidance"} {...SIMPLE_TOGGLE_UI_CONFIGS.petObstacleAvoidance}/>);
         }
 
         if (obstacleImagesSupported) {
-            items.push(<ObstacleImagesCapabilitySwitchListMenuItem key={"obstacleImages"}/>);
+            items.push(<SimpleToggleCapabilitySwitch key={"obstacleImages"} {...SIMPLE_TOGGLE_UI_CONFIGS.obstacleImages}/>);
         }
 
         if (cameraLightControlSupported) {
-            items.push(<CameraLightControlCapabilitySwitchListMenuItem key={"cameraLightControl"}/>);
+            items.push(<SimpleToggleCapabilitySwitch key={"cameraLight"} {...SIMPLE_TOGGLE_UI_CONFIGS.cameraLight}/>);
         }
 
         return items;
@@ -1281,11 +895,11 @@ const RobotOptions = (): React.ReactElement => {
         }
 
         if (mopDockMopAutoDryingControlSupported) {
-            items.push(<MopDockMopAutoDryingControlCapabilitySwitchListMenuItem key="mopDockAutoDrying"/>);
+            items.push(<SimpleToggleCapabilitySwitch key={"mopDockMopAutoDrying"} {...SIMPLE_TOGGLE_UI_CONFIGS.mopDockMopAutoDrying}/>);
         }
 
         if (mopDockMopDryingTimeControlSupported) {
-            items.push(<MopDockMopDryingTimeControlCapabilitySelectListMenuItem key="mopDockMopDryingTimeControl"/>);
+            items.push(<MopDockMopDryingTimeControlCapabilitySelectListMenuItem key={"mopDockMopDryingTimeControl"}/>);
         }
 
         if (mopDockMopWashTemperatureControlSupported) {
