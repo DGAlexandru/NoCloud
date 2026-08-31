@@ -18,6 +18,8 @@ Unless noted otherwise, these robots were all tested by me personally to ensure 
 
 Being _supported_ means meeting these criteria. Only by fulfilling these conditions can a robot be deemed supported.
 
+If you have questions regarding robots that are **not part of this exhaustive list**, check out the webform at [requests.valetudo.cloud](https://requests.valetudo.cloud).
+
 ## Robots that aren't supported
 
 While NoCloud tries its best to be generic and reuse code wherever possible, since it is not a custom firmware,
@@ -653,6 +655,10 @@ After that, you will have to reconfigure Wi-Fi using NoCloud.
 **NoCloud Binary**: `aarch64`
 **Secure Boot**: `yes`
 
+#### Rooting instructions
+
+- [Fastboot](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/installation/dreame.md#fastboot)
+
 ### X30 Ultra <a id="dreame_x30ultra"></a>
 
 <img src="./img/robots/dreame/dreame_x30ultra.jpg" width="1300" height="325"/>
@@ -688,6 +694,9 @@ The Dreame L40 Ultra is sold as:
 
 It is **not sold** as the L40 Ultra **AE** nor as the L40**s Pro Ultra** nor any other name that isn't exactly this one.<br/>
 Those are all completely different robots with confusing names that are **not** supported.
+
+Additionally, Dreame has started selling "L40" that are actually just rebadged "L10s Pro Gen3" in some markets, capitalizing on the good online reputation of the "L40" name.<br/>
+That, too, is a different unsupported robot + the vendor trying to rip you off.
 
 #### Comments
 
@@ -1233,6 +1242,8 @@ All warranty seals stay intact.
 
 Due to the rather slow SoC, NoCloud startup after boot may take a few minutes.
 
+Contrary to what you might be used to from other robots, pressing Home and Spot Clean simultaneosly will **factory reset** the bot.
+To do a **Wi-Fi reset**, you need to press and hold the **Spot Clean** button **only**.
 
 #### Details
 
@@ -1258,6 +1269,8 @@ All warranty seals stay intact.
 
 Due to the rather slow SoC, NoCloud startup after boot may take a few minutes.
 
+Contrary to what you might be used to from other robots, pressing Home and Spot Clean simultaneosly will **factory reset** the bot.
+To do a **Wi-Fi reset**, you need to press and hold the **Spot Clean** button **only**.
 
 #### Details
 

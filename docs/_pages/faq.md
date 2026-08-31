@@ -34,6 +34,50 @@ This is intentional, as it offers additional context, dry words might not be abl
 NoCloud naming comes from the ideea of deClouding something.. simple as that :D<br/>
 Valetudo (the orignal project's name) is the roman name for the greek goddess Hygieia, which is the goddess of health, cleanliness and hygiene.
 
+## Why is Hyperfy so unpleasant/scary/hostile/adjective?
+
+Is he?<br/>
+You must've encountered the filters then.
+
+Let him explain:
+
+The idea is to make
+- self-sufficiency
+- reading the docs
+- trying to solve your own problems
+- actually participating
+
+and
+-  generally putting in effort
+
+the path of least resistance.<br/>
+All those mentioned things are painful though, so if you run the world defaults, the path of least resistance isn't any of those.
+
+This is great if you want people to depend on you or if you enjoy hand-holding and all that warm fuzzy social stuff.<br/>
+It is **not** great, however, for the goals of NoCloud and the physical wiring of Hyperfy's personal brain.
+
+Hence, you add friction to make the desired path the path of least resistance by making the default path spiky, futile, and unrewarding.
+
+
+Contrary to popular belief (focus group: banned people), Hyperfy doesn't really enjoy this.<br/>
+He would like to live in a world in which this is not really necessary.
+
+It would not be completely honest though to state that he gets no kicks _at all_ out of it.<br/>
+As NoCloud is a project with the clear mission of "ridding (a small chunk of) the world of bullshit", he does in fact enjoy the "people" side of this bullshit-ridding.
+
+To some degree, anyway.<br/>
+He would like it more if he would not regularly encounter terrible, manipulative people, but if that has to be a given, he does at least enjoy the fighting back part.
+
+That and the systems engineering part. Seeing a complex machine working exactly as designed is very rewarding for the engineering soul.
+
+And of course seeing value-extractive bad actors, high on winning by default using defaults, tripping over their own feet.<br/>
+That's rewarding to the underdog soul.
+
+Further reading:
+- [So you've been banned?](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/so-youve-been-banned.md)
+- [Why not NoCloud?](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/why-not-NoCloud.md)
+- [NoCloud Code of Conduct](https://github.com/DGAlexandru/NoCloud/blob/main/CODE_OF_CONDUCT.md)
+
 ## Can I use NoCloud without an Internet connection?<a id='offline'></a>
 
 Yes!<br/>

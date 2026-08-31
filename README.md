@@ -41,6 +41,8 @@ and also the docs in general at [https://Valetudo.cloud](https://Valetudo.cloud)
 
 There, you will find a list of [supported robots](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/supported-robots.md).
 
+If you're looking for something less opinionated that also achieves "cloud-free modern vacuum robot connected to home assistant", check out [Roborock Local Server](https://github.com/Python-roborock/local_roborock_server) by [Luke Lashley](https://github.com/Lash-L).
+
 ## Screenshots
 
 ### Phone/Mobile
@@ -92,6 +94,9 @@ Therefore, a garden being build with a specific vision does not take away the ab
 > I hang out there in my free time, and, as any human, I'd like to spend my free time pleasantly and surrounded by people that understand and respect me.
 > Contrary to e.g. your workplace, where tolerating is all that is expected of you, understanding cannot be made optional in such a space, as the economics that allow it to exist would otherwise not work out.
 
+>
+> In layman's terms, this means that you will be banned on _sigh_. (Not a typo)
+
 1. [dust_announce - Very low frequency updates about Valetudo and Rooting](https://t.me/dust_announce)
 
 2. [Valetudo Telegram group](https://t.me/+2MsKV8kILxJhNDAy)
@@ -106,6 +111,9 @@ Any other mediums such as IRC, Matrix or Reddit are unofficial channels not conn
 
 Make sure to familiarize yourself with the [./CONTRIBUTING.md](./CONTRIBUTING.md)
 
+## Stars
+
+[<img src="assets/misc/star-history.svg" alt="Stars">](https://en.wikipedia.org/wiki/Lists_of_stars)
 
 ## Honourable mentions
 

@@ -7,8 +7,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if title %}{{ title }} - {% endif %}NoCloud</title>
+    <meta name="description" content="Cloud replacement for vacuum robots enabling local-only operation">
 
-    {% seo %}
+    <!-- SEO & OpenGraph Metadata -->
+    <meta property="og:title" content="{% if title %}{{ title }} - {% endif %}NoCloud">
+    <meta property="og:description" content="Cloud replacement for vacuum robots enabling local-only operation">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://github.com/DGAlexandru/NoCloud/blob/main/docs/index.md{{ page.url }}">
+    <meta property="og:image" content="https://raw.githubusercontent.com/DGAlexandru/NoCloud/refs/heads/main/docs/img/NoCloud_logo_with_name.svg">
     <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
     <script src="{{ "/assets/js/si.js?v=" | append: site.github.build_revision | relative_url }}"></script>
     <link rel="alternate" type="application/atom+xml" title="NoCloud Releases RSS Feed" href="https://github.com/DGAlexandru/NoCloud/releases.atom" />
@@ -36,8 +43,19 @@
         // If you're seeing this, chances are already a lot higher that you might comprehend the concept of context
         // If not, please just go away, thank you.
         //if (document.referrer.includes("news.ycombinator")) {window.location.replace(document.referrer)}
+        //
+        // Same story, different platform
+        if (document.referrer.includes("youtube.com")) {window.location.replace(document.referrer)}
     </script>
 
+																						
+																						
+																						
+																						
+																						
+																		  
+
+																	
   </head>
   <body>
     <div class="wrapper">
@@ -46,7 +64,7 @@
       </header>
       <div id="minimalLogo">
           <div style="text-align: center; margin-bottom: 0.5em;">
-            <img src="/img/NoCloud_logo_with_name.svg" alt="NoCloud Full Logo">
+            <img src="https://raw.githubusercontent.com/DGAlexandru/NoCloud/refs/heads/main/docs/img/NoCloud_logo_with_name.svg" alt="NoCloud Full Logo">
           </div>
       </div>
 

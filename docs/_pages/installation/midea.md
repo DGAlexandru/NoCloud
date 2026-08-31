@@ -10,6 +10,8 @@ Please check the [supported robots](https://github.com/DGAlexandru/NoCloud/blob/
 Also note that all rooting guides assume a factory-new robot that has never been connected to the vendor cloud.<br/>
 If you've used any vendor apps before, make sure to do a full factory-reset before starting with the rooting procedure.
 
+NoCloud will **never** require you to use any vendor app.<br/>
+In fact, using it will potentially interfere with your ability to install and use NoCloud.
 
 ## ADB <a id="adb"></a>
 
@@ -70,6 +72,9 @@ Password:
 
 If you're seeing `OTP Password:`, then you're on the happy path. Otherwise, it's the unhappy path.
 
+Which one you will get depends on the model of robot and the installed firmware version, meaning that it may change if the firmware has been updated.
+As always with this kind of hardware hacking, every firmware update has the potential to come with new locks, meaning that you should **not ever** update using the vendor app/cloud.
+
 ### Step 2: Building the update package
 
 Before you continue with the next steps, build an update package for manual installation via the <a href="https://builder.dontvacuum.me" rel="noopener" target="_blank">Dustbuilder</a>.
@@ -82,7 +87,11 @@ and download a matching binary for your laptop's CPU architecture.
 
 This will later be used to transfer the update package to your robot.
 
-### Step 3.1: The happy path
+### Step 3: Junction
+
+Now, depending on what you've determined in Step 1, the next step is **either** 3.1 **or** 3.2.
+
+#### Step 3.1: The happy path
 
 If you saw `OTP Password:`, the next step is to run `dmesg` and look for output looking like this:
 
@@ -113,7 +122,7 @@ a Wi-Fi AP you need to connect your laptop to.
 The Wi-Fi config button will either be a dedicated button or share a button with the "Spot Cleaning" function.
 If the AP needs a password, use `12345678`.
 
-### Step 3.2 The unhappy path
+#### Step 3.2 The unhappy path
 
 On robots where you just get a `Password:` prompt, things are a bit more hacky.<br/>
 Here, we need to exploit a race condition in an init script to spawn a `telnetd` to eventually get a shell.
@@ -191,4 +200,10 @@ After the first reboot, you relaunch it by running:
 
 Eventually, NoCloud will be installed and you can continue with the [Getting Started Guide](../general/getting-started.md#joining_wifi).
 
+
+> [!NOTICE]
+	 
+> <strong>Note:</strong>
+> * There can be minimum firmware requirements for updates.
+> * If the installer refuses to run due to a too old firmware, just select the next-older version in the dustbuilder, build a new package and try again.
 

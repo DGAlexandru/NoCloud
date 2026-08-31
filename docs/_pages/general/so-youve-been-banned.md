@@ -77,7 +77,77 @@ Rest assured, <i>Hypfer absolutely fucking hates this role and would love nothin
 None of the alternatives he saw so far (and he saw _many_) do seem to be viable/sane though, so it is what it is.<br/>
 Would be cool if we could just all get along and be happy little hackers.
 
+### Addendum: Where to go from here?
+
+Okay, so. You're banned. What now?
+
+#### Is it even worth bothering?
+
+First of all: who cares.
+
+You still have your rooted robot, the NoCloud source code and all the public docs available to you.<br/>
+Everything is still there just the way it was 30 seconds ago.
+
+Do you even _need_ to be unbanned? What for?<br/>
+To interact with Hypfer who just banned you?<br/>
+Why would you want that?
+
+Evidently, he'd just ban you instead of do what you'd want him to do, so getting unbanned likely just leads to getting instantly rebanned.
+
+#### When exactly do non-permanent bans expire?
+
+Depends.
+
+The average duration is probably a bit below 1 year, which is the maximum the Telegram API allows for a non-permanent ban.<br/>
+This is - effectively - still permanent, because the person that got banned will never get back in. Whoever grew out of that person next year however might.
+
+He has occasionally experimented with shorter bans and/or mutes, but those usually lasted for 30 minutes tops before the person exploded further and thus got banned further.<br/>
+That was kinda sad honestly. But also kinda to be expected. Anyway, that's why it's usually 1 year, because if it isn't, it will be 30 minutes later + double the time investment.
+
+
+As said further up, some bans do not expire on their own.
+This is determined case-by-case based on how little faith he has in meaningful growth happening within that 1 year timespan.
+
+
+You cannot see how long your ban will last, but others can. As for _why_ it happened, you can probably find that in your heart!
+(Seriously though, a lot of people that get banned seem to instantly know precisely _why_ they got banned. The only missing link there is between knowledge and acting accordingly.)
+
+
+#### What should I do?
+
+He doesn't really care what you do, but he can tell you what you should **not** do.
+
+You should not instantly contact him, stating that you've been banned and that you're unhappy about that.<br/>
+You should also not come back with a multiaccount.<br/>
+You should not write him emails, open GitHub issues or DM other of his accounts with requests to be unbanned.
+
+You should not try to bargain, pressure or leverage yourself into getting unbanned. This just gets you permabanned.
+
+The leverage part really is just disgusting tbh.<br/>
+Keep those dangling carrots for yourself and/or at your (likely corporate (and terrible)) workplace. Thank you.
+
+You should also not contact him with "I have read the rules and don't see the issue. Now you explain to him in great detail what he did wrong".<br/>
+That too just gets you permabanned. Do your own homework.
+
+Essentially, you should not run a try-harder loop.<br/>
+Doing the same thing again and expecting different results is - by definition - insanity.
+
+
+#### So what should you do?
+
+Read the docs, probably.
+
+Possibly pull yourself out of terrible employment/relationship/family/etc. situations that might be trickling down toxicity into your daily life.<br/>
+(Seriously. This is a cloud replacement for vacuum robots. **Vacuum cleaners**, dude. All those emotions are **not** coming from here.)
+
+Possibly just become a person that can confidently say that their net impact on the world is a positive one.
+
+Or just do none of the above, use the public documentation, the public source code and not care about his ramblings.<br/>
+That's certainly the easiest and maybe even the most healthy option.
+
+Someone angry about NoCloud not being "democratic FOSS" once called it "Use-Only Software". So maybe that's the solution.<br/>
+Treat NoCloud as use-only. Like literally any other piece of software.
 
 ## Disclaimer:
 
-[The harsh words adressed to Hypfer are actually his own words (writing)](https://github.com/Hypfer/Valetudo/blob/master/docs/_pages/general/so-youve-been-banned.md)<br/>
+[The harsh words adressed to Hypfer are actually his own words (writing)](https://github.com/Hypfer/Valetudo/blob/master/docs/pages/general/so-youve-been-banned.md)<br/>

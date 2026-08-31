@@ -30,8 +30,6 @@ From a pure historical perspective, the zoomed-out progression of "core" models 
 3. Dreame L10s Ultra
 4. Dreame X/L 40 Ultra/Master
 
-Future possibly Eureka J15 Max Ultra?
-
 Beyond these, on the path there were also other supported models, but these ones were the core models, most users flocked to.
 If you were just looking to buy a robot that works with Valetudo, picking what everyone else picks was/is the most straightforward choice.
 
@@ -137,9 +135,7 @@ The DE ones end up supporting Hypfer, while the non-DE ones fund Dennis' work.
 Apparently it's easy for a US Amazon affiliate account to generate links on all the other Amazons but not the other way round.
 
 * Dreame X40 Master [DE](https://amzn.to/48wxPR2)
-* Dreame X40 Ultra [DE](https://amzn.to/44WnHPS) [US](https://amzn.to/4aqfaG8)
-* Dreame L40 Ultra [DE](https://amzn.to/3UzPT7e) [US](https://amzn.to/3CbxbfK)
-* Dreame L10S Pro Ultra Heat [DE](https://amzn.to/3ys57mB) [US](https://amzn.to/3K6hEyH)
+* Dreame X40 Ultra [DE](https://amzn.to/44WnHPS)
 * Eureka J15 Max Ultra [DE](https://amzn.to/48vqvqL)
 * Eureka J15 Pro Ultra [DE Listing 1](https://amzn.to/491DnVw) [DE Listing 2](https://amzn.to/44nG69k)
 * Eureka J15 Ultra [DE](https://amzn.to/4iYpsmD)

@@ -39,6 +39,8 @@ The [newcomer guide](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_page
 
 If you're looking to make content out of NoCloud, please read [Media & Content Creators](https://github.com/DGAlexandru/NoCloud/blob/main/docs/_pages/general/media.md).
 
+If you're looking for something less opinionated that also achieves "cloud-free modern vacuum robot connected to Home Assistant", check out [Roborock Local Server](https://github.com/Python-roborock/local_roborock_server) by [Luke Lashley](https://github.com/Lash-L).
+
 ### Screenshots
 
 ### Phone/Mobile
@@ -93,6 +95,8 @@ Therefore, a garden being build with a specific vision does not take away the ab
     <br/><br/>
     We hang out there in our free time, and, as any human, we'd like to spend our free time pleasantly and surrounded by people that understand and respect us.
     Contrary to e.g. your workplace, where tolerating is all that is expected of you, understanding cannot be made optional in such a space, as the economics that allow it to exist wouldn't otherwise work out.
+    <br/><br/>
+    In layman's terms, this means that you will be banned on <em>sigh</em>. (Not a typo)
 </p>
 </div>
 
