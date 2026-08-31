@@ -370,7 +370,7 @@ abstract class BaseMap<P, S> extends React.Component<P & MapProps, S & MapState 
         let drawRequested = false;
 
         const clientStructuresHandledTap = this.structureManager.getClientStructures().some(structure => {
-            const result = structure.tap(tappedPointInScreenSpace, currentTransform);
+            const result = structure.tap(tappedPointInScreenSpace, currentTransform, this.currentScaleFactor);
 
             if (result.requestDraw === true) {
                 drawRequested = true;
@@ -409,7 +409,7 @@ abstract class BaseMap<P, S> extends React.Component<P & MapProps, S & MapState 
         }
 
         const mapStructuresHandledTap = this.structureManager.getMapStructures().some(structure => {
-            const result = structure.tap(tappedPointInScreenSpace, currentTransform);
+            const result = structure.tap(tappedPointInScreenSpace, currentTransform, this.currentScaleFactor);
 
             if (result.requestDraw === true) {
                 drawRequested = true;
@@ -529,7 +529,8 @@ abstract class BaseMap<P, S> extends React.Component<P & MapProps, S & MapState 
                     {x: oldX, y: oldY},
                     {x: x, y: y},
                     currentTransform,
-                    currentPixelSize
+                    this.currentScaleFactor,
+                    currentPixelSize,
                 );
 
                 if (result.stopPropagation) {
