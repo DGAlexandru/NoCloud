@@ -19,6 +19,7 @@ const NetworkConnectionStabilizer = require("./NetworkConnectionStabilizer");
 const NoCloudEventHandlerFactory = require("./NoCloud_events/NoCloudEventHandlerFactory");
 const NoCloudHelper = require("./utils/NoCloudHelper");
 const NoCloudRobotFactory = require("./core/NoCloudRobotFactory");
+const PhoenixManager = require("./PhoenixManager");
 const Scheduler = require("./scheduler/Scheduler");
 const Updater = require("./updater/Updater");
 
@@ -53,6 +54,14 @@ class NoCloud {
         this.NoCloudHelper = new NoCloudHelper({config: this.config, robot: this.robot});
 
 
+        this.phoenixManager = new PhoenixManager({
+            NoCloudEventStore: this.NoCloudEventStore,
+            robot: this.robot,
+            doShutdown: async () => {
+                await this.shutdown(true);
+            }
+        });
+
         Logger.info(`Starting NoCloud ${Tools.GET_NoCloud_VERSION()}`);
         Logger.info(`Commit ID: ${Tools.GET_COMMIT_ID()}`);
         Logger.info(`Configuration file: ${this.config.location}`);
@@ -84,6 +93,7 @@ class NoCloud {
 
         this.updater = new Updater({
             config: this.config,
+            phoenixManager: this.phoenixManager,
             robot: this.robot
         });
 
@@ -108,6 +118,7 @@ class NoCloud {
 
         this.webserver = new Webserver({
             config: this.config,
+            phoenixManager: this.phoenixManager,
             robot: this.robot,
             mqttController: this.mqttController,
             networkAdvertisementManager: this.networkAdvertisementManager,
@@ -178,8 +189,8 @@ class NoCloud {
 
                 if (rss > rssLimit && this.config.get("embedded") === true) {
                     Logger.error(
-                        "NoCloud is currently taking up " + rss +
-                        " bytes which is more than 1/3 of available system memory. " +
+                        "NoCloud is currently taking up " + (rss / 1024 / 1024).toFixed(2) +
+                        " MiB which is more than 1/3 of available system memory. " +
                         "To ensure safe robot operation, it will now shutdown.\n",
                         {
                             "process.memoryUsage()": process.memoryUsage(),
@@ -190,11 +201,21 @@ class NoCloud {
                         }
                     );
 
-                    this.shutdown().catch(() => {
-                        /* intentional */
-                    }).finally(() => {
-                        process.exit(1);
-                    });
+                    if (this.phoenixManager.canReincarnate()) {
+                        this.phoenixManager.doRebirth(
+                            PhoenixManager.REBIRTH_REASONS.MEMORY_USAGE,
+                            {
+                                description: `RSS ${(rss / 1024 / 1024).toFixed(2)} MiB exceeding ` +
+                                `the safe limit of ${(rssLimit / 1024 / 1024).toFixed(2)} MiB.`
+                            }
+                        );
+                    } else {
+                        this.shutdown(false).catch(() => {
+                            /* intentional */
+                        }).finally(() => {
+                            process.exit(1);
+                        });
+                    }
                 }
             }, 250);
         }
@@ -236,13 +257,16 @@ class NoCloud {
         Logger.info(`Setting process priority to ${newPriority}. Previous value: ${previousPriority}`);
     }
 
-    async shutdown() {
-        Logger.info("NoCloud shutdown in progress...");
+    async shutdown(phoenixMode = false) {
+        let forceShutdownTimeout;
+        if (!phoenixMode) {
+            Logger.info("NoCloud shutdown in progress...");
 
-        const forceShutdownTimeout = setTimeout(() => {
-            Logger.warn("Failed to shutdown NoCloud in a timely manner. Using (the) force");
-            process.exit(1);
-        }, 5000);
+            forceShutdownTimeout = setTimeout(() => {
+                Logger.warn("Failed to shutdown NoCloud in a timely manner. Using (the) force");
+                process.exit(1);
+            }, 5000);
+        }
 
         // shuts down NoCloud (reverse startup sequence):
         clearInterval(this.gcInterval);
@@ -264,8 +288,11 @@ class NoCloud {
             await this.noCloudEventPushNotif.shutdown();
         }
 
-        Logger.info("NoCloud shutdown done");
-        clearTimeout(forceShutdownTimeout);
+        if (!phoenixMode) {
+            Logger.info("NoCloud shutdown done");
+
+            clearTimeout(forceShutdownTimeout);
+        }
     }
 }
 

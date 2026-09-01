@@ -168,6 +168,97 @@ const CreateDismissableEventControl = (message: string) : FunctionComponent<NoCl
     };
 };
 
+const MissingResourceEventControl: FunctionComponent<NoCloudEventRenderProps> =
+    ({event, interact}) => {
+        const color = event.processed ? "textSecondary" : "textPrimary";
+        const textStyle = event.processed ? {textDecoration: "line-through"} : {};
+
+        return (
+            <EventRow>
+                <Stack>
+                    <EventTimestamp timestamp={event.timestamp}/>
+                    <Typography color={color} style={textStyle} sx={{mr: 1}}>
+                        {event.message!}
+                    </Typography>
+                </Stack>
+                <Button
+                    size="small"
+                    variant={"contained"}
+                    disabled={event.processed}
+                    onClick={() => {
+                        interact({
+                            interaction: "ok"
+                        });
+                    }}
+                    color="warning"
+                >
+                    Dismiss
+                </Button>
+            </EventRow>
+        );
+    };
+
+const NoCloudUpdatedEventControl: FunctionComponent<NoCloudEventRenderProps> =
+    ({event, interact}) => {
+        const color = event.processed ? "textSecondary" : "textPrimary";
+        const textStyle = event.processed ? {textDecoration: "line-through"} : {};
+
+        return (
+            <EventRow>
+                <Stack>
+                    <EventTimestamp timestamp={event.timestamp}/>
+                    <Typography color={color} style={textStyle} sx={{mr: 1}}>
+                        NoCloud was successfully updated from &apos;{event.previousVersion ?? "unknown"}&apos; to &apos;{event.newVersion ?? "unknown"}&apos;.
+                    </Typography>
+                </Stack>
+                <Button
+                    size="small"
+                    variant={"contained"}
+                    disabled={event.processed}
+                    onClick={() => {
+                        interact({
+                            interaction: "ok"
+                        });
+                    }}
+                    color="info"
+                >
+                    Dismiss
+                </Button>
+            </EventRow>
+        );
+    };
+
+const NoCloudRuntimeErrorEventControl: FunctionComponent<NoCloudEventRenderProps> =
+    ({event, interact}) => {
+        const color = event.processed ? "textSecondary" : "error";
+        const textStyle = event.processed ? {textDecoration: "line-through"} : {};
+
+        return (
+            <EventRow>
+                <Stack>
+                    <EventTimestamp timestamp={event.timestamp}/>
+                    <Typography color={color} style={textStyle} sx={{mr: 1}}>
+                        NoCloud ran into a problem and reincarnated itself. This should never happen.<br/><br/>
+                        {event.description ? event.description: `Reason: ${event.reason}`}
+                    </Typography>
+                </Stack>
+                <Button
+                    size="small"
+                    variant={"contained"}
+                    disabled={event.processed}
+                    onClick={() => {
+                        interact({
+                            interaction: "ok"
+                        });
+                    }}
+                    color="error"
+                >
+                    Dismiss
+                </Button>
+            </EventRow>
+        );
+    };
+
 const UnknownEventControl: FunctionComponent<NoCloudEventRenderProps> =
     ({event}) => {
         return (
@@ -179,9 +270,12 @@ const UnknownEventControl: FunctionComponent<NoCloudEventRenderProps> =
 
 export const eventControls: Record<string, React.ComponentType<NoCloudEventRenderProps>> = {
     ConsumableDepletedNoCloudEvent: ConsumableDepletedEventControl,
-    ErrorStateNoCloudEvent: ErrorEventControl,
-    PendingMapChangeNoCloudEvent: PendingMapChangeEventControl,
     DustBinFullNoCloudEvent: CreateDismissableEventControl("The dust bin is full. Please empty it."),
+    ErrorStateNoCloudEvent: ErrorEventControl,
+    MissingResourceNoCloudEvent: MissingResourceEventControl,
     MopAttachmentReminderNoCloudEvent: CreateDismissableEventControl("The mop is still attached to the robot."),
+    NoCloudUpdatedNoCloudEvent: NoCloudUpdatedEventControl,
+    NoCloudRuntimeErrorNoCloudEvent: NoCloudRuntimeErrorEventControl,
+    PendingMapChangeNoCloudEvent: PendingMapChangeEventControl,
     Default: UnknownEventControl,
 };

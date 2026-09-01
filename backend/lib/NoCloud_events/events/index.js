@@ -4,5 +4,7 @@ module.exports = {
     DustBinFullNoCloudEvent: require("./DustBinFullNoCloudEvent"),
     ErrorStateNoCloudEvent: require("./ErrorStateNoCloudEvent"),
     MopAttachmentReminderNoCloudEvent: require("./MopAttachmentReminderNoCloudEvent"),
-    PendingMapChangeNoCloudEvent: require("./PendingMapChangeNoCloudEvent")
+    NoCloudRuntimeErrorNoCloudEvent: require("./NoCloudRuntimeErrorNoCloudEvent"),
+    NoCloudUpdatedNoCloudEvent: require("./NoCloudUpdatedNoCloudEvent"),
+    PendingMapChangeNoCloudEvent: require("./PendingMapChangeNoCloudEvent"),
 };

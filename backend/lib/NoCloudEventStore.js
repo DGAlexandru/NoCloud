@@ -1,4 +1,5 @@
 const EventEmitter = require("events").EventEmitter;
+const NoCloudEvents = require("./NoCloud_events/events");
 
 class NoCloudEventStore {
     /**
@@ -38,6 +39,31 @@ class NoCloudEventStore {
     getAll() {
         // noinspection JSValidateTypes
         return Array.from(this.events.values()).reverse();
+    }
+
+    /**
+     * @public
+     * @param {Array<any>} serializedEvents
+     */
+    rehydrateEvents(serializedEvents) {
+        if (!Array.isArray(serializedEvents)) {
+            return;
+        }
+
+        for (const evt of [...serializedEvents].reverse()) {
+            if (
+                evt.__class &&
+                Object.hasOwn(NoCloudEvents, evt.__class) &&
+                typeof NoCloudEvents[evt.__class] === "function"
+            ) {
+                const eventObj = new NoCloudEvents[evt.__class]({
+                    ...evt,
+                    timestamp: new Date(evt.timestamp)
+                });
+
+                this.raise(eventObj);
+            }
+        }
     }
 
     /**
