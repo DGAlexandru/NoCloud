@@ -339,7 +339,9 @@ class DreameMovaP10ProUltraNoCloudRobot extends DreameGen4NoCloudRobot {
 
         return [
             "dreame.vacuum.r2491a",
+            "dreame.vacuum.r2491",
             "mova.vacuum.r2491a",
+            "mova.vacuum.r2491",
         ].includes(deviceConf?.model);
     }
 }
