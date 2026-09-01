@@ -8,11 +8,11 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - 20.x
+          - 22.x
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: 'Use Node.js ${{ matrix.node-version }}'
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '${{ matrix.node-version }}'
       - name: Install NPM
@@ -20,7 +20,7 @@ jobs:
       - name: Generate OpenAPI Docs
         run: npm run build_openapi_schema
       - name: Upload OpenAPI Docs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: NoCloud.openapi.schema.json
           path: ./build/NoCloud.openapi.schema.json
@@ -29,45 +29,45 @@ jobs:
       - name: Build NoCloud armv7
         run: npm run build_armv7 --workspace=backend
       - name: Upload armv7 build
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: NoCloud-armv7
           path: ./build/armv7/NoCloud
       - name: Build NoCloud armv7 lowmem
         run: npm run build_armv7_lowmem --workspace=backend
       - name: Upload armv7 lowmem build
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: NoCloud-armv7-lowmem
           path: ./build/armv7/NoCloud-lowmem
       - name: Build NoCloud aarch64
         run: npm run build_aarch64 --workspace=backend
       - name: Upload aarch64 build
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: NoCloud-aarch64
           path: ./build/aarch64/NoCloud
       - name: UPX-compress NoCloud binaries
         run: npm run upx
       - name: Upload armv7 upx build
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: Upload NoCloud-armv7.upx
           path: ./build/armv7/NoCloud.upx
       - name: Upload armv7 lowmem upx build
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: Upload NoCloud-armv7-lowmem.upx
           path: ./build/armv7/NoCloud-lowmem.upx
       - name: Upload aarch64 upx build
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: Upload NoCloud-aarch64.upx
           path: ./build/aarch64/NoCloud.upx
       - name: Generate Manifest
         run: npm run build_release_manifest
       - name: Upload Manifest
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: NoCloud_release_manifest.json
           path: ./build/NoCloud_release_manifest.json
