@@ -1,4 +1,4 @@
-const SerializableEntity = require("../SerializableEntity");
+const SerializableEntity = require("../../SerializableEntity");
 
 /**
  * Map Entities are everything that is expressed with coordinates such as

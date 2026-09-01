@@ -1,6 +1,5 @@
 const GoToLocationCapability = require("../../../core/capabilities/GoToLocationCapability");
-const PathMapEntity = require("../../../entities/map/PathMapEntity");
-const PointMapEntity = require("../../../entities/map/PointMapEntity");
+const {PathMapEntity, PointMapEntity} = require("../../../entities/map");
 
 /**
  * @extends GoToLocationCapability<import("../MockNoCloudRobot")>

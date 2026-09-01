@@ -1,9 +1,9 @@
-const should = require("should");
 const NoCloudEventStore = require("../../lib/NoCloudEventStore");
+const should = require("should");
 const {
+    ConsumableDepletedNoCloudEvent,
     DustBinFullNoCloudEvent,
     NoCloudRuntimeErrorNoCloudEvent,
-    ConsumableDepletedNoCloudEvent
 } = require("../../lib/NoCloud_events/events");
 
 describe("NoCloudEventStore", function () {
