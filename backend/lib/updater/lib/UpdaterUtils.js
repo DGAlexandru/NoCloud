@@ -119,16 +119,24 @@ function storageSurvey() {
  *
  * @param {Array<import("./update_provider/NoCloudRelease")>} releases
  * @param {string} currentVersion
+ * @param {boolean} force
  *
  * @return {{release: import("./update_provider/NoCloudRelease"), updateRequired: boolean}}
  * @throws {NoCloudUpdaterError}
  */
-function determineReleaseToDownload(releases, currentVersion) {
+function determineReleaseToDownload(releases, currentVersion, force) {
     if (releases.length === 0) {
         throw new NoCloudUpdaterError(
             NoCloudUpdaterError.ERROR_TYPE.NO_RELEASE,
             "No release found"
         );
+    }
+
+    if (force === true) {
+        return {
+            release: releases[0],
+            updateRequired: true
+        };
     }
 
     const releaseVersions = releases.map(r => {

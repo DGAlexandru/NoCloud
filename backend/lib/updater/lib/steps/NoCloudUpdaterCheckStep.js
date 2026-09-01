@@ -14,6 +14,7 @@ class NoCloudUpdaterCheckStep extends NoCloudUpdaterStep {
      * @param {boolean} options.embedded
      * @param {object} options.architectures
      * @param {number} options.spaceRequired
+     * @param {boolean} options.force
      * @param {import("../../../core/NoCloudRobot")} options.robot
      * @param {import("../update_provider/NoCloudUpdateProvider")} options.updateProvider
      */
@@ -23,6 +24,7 @@ class NoCloudUpdaterCheckStep extends NoCloudUpdaterStep {
         this.embedded = options.embedded;
         this.architectures = options.architectures;
         this.spaceRequired = options.spaceRequired;
+        this.force = options.force;
 
         this.robot = options.robot;
         this.updateProvider = options.updateProvider;
@@ -92,7 +94,7 @@ class NoCloudUpdaterCheckStep extends NoCloudUpdaterStep {
             );
         }
 
-        const releaseToDownload = UpdaterUtils.determineReleaseToDownload(releases, currentVersion);
+        const releaseToDownload = UpdaterUtils.determineReleaseToDownload(releases, currentVersion, this.force);
         if (releaseToDownload.updateRequired === false) {
             let changelog;
 
