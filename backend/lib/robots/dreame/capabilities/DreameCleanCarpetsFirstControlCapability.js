@@ -1,5 +1,4 @@
 const CleanCarpetsFirstControlCapability = require("../../../core/capabilities/CleanCarpetsFirstControlCapability");
-const DreameMiotHelper = require("../DreameMiotHelper");
 const DreameMiotServices = require("../DreameMiotServices");
 
 /**
@@ -16,8 +15,6 @@ class DreameCleanCarpetsFirstControlCapability extends CleanCarpetsFirstControlC
 
         this.siid = DreameMiotServices["GEN2"].MOP_EXPANSION.SIID;
         this.piid = DreameMiotServices["GEN2"].MOP_EXPANSION.PROPERTIES.CLEAN_CARPETS_FIRST.PIID;
-
-        this.helper = new DreameMiotHelper({robot: this.robot});
     }
 
     /**
@@ -25,7 +22,7 @@ class DreameCleanCarpetsFirstControlCapability extends CleanCarpetsFirstControlC
      * @returns {Promise<boolean>}
      */
     async isEnabled() {
-        const res = await this.helper.readProperty(this.siid, this.piid);
+        const res = await this.robot.miotHelper.readProperty(this.siid, this.piid);
 
         return res === 1;
     }
@@ -34,7 +31,7 @@ class DreameCleanCarpetsFirstControlCapability extends CleanCarpetsFirstControlC
      * @returns {Promise<void>}
      */
     async enable() {
-        await this.helper.writeProperty(
+        await this.robot.miotHelper.writeProperty(
             this.siid,
             this.piid,
             1
@@ -45,7 +42,7 @@ class DreameCleanCarpetsFirstControlCapability extends CleanCarpetsFirstControlC
      * @returns {Promise<void>}
      */
     async disable() {
-        await this.helper.writeProperty(
+        await this.robot.miotHelper.writeProperty(
             this.siid,
             this.piid,
             0

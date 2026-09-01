@@ -1,4 +1,3 @@
-const DreameMiotHelper = require("./DreameMiotHelper");
 const DreameMiotServices = require("./DreameMiotServices");
 const DreameUtils = require("./DreameUtils");
 const Quirk = require("../../core/Quirk");
@@ -12,7 +11,6 @@ class DreameQuirkFactory {
      */
     constructor(options) {
         this.robot = options.robot;
-        this.helper = new DreameMiotHelper({robot: this.robot});
     }
     /**
      * @param {string} id
@@ -26,7 +24,7 @@ class DreameQuirkFactory {
                     description: "Depending on the type of carpet in your home, the carpet mode might not trigger as expected. This tunable can help in these situations.",
                     options: ["low", "medium", "high"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.CARPET_MODE_SENSITIVITY.PIID
                         );
@@ -59,7 +57,7 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid sensitivity ${value}`);
                         }
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.CARPET_MODE_SENSITIVITY.PIID,
                             val
@@ -73,7 +71,7 @@ class DreameQuirkFactory {
                     description: "Enabling this makes your robot move in a much tighter pattern when mopping.",
                     options: ["On", "Off"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.TIGHT_MOP_PATTERN.PIID
                         );
@@ -101,7 +99,7 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid value ${value}`);
                         }
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.TIGHT_MOP_PATTERN.PIID,
                             val
@@ -115,7 +113,7 @@ class DreameQuirkFactory {
                     description: "Clean in the direction of the configured/detected floor material (if applicable).",
                     options: ["on", "off"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID
                         );
@@ -144,7 +142,7 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid value ${value}`);
                         }
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID,
                             DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE({
@@ -160,7 +158,7 @@ class DreameQuirkFactory {
                     description: "Set default cleaning type. (ori: Disable the vacuum functionality when the mop pads are attached.)",
                     options: ["Vacuum and Mop", "Mop only", "Vacuum only", "Vacuum then Mop"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MOP_DOCK_SETTINGS.PIID
                         );
@@ -200,13 +198,13 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid value ${value}`);
                         }
 
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MOP_DOCK_SETTINGS.PIID
                         );
                         const deserializedResponse = DreameUtils.DESERIALIZE_MOP_DOCK_SETTINGS(res);
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MOP_DOCK_SETTINGS.PIID,
                             DreameUtils.SERIALIZE_MOP_DOCK_SETTINGS({
@@ -224,7 +222,7 @@ class DreameQuirkFactory {
                     description: "Determine how often the robot should clean and re-wet its mopping pads during a cleanup.",
                     options: ["every_segment", "every_5_m2", "every_10_m2", "every_15_m2", "every_20_m2", "every_25_m2"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MOP_DOCK_SETTINGS.PIID
                         );
@@ -274,13 +272,13 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid value ${value}`);
                         }
 
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MOP_DOCK_SETTINGS.PIID
                         );
                         const deserializedResponse = DreameUtils.DESERIALIZE_MOP_DOCK_SETTINGS(res);
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MOP_DOCK_SETTINGS.PIID,
                             DreameUtils.SERIALIZE_MOP_DOCK_SETTINGS({
@@ -298,7 +296,7 @@ class DreameQuirkFactory {
                     description: "Disinfect the waste water tank after each successful cleanup using the in-built UV-C light.",
                     options: ["On", "Off"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MOP_DOCK_UV_TREATMENT.PIID
                         );
@@ -326,7 +324,7 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid value ${value}`);
                         }
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MOP_DOCK_UV_TREATMENT.PIID,
                             val
@@ -340,7 +338,7 @@ class DreameQuirkFactory {
                     description: "Define how long the mop should be dried after finishing a cleanup",
                     options: ["1h", "2h", "3h", "4h"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MOP_DRYING_TIME.PIID
                         );
@@ -378,7 +376,7 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid value ${value}`);
                         }
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MOP_DRYING_TIME.PIID,
                             val
@@ -392,7 +390,7 @@ class DreameQuirkFactory {
                     description: "Select if the Dock should automatically add detergent to the water",
                     options: ["On", "Off", "Missing detergent cartridge", "You first need to dock the robot"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MOP_DOCK_DETERGENT.PIID
                         );
@@ -409,7 +407,7 @@ class DreameQuirkFactory {
                                 // It kinda probably behaves the same as 1, but for good measure, we shall do
                                 // what the vendor app does and also set it to 1 as soon as we see it
 
-                                await this.helper.writeProperty(
+                                await this.robot.miotHelper.writeProperty(
                                     DreameMiotServices["GEN2"].VACUUM_2.SIID,
                                     DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MOP_DOCK_DETERGENT.PIID,
                                     1
@@ -441,7 +439,7 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid value ${value}`);
                         }
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MOP_DOCK_DETERGENT.PIID,
                             val
@@ -455,7 +453,7 @@ class DreameQuirkFactory {
                     description: "Select \"dry\" if you don't want the dock to wet the mops before cleaning. This can be useful if there's a spill that you want to mop up.",
                     options: ["Wet", "Dry"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MOP_DOCK_WET_DRY_SWITCH.PIID
                         );
@@ -483,7 +481,7 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid value ${value}`);
                         }
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MOP_DOCK_WET_DRY_SWITCH.PIID,
                             val
@@ -502,7 +500,7 @@ class DreameQuirkFactory {
                     },
                     setter: async (value) => {
                         if (value === "trigger") {
-                            return this.helper.writeProperty(
+                            return this.robot.miotHelper.writeProperty(
                                 99,
                                 8,
                                 JSON.stringify({ "bittest": [19, 0] })
@@ -522,7 +520,7 @@ class DreameQuirkFactory {
                     },
                     setter: async (value) => {
                         if (value === "trigger") {
-                            return this.helper.writeProperty(
+                            return this.robot.miotHelper.writeProperty(
                                 99,
                                 8,
                                 JSON.stringify({ "bittest": [20, 0] })
@@ -537,7 +535,7 @@ class DreameQuirkFactory {
                     description: "Select if the dock should automatically dry the mop after a finished cleanup",
                     options: ["On", "Off"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID
                         );
@@ -566,7 +564,7 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid value ${value}`);
                         }
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID,
                             DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE({
@@ -584,7 +582,7 @@ class DreameQuirkFactory {
                         "Settings other than \"each_cleanup\" or \"off\" will only apply to full cleanups.",
                     options: ["off", "each_cleanup", "every_7_days"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID
                         );
@@ -619,7 +617,7 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid value ${value}`);
                         }
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID,
                             DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE({
@@ -640,7 +638,7 @@ class DreameQuirkFactory {
                     },
                     setter: async (value) => {
                         if (value === "trigger") {
-                            await this.helper.executeAction(
+                            await this.robot.miotHelper.executeAction(
                                 DreameMiotServices["GEN2"].VACUUM_2.SIID,
                                 DreameMiotServices["GEN2"].VACUUM_2.ACTIONS.MOP_DOCK_INTERACT.AIID,
                                 [
@@ -660,7 +658,7 @@ class DreameQuirkFactory {
                     description: "Enhance mopping coverage at the outlines by moving the mop outwards.",
                     options: ["off", "automatic", "each_cleanup", "every_7_days"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID
                         );
@@ -701,7 +699,7 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid value ${value}`);
                         }
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID,
                             DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE({
@@ -717,7 +715,7 @@ class DreameQuirkFactory {
                     description: "When \"Mop Extension\" is enabled, twist the robot to further reach below furniture with overhangs.",
                     options: ["On", "Off"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID
                         );
@@ -746,7 +744,7 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid value ${value}`);
                         }
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID,
                             DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE({
@@ -762,7 +760,7 @@ class DreameQuirkFactory {
                     description: "When \"Mop Extension\" is enabled, also use it to better clean around small pillars like table legs.",
                     options: ["On", "Off"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID
                         );
@@ -791,7 +789,7 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid value ${value}`);
                         }
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID,
                             DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE({
@@ -807,7 +805,7 @@ class DreameQuirkFactory {
                     description: "When enabled, the dock will heat the water used to rinse the mop pads.",
                     options: ["On", "Off"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID
                         );
@@ -836,7 +834,7 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid value ${value}`);
                         }
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID,
                             DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE({
@@ -852,7 +850,7 @@ class DreameQuirkFactory {
                     description: "Select if and how much the dock should heat the water used to rinse the mop pads.",
                     options: ["off", "low", "medium", "high"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].MOP_EXPANSION.SIID,
                             DreameMiotServices["GEN2"].MOP_EXPANSION.PROPERTIES.HIGH_RES_MOP_DOCK_HEATER.PIID
                         );
@@ -890,7 +888,7 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid value ${value}`);
                         }
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].MOP_EXPANSION.SIID,
                             DreameMiotServices["GEN2"].MOP_EXPANSION.PROPERTIES.HIGH_RES_MOP_DOCK_HEATER.PIID,
                             val
@@ -904,7 +902,7 @@ class DreameQuirkFactory {
                     description: "Select when/how often mop and side brush (each when enabled) should be extended to increase coverage in corners and close to walls.",
                     options: ["automatic", "each_cleanup", "every_7_days"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID
                         );
@@ -938,7 +936,7 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid value ${value}`);
                         }
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID,
                             DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE({
@@ -954,7 +952,7 @@ class DreameQuirkFactory {
                     description: "When enabled, the robot will automatically clean detected carpets with two slowly cleanup passes in alternating directions.",
                     options: ["On", "Off"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID
                         );
@@ -983,7 +981,7 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid value ${value}`);
                         }
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID,
                             DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE({
@@ -999,7 +997,7 @@ class DreameQuirkFactory {
                     description: "Higher settings mean more water and longer wash cycles.",
                     options: ["low", "medium", "high"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MOP_DOCK_WATER_USAGE.PIID
                         );
@@ -1032,7 +1030,7 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid intensity ${value}`);
                         }
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MOP_DOCK_WATER_USAGE.PIID,
                             val
@@ -1046,7 +1044,7 @@ class DreameQuirkFactory {
                     description: "Automatically extend the side brush to further reach into corners or below furniture",
                     options: ["On", "Off"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID
                         );
@@ -1075,7 +1073,7 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid value ${value}`);
                         }
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID,
                             DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE({
@@ -1091,7 +1089,7 @@ class DreameQuirkFactory {
                     description: "Enhance mopping coverage at the outlines by moving the mop outwards.",
                     options: ["On", "Off"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID
                         );
@@ -1122,7 +1120,7 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid value ${value}`);
                         }
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID,
                             DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE({
@@ -1138,7 +1136,7 @@ class DreameQuirkFactory {
                     description: "Use the inbuilt LED light to help the AI obstacle avoidance in low light conditions",
                     options: ["On", "Off"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID
                         );
@@ -1167,7 +1165,7 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid value ${value}`);
                         }
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID,
                             DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE({
@@ -1183,7 +1181,7 @@ class DreameQuirkFactory {
                     description: "When enabled, the robot will leave the mop pads in the dock when running a vacuum-only cleanup",
                     options: ["On", "Off"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MOP_DETACH.PIID
                         );
@@ -1211,7 +1209,7 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid value ${value}`);
                         }
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MOP_DETACH.PIID,
                             val
@@ -1236,7 +1234,7 @@ class DreameQuirkFactory {
                             });
 
                             if (mopAttachmentState?.attached === true) {
-                                return this.helper.executeAction(
+                                return this.robot.miotHelper.executeAction(
                                     DreameMiotServices["GEN2"].VACUUM_2.SIID,
                                     DreameMiotServices["GEN2"].VACUUM_2.ACTIONS.MOP_DOCK_INTERACT.AIID,
                                     [
@@ -1263,7 +1261,7 @@ class DreameQuirkFactory {
                     description: "Trade speed for thoroughness and vice-versa. \"Intensive\" and \"Deep\" only apply when mopping.",
                     options: ["Standard", "Intensive", "Deep"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID
                         );
@@ -1297,7 +1295,7 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid value ${value}`);
                         }
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID,
                             DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE({
@@ -1313,7 +1311,7 @@ class DreameQuirkFactory {
                     description: "Trade speed for thoroughness and vice-versa. \"Intensive\" and \"Deep\" only apply when mopping.",
                     options: ["Quick", "Standard", "Intensive", "Deep"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID
                         );
@@ -1352,7 +1350,7 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid value ${value}`);
                         }
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].VACUUM_2.SIID,
                             DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID,
                             DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE({
@@ -1368,7 +1366,7 @@ class DreameQuirkFactory {
                     description: "Select if the side brush should spin when cleaning carpets.",
                     options: ["On", "Off"],
                     getter: async () => {
-                        const res = await this.helper.readProperty(
+                        const res = await this.robot.miotHelper.readProperty(
                             DreameMiotServices["GEN2"].MOP_EXPANSION.SIID,
                             DreameMiotServices["GEN2"].MOP_EXPANSION.PROPERTIES.SIDE_BRUSH_ON_CARPET.PIID
                         );
@@ -1396,7 +1394,7 @@ class DreameQuirkFactory {
                                 throw new Error(`Received invalid value ${value}`);
                         }
 
-                        return this.helper.writeProperty(
+                        return this.robot.miotHelper.writeProperty(
                             DreameMiotServices["GEN2"].MOP_EXPANSION.SIID,
                             DreameMiotServices["GEN2"].MOP_EXPANSION.PROPERTIES.SIDE_BRUSH_ON_CARPET.PIID,
                             val

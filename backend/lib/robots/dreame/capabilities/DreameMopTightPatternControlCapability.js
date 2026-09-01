@@ -1,4 +1,3 @@
-const DreameMiotHelper = require("../DreameMiotHelper");
 const DreameMiotServices = require("../DreameMiotServices");
 const MopTightPatternControlCapability = require("../../../core/capabilities/MopTightPatternControlCapability");
 /**
@@ -15,8 +14,6 @@ class DreameMopTightPatternControlCapability extends MopTightPatternControlCapab
 
         this.siid = DreameMiotServices["GEN2"].VACUUM_2.SIID;
         this.piid = DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.TIGHT_MOP_PATTERN.PIID;
-
-        this.helper = new DreameMiotHelper({robot: this.robot});
     }
 
     /**
@@ -24,7 +21,7 @@ class DreameMopTightPatternControlCapability extends MopTightPatternControlCapab
      * @returns {Promise<boolean>}
      */
     async isEnabled() {
-        const res = await this.helper.readProperty(this.siid, this.piid);
+        const res = await this.robot.miotHelper.readProperty(this.siid, this.piid);
 
         return res === 1;
     }
@@ -33,7 +30,7 @@ class DreameMopTightPatternControlCapability extends MopTightPatternControlCapab
      * @returns {Promise<void>}
      */
     async enable() {
-        await this.helper.writeProperty(
+        await this.robot.miotHelper.writeProperty(
             this.siid,
             this.piid,
             1
@@ -44,7 +41,7 @@ class DreameMopTightPatternControlCapability extends MopTightPatternControlCapab
      * @returns {Promise<void>}
      */
     async disable() {
-        await this.helper.writeProperty(
+        await this.robot.miotHelper.writeProperty(
             this.siid,
             this.piid,
             0

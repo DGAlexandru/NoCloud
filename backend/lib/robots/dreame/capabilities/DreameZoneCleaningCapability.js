@@ -1,7 +1,6 @@
 const DreameMapParser = require("../DreameMapParser");
 const ZoneCleaningCapability = require("../../../core/capabilities/ZoneCleaningCapability");
 
-const DreameMiotHelper = require("../DreameMiotHelper");
 const entities = require("../../../entities");
 
 /**
@@ -36,8 +35,6 @@ class DreameZoneCleaningCapability extends ZoneCleaningCapability {
 
         this.zoneCleaningModeId = options.zoneCleaningModeId;
         this.maxZoneCount = options.maxZoneCount ?? 1;
-
-        this.helper = new DreameMiotHelper({robot: this.robot});
     }
 
     async start(options) {
@@ -72,7 +69,7 @@ class DreameZoneCleaningCapability extends ZoneCleaningCapability {
             ]);
         });
 
-        await this.helper.executeAction(
+        await this.robot.miotHelper.executeAction(
             this.miot_actions.start.siid,
             this.miot_actions.start.aiid,
             [

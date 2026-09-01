@@ -28,7 +28,8 @@ class DreameL10UltraNoCloudRobot extends DreameGen2LidarNoCloudRobot {
                         [stateAttrs.PresetSelectionStateAttribute.MODE.VACUUM_AND_MOP]: 0,
                         [stateAttrs.PresetSelectionStateAttribute.MODE.MOP]: 1,
                         [stateAttrs.PresetSelectionStateAttribute.MODE.VACUUM]: 2,
-                    })
+                    }),
+                    miotPostWriteDelay: 100,
                 },
                 options,
             )

@@ -1,8 +1,6 @@
-const DreameMiotHelper = require("../DreameMiotHelper");
 const DreameMiotServices = require("../DreameMiotServices");
 const DreameUtils = require("../DreameUtils");
 const MopTwistFrequencyControlCapability = require("../../../core/capabilities/MopTwistFrequencyControlCapability");
-const {sleep} = require("../../../utils/misc");
 
 /**
  * @extends MopTwistFrequencyControlCapability<import("../DreameNoCloudRobot")>
@@ -17,8 +15,6 @@ class DreameMopTwistFrequencyControlCapability extends MopTwistFrequencyControlC
 
         this.siid = DreameMiotServices["GEN2"].VACUUM_2.SIID;
         this.piid = DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID;
-
-        this.helper = new DreameMiotHelper({robot: this.robot});
     }
 
     /**
@@ -26,7 +22,7 @@ class DreameMopTwistFrequencyControlCapability extends MopTwistFrequencyControlC
      * @returns {Promise<MopTwistFrequencyControlCapability.MOPTWIST>}
      */
     async getMopTwist() {
-        const res = await this.helper.readProperty(this.siid, this.piid);
+        const res = await this.robot.miotHelper.readProperty(this.siid, this.piid);
         const deserializedResponse = DreameUtils.DESERIALIZE_MISC_TUNABLES(res);
         // 1 => Each cleanup
         // 7 => Every 7 days -- !!! Applies only to full cleanups !!!
@@ -64,12 +60,11 @@ class DreameMopTwistFrequencyControlCapability extends MopTwistFrequencyControlC
             default:
                 throw new Error(`Invalid value to be set for MeticulousTwist: ${ newMopTwist }`);
         }
-        await this.helper.writeProperty(
+        await this.robot.miotHelper.writeProperty(
             this.siid,
             this.piid,
             DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE({ MeticulousTwist: val })
         );
-        await sleep(100); // Allow the firmware to process the change
     }
 
     getProperties() {

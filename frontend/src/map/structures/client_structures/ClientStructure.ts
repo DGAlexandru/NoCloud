@@ -20,7 +20,7 @@ abstract class ClientStructure extends Structure {
      * @param {number} scaleFactor
      * @param {number} pixelSize
      */
-     translate(
+    translate(
         startCoordinates: PointCoordinates,
         lastCoordinates: PointCoordinates,
         currentCoordinates: PointCoordinates,

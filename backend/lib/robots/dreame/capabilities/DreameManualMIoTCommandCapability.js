@@ -1,4 +1,3 @@
-const DreameMiotHelper = require("../DreameMiotHelper");
 const ManualMIoTCommandCapability = require("../../../core/capabilities/ManualMIoTCommandCapability");
 
 /**
@@ -6,7 +5,8 @@ const ManualMIoTCommandCapability = require("../../../core/capabilities/ManualMI
  */
 class DreameManualMIoTCommandCapability extends ManualMIoTCommandCapability {
     /**
-     *
+     * Helper for sending MIoT commands
+     * 
      * @param {object} options
      * @param {import("../DreameGen2NoCloudRobot")} options.robot
      * @param {string[]} [options.supportedManualMIoTCommandActions] - Optional list of supported commands, defaults to ["get_properties", "set_properties", "action"]
@@ -20,12 +20,6 @@ class DreameManualMIoTCommandCapability extends ManualMIoTCommandCapability {
                 ManualMIoTCommandCapability.ACTIONS.ACTION,
             ]
         }));
-
-        /**
-         * Helper for sending MIoT commands
-         * @type {DreameMiotHelper}
-         */
-        this.helper = new DreameMiotHelper({ robot: this.robot });
     }
 
     /**
@@ -67,18 +61,18 @@ class DreameManualMIoTCommandCapability extends ManualMIoTCommandCapability {
         switch (miotcmd) {
             case ManualMIoTCommandCapability.ACTIONS.GET_PROPERTIES:
                 // return the property value
-                return await this.helper.readProperty(siidNum, piidNum);
+                return await this.robot.miotHelper.readProperty(siidNum, piidNum);
             case ManualMIoTCommandCapability.ACTIONS.SET_PROPERTIES: {
                 // write/update property value
                 if (value === undefined) {
                     throw new Error("Value is required for set_properties command");
                 }
                 const valueNum = !isNaN(Number(value)) ? Number(value) : value;
-                return await this.helper.writeProperty(siidNum, piidNum, valueNum);
+                return await this.robot.miotHelper.writeProperty(siidNum, piidNum, valueNum);
             }
             case ManualMIoTCommandCapability.ACTIONS.ACTION:
                 // execute an action
-                return await this.helper.executeAction(siidNum, piidNum, value !== undefined ? [value] : []);
+                return await this.robot.miotHelper.executeAction(siidNum, piidNum, value !== undefined ? [value] : []);
             default:
                 throw new Error(`Unsupported MIoT command: ${miotcmd}`);
         }

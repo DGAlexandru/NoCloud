@@ -28,6 +28,7 @@ class DreameNoCloudRobot extends MiioNoCloudRobot {
      * @param {import("../../Configuration")} options.config
      * @param {import("../../NoCloudEventStore")} options.NoCloudEventStore
      * @param {object} [options.operationModes]
+     * @param {number} [options.miotPostWriteDelay]
      * @param {object} options.miotServices
      * @param {object} options.miotServices.MAP
      * @param {number} options.miotServices.MAP.SIID
@@ -40,7 +41,7 @@ class DreameNoCloudRobot extends MiioNoCloudRobot {
      */
     constructor(options) {
         super(options);
-        this.helper = new DreameMiotHelper({robot: this});
+        this.miotHelper = new DreameMiotHelper({robot: this, postWriteDelay: options.miotPostWriteDelay});
 
         this.operationModes = options.operationModes ?? {};
         this.miotServices = options.miotServices;

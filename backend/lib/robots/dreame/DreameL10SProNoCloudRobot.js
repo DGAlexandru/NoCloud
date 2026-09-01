@@ -30,6 +30,7 @@ class DreameL10SProNoCloudRobot extends DreameGen2LidarNoCloudRobot {
                         [stateAttrs.PresetSelectionStateAttribute.MODE.VACUUM]: 2,
                     }),
                     detailedAttachmentReport: true,
+                    miotPostWriteDelay: 100,
                 },
                 options,
             )

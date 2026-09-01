@@ -1,4 +1,3 @@
-const DreameMiotHelper = require("../DreameMiotHelper");
 const DreameMiotServices = require("../DreameMiotServices");
 const DreameUtils = require("../DreameUtils");
 const PetObstacleAvoidanceControlCapability = require("../../../core/capabilities/PetObstacleAvoidanceControlCapability");
@@ -17,8 +16,6 @@ class DreamePetObstacleAvoidanceControlCapability extends PetObstacleAvoidanceCo
 
         this.siid = DreameMiotServices["GEN2"].VACUUM_2.SIID;
         this.piid = DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.AI_CAMERA_SETTINGS.PIID;
-
-        this.helper = new DreameMiotHelper({robot: this.robot});
     }
 
     /**
@@ -26,7 +23,7 @@ class DreamePetObstacleAvoidanceControlCapability extends PetObstacleAvoidanceCo
      * @returns {Promise<boolean>}
      */
     async isEnabled() {
-        const res = await this.helper.readProperty(this.siid, this.piid);
+        const res = await this.robot.miotHelper.readProperty(this.siid, this.piid);
         return DreameUtils.AI_CAMERA_FLAG_STATUS(res, "petDetection");
     }
 
@@ -34,18 +31,18 @@ class DreamePetObstacleAvoidanceControlCapability extends PetObstacleAvoidanceCo
      * @returns {Promise<void>}
      */
     async enable() {
-        const res = await this.helper.readProperty(this.siid, this.piid);
+        const res = await this.robot.miotHelper.readProperty(this.siid, this.piid);
         const newBitmask = DreameUtils.AI_CAMERA_FLAG_SET(res, "petDetection", true);
-        await this.helper.writeProperty(this.siid, this.piid, newBitmask);
+        await this.robot.miotHelper.writeProperty(this.siid, this.piid, newBitmask);
     }
 
     /**
      * @returns {Promise<void>}
      */
     async disable() {
-        const res = await this.helper.readProperty(this.siid, this.piid);
+        const res = await this.robot.miotHelper.readProperty(this.siid, this.piid);
         const newBitmask = DreameUtils.AI_CAMERA_FLAG_SET(res, "petDetection", false);
-        await this.helper.writeProperty(this.siid, this.piid, newBitmask);
+        await this.robot.miotHelper.writeProperty(this.siid, this.piid, newBitmask);
     }
 }
 

@@ -597,8 +597,8 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
                     //
                     // Update 2024-06-04: Dreame repurposed PIID 1 on newer robots such as the X40.
                     // It now doesn't contain the same as VACUUM_2 MODE but instead a new and extended status enum
-                    // with stuff such as "returning to the dock to install mops"
-                    // At the time of writing, the "old" VACUUM_2 MODE still works, so no need to map these for now
+                    // with stuff such as "returning to the dock to install mops".
+                    // At the time of writing, the "old" VACUUM_2 MODE still works, so no need to map these for now.
                     break;
                 }
 
@@ -720,7 +720,7 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
                                 // CleanGenius breaks most controls in NoCloud without any user feedback
                                 // Thus, we just automatically disable it instead of making every functionality aware of it
 
-                                this.helper.writeProperty(
+                                this.miotHelper.writeProperty(
                                     DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.SIID,
                                     DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID,
                                     DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE({
@@ -741,7 +741,7 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
                                 }
 
 
-                                this.helper.writeProperty(
+                                this.miotHelper.writeProperty(
                                     DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.SIID,
                                     DreameGen2NoCloudRobot.MIOT_SERVICES.VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID,
                                     DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE({
