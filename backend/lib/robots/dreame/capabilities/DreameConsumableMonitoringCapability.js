@@ -1,6 +1,5 @@
 const ConsumableMonitoringCapability = require("../../../core/capabilities/ConsumableMonitoringCapability");
 const NoCloudConsumable = require("../../../entities/core/NoCloudConsumable");
-const RobotFirmwareError = require("../../../core/RobotFirmwareError");
 
 /**
  * @extends ConsumableMonitoringCapability<import("../DreameNoCloudRobot")>
@@ -118,9 +117,12 @@ class DreameConsumableMonitoringCapability extends ConsumableMonitoringCapabilit
             props.push(this.miot_properties.wheel);
         }
 
-        const response = await this.robot.sendCommand("get_properties", props.map(e => {
-            return Object.assign({}, e, {did: this.robot.deviceId});
-        }));
+        let response;
+        try {
+            response = await this.robot.miotHelper.readProperties(props);
+        } catch (e) {
+            return [];
+        }
 
         const filteredResponse = response.filter(elem => {
             return elem?.code === 0;
@@ -202,20 +204,9 @@ class DreameConsumableMonitoringCapability extends ConsumableMonitoringCapabilit
         }
 
         if (payload) {
-            await this.robot.sendCommand("action",
-                {
-                    did: this.robot.deviceId,
-                    siid: payload.siid,
-                    aiid: payload.aiid,
-                    in: []
-                }
-            ).then(res => {
-                if (res.code !== 0) {
-                    throw new RobotFirmwareError("Error code " + res.code + " while resetting consumable.");
-                }
+            await this.robot.miotHelper.executeAction(payload.siid, payload.aiid);
 
-                this.markEventsAsProcessed(type, subType);
-            });
+            this.markEventsAsProcessed(type, subType);
         } else {
             throw new Error("No such consumable");
         }
