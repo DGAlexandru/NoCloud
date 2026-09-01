@@ -6,6 +6,8 @@ on:
 jobs:
   publish-release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   # required by softprops/action-gh-release@v3
     strategy:
       matrix:
         node-version:
@@ -20,87 +22,41 @@ jobs:
         run: npm ci
       - name: Generate OpenAPI Docs
         run: npm run build_openapi_schema
-      - name: Upload OpenAPI spec
-        uses: DGAlexandru/upload-release-asset@v1.2.0
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-        with:
-          upload_url: '${{ github.event.release.upload_url }}'
-          asset_path: ./build/NoCloud.openapi.schema.json
-          asset_name: NoCloud.openapi.schema.json
-          asset_content_type: application/json
       - name: Build NoCloud frontend
         run: npm run build --workspace=frontend
       - name: Build NoCloud armv7
         run: npm run build_armv7 --workspace=backend
-      - name: Upload NoCloud armv7
-        uses: DGAlexandru/upload-release-asset@v1.2.0
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-        with:
-          upload_url: '${{ github.event.release.upload_url }}'
-          asset_path: ./build/armv7/NoCloud
-          asset_name: NoCloud-armv7
-          asset_content_type: binary/octet-stream
       - name: Build NoCloud armv7 lowmem
         run: npm run build_armv7_lowmem --workspace=backend
-      - name: Upload NoCloud armv7 lowmem
-        uses: DGAlexandru/upload-release-asset@v1.2.0
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-        with:
-          upload_url: '${{ github.event.release.upload_url }}'
-          asset_path: ./build/armv7/NoCloud-lowmem
-          asset_name: NoCloud-armv7-lowmem
-          asset_content_type: binary/octet-stream
       - name: Build NoCloud aarch64
         run: npm run build_aarch64 --workspace=backend
-      - name: Upload NoCloud aarch64
-        uses: DGAlexandru/upload-release-asset@v1.2.0
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-        with:
-          upload_url: '${{ github.event.release.upload_url }}'
-          asset_path: ./build/aarch64/NoCloud
-          asset_name: NoCloud-aarch64
-          asset_content_type: binary/octet-stream
       - name: UPX-compress NoCloud binaries
         run: npm run upx
-      - name: Upload NoCloud armv7.upx
-        uses: DGAlexandru/upload-release-asset@v1.2.0
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-        with:
-          upload_url: '${{ github.event.release.upload_url }}'
-          asset_path: ./build/armv7/NoCloud.upx
-          asset_name: NoCloud-armv7.upx
-          asset_content_type: binary/octet-stream
-      - name: Upload NoCloud armv7 lowmem.upx
-        uses: DGAlexandru/upload-release-asset@v1.2.0
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-        with:
-          upload_url: '${{ github.event.release.upload_url }}'
-          asset_path: ./build/armv7/NoCloud-lowmem.upx
-          asset_name: NoCloud-armv7-lowmem.upx
-          asset_content_type: binary/octet-stream
-      - name: Upload NoCloud aarch64.upx
-        uses: DGAlexandru/upload-release-asset@v1.2.0
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-        with:
-          upload_url: '${{ github.event.release.upload_url }}'
-          asset_path: ./build/aarch64/NoCloud.upx
-          asset_name: NoCloud-aarch64.upx
-          asset_content_type: binary/octet-stream
       - name: Generate manifest
         run: npm run build_release_manifest
-      - name: Upload manifest
-        uses: DGAlexandru/upload-release-asset@v1.2.0
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+
+      # Asset names must match the manifest keys (see util/build_release_manifest.js "binaries")
+      # — the app's updater resolves binaries by these exact names.
+      - name: Stage release assets with app-expected names
+        run: |
+          mv ./build/armv7/NoCloud            ./build/NoCloud-armv7
+          mv ./build/armv7/NoCloud-lowmem     ./build/NoCloud-armv7-lowmem
+          mv ./build/aarch64/NoCloud          ./build/NoCloud-aarch64
+          mv ./build/armv7/NoCloud.upx        ./build/NoCloud-armv7.upx
+          mv ./build/armv7/NoCloud-lowmem.upx ./build/NoCloud-armv7-lowmem.upx
+          mv ./build/aarch64/NoCloud.upx      ./build/NoCloud-aarch64.upx
+
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v3
         with:
-          upload_url: '${{ github.event.release.upload_url }}'
-          asset_path: ./build/NoCloud_release_manifest.json
-          asset_name: NoCloud_release_manifest.json
-          asset_content_type: application/json
+          files: |
+            ./build/NoCloud-armv7
+            ./build/NoCloud-armv7-lowmem
+            ./build/NoCloud-aarch64
+            ./build/NoCloud-armv7.upx
+            ./build/NoCloud-armv7-lowmem.upx
+            ./build/NoCloud-aarch64.upx
+            ./build/NoCloud_release_manifest.json
+            ./build/NoCloud.openapi.schema.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
