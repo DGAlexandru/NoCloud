@@ -4,7 +4,7 @@
   "description": "Self-contained control webinterface for vacuum robots",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "author": "",
   "workspaces": [
@@ -28,7 +28,9 @@
   "overrides": {
     "is-async-function": "2.1.0",
     "is-generator-function": "1.1.0",
-    "get-intrinsic": "1.3.0"
+    "get-intrinsic": "1.3.0",
+    "path-to-regexp": "8.4.2",
+    "fast-uri": "3.1.6"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "~6.15.0",
@@ -37,7 +39,6 @@
     "ajv": "^8.17.1",
     "ajv-keywords": "^5.1.0",
     "auto-changelog": "~2.5.0",
-    "baseline-browser-mapping": "^2.9.11",
     "eslint": "~8.56.0",
     "eslint-plugin-jsdoc": "~50.2.4",
     "eslint-plugin-node": "~11.1.0",

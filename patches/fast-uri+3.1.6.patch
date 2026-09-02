@@ -1,0 +1,13 @@
+diff --git a/node_modules/fast-uri/index.js b/node_modules/fast-uri/index.js
+index ecc54f2..4387ea9 100644
+--- a/node_modules/fast-uri/index.js
++++ b/node_modules/fast-uri/index.js
+@@ -81,7 +81,7 @@ function resolve (baseURI, relativeURI, options) {
+   // parser can reject them even though fast-uri preserves them safely as RFC
+   // 3986 data. A raw non-ASCII host must still fail closed if conversion fails.
+   const encodedASCIIHost = resolvedHost && resolvedHost.indexOf('%') !== -1 &&
+-    !/\P{ASCII}/u.test(resolvedHost)
++    !/[^\x00-\x7F]/.test(resolvedHost)
+   if (resolved.error && !encodedASCIIHost) {
+     throw new Error(resolved.error)
+   }
