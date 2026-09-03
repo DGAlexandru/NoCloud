@@ -12,6 +12,7 @@ module.exports = {
     CombinedVirtualRestrictionsCapability: require("./CombinedVirtualRestrictionsCapability"),
     ConsumableMonitoringCapability: require("./ConsumableMonitoringCapability"),
     CurrentStatisticsCapability: require("./CurrentStatisticsCapability"),
+    DeepCarpetCleaningControlCapability: require("./DeepCarpetCleaningControlCapability"),
     DoNotDisturbCapability: require("./DoNotDisturbCapability"),
     FanSpeedControlCapability: require("./FanSpeedControlCapability"),
     FloorMaterialDirectionAwareNavigationControlCapability: require("./FloorMaterialDirectionAwareNavigationControlCapability"),

@@ -72,6 +72,7 @@ const CAPABILITY_TYPE_TO_ROUTER_MAPPING = {
     [capabilities.CombinedVirtualRestrictionsCapability.TYPE]: capabilityRouters.CombinedVirtualRestrictionsCapabilityRouter,
     [capabilities.ConsumableMonitoringCapability.TYPE]: capabilityRouters.ConsumableMonitoringCapabilityRouter,
     [capabilities.CurrentStatisticsCapability.TYPE]: capabilityRouters.StatisticsCapabilityRouter,
+    [capabilities.DeepCarpetCleaningControlCapability.TYPE]: capabilityRouters.SimpleToggleCapabilityRouter,
     [capabilities.DoNotDisturbCapability.TYPE]: capabilityRouters.DoNotDisturbCapabilityRouter,
     [capabilities.FanSpeedControlCapability.TYPE]: capabilityRouters.PresetSelectionCapabilityRouter,
     [capabilities.FloorMaterialDirectionAwareNavigationControlCapability.TYPE]: capabilityRouters.SimpleToggleCapabilityRouter,
