@@ -23,8 +23,12 @@ function mergeAndSortCategories(merges, fixes, commits) {
             }
         );
 
-        // 3. Assign the normalized subject back to the commit so Handlebars helpers can read it
+        // 3a. Assign the normalized subject back to the commit so Handlebars helpers can read it
         commit.subject = cleanSubject;
+        // 3b. Fix also the the first line of the commit message body while preserving the rest
+        const messageLines = (commit.message || commit.subject).split('\n')
+        messageLines[0] = cleanSubject // Replaces the "messy" first line with the normalized one
+        commit.message = messageLines.join('\n')
 
         // 4. Fixing this also: Look for the exclamation mark AFTER the optional scope parentheses
         commit.breaking = /^[A-Za-z0-9.]+(?:\(.*\))?!:/.test(commit.subject);
