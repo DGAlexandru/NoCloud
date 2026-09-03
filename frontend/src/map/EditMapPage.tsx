@@ -1,11 +1,12 @@
+import EditMap, { mode } from "./EditMap";
+import React from "react";
 import {Box, Button, CircularProgress, styled, Typography, useTheme} from "@mui/material";
 import {Capability, useRobotMapQuery, useRobotStatusQuery} from "../api";
-import {useCapabilitiesSupported} from "../CapabilitiesProvider";
-import EditMap, { mode } from "./EditMap";
+import {MapAnnotationsHelp} from "./res/MapAnnotationsHelp";
 import {SegmentEditHelp} from "./res/SegmentEditHelp";
 import {VirtualRestrictionEditHelp} from "./res/VirtualRestrictionEditHelp";
+import {useCapabilitiesSupported} from "../CapabilitiesProvider";
 import {useSnackbar} from "notistack";
-import React from "react";
 
 
 const Container = styled(Box)({
@@ -36,13 +37,17 @@ const EditMapPage = (props: {
 
         mapSegmentEditCapabilitySupported,
         mapSegmentMaterialControlCapabilitySupported,
-        mapSegmentRenameCapabilitySupported
+        mapSegmentRenameCapabilitySupported,
+
+        mapAnnotationsCapabilitySupported,
     ] = useCapabilitiesSupported(
         Capability.CombinedVirtualRestrictions,
 
         Capability.MapSegmentEdit,
         Capability.MapSegmentMaterialControl,
-        Capability.MapSegmentRename
+        Capability.MapSegmentRename,
+
+        Capability.MapAnnotations
     );
 
     const theme = useTheme();
@@ -54,6 +59,8 @@ const EditMapPage = (props: {
         helpText = SegmentEditHelp;
     } else if (props.mode === "virtual_restrictions") {
         helpText = VirtualRestrictionEditHelp;
+    } else if (props.mode === "annotations") {
+        helpText = MapAnnotationsHelp;
     }
 
     if (mapLoadError) {
@@ -108,6 +115,8 @@ const EditMapPage = (props: {
             [Capability.MapSegmentEdit]: mapSegmentEditCapabilitySupported,
             [Capability.MapSegmentMaterialControl]: mapSegmentMaterialControlCapabilitySupported,
             [Capability.MapSegmentRename]: mapSegmentRenameCapabilitySupported,
+
+            [Capability.MapAnnotations]: mapAnnotationsCapabilitySupported,
         }}
     />;
 };

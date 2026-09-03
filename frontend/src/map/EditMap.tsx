@@ -1,20 +1,24 @@
 import BaseMap, {MapContainer, MapProps, MapState} from "./BaseMap";
-import {Capability, RawMapEntityType, RawMapLayerMaterial, StatusState} from "../api";
-import {ActionsContainer} from "./Styled";
-import SegmentLabelMapStructure from "./structures/map_structures/SegmentLabelMapStructure";
-import SegmentActions from "./actions/edit_map_actions/SegmentActions";
+import CurtainClientStructure from "./structures/client_structures/CurtainClientStructure";
 import CuttingLineClientStructure from "./structures/client_structures/CuttingLineClientStructure";
-import VirtualWallClientStructure from "./structures/client_structures/VirtualWallClientStructure";
-import VirtualRestrictionActions from "./actions/edit_map_actions/VirtualRestrictionActions";
+import HelpAction from "./actions/edit_map_actions/HelpAction";
+import HelpDialog from "../components/HelpDialog";
+import MapAnnotationActions from "./actions/edit_map_actions/MapAnnotationActions";
 import NoGoAreaClientStructure from "./structures/client_structures/NoGoAreaClientStructure";
 import NoMopAreaClientStructure from "./structures/client_structures/NoMopAreaClientStructure";
-import HelpDialog from "../components/HelpDialog";
-import HelpAction from "./actions/edit_map_actions/HelpAction";
-import {ProviderContext} from "notistack";
+import RampClientStructure from "./structures/client_structures/RampClientStructure";
 import React from "react";
+import SegmentActions from "./actions/edit_map_actions/SegmentActions";
+import SegmentLabelMapStructure from "./structures/map_structures/SegmentLabelMapStructure";
+import ThresholdClientStructure from "./structures/client_structures/ThresholdClientStructure";
+import VirtualRestrictionActions from "./actions/edit_map_actions/VirtualRestrictionActions";
+import VirtualWallClientStructure from "./structures/client_structures/VirtualWallClientStructure";
+import {ActionsContainer} from "./Styled";
+import {Capability, RawMapEntityType, RawMapLayerMaterial, StatusState} from "../api";
 import {PathDrawer} from "./PathDrawer";
+import {ProviderContext} from "notistack";
 
-export type mode = "segments" | "virtual_restrictions";
+export type mode = "segments" | "virtual_restrictions" | "annotations";
 
 interface EditMapProps extends MapProps {
     supportedCapabilities: {
@@ -22,7 +26,9 @@ interface EditMapProps extends MapProps {
 
         [Capability.MapSegmentEdit]: boolean,
         [Capability.MapSegmentMaterialControl]: boolean,
-        [Capability.MapSegmentRename]: boolean
+        [Capability.MapSegmentRename]: boolean,
+
+        [Capability.MapAnnotations]: boolean,
     }
     mode: mode,
     helpText: string,
@@ -31,19 +37,24 @@ interface EditMapProps extends MapProps {
 }
 
 interface EditMapState extends MapState {
-    segmentNames: Record<string, string>,
-    segmentMaterials: Record<string, RawMapLayerMaterial>,
     cuttingLine: CuttingLineClientStructure | undefined,
+    segmentMaterials: Record<string, RawMapLayerMaterial>,
+    segmentNames: Record<string, string>,
 
-    virtualWalls: Array<VirtualWallClientStructure>,
     noGoAreas: Array<NoGoAreaClientStructure>,
     noMopAreas: Array<NoMopAreaClientStructure>,
+    virtualWalls: Array<VirtualWallClientStructure>,
+
+    curtains: Array<CurtainClientStructure>,
+    ramps: Array<RampClientStructure>,
+    thresholds: Array<ThresholdClientStructure>,
 
     helpDialogOpen: boolean
 }
 
 class EditMap extends BaseMap<EditMapProps, EditMapState> {
     protected pendingVirtualRestrictionsStructuresUpdate = false;
+    protected pendingMapAnnotationsStructuresUpdate = false;
 
     constructor(props: EditMapProps) {
         super(props);
@@ -54,18 +65,23 @@ class EditMap extends BaseMap<EditMapProps, EditMapState> {
             dialogTitle: "Hello World",
             dialogBody: "This should never be visible",
 
-            segmentNames: {},
-            segmentMaterials: {},
             cuttingLine: undefined,
+            segmentMaterials: {},
+            segmentNames: {},
 
-            virtualWalls: [],
             noGoAreas: [],
             noMopAreas: [],
+            virtualWalls: [],
+
+            curtains: [],
+            ramps: [],
+            thresholds: [],
 
             helpDialogOpen: false
         };
 
         this.updateVirtualRestrictionClientStructures(props.mode !== "virtual_restrictions");
+        this.updateMapAnnotationsClientStructures(props.mode !== "annotations");
     }
 
     protected async updateDrawableComponents(): Promise<void> {
@@ -147,19 +163,14 @@ class EditMap extends BaseMap<EditMapProps, EditMapState> {
 
 
         this.setState({
-            segmentNames: segmentNames,
-            segmentMaterials: segmentMaterials,
             cuttingLine: this.structureManager.getClientStructures().find(s => {
                 if (s.type === CuttingLineClientStructure.TYPE) {
                     return true;
                 }
             }) as CuttingLineClientStructure,
+            segmentMaterials: segmentMaterials,
+            segmentNames: segmentNames,
 
-            virtualWalls: this.structureManager.getClientStructures().filter(s => {
-                if (s.type === VirtualWallClientStructure.TYPE) {
-                    return true;
-                }
-            }) as Array<VirtualWallClientStructure>,
             noGoAreas: this.structureManager.getClientStructures().filter(s => {
                 if (s.type === NoGoAreaClientStructure.TYPE) {
                     return true;
@@ -169,7 +180,30 @@ class EditMap extends BaseMap<EditMapProps, EditMapState> {
                 if (s.type === NoMopAreaClientStructure.TYPE) {
                     return true;
                 }
-            }) as Array<NoMopAreaClientStructure>
+            }) as Array<NoMopAreaClientStructure>,
+            virtualWalls: this.structureManager.getClientStructures().filter(s => {
+                if (s.type === VirtualWallClientStructure.TYPE) {
+                    return true;
+                }
+            }) as Array<VirtualWallClientStructure>,
+
+            curtains: this.structureManager.getClientStructures().filter(s => {
+                if (s.type === CurtainClientStructure.TYPE) {
+                    return true;
+                }
+            }) as Array<CurtainClientStructure>,
+
+            ramps: this.structureManager.getClientStructures().filter(s => {
+                if (s.type === RampClientStructure.TYPE) {
+                    return true;
+                }
+            }) as Array<RampClientStructure>,
+
+            thresholds: this.structureManager.getClientStructures().filter(s => {
+                if (s.type === ThresholdClientStructure.TYPE) {
+                    return true;
+                }
+            }) as Array<ThresholdClientStructure>,
         });
     }
 
@@ -235,6 +269,66 @@ class EditMap extends BaseMap<EditMapProps, EditMapState> {
         }
     }
 
+    private updateMapAnnotationsClientStructures(remove: boolean) : void {
+        if (remove) {
+            this.structureManager.getClientStructures().forEach(s => {
+                switch (s.type) {
+                    case CurtainClientStructure.TYPE:
+                        this.structureManager.removeClientStructure(s);
+                        break;
+                    case RampClientStructure.TYPE:
+                        this.structureManager.removeClientStructure(s);
+                        break;
+                    case ThresholdClientStructure.TYPE:
+                        this.structureManager.removeClientStructure(s);
+                        break;
+                }
+            });
+        } else {
+            this.props.rawMap.entities.forEach(e => {
+                switch (e.type) {
+                    case RawMapEntityType.Curtain: {
+                        const p0 = this.structureManager.convertCMCoordinatesToPixelSpace({x: e.points[0], y: e.points[1]});
+                        const p1 = this.structureManager.convertCMCoordinatesToPixelSpace({x: e.points[2], y: e.points[3]});
+
+                        this.structureManager.addClientStructure(new CurtainClientStructure(
+                            p0.x, p0.y,
+                            p1.x, p1.y,
+                            false
+                        ));
+                        break;
+                    }
+                    case RawMapEntityType.Ramp: {
+                        const p0 = this.structureManager.convertCMCoordinatesToPixelSpace({x: e.points[0], y: e.points[1]});
+                        const p1 = this.structureManager.convertCMCoordinatesToPixelSpace({x: e.points[2], y: e.points[3]});
+                        const p2 = this.structureManager.convertCMCoordinatesToPixelSpace({x: e.points[4], y: e.points[5]});
+                        const p3 = this.structureManager.convertCMCoordinatesToPixelSpace({x: e.points[6], y: e.points[7]});
+
+                        this.structureManager.addClientStructure(new RampClientStructure(
+                            p0.x, p0.y,
+                            p1.x, p1.y,
+                            p2.x, p2.y,
+                            p3.x, p3.y,
+                            false
+                        ));
+                        break;
+                    }
+                    case RawMapEntityType.Threshold: {
+                        const p0 = this.structureManager.convertCMCoordinatesToPixelSpace({x: e.points[0], y: e.points[1]});
+                        const p1 = this.structureManager.convertCMCoordinatesToPixelSpace({x: e.points[2], y: e.points[3]});
+
+                        this.structureManager.addClientStructure(new ThresholdClientStructure(
+                            p0.x, p0.y,
+                            p1.x, p1.y,
+                            false
+                        ));
+                        break;
+                    }
+                }
+            });
+        }
+    }
+
     private clearSegmentStructures() : void {
         this.structureManager.getMapStructures().forEach(s => {
             if (s.type === SegmentLabelMapStructure.TYPE) {
@@ -261,6 +355,12 @@ class EditMap extends BaseMap<EditMapProps, EditMapState> {
             this.updateVirtualRestrictionClientStructures(false);
 
             this.pendingVirtualRestrictionsStructuresUpdate = false;
+        }
+        if (this.pendingMapAnnotationsStructuresUpdate) {
+            this.updateMapAnnotationsClientStructures(true);
+            this.updateMapAnnotationsClientStructures(false);
+
+            this.pendingMapAnnotationsStructuresUpdate = false;
         }
     }
 
@@ -498,6 +598,126 @@ class EditMap extends BaseMap<EditMapProps, EditMapState> {
                                 this.props.enqueueSnackbar("Saved successfully", {
                                     preventDuplicate: true,
                                     key: "virtual_restrictions_saved",
+                                    variant: "info",
+                                    autoHideDuration: 1000,
+                                });
+                            }}
+                        />
+                    }
+                    {
+                        (
+                            this.props.supportedCapabilities[Capability.MapAnnotations]
+                        ) &&
+                        this.props.mode === "annotations" &&
+
+                        <MapAnnotationActions
+                            robotStatus={this.props.robotStatus}
+                            curtains={this.state.curtains}
+                            ramps={this.state.ramps}
+                            thresholds={this.state.thresholds}
+
+                            convertPixelCoordinatesToCMSpace={(coordinates => {
+                                return this.structureManager.convertPixelCoordinatesToCMSpace(coordinates);
+                            })}
+
+                            onAddCurtain={() => {
+                                const currentCenter = this.getCurrentViewportCenterCoordinatesInPixelSpace();
+
+                                const p0 = {
+                                    x: currentCenter.x -10,
+                                    y: currentCenter.y -10
+                                };
+                                const p1 = {
+                                    x: currentCenter.x +10,
+                                    y: currentCenter.y +10
+                                };
+
+                                this.structureManager.addClientStructure(new CurtainClientStructure(
+                                    p0.x, p0.y,
+                                    p1.x, p1.y,
+                                    true
+                                ));
+
+                                this.updateState();
+
+                                this.draw();
+                            }}
+
+                            onAddRamp={() => {
+                                const currentCenter = this.getCurrentViewportCenterCoordinatesInPixelSpace();
+
+                                const p0 = {
+                                    x: currentCenter.x -5,
+                                    y: currentCenter.y -5
+                                };
+                                const p1 = {
+                                    x: currentCenter.x +5,
+                                    y: currentCenter.y -5
+                                };
+                                const p2 = {
+                                    x: currentCenter.x +5,
+                                    y: currentCenter.y +5
+                                };
+                                const p3 = {
+                                    x: currentCenter.x -5,
+                                    y: currentCenter.y +5
+                                };
+
+                                this.structureManager.addClientStructure(new RampClientStructure(
+                                    p0.x, p0.y,
+                                    p1.x, p1.y,
+                                    p2.x, p2.y,
+                                    p3.x, p3.y,
+                                    true
+                                ));
+
+                                this.updateState();
+
+                                this.draw();
+                            }}
+
+                            onAddThreshold={() => {
+                                const currentCenter = this.getCurrentViewportCenterCoordinatesInPixelSpace();
+
+                                const p0 = {
+                                    x: currentCenter.x -10,
+                                    y: currentCenter.y -10
+                                };
+                                const p1 = {
+                                    x: currentCenter.x +10,
+                                    y: currentCenter.y +10
+                                };
+
+                                this.structureManager.addClientStructure(new ThresholdClientStructure(
+                                    p0.x, p0.y,
+                                    p1.x, p1.y,
+                                    true
+                                ));
+
+                                this.updateState();
+
+                                this.draw();
+                            }}
+
+                            onRefresh={() => {
+                                this.updateMapAnnotationsClientStructures(true);
+                                this.updateMapAnnotationsClientStructures(false);
+
+                                this.updateState();
+                                this.draw();
+                            }}
+                            onClear={() => {
+                                this.updateMapAnnotationsClientStructures(true);
+
+                                this.updateState();
+                                this.draw();
+                            }}
+                            onSave={() => {
+                                this.pendingMapAnnotationsStructuresUpdate = true;
+
+                                this.props.enqueueSnackbar("Saved successfully", {
+                                    preventDuplicate: true,
+                                    key: "map_annotations_saved",
                                     variant: "info",
                                     autoHideDuration: 1000,
                                 });

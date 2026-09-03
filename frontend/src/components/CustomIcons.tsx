@@ -41,6 +41,24 @@ export const VirtualRestrictionsIcon = createSvgIcon(
     "virtualRestrictions"
 );
 
+// Remixed from the "curtains" material design icon
+export const AddCurtainIcon = createSvgIcon(
+    <path d="m1 1.5v2h22v-2h-22zm1 3v18h4c0-3-2-5-2-5 6-4 7-13 7-13h-9zm11 0s0.55061 4.9571 3.2871 9.1484a6 6 0 0 1 2.7129-0.64844 6 6 0 0 1 3 0.80469v-9.3047h-9zm5 10.5v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2z"/>,
+    "addCurtain"
+);
+
+// Just a ramp
+export const AddRampIcon = createSvgIcon(
+    <path d="m21.5 1.5a1.0001 1.0001 0 0 0-0.70703 0.29297l-19 19a1.0001 1.0001 0 0 0 0.70703 1.707h11.627a6 6 0 0 1-1.127-3.5 6 6 0 0 1 6-6 6 6 0 0 1 3.5 1.127v-11.627a1.0001 1.0001 0 0 0-0.61719-0.92383 1.0001 1.0001 0 0 0-0.38281-0.076172zm-3.5 13.5v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2z"/>,
+    "addRamp"
+);
+
+// Using the "arrow-top-right-thin" material design icon
+export const AddThresholdIcon = createSvgIcon(
+    <path d="m6.4453 1.5 2.2227 2.2227-7.668 7.6699 1.1152 1.1074 7.6699-7.6602 2.2148 2.2148v-5.5547h-5.5547zm5.0547 7v6.5h-10.5v7.5h10.5 2.627a6 6 0 0 1-1.127-3.5 6 6 0 0 1 6-6 6 6 0 0 1 4 1.5273v-6.0273h-11.5zm6.5 6.5v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2z"/>,
+    "addThreshold"
+);
+
 // Remixed from the "wall" material design icon
 export const AddVirtualWallIcon = createSvgIcon(
     <path d="M 3 4 L 3 9 L 11 9 L 11 4 L 3 4 z M 12 4 L 12 9 L 21 9 L 21 4 L 12 4 z M 2 10 L 2 15 L 8 15 L 8 10 L 2 10 z M 9 10 L 9 15 L 14.535156 15 A 6 6 0 0 1 15 14.535156 L 15 10 L 9 10 z M 16 10 L 16 13.820312 A 6 6 0 0 1 19 13 A 6 6 0 0 1 22 13.806641 L 22 10 L 16 10 z M 18 15 L 18 18 L 15 18 L 15 20 L 18 20 L 18 23 L 20 23 L 20 20 L 23 20 L 23 18 L 20 18 L 20 15 L 18 15 z M 3 16 L 3 21 L 12 21 L 12 16 L 3 16 z M 13 16 L 13 19 A 6 6 0 0 1 13.820312 16 L 13 16 z M 13 19 L 13 21 L 13.359375 21 A 6 6 0 0 1 13 19 z " />,

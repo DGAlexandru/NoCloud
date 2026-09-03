@@ -2,29 +2,34 @@ import ActiveZoneMapStructure from "./structures/map_structures/ActiveZoneMapStr
 import CarpetMapStructure from "./structures/map_structures/CarpetMapStructure";
 import ChargerLocationMapStructure from "./structures/map_structures/ChargerLocationMapStructure";
 import ClientStructure from "./structures/client_structures/ClientStructure";
+import CurtainMapStructure from "./structures/map_structures/CurtainMapStructure";
 import GoToTargetMapStructure from "./structures/map_structures/GoToTargetMapStructure";
 import MapStructure from "./structures/map_structures/MapStructure";
 import NoGoAreaMapStructure from "./structures/map_structures/NoGoAreaMapStructure";
 import NoMopAreaMapStructure from "./structures/map_structures/NoMopAreaMapStructure";
 import ObstacleMapStructure from "./structures/map_structures/ObstacleMapStructure";
+import RampMapStructure from "./structures/map_structures/RampMapStructure";
 import RobotPositionMapStructure from "./structures/map_structures/RobotPositionMapStructure";
 import SegmentLabelMapStructure from "./structures/map_structures/SegmentLabelMapStructure";
+import ThresholdMapStructure from "./structures/map_structures/ThresholdMapStructure";
 import VirtualWallMapStructure from "./structures/map_structures/VirtualWallMapStructure";
-import {median} from "../utils";
 import {PointCoordinates} from "./utils/types";
 import {RawMapData, RawMapEntity, RawMapEntityType, RawMapLayer, RawMapLayerType} from "../api";
-
+import {median} from "../utils";
 
 const MAP_STRUCTURES = [
     ActiveZoneMapStructure,
     CarpetMapStructure,
+    CurtainMapStructure,
     ChargerLocationMapStructure,
     GoToTargetMapStructure,
     NoGoAreaMapStructure,
     NoMopAreaMapStructure,
     ObstacleMapStructure,
+    RampMapStructure,
     RobotPositionMapStructure,
     SegmentLabelMapStructure,
+    ThresholdMapStructure,
     VirtualWallMapStructure,
 ] as const;
 type MapStructureType = typeof MAP_STRUCTURES[number]["TYPE"];
@@ -100,6 +105,16 @@ class StructureManager {
                     mapStructures.push(new ChargerLocationMapStructure(p0.x, p0.y));
                     break;
                 }
+                case RawMapEntityType.Curtain: {
+                    const p0 = this.convertCMCoordinatesToPixelSpace({x: e.points[0], y: e.points[1]});
+                    const p1 = this.convertCMCoordinatesToPixelSpace({x: e.points[2], y: e.points[3]});
+
+                    mapStructures.push(new CurtainMapStructure(
+                        p0.x, p0.y,
+                        p1.x, p1.y
+                    ));
+                    break;
+                }
                 case RawMapEntityType.GoToTarget: {
                     const p0 = this.convertCMCoordinatesToPixelSpace({x: e.points[0], y: e.points[1]});
 
@@ -145,10 +160,34 @@ class StructureManager {
                     ));
                     break;
                 }
+                case RawMapEntityType.Ramp: {
+                    const p0 = this.convertCMCoordinatesToPixelSpace({x: e.points[0], y: e.points[1]});
+                    const p1 = this.convertCMCoordinatesToPixelSpace({x: e.points[2], y: e.points[3]});
+                    const p2 = this.convertCMCoordinatesToPixelSpace({x: e.points[4], y: e.points[5]});
+                    const p3 = this.convertCMCoordinatesToPixelSpace({x: e.points[6], y: e.points[7]});
+
+                    mapStructures.push(new RampMapStructure(
+                        p0.x, p0.y,
+                        p1.x, p1.y,
+                        p2.x, p2.y,
+                        p3.x, p3.y
+                    ));
+                    break;
+                }
                 case RawMapEntityType.RobotPosition: {
                     const p0 = this.convertCMCoordinatesToPixelSpace({x: e.points[0], y: e.points[1]});
 
                     mapStructures.push(new RobotPositionMapStructure(p0.x, p0.y, e.metaData.angle ?? 0));
+                    break;
+                }
+                case RawMapEntityType.Threshold: {
+                    const p0 = this.convertCMCoordinatesToPixelSpace({x: e.points[0], y: e.points[1]});
+                    const p1 = this.convertCMCoordinatesToPixelSpace({x: e.points[2], y: e.points[3]});
+
+                    mapStructures.push(new ThresholdMapStructure(
+                        p0.x, p0.y,
+                        p1.x, p1.y
+                    ));
                     break;
                 }
                 case RawMapEntityType.VirtualWall: {
@@ -283,6 +322,10 @@ const TYPE_SORT_MAPPING: Record<MapStructureType, number> = {
     [NoGoAreaMapStructure.TYPE]: 5,
     [NoMopAreaMapStructure.TYPE]: 5,
     [VirtualWallMapStructure.TYPE]: 5,
+
+    [CurtainMapStructure.TYPE]: 6,
+    [RampMapStructure.TYPE]: 6,
+    [ThresholdMapStructure.TYPE]: 6,
 
     [ObstacleMapStructure.TYPE]: 7,
 

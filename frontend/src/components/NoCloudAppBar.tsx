@@ -138,12 +138,13 @@ const menuTree: Array<MenuEntry | MenuSubEntry | MenuSubheader> = [
         menuText: "Map",
         requiredCapabilities: {
             capabilities: [
-                Capability.PersistentMapControl,
-                Capability.MappingPass,
+                Capability.CombinedVirtualRestrictions,
+                Capability.MapAnnotations,
                 Capability.MapReset,
                 Capability.MapSegmentEdit,
                 Capability.MapSegmentRename,
-                Capability.CombinedVirtualRestrictions
+                Capability.MappingPass,
+                Capability.PersistentMapControl,
             ],
             type: "anyof"
         }
@@ -158,6 +159,12 @@ const menuTree: Array<MenuEntry | MenuSubEntry | MenuSubheader> = [
         kind: "MenuSubEntry",
         route: "/options/map_management/virtual_restrictions",
         title: "Virtual Restriction Management",
+        parentRoute: "/options/map_management"
+    },
+    {
+        kind: "MenuSubEntry",
+        route: "/options/map_management/annotations",
+        title: "Map Annotations",
         parentRoute: "/options/map_management"
     },
     {

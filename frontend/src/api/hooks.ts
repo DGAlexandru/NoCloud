@@ -40,6 +40,7 @@ import {
     fetchManualMIoTCommandProperties,
     fetchManualMIoTCommandState,
     fetchMap,
+    fetchMapAnnotationsProperties,
     fetchMapSegmentationProperties,
     fetchMapSegmentMaterialControlProperties,
     fetchMopDockMopDryingTime,
@@ -103,6 +104,7 @@ import {
     sendMQTTConfiguration,
     sendManualControlInteraction,
     sendManualMIoTCommandInteraction,
+    sendMapAnnotationsUpdate,
     sendMapReset,
     sendMopDockCleanManualTriggerCommand,
     sendMopDockDryManualTriggerCommand,
@@ -171,6 +173,7 @@ import {
     NoCloudCustomizations,
     NoCloudEventInteractionContext,
     NoCloudInformation,
+    NoCloudMapAnnotation,
     NTPClientConfiguration,
     NTPClientStatus,
     Point,
@@ -215,6 +218,7 @@ enum QueryKey {
     ManualMIoTCommand = "manual_miot_command",
     ManualMIoTCommandProperties = "manual_miot_command_properties",
     Map = "map",
+    MapAnnotationsProperties = "map_annotations_properties",
     MapSegmentationProperties = "map_segmentation_properties",
     MapSegmentMaterialControlProperties = "map_segment_material_control_properties",
     MopDockMopDryingTimeControl = "mop_dock_mop_drying_time_control",
@@ -1577,6 +1581,36 @@ export const useRobotPropertiesQuery = () => {
         queryFn: fetchRobotProperties,
 
         staleTime: Infinity,
+    });
+};
+
+export const useMapAnnotationsPropertiesQuery = () => {
+    return useQuery({
+        queryKey: [QueryKey.MapAnnotationsProperties],
+        queryFn: fetchMapAnnotationsProperties,
+
+        staleTime: Infinity
+    });
+};
+
+export const useMapAnnotationsMutation = (
+    options?: UseMutationOptions<RobotAttribute[], unknown, Array<NoCloudMapAnnotation>>
+) => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (mapAnnotations: Array<NoCloudMapAnnotation>) => {
+            return sendMapAnnotationsUpdate(mapAnnotations).then(fetchStateAttributes);
+        },
+        onError: useOnCommandError(Capability.MapAnnotations),
+        ...options,
+        onSuccess: async (data, ...args) => {
+            queryClient.setQueryData<RobotAttribute[]>([QueryKey.Attributes], data, {
+                updatedAt: Date.now(),
+            });
+            await queryClient.invalidateQueries({ queryKey: [QueryKey.Map] });
+            await options?.onSuccess?.(data, ...args);
+        },
     });
 };
 

@@ -2,31 +2,32 @@ import {useCapabilitiesSupported} from "../CapabilitiesProvider";
 import {
     Capability,
     useMapResetMutation,
+    useNoCloudInformationQuery,
     usePersistentMapMutation,
     usePersistentMapQuery,
     useRobotMapQuery,
     useStartMappingPassMutation,
-    useNoCloudInformationQuery
 } from "../api";
 import {
-    Save as PersistentMapControlIcon,
+    Crop as CleanupCoverageIcon,
+    Dashboard as SegmentEditIcon,
+    Download as NoCloudMapDownloadIcon,
+    EditNote as MapAnnotationsIcon,
     Layers as MappingPassIcon,
     LayersClear as MapResetIcon,
-    Dashboard as SegmentEditIcon,
-    Crop as CleanupCoverageIcon,
-    Download as NoCloudMapDownloadIcon,
+    Save as PersistentMapControlIcon,
 } from "@mui/icons-material";
-import React from "react";
 import ConfirmationDialog from "../components/ConfirmationDialog";
-import { LinkListMenuItem } from "../components/list_menu/LinkListMenuItem";
-import { ButtonListMenuItem } from "../components/list_menu/ButtonListMenuItem";
-import {SpacerListMenuItem} from "../components/list_menu/SpacerListMenuItem";
-import {ListMenu} from "../components/list_menu/ListMenu";
-import {ToggleSwitchListMenuItem} from "../components/list_menu/ToggleSwitchListMenuItem";
-import {MapManagementHelp} from "./res/MapManagementHelp";
 import PaperContainer from "../components/PaperContainer";
-import {MapUtilitiesHelp} from "./res/MapUtilitiesHelp";
-import {VirtualRestrictionsIcon} from "../components/CustomIcons";
+import React from "react";
+import { ButtonListMenuItem } from "../components/list_menu/ButtonListMenuItem";
+import { LinkListMenuItem } from "../components/list_menu/LinkListMenuItem";
+import { ListMenu } from "../components/list_menu/ListMenu";
+import { MapManagementHelp } from "./res/MapManagementHelp";
+import { MapUtilitiesHelp } from "./res/MapUtilitiesHelp";
+import { SpacerListMenuItem } from "../components/list_menu/SpacerListMenuItem";
+import { ToggleSwitchListMenuItem } from "../components/list_menu/ToggleSwitchListMenuItem";
+import { VirtualRestrictionsIcon } from "../components/CustomIcons";
 
 
 export const MappingPassButtonItem = (): React.ReactElement => {
@@ -166,7 +167,8 @@ const MapManagement = (): React.ReactElement => {
         mapSegmentEditCapabilitySupported,
         mapSegmentRenameCapabilitySupported,
 
-        combinedVirtualRestrictionsCapabilitySupported
+        combinedVirtualRestrictionsCapabilitySupported,
+        mapAnnotationsCapabilitySupported
     ] = useCapabilitiesSupported(
         Capability.PersistentMapControl,
         Capability.MappingPass,
@@ -175,7 +177,8 @@ const MapManagement = (): React.ReactElement => {
         Capability.MapSegmentEdit,
         Capability.MapSegmentRename,
 
-        Capability.CombinedVirtualRestrictions
+        Capability.CombinedVirtualRestrictions,
+        Capability.MapAnnotations
     );
 
     const robotManagedListItems = React.useMemo(() => {
@@ -237,6 +240,18 @@ const MapManagement = (): React.ReactElement => {
             );
         }
 
+        if (mapAnnotationsCapabilitySupported) {
+            items.push(
+                <LinkListMenuItem
+                    key="mapAnnotationsManagement"
+                    url="/options/map_management/annotations"
+                    primaryLabel="Map Annotation Management"
+                    secondaryLabel="Create, modify and delete various other map stuff"
+                    icon={<MapAnnotationsIcon/>}
+                />
+            );
+        }
+
         return items;
     }, [
         persistentMapControlCapabilitySupported,
@@ -244,6 +259,7 @@ const MapManagement = (): React.ReactElement => {
         mapResetCapabilitySupported,
 
         combinedVirtualRestrictionsCapabilitySupported,
+        mapAnnotationsCapabilitySupported,
         mapSegmentEditCapabilitySupported,
         mapSegmentRenameCapabilitySupported
     ]);

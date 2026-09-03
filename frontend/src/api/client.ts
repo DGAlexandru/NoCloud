@@ -31,6 +31,7 @@ import {
     ManualControlProperties,
     ManualMIoTCommandInteraction,
     ManualMIoTCommandProperties,
+    MapAnnotationsProperties,
     MapSegmentEditJoinRequestParameters,
     MapSegmentEditSplitRequestParameters,
     MapSegmentMaterialControlProperties,
@@ -56,6 +57,7 @@ import {
     NoCloudEvent,
     NoCloudEventInteractionContext,
     NoCloudInformation,
+    NoCloudMapAnnotation,
     NoCloudVersion,
     NoCloudWifiNetwork,
     ObstacleImagesProperties,
@@ -205,9 +207,11 @@ export const fetchCapabilities = (): Promise<Capability[]> => {
 };
 
 export const fetchMap = (): Promise<RawMapData> => {
-    return NoCloudAPI.get<RawMapData>("/robot/state/map").then(({data}) => {
-        return preprocessMap(data);
-    });
+    return NoCloudAPI
+        .get<RawMapData>("/robot/state/map")
+        .then(({data}) => {
+            return preprocessMap(data);
+        });
 };
 // Generic fetch for Simple Toggle Capabilities
 export const fetchSimpleToggleState = async (capability: Capability): Promise<SimpleToggleState> => {
@@ -218,23 +222,17 @@ export const fetchSimpleToggleState = async (capability: Capability): Promise<Si
 
 export const fetchMapSegmentMaterialControlProperties = async (): Promise<MapSegmentMaterialControlProperties> => {
     return NoCloudAPI
-        .get<MapSegmentMaterialControlProperties>(
-            `/robot/capabilities/${Capability.MapSegmentMaterialControl}/properties`
-        )
+        .get<MapSegmentMaterialControlProperties>(`/robot/capabilities/${Capability.MapSegmentMaterialControl}/properties`)
         .then(({data}) => {
             return data;
         });
 };
 
-export const subscribeToMap = (
-    listener: (data: RawMapData) => void
-): (() => void) => {
+export const subscribeToMap = (listener: (data: RawMapData) => void): (() => void) => {
     return subscribeToSSE(
         "/robot/state/map/sse",
         "MapUpdated",
-        (data: RawMapData) => {
-            listener(preprocessMap(data));
-        });
+        (data: RawMapData) => { listener(preprocessMap(data)); });
 };
 
 export const fetchStateAttributes = async (): Promise<RobotAttribute[]> => {
@@ -245,9 +243,7 @@ export const fetchStateAttributes = async (): Promise<RobotAttribute[]> => {
         });
 };
 
-export const subscribeToStateAttributes = (
-    listener: (data: RobotAttribute[]) => void
-): (() => void) => {
+export const subscribeToStateAttributes = (listener: (data: RobotAttribute[]) => void): (() => void) => {
     return subscribeToSSE<RobotAttribute[]>(
         "/robot/state/attributes/sse",
         "StateAttributesUpdated",
@@ -261,9 +257,7 @@ export const fetchPresetSelections = async (
     capability: Capability.FanSpeedControl | Capability.WaterUsageControl | Capability.OperationModeControl
 ): Promise<Array<PresetValue>> => {
     return NoCloudAPI
-        .get<PresetSelectionState["value"][]>(
-            `/robot/capabilities/${capability}/presets`
-        )
+        .get<PresetSelectionState["value"][]>(`/robot/capabilities/${capability}/presets`)
         .then(({data}) => {
             return data;
         });
@@ -273,54 +267,38 @@ export const updatePresetSelection = async (
     capability: Capability.FanSpeedControl | Capability.WaterUsageControl | Capability.OperationModeControl,
     level: PresetSelectionState["value"]
 ): Promise<void> => {
-    await NoCloudAPI.put(`/robot/capabilities/${capability}/preset`, {
-        name: level,
-    });
+    await NoCloudAPI
+        .put(`/robot/capabilities/${capability}/preset`, { name: level, });
 };
 
 export type BasicControlCommand = "start" | "stop" | "pause" | "home";
-export const sendBasicControlCommand = async (
-    command: BasicControlCommand
-): Promise<void> => {
-    await NoCloudAPI.put(
-        `/robot/capabilities/${Capability.BasicControl}`,
-        {
-            action: command,
-        }
-    );
+export const sendBasicControlCommand = async (command: BasicControlCommand): Promise<void> => {
+    await NoCloudAPI.put(`/robot/capabilities/${Capability.BasicControl}`, { action: command, });
 };
 
 export const sendGoToCommand = async (point: Point): Promise<void> => {
-    await NoCloudAPI.put(
-        `/robot/capabilities/${Capability.GoToLocation}`,
-        {
+    await NoCloudAPI
+        .put(`/robot/capabilities/${Capability.GoToLocation}`, {
             action: "goto",
             coordinates: floorObject(point),
-        }
-    );
+        });
 };
 
 export const fetchZoneProperties = async (): Promise<ZoneProperties> => {
     return NoCloudAPI
-        .get<ZoneProperties>(
-            `/robot/capabilities/${Capability.ZoneCleaning}/properties`
-        )
+        .get<ZoneProperties>(`/robot/capabilities/${Capability.ZoneCleaning}/properties`)
         .then(({data}) => {
             return data;
         });
 };
 
-export const sendCleanZonesCommand = async (
-    parameters: ZoneActionRequestParameters
-): Promise<void> => {
-    await NoCloudAPI.put(
-        `/robot/capabilities/${Capability.ZoneCleaning}`,
-        {
+export const sendCleanZonesCommand = async (parameters: ZoneActionRequestParameters): Promise<void> => {
+    await NoCloudAPI
+        .put(`/robot/capabilities/${Capability.ZoneCleaning}`, {
             action: "clean",
             zones: parameters.zones.map(floorObject),
             iterations: parameters.iterations
-        }
-    );
+        });
 };
 
 export const fetchSegments = async (): Promise<Segment[]> => {
@@ -333,78 +311,60 @@ export const fetchSegments = async (): Promise<Segment[]> => {
 
 export const fetchMapSegmentationProperties = async (): Promise<MapSegmentationProperties> => {
     return NoCloudAPI
-        .get<MapSegmentationProperties>(
-            `/robot/capabilities/${Capability.MapSegmentation}/properties`
-        )
+        .get<MapSegmentationProperties>(`/robot/capabilities/${Capability.MapSegmentation}/properties`)
         .then(({data}) => {
             return data;
         });
 };
 
-export const sendCleanSegmentsCommand = async (
-    parameters: MapSegmentationActionRequestParameters
-): Promise<void> => {
-    await NoCloudAPI.put(
-        `/robot/capabilities/${Capability.MapSegmentation}`,
-        {
+export const sendCleanSegmentsCommand = async (parameters: MapSegmentationActionRequestParameters): Promise<void> => {
+    await NoCloudAPI
+        .put(`/robot/capabilities/${Capability.MapSegmentation}`, {
             action: "start_segment_action",
             segment_ids: parameters.segment_ids,
             iterations: parameters.iterations ?? 1,
             customOrder: parameters.customOrder ?? false
-        }
-    );
+        });
 };
 
-export const sendJoinSegmentsCommand = async (
-    parameters: MapSegmentEditJoinRequestParameters
-): Promise<void> => {
-    await NoCloudAPI.put(
-        `/robot/capabilities/${Capability.MapSegmentEdit}`,
-        {
+export const sendJoinSegmentsCommand = async (parameters: MapSegmentEditJoinRequestParameters): Promise<void> => {
+    await NoCloudAPI
+        .put(`/robot/capabilities/${Capability.MapSegmentEdit}`, {
             action: "join_segments",
             segment_a_id: parameters.segment_a_id,
             segment_b_id: parameters.segment_b_id
-        }
-    );
+        });
 };
 
-export const sendSplitSegmentCommand = async (
-    parameters: MapSegmentEditSplitRequestParameters
-): Promise<void> => {
-    await NoCloudAPI.put(
-        `/robot/capabilities/${Capability.MapSegmentEdit}`,
-        {
+export const sendSplitSegmentCommand = async (parameters: MapSegmentEditSplitRequestParameters): Promise<void> => {
+    await NoCloudAPI
+        .put(`/robot/capabilities/${Capability.MapSegmentEdit}`, {
             action: "split_segment",
             segment_id: parameters.segment_id,
             pA: parameters.pA,
             pB: parameters.pB
-        }
-    );
+        });
 };
 
 export const sendRenameSegmentCommand = async (
     parameters: MapSegmentRenameRequestParameters
 ): Promise<void> => {
-    await NoCloudAPI.put(
-        `/robot/capabilities/${Capability.MapSegmentRename}`,
-        {
+    await NoCloudAPI
+        .put(`/robot/capabilities/${Capability.MapSegmentRename}`, {
             action: "rename_segment",
             segment_id: parameters.segment_id,
             name: parameters.name
-        }
-    );
+        });
 };
 
 export const sendLocateCommand = async (): Promise<void> => {
-    await NoCloudAPI.put(`/robot/capabilities/${Capability.Locate}`, {
-        action: "locate",
-    });
+    await NoCloudAPI
+        .put(`/robot/capabilities/${Capability.Locate}`, { action: "locate", });
 };
 
 export const sendAutoEmptyDockManualTriggerCommand = async (): Promise<void> => {
-    await NoCloudAPI.put(`/robot/capabilities/${Capability.AutoEmptyDockManualTrigger}`, {
-        action: "trigger",
-    });
+    await NoCloudAPI
+        .put(`/robot/capabilities/${Capability.AutoEmptyDockManualTrigger}`, { action: "trigger", });
 };
 
 export const fetchCleanRoute = async (): Promise<CleanRoute> => {
@@ -417,9 +377,7 @@ export const fetchCleanRoute = async (): Promise<CleanRoute> => {
 
 export const fetchCleanRouteControlProperties = async (): Promise<CleanRouteControlProperties> => {
     return NoCloudAPI
-        .get<CleanRouteControlProperties>(
-            `/robot/capabilities/${Capability.CleanRouteControl}/properties`
-        )
+        .get<CleanRouteControlProperties>(`/robot/capabilities/${Capability.CleanRouteControl}/properties`)
         .then(({data}) => {
             return data;
         });
@@ -450,9 +408,7 @@ export const sendConsumableReset = async (parameters: ConsumableId): Promise<voi
         urlFragment += `/${parameters.subType}`;
     }
     return NoCloudAPI
-        .put(`/robot/capabilities/${Capability.ConsumableMonitoring}/${urlFragment}`, {
-            action: "reset",
-        })
+        .put(`/robot/capabilities/${Capability.ConsumableMonitoring}/${urlFragment}`, { action: "reset", })
         .then(({status}) => {
             if (status !== 200) {
                 throw new Error("Could not reset consumable");
@@ -462,24 +418,26 @@ export const sendConsumableReset = async (parameters: ConsumableId): Promise<voi
 
 export const fetchConsumableProperties = async (): Promise<ConsumableProperties> => {
     return NoCloudAPI
-        .get<ConsumableProperties>(
-            `/robot/capabilities/${Capability.ConsumableMonitoring}/properties`
-        )
+        .get<ConsumableProperties>(`/robot/capabilities/${Capability.ConsumableMonitoring}/properties`)
         .then(({data}) => {
             return data;
         });
 };
 
 export const fetchRobotInformation = async (): Promise<RobotInformation> => {
-    return NoCloudAPI.get<RobotInformation>("/robot").then(({data}) => {
-        return data;
-    });
+    return NoCloudAPI
+        .get<RobotInformation>("/robot")
+        .then(({data}) => {
+            return data;
+        });
 };
 
 export const fetchNoCloudInformation = async (): Promise<NoCloudInformation> => {
-    return NoCloudAPI.get<NoCloudInformation>("/NoCloud").then(({data}) => {
-        return data;
-    });
+    return NoCloudAPI
+        .get<NoCloudInformation>("/NoCloud")
+        .then(({data}) => {
+            return data;
+        });
 };
 
 export const sendDismissWelcomeDialogAction = async (): Promise<void> => {
@@ -722,11 +680,12 @@ export const deleteTimer = async (id: string): Promise<void> => {
 };
 
 export const sendTimerCreation = async (timerData: Timer): Promise<void> => {
-    await NoCloudAPI.post("/timers", timerData).then(({ status }) => {
-        if (status !== 200) {
-            throw new Error("Could not create timer");
-        }
-    });
+    await NoCloudAPI
+        .post("/timers", timerData).then(({ status }) => {
+            if (status !== 200) {
+                throw new Error("Could not create timer");
+            }
+        });
 };
 
 export const sendTimerUpdate = async (timerData: Timer): Promise<void> => {
@@ -785,9 +744,7 @@ export const fetchPersistentMapState = async (): Promise<SimpleToggleState> => {
 
 export const sendToggleMutation = async (capability: Capability, enable: boolean): Promise<void> => {
     await NoCloudAPI
-        .put(`/robot/capabilities/${capability}`, {
-            action: enable ? "enable" : "disable"
-        })
+        .put(`/robot/capabilities/${capability}`, { action: enable ? "enable" : "disable" })
         .then(({ status }) => {
             if (status !== 200) {
                 throw new Error(`Could not change ${capability} state`);
@@ -801,9 +758,7 @@ export const sendPersistentMapEnabled = async (enable: boolean): Promise<void> =
 
 export const sendMapReset = async (): Promise<void> => {
     await NoCloudAPI
-        .put(`/robot/capabilities/${Capability.MapReset}`, {
-            action: "reset"
-        })
+        .put(`/robot/capabilities/${Capability.MapReset}`, { action: "reset" })
         .then(({ status }) => {
             if (status !== 200) {
                 throw new Error("Could not reset the map");
@@ -813,9 +768,7 @@ export const sendMapReset = async (): Promise<void> => {
 
 export const sendStartMappingPass = async (): Promise<void> => {
     await NoCloudAPI
-        .put(`/robot/capabilities/${Capability.MappingPass}`, {
-            action: "start_mapping"
-        })
+        .put(`/robot/capabilities/${Capability.MappingPass}`, { action: "start_mapping" })
         .then(({ status }) => {
             if (status !== 200) {
                 throw new Error("Could not start the mapping pass");
@@ -916,9 +869,7 @@ export const fetchAutoEmptyDockAutoEmptyInterval = async (): Promise<AutoEmptyDo
 
 export const fetchAutoEmptyDockAutoEmptyIntervalProperties = async (): Promise<AutoEmptyDockAutoEmptyIntervalProperties> => {
     return NoCloudAPI
-        .get<AutoEmptyDockAutoEmptyIntervalProperties>(
-            `/robot/capabilities/${Capability.AutoEmptyDockAutoEmptyIntervalControl}/properties`
-        )
+        .get<AutoEmptyDockAutoEmptyIntervalProperties>(`/robot/capabilities/${Capability.AutoEmptyDockAutoEmptyIntervalControl}/properties`)
         .then(({data}) => {
             return data;
         });
@@ -944,9 +895,7 @@ export const fetchCarpetSensorMode = async (): Promise<CarpetSensorMode> => {
 
 export const fetchCarpetSensorModeProperties = async (): Promise<CarpetSensorModeControlProperties> => {
     return NoCloudAPI
-        .get<CarpetSensorModeControlProperties>(
-            `/robot/capabilities/${Capability.CarpetSensorModeControl}/properties`
-        )
+        .get<CarpetSensorModeControlProperties>(`/robot/capabilities/${Capability.CarpetSensorModeControl}/properties`)
         .then(({data}) => {
             return data;
         });
@@ -1056,6 +1005,19 @@ export const sendManualControlInteraction = async (interaction: ManualControlInt
         });
 };
 
+export const fetchMapAnnotationsProperties = async (): Promise<MapAnnotationsProperties> => {
+    return NoCloudAPI
+        .get<MapAnnotationsProperties>(`/robot/capabilities/${Capability.MapAnnotations}/properties`)
+        .then(({data}) => {
+            return data;
+        });
+};
+
+export const sendMapAnnotationsUpdate = async (mapAnnotations: Array<NoCloudMapAnnotation>): Promise<void> => {
+    await NoCloudAPI
+        .put(`/robot/capabilities/${Capability.MapAnnotations}`, mapAnnotations);
+};
+
 export const fetchHighResolutionManualControlState = async (): Promise<SimpleToggleState> => {
     return NoCloudAPI
         .get<SimpleToggleState>(`/robot/capabilities/${Capability.HighResolutionManualControl}`)
@@ -1076,21 +1038,15 @@ export const sendHighResolutionManualControlInteraction = async (interaction: Hi
 
 export const fetchCombinedVirtualRestrictionsProperties = async (): Promise<CombinedVirtualRestrictionsProperties> => {
     return NoCloudAPI
-        .get<CombinedVirtualRestrictionsProperties>(
-            `/robot/capabilities/${Capability.CombinedVirtualRestrictions}/properties`
-        )
+        .get<CombinedVirtualRestrictionsProperties>(`/robot/capabilities/${Capability.CombinedVirtualRestrictions}/properties`)
         .then(({data}) => {
             return data;
         });
 };
 
-export const sendCombinedVirtualRestrictionsUpdate = async (
-    parameters: CombinedVirtualRestrictionsUpdateRequestParameters
-): Promise<void> => {
-    await NoCloudAPI.put(
-        `/robot/capabilities/${Capability.CombinedVirtualRestrictions}`,
-        parameters
-    );
+export const sendCombinedVirtualRestrictionsUpdate = async (parameters: CombinedVirtualRestrictionsUpdateRequestParameters): Promise<void> => {
+    await NoCloudAPI
+        .put(`/robot/capabilities/${Capability.CombinedVirtualRestrictions}`, parameters);
 };
 
 export const fetchUpdaterConfiguration = async (): Promise<UpdaterConfiguration> => {
@@ -1119,15 +1075,9 @@ export const fetchUpdaterState = async (): Promise<UpdaterState> => {
         });
 };
 
-export const sendUpdaterCommand = async (
-    command: "check" | "download" | "apply"
-): Promise<void> => {
-    await NoCloudAPI.put(
-        "/updater",
-        {
-            "action": command
-        }
-    );
+export const sendUpdaterCommand = async (command: "check" | "download" | "apply"): Promise<void> => {
+    await NoCloudAPI
+        .put("/updater", { "action": command});
 };
 
 export const fetchCurrentStatistics = async (): Promise<Array<NoCloudDataPoint>> => {
@@ -1185,13 +1135,11 @@ export const sendSetSegmentMaterialCommand = async (parameters: MapSegmentMateri
 };
 
 export const sendSetQuirkValueCommand = async (command: SetQuirkValueCommand): Promise<void> => {
-    await NoCloudAPI.put(
-        `/robot/capabilities/${Capability.Quirks}`,
-        {
+    await NoCloudAPI
+        .put(`/robot/capabilities/${Capability.Quirks}`, {
             "id": command.id,
             "value": command.value
-        }
-    );
+        });
 };
 
 export const fetchRobotProperties = async (): Promise<RobotProperties> => {
@@ -1203,27 +1151,15 @@ export const fetchRobotProperties = async (): Promise<RobotProperties> => {
 };
 
 export type MopDockCleanManualTriggerCommand = "start" | "stop";
-export const sendMopDockCleanManualTriggerCommand = async (
-    command: MopDockCleanManualTriggerCommand
-): Promise<void> => {
-    await NoCloudAPI.put(
-        `/robot/capabilities/${Capability.MopDockCleanManualTrigger}`,
-        {
-            action: command,
-        }
-    );
+export const sendMopDockCleanManualTriggerCommand = async (command: MopDockCleanManualTriggerCommand): Promise<void> => {
+    await NoCloudAPI
+        .put(`/robot/capabilities/${Capability.MopDockCleanManualTrigger}`, { action: command, });
 };
 
 export type MopDockDryManualTriggerCommand = "start" | "stop";
-export const sendMopDockDryManualTriggerCommand = async (
-    command: MopDockDryManualTriggerCommand
-): Promise<void> => {
-    await NoCloudAPI.put(
-        `/robot/capabilities/${Capability.MopDockDryManualTrigger}`,
-        {
-            action: command,
-        }
-    );
+export const sendMopDockDryManualTriggerCommand = async (command: MopDockDryManualTriggerCommand): Promise<void> => {
+    await NoCloudAPI
+        .put(`/robot/capabilities/${Capability.MopDockDryManualTrigger}`, { action: command, });
 };
 
 export const sendMopDockMopDryingTime = async (payload: MopDockMopDryingTimePayload): Promise<void> => {

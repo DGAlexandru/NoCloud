@@ -25,6 +25,7 @@ export enum Capability {
     Locate = "LocateCapability",
     ManualControl = "ManualControlCapability",
     ManualMIoTCommand = "ManualMIoTCommandCapability",
+    MapAnnotations = "MapAnnotationsCapability",
     MapReset = "MapResetCapability",
     MapSegmentEdit = "MapSegmentEditCapability",
     MapSegmentMaterialControl = "MapSegmentMaterialControlCapability",
@@ -590,6 +591,21 @@ export interface ManualControlInteraction {
 export interface NoCloudManualMovementVector {
     velocity: number;
     angle: number;
+}
+
+export enum NoCloudMapAnnotationType {
+    Curtain = "curtain",
+    Ramp = "ramp",
+    Threshold = "threshold",
+}
+
+export interface NoCloudMapAnnotation {
+    type: NoCloudMapAnnotationType,
+    points: Array<Point>
+}
+
+export interface MapAnnotationsProperties {
+    supportedAnnotationTypes: Array<NoCloudMapAnnotationType>
 }
 
 export interface HighResolutionManualControlInteraction {

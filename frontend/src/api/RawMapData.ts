@@ -69,13 +69,16 @@ export enum RawMapEntityType {
     ActiveZone = "active_zone",
     ChargerLocation = "charger_location",
     Carpet = "carpet",
+    Curtain = "curtain",
     GoToTarget = "go_to_target",
     NoGoArea = "no_go_area",
     NoMopArea = "no_mop_area",
     Obstacle = "obstacle",
     Path = "path",
     PredictedPath = "predicted_path",
+    Ramp = "ramp",
     RobotPosition = "robot_position",
+    Threshold = "threshold",
     VirtualWall = "virtual_wall",
 }
 
