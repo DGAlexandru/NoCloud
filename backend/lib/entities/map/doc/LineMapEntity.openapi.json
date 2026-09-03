@@ -12,6 +12,8 @@
               "type": {
                 "type": "string",
                 "enum": [
+                  "curtain",
+                  "threshold",
                   "virtual_wall"
                 ]
               }

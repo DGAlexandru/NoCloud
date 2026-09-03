@@ -19,7 +19,9 @@ class LineMapEntity extends MapEntity {
  *
  */
 LineMapEntity.TYPE = Object.freeze({
-    VIRTUAL_WALL: "virtual_wall"
+    CURTAIN: "curtain",
+    THRESHOLD: "threshold",
+    VIRTUAL_WALL: "virtual_wall",
 });
 
 

@@ -23,6 +23,7 @@ module.exports = {
     LocateCapability: require("./LocateCapability"),
     ManualControlCapability: require("./ManualControlCapability"),
     ManualMIoTCommandCapability: require("./ManualMIoTCommandCapability"),
+    MapAnnotationsCapability: require("./MapAnnotationsCapability"),
     MapResetCapability: require("./MapResetCapability"),
     MapSegmentEditCapability: require("./MapSegmentEditCapability"),
     MapSegmentMaterialControlCapability: require("./MapSegmentMaterialControlCapability"),

@@ -15,7 +15,9 @@
                   "active_zone",
                   "carpet",
                   "no_go_area",
-                  "no_mop_area"
+                  "no_mop_area",
+
+                  "ramp"
                 ]
               }
             }

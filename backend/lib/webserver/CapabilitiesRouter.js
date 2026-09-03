@@ -83,6 +83,7 @@ const CAPABILITY_TYPE_TO_ROUTER_MAPPING = {
     [capabilities.LocateCapability.TYPE]: capabilityRouters.LocateCapabilityRouter,
     [capabilities.ManualControlCapability.TYPE]: capabilityRouters.ManualControlCapabilityRouter,
     [capabilities.ManualMIoTCommandCapability.TYPE ]: capabilityRouters.ManualMIoTCommandCapabilityRouter,
+    [capabilities.MapAnnotationsCapability.TYPE]: capabilityRouters.MapAnnotationsCapabilityRouter,
     [capabilities.MapResetCapability.TYPE]: capabilityRouters.MapResetCapabilityRouter,
     [capabilities.MapSegmentEditCapability.TYPE]: capabilityRouters.MapSegmentEditCapabilityRouter,
     [capabilities.MapSegmentMaterialControlCapability.TYPE]: capabilityRouters.MapSegmentMaterialControlCapabilityRouter,
