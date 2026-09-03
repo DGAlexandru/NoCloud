@@ -23,6 +23,10 @@ export const SIMPLE_TOGGLE_CAPABILITIES: Record<string, SimpleToggleConfig> = {
         capability: Capability.CollisionAvoidantNavigation,
         queryKey: "collision_avoidant_navigation"
     },
+    DeepCarpetCleaning: {
+        capability: Capability.DeepCarpetCleaningControl,
+        queryKey: "deep_carpet_cleaning_control"
+    },
     FloorMaterialDirectionAwareNavigation: {
         capability: Capability.FloorMaterialDirectionAwareNavigationControl,
         queryKey: "floor_material_direction_aware_navigation_control"

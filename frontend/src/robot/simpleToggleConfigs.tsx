@@ -12,6 +12,7 @@ import {
     Pets as PetObstacleAvoidanceIcon,
     Photo as ObstacleImagesIcon,
     RoundaboutRight as CollisionAvoidantNavigationIcon,
+    Shuffle as DeepCarpetCleaningIcon,
     TableBar as MopExtensionFurnitureLegHandlingIcon,
 } from "@mui/icons-material";
 import {
@@ -49,6 +50,12 @@ export const SIMPLE_TOGGLE_UI_CONFIGS: Record<string, SimpleToggleUIConfig> = {
         primaryLabel: "Collision-avoidant Navigation",
         secondaryLabel: "Uses a more conservative route for collision-avoidant navigation, but may result in missed spots.",
         icon: <CollisionAvoidantNavigationIcon/>
+    },
+    deepCarpetCleaning: {
+        capability: Capability.DeepCarpetCleaningControl,
+        primaryLabel: "Deep Carpet Cleaning",
+        secondaryLabel: "When enabled, the robot will automatically clean detected carpets with two slowly cleanup passes in alternating directions.",
+        icon: <DeepCarpetCleaningIcon/>
     },
     floorMaterialDirectionAwareNavigation: {
         capability: Capability.FloorMaterialDirectionAwareNavigationControl,

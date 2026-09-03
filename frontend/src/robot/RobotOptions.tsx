@@ -707,8 +707,9 @@ const RobotOptions = (): React.ReactElement => {
         cleanCarpetsFirstControlSupported,
         cleanRouteControlSupported,
         collisionAvoidantNavigationControlCapabilitySupported,
-        floorMaterialDirectionAwareNavigationControlSupported,
+        deepCarpetCleaningControlSupported,
         doNotDisturbCapabilitySupported,
+        floorMaterialDirectionAwareNavigationControlSupported,
         keyLockControlCapabilitySupported,
         locateCapabilitySupported,
         mopDockMopAutoDryingControlSupported,
@@ -735,6 +736,7 @@ const RobotOptions = (): React.ReactElement => {
         Capability.CleanCarpetsFirstControl,
         Capability.CleanRouteControl,
         Capability.CollisionAvoidantNavigation,
+        Capability.DeepCarpetCleaningControl,
         Capability.DoNotDisturb,
         Capability.FloorMaterialDirectionAwareNavigationControl,
         Capability.KeyLock,
@@ -805,7 +807,11 @@ const RobotOptions = (): React.ReactElement => {
             items.push(<SimpleToggleCapabilitySwitch key={"cleanCarpetsFirst"} {...SIMPLE_TOGGLE_UI_CONFIGS.cleanCarpetsFirst}/>);
         }
 
-        if ([carpetModeControlCapabilitySupported, carpetSensorModeControlCapabilitySupported, cleanCarpetsFirstControlSupported].filter(Boolean).length > 1) {
+        if (deepCarpetCleaningControlSupported) {
+            items.push(<SimpleToggleCapabilitySwitch key={"deepCarpetCleaning"} {...SIMPLE_TOGGLE_UI_CONFIGS.deepCarpetCleaning}/>);
+        }
+
+        if ([carpetModeControlCapabilitySupported, carpetSensorModeControlCapabilitySupported, cleanCarpetsFirstControlSupported, deepCarpetCleaningControlSupported].filter(Boolean).length > 1) {
             items.push(<SpacerListMenuItem key={"spacer-carpet"} halfHeight={true}/>);
         }
 
@@ -840,6 +846,7 @@ const RobotOptions = (): React.ReactElement => {
         cleanCarpetsFirstControlSupported,
         cleanRouteControlSupported,
         collisionAvoidantNavigationControlCapabilitySupported,
+        deepCarpetCleaningControlSupported,
         floorMaterialDirectionAwareNavigationControlSupported,
         mopExtensionControlCapabilitySupported,
         mopExtensionFurnitureLegHandlingControlSupported,
