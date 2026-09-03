@@ -626,6 +626,51 @@ class DreameQuirkFactory {
                         );
                     }
                 }); */
+            /*case DreameQuirkFactory.KNOWN_QUIRKS.FAN_SPEED_ONE_TIME_TURBO:
+                return new Quirk({
+                    id: id,
+                    title: "Fan Speed Turbo",
+                    description: "When enabled, the next cleanup will be done with even higher suction power. Disables itself afterwards.",
+                    options: ["on", "off"],
+                    getter: async () => {
+                        const res = await this.robot.miotHelper.readProperty(
+                            DreameMiotServices["GEN2"].VACUUM_2.SIID,
+                            DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID
+                        );
+
+                        const deserializedResponse = DreameUtils.DESERIALIZE_MISC_TUNABLES(res);
+                        switch (deserializedResponse.SuctionMax) {
+                            case 1:
+                                return "on";
+                            case 0:
+                                return "off";
+                            default:
+                                return "off";
+                        }
+                    },
+                    setter: async (value) => {
+                        let val;
+
+                        switch (value) {
+                            case "on":
+                                val = 1;
+                                break;
+                            case "off":
+                                val = 0;
+                                break;
+                            default:
+                                throw new Error(`Received invalid value ${value}`);
+                        }
+
+                        return this.robot.miotHelper.writeProperty(
+                            DreameMiotServices["GEN2"].VACUUM_2.SIID,
+                            DreameMiotServices["GEN2"].VACUUM_2.PROPERTIES.MISC_TUNABLES.PIID,
+                            DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE({
+                                SuctionMax: val
+                            })
+                        );
+                    }
+                });*/
             case DreameQuirkFactory.KNOWN_QUIRKS.DRAIN_INTERNAL_WATER_TANK:
                 return new Quirk({
                     id: id,
@@ -945,7 +990,7 @@ class DreameQuirkFactory {
                         );
                     }
                 });
-            /*case DreameQuirkFactory.KNOWN_QUIRKS.CARPET_DETECTION_AUTO_DEEP_CLEANING:
+                /*case DreameQuirkFactory.KNOWN_QUIRKS.CARPET_DETECTION_AUTO_DEEP_CLEANING:
                 return new Quirk({
                     id: id,
                     title: "Deep carpet cleaning",
@@ -987,6 +1032,48 @@ class DreameQuirkFactory {
                             DreameUtils.SERIALIZE_MISC_TUNABLES_SINGLE_TUNABLE({
                                 CarpetFineClean: val
                             })
+                        );
+                    }
+                });*/
+            /*case DreameQuirkFactory.KNOWN_QUIRKS.CARPET_FIRST:
+                return new Quirk({
+                    id: id,
+                    title: "Carpet First",
+                    description: "When enabled, the robot will first clean all carpet areas before then continuing with the rest of the cleanup.",
+                    options: ["off", "on"],
+                    getter: async () => {
+                        const res = await this.robot.miotHelper.readProperty(
+                            DreameMiotServices["GEN2"].MOP_EXPANSION.SIID,
+                            DreameMiotServices["GEN2"].MOP_EXPANSION.PROPERTIES.CLEAN_CARPET_FIRST.PIID
+                        );
+
+                        switch (res) {
+                            case 1:
+                                return "on";
+                            case 0:
+                                return "off";
+                            default:
+                                throw new Error(`Received invalid value ${res}`);
+                        }
+                    },
+                    setter: async (value) => {
+                        let val;
+
+                        switch (value) {
+                            case "on":
+                                val = 1;
+                                break;
+                            case "off":
+                                val = 0;
+                                break;
+                            default:
+                                throw new Error(`Received invalid value ${value}`);
+                        }
+
+                        return this.robot.miotHelper.writeProperty(
+                            DreameMiotServices["GEN2"].MOP_EXPANSION.SIID,
+                            DreameMiotServices["GEN2"].MOP_EXPANSION.PROPERTIES.CLEAN_CARPET_FIRST.PIID,
+                            val
                         );
                     }
                 });*/
@@ -1410,6 +1497,7 @@ class DreameQuirkFactory {
 DreameQuirkFactory.KNOWN_QUIRKS = {
     //CAMERA_LIGHT: "bba079c2-293b-4ad5-99b8-4102a1220b12",
     //CARPET_DETECTION_AUTO_DEEP_CLEANING: "9450a668-88d7-4ff3-9455-a78b485fb33b",
+    //CARPET_FIRST: "3d6cd658-c72a-48d9-ba54-38cf2d26e2f6",
     CARPET_MODE_SENSITIVITY: "f8cb91ab-a47a-445f-b300-0aac0d4937c0",
     //CLEAN_ROUTE: "ce44b688-f8bc-43a4-b44d-6db0d003c859",
     //CLEAN_ROUTE_WITH_QUICK: "924c82a8-1c3f-4363-9303-e6158e0ca41c",
@@ -1417,6 +1505,7 @@ DreameQuirkFactory.KNOWN_QUIRKS = {
     DRAIN_INTERNAL_WATER_TANK: "3e1b0851-3a5a-4943-bea6-dea3d7284bff",
     EDGE_EXTENSION_FREQUENCY: "8f6a7013-794e-40d9-9bbe-8fdeed7c0b9d",
     //EDGE_MOPPING: "7c71db1b-72b6-402e-89a4-d66c72cb9c8c",
+    //FAN_SPEED_ONE_TIME_TURBO: "017c40b7-dc24-48e8-a6e0-19d66528fa6d",
     MATERIAL_DIRECTION_CLEANING: "2bb060c6-b8fb-41e6-962c-f42036d4ca54",
     //MOP_DOCK_AUTO_DRYING: "6efc4d62-b5a4-474e-b353-5746a99ee8f9",
     MOP_DOCK_AUTO_REPAIR_TRIGGER: "ae753798-aa4f-4b35-a60c-91e7e5ae76f3",

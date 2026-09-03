@@ -206,6 +206,7 @@ class DreameMovaS20UltraNoCloudRobot extends DreameGen4NoCloudRobot {
             capabilities.DreameCarpetModeControlCapability,
             capabilities.DreameCollisionAvoidantNavigationControlCapability,
             capabilities.DreameDeepCarpetCleaningControlCapability,
+            capabilities.DreameFanSpeedTurboControlCapability,
             capabilities.DreameFloorMaterialDirectionAwareNavigationControlCapability,
             capabilities.DreameKeyLockCapability,
             capabilities.DreameMopDockCleanManualTriggerCapability,

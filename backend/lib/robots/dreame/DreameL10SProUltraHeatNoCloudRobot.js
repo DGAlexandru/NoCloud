@@ -199,6 +199,7 @@ class DreameL10SProUltraHeatNoCloudRobot extends DreameGen4NoCloudRobot {
             capabilities.DreameCleanRouteControlCapability,
             capabilities.DreameCollisionAvoidantNavigationControlCapability,
             capabilities.DreameDeepCarpetCleaningControlCapability,
+            capabilities.DreameFanSpeedTurboControlCapability,
             capabilities.DreameFloorMaterialDirectionAwareNavigationControlCapability,
             capabilities.DreameKeyLockCapability,
             capabilities.DreameMopDockCleanManualTriggerCapability,

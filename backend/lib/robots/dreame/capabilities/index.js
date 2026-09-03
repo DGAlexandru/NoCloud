@@ -23,6 +23,7 @@ module.exports = {
     DreameDeepCarpetCleaningControlCapability: require("./DreameDeepCarpetCleaningControlCapability"),
     DreameDoNotDisturbCapability: require("./DreameDoNotDisturbCapability"),
     DreameFanSpeedControlCapability: require("./DreameFanSpeedControlCapability"),
+    DreameFanSpeedTurboControlCapability: require("./DreameFanSpeedTurboControlCapability"),
     DreameFloorMaterialDirectionAwareNavigationControlCapability: require("./DreameFloorMaterialDirectionAwareNavigationControlCapability"),
     DreameHighResolutionManualControlCapability: require("./DreameHighResolutionManualControlCapability"),
     DreameKeyLockCapability: require("./DreameKeyLockCapability"),
