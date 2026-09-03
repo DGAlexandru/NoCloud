@@ -6,8 +6,29 @@ function mergeAndSortCategories(merges, fixes, commits) {
     ];
 
     allCommits.forEach(commit => {
-        commit.breaking = /^[A-Za-z0-9.]+!(?:\(.*\))?:/.test(commit.subject);
-    })
+        // When OCD kicks in and you mess with the standard.. this is a try to fix it :)	
+        // 1. Creating a working copy of the subject for normalization
+        let cleanSubject = commit.subject.trim();
+
+        // 2. Fix spacing around common tags
+        // & "capitalization normalization" -> easyer for next steps (e.g., "Feat (core):" -> "feat(core):")
+        // This targets feat, fix, chore, refactor, docs, style, test, ci - the current standardized ones
+        cleanSubject = cleanSubject.replace(
+            /^\s*(feat|fix|chore|refactor|docs|style|test|ci)\s*(?:\(\s*([^)]+?)\s*\))?\s*(!)?\s*:\s*/i,
+            (match, type, scope, breaking) => {
+                const cleanType = type.toLowerCase();
+                const cleanScope = scope ? `(${scope.trim()})` : '';
+                const cleanBreaking = breaking ? '!' : '';
+                return `${cleanType}${cleanScope}${cleanBreaking}: `;
+            }
+        );
+
+        // 3. Assign the normalized subject back to the commit so Handlebars helpers can read it
+        commit.subject = cleanSubject;
+
+        // 4. Fixing this also: Look for the exclamation mark AFTER the optional scope parentheses
+        commit.breaking = /^[A-Za-z0-9.]+(?:\(.*\))?!:/.test(commit.subject);
+    });
 
     return allCommits.sort((a, b) => {
         return new Date(b.date) - new Date(a.date);
@@ -17,14 +38,15 @@ function mergeAndSortCategories(merges, fixes, commits) {
 module.exports = function (Handlebars) {
     Handlebars.registerHelper('get-all-non-breaking-commits', function (merges, fixes, commits) {
         return mergeAndSortCategories(merges, fixes, commits).filter(c => c.breaking === false);
-    })
+    });
 
     Handlebars.registerHelper('get-all-breaking-commits', function (merges, fixes, commits) {
         return mergeAndSortCategories(merges, fixes, commits).filter(c => c.breaking === true);
-    })
+    });
     
     Handlebars.registerHelper("render-ccm", function(subject) {
-        const match = /^(?<type>[A-Za-z0-9.]+)(?<breaking>!)?(?:\((?<scope>[A-Za-z0-9.]+)\))?: (?<message>.*)$/.exec(subject);
+        // Match the exclamation mark AFTER the optional scope parentheses
+        const match = /^(?<type>[A-Za-z0-9.]+)(?:\((?<scope>[A-Za-z0-9.]+)\))?(?<breaking>!)?: (?<message>.*)$/.exec(subject);
         
         if (typeof match?.groups?.type === "string" && typeof match?.groups?.message === "string") {
             let output = match.groups.message;
@@ -37,5 +59,5 @@ module.exports = function (Handlebars) {
         } else {
             return subject;
         }
-    })
-}
+    });
+};
