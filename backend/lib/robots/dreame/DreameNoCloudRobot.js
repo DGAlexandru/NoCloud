@@ -765,7 +765,7 @@ DreameNoCloudRobot.MAP_ERROR_CODE = (vendorErrorCode) => {
             parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.UNKNOWN;
             parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.UNKNOWN;
             parameters.subsystem = NoCloudRobotError.SUBSYSTEM.CORE;
-            parameters.message = `Internal error ${vendorErrorCode}`; //"AVA_HEALTH_STATUS_TYPE_CARPET_WATEBOX_START" //TODO What does the dreame error string mean?
+            parameters.message = "Attempted to start mopping while on carpet";
             break;
         case "56":
             parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.UNKNOWN;
@@ -844,13 +844,13 @@ DreameNoCloudRobot.MAP_ERROR_CODE = (vendorErrorCode) => {
             parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.TRANSIENT;
             parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.ERROR;
             parameters.subsystem = NoCloudRobotError.SUBSYSTEM.ATTACHMENTS;
-            parameters.message = "Lost mop pad";
+            parameters.message = "Lost Mop Pad"; //Left or Right?
             break;
         case "70":
             parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.TRANSIENT;
             parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.ERROR;
             parameters.subsystem = NoCloudRobotError.SUBSYSTEM.ATTACHMENTS;
-            parameters.message = "Lost mop pad";
+            parameters.message = "Lost Mop Pad"; //Left or Right?
             break;
         case "71":
             parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.PERMANENT;
@@ -869,7 +869,7 @@ DreameNoCloudRobot.MAP_ERROR_CODE = (vendorErrorCode) => {
             parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.TRANSIENT;
             parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.ERROR;
             parameters.subsystem = NoCloudRobotError.SUBSYSTEM.ATTACHMENTS;
-            parameters.message = "Failed to attach mop pads";
+            parameters.message = "Failed to attach Mop Pads";
             break;
 
         case "82":
@@ -999,7 +999,12 @@ DreameNoCloudRobot.MAP_ERROR_CODE = (vendorErrorCode) => {
             parameters.subsystem = NoCloudRobotError.SUBSYSTEM.DOCK;
             parameters.message = "Mop Dock Tray full of water";
             break;
-        //case "120":
+        case "120":
+            parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.PERMANENT;
+            parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.ERROR;
+            parameters.subsystem = NoCloudRobotError.SUBSYSTEM.DOCK;
+            parameters.message = "Mop Pads not in the Dock. Attach failed.";
+            break;
         case "121":
             parameters.severity.kind = NoCloudRobotError.SEVERITY_KIND.PERMANENT;
             parameters.severity.level = NoCloudRobotError.SEVERITY_LEVEL.WARNING;
