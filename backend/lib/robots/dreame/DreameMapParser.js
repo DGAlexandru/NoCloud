@@ -89,6 +89,10 @@ class DreameMapParser {
                 });
             }
 
+            if (additionalData.curid !== undefined) {
+                metaData.vendorMapId = parseInt(additionalData.curid);
+            }
+
             if (additionalData.seg_inf) {
                 Object.keys(additionalData.seg_inf).forEach(segmentId => {
                     if (additionalData.seg_inf[segmentId].name) {

@@ -2,7 +2,8 @@
   "__class": "NoCloudMap",
   "metaData": {
     "version": 2,
-    "totalLayerArea": 8473675
+    "totalLayerArea": 8473675,
+    "vendorMapId": 15
   },
   "size": {
     "x": 6554,

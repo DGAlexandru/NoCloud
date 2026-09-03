@@ -67,7 +67,10 @@
                     "items": {
                       "type": "string",
                       "enum": [
+                        "carpet",
                         "generic",
+                        "low_pile_carpet",
+                        "medium_pile_carpet",
                         "tile",
                         "wood",
                         "wood_horizontal",
