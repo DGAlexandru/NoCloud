@@ -384,6 +384,83 @@
       }
     }
   },
+    "/api/v2/robot/capabilities/FanSpeedTurboControlCapability": {
+    "get": {
+      "tags": [
+        "FanSpeedTurboControlCapability"
+      ],
+      "summary": "Get Fan Speed Turbo setting",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "tags": [
+        "FanSpeedTurboControlCapability"
+      ],
+      "summary": "Set Fan Speed Turbo setting",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "enable",
+                    "disable"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "400": {
+          "$ref": "#/components/responses/400"
+        }
+      }
+    }
+  },
+  "/api/v2/robot/capabilities/FanSpeedTurboControlCapability/properties": {
+    "get": {
+      "tags": [
+        "FanSpeedTurboControlCapability"
+      ],
+      "summary": "Get various capability-related properties",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
   "/api/v2/robot/capabilities/FloorMaterialDirectionAwareNavigationControlCapability": {
     "get": {
       "tags": [

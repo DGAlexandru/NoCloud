@@ -15,6 +15,7 @@ module.exports = {
     DeepCarpetCleaningControlCapability: require("./DeepCarpetCleaningControlCapability"),
     DoNotDisturbCapability: require("./DoNotDisturbCapability"),
     FanSpeedControlCapability: require("./FanSpeedControlCapability"),
+    FanSpeedTurboControlCapability: require("./FanSpeedTurboControlCapability"),
     FloorMaterialDirectionAwareNavigationControlCapability: require("./FloorMaterialDirectionAwareNavigationControlCapability"),
     GoToLocationCapability: require("./GoToLocationCapability"),
     HighResolutionManualControlCapability: require ("./HighResolutionManualControlCapability"),

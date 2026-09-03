@@ -75,6 +75,7 @@ const CAPABILITY_TYPE_TO_ROUTER_MAPPING = {
     [capabilities.DeepCarpetCleaningControlCapability.TYPE]: capabilityRouters.SimpleToggleCapabilityRouter,
     [capabilities.DoNotDisturbCapability.TYPE]: capabilityRouters.DoNotDisturbCapabilityRouter,
     [capabilities.FanSpeedControlCapability.TYPE]: capabilityRouters.PresetSelectionCapabilityRouter,
+    [capabilities.FanSpeedTurboControlCapability.TYPE]: capabilityRouters.SimpleToggleCapabilityRouter,
     [capabilities.FloorMaterialDirectionAwareNavigationControlCapability.TYPE]: capabilityRouters.SimpleToggleCapabilityRouter,
     [capabilities.GoToLocationCapability.TYPE]: capabilityRouters.GoToLocationCapabilityRouter,
     [capabilities.HighResolutionManualControlCapability.TYPE]: capabilityRouters.HighResolutionManualControlCapabilityRouter,
