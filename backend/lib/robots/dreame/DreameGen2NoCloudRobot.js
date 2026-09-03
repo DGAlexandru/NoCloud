@@ -368,6 +368,9 @@ class DreameGen2NoCloudRobot extends DreameNoCloudRobot {
                                 case MIOT_SERVICES.FACTORY_TEST.PROPERTIES.PLATFORM_NETWORK.PIID:
                                     Logger.warn(`Unhandled property change! FACTORY_TEST (${e.siid}) : PLATFORM_NETWORK (${e.piid}). Full message:`, e);
                                     break;
+                                case MIOT_SERVICES.FACTORY_TEST.PROPERTIES.REFRESH_TIMERS.PIID:
+                                    Logger.debug(`Unhandled property change! FACTORY_TEST (${e.siid}) : REFRESH_TIMERS (${e.piid}). Full message:`, e);
+                                    break;
                                 default:
                                     Logger.warn(`Unhandled property change! FACTORY_TEST (${e.siid}) : UNKNOWN (${e.piid}). Full message:`, e);
                                     break;

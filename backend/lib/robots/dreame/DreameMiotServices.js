@@ -1217,6 +1217,9 @@ module.exports = {
                 },
                 PLATFORM_NETWORK: { /* external data */
                     PIID: 95
+                },
+                REFRESH_TIMERS: { /* TODO: proper naming */
+                    PIID: 98
                 }
             }
         },
