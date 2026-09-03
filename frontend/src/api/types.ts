@@ -17,6 +17,7 @@ export enum Capability {
     DeepCarpetCleaningControl = "DeepCarpetCleaningControlCapability",
     DoNotDisturb = "DoNotDisturbCapability",
     FanSpeedControl = "FanSpeedControlCapability",
+    FanSpeedTurboControl = "FanSpeedTurboControlCapability",
     FloorMaterialDirectionAwareNavigationControl = "FloorMaterialDirectionAwareNavigationControlCapability",
     GoToLocation = "GoToLocationCapability",
     HighResolutionManualControl = "HighResolutionManualControlCapability",

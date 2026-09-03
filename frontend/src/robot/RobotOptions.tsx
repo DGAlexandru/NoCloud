@@ -709,6 +709,7 @@ const RobotOptions = (): React.ReactElement => {
         collisionAvoidantNavigationControlCapabilitySupported,
         deepCarpetCleaningControlSupported,
         doNotDisturbCapabilitySupported,
+        fanSpeedTurboControlSupported,
         floorMaterialDirectionAwareNavigationControlSupported,
         keyLockControlCapabilitySupported,
         locateCapabilitySupported,
@@ -738,6 +739,7 @@ const RobotOptions = (): React.ReactElement => {
         Capability.CollisionAvoidantNavigation,
         Capability.DeepCarpetCleaningControl,
         Capability.DoNotDisturb,
+        Capability.FanSpeedTurboControl,
         Capability.FloorMaterialDirectionAwareNavigationControl,
         Capability.KeyLock,
         Capability.Locate,
@@ -790,8 +792,12 @@ const RobotOptions = (): React.ReactElement => {
             items.push(<CleanRouteControlCapabilitySelectListMenuItem key={"cleanRouteControl"}/>);
         }
 
+        if (fanSpeedTurboControlSupported) {
+            items.push(<SimpleToggleCapabilitySwitch key={"fanSpeedTurbo"} {...SIMPLE_TOGGLE_UI_CONFIGS.fanSpeedTurbo}/>);
+        }
+
         if ([collisionAvoidantNavigationControlCapabilitySupported, floorMaterialDirectionAwareNavigationControlSupported,
-            cleanRouteControlSupported].filter(Boolean).length > 1) {
+            cleanRouteControlSupported, fanSpeedTurboControlSupported].filter(Boolean).length > 1) {
             items.push(<SpacerListMenuItem key={"spacer-navigation"} halfHeight={true}/>);
         }
 
@@ -811,7 +817,8 @@ const RobotOptions = (): React.ReactElement => {
             items.push(<SimpleToggleCapabilitySwitch key={"deepCarpetCleaning"} {...SIMPLE_TOGGLE_UI_CONFIGS.deepCarpetCleaning}/>);
         }
 
-        if ([carpetModeControlCapabilitySupported, carpetSensorModeControlCapabilitySupported, cleanCarpetsFirstControlSupported, deepCarpetCleaningControlSupported].filter(Boolean).length > 1) {
+        if ([carpetModeControlCapabilitySupported, carpetSensorModeControlCapabilitySupported, cleanCarpetsFirstControlSupported,
+            deepCarpetCleaningControlSupported].filter(Boolean).length > 1) {
             items.push(<SpacerListMenuItem key={"spacer-carpet"} halfHeight={true}/>);
         }
 
@@ -847,6 +854,7 @@ const RobotOptions = (): React.ReactElement => {
         cleanRouteControlSupported,
         collisionAvoidantNavigationControlCapabilitySupported,
         deepCarpetCleaningControlSupported,
+        fanSpeedTurboControlSupported,
         floorMaterialDirectionAwareNavigationControlSupported,
         mopExtensionControlCapabilitySupported,
         mopExtensionFurnitureLegHandlingControlSupported,

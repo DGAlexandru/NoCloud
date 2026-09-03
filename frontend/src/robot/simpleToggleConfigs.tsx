@@ -11,6 +11,7 @@ import {
     Lock as KeyLockIcon,
     Pets as PetObstacleAvoidanceIcon,
     Photo as ObstacleImagesIcon,
+    RocketLaunch as FanSpeedTurboIcon,
     RoundaboutRight as CollisionAvoidantNavigationIcon,
     Shuffle as DeepCarpetCleaningIcon,
     TableBar as MopExtensionFurnitureLegHandlingIcon,
@@ -56,6 +57,12 @@ export const SIMPLE_TOGGLE_UI_CONFIGS: Record<string, SimpleToggleUIConfig> = {
         primaryLabel: "Deep Carpet Cleaning",
         secondaryLabel: "When enabled, the robot will automatically clean detected carpets with two slowly cleanup passes in alternating directions.",
         icon: <DeepCarpetCleaningIcon/>
+    },
+    fanSpeedTurbo: {
+        capability: Capability.FanSpeedTurboControl,
+        primaryLabel: "One-Time Turbo Suction",
+        secondaryLabel: "When enabled, boosts suction power beyond standard settings for the next cleanup. Disables itself afterwards.",
+        icon: <FanSpeedTurboIcon/>
     },
     floorMaterialDirectionAwareNavigation: {
         capability: Capability.FloorMaterialDirectionAwareNavigationControl,
