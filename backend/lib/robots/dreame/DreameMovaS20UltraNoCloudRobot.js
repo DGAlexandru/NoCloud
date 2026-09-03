@@ -205,6 +205,7 @@ class DreameMovaS20UltraNoCloudRobot extends DreameGen4NoCloudRobot {
             capabilities.DreameCameraLightControlCapability,
             capabilities.DreameCarpetModeControlCapability,
             capabilities.DreameCollisionAvoidantNavigationControlCapability,
+            capabilities.DreameDeepCarpetCleaningControlCapability,
             capabilities.DreameFloorMaterialDirectionAwareNavigationControlCapability,
             capabilities.DreameKeyLockCapability,
             capabilities.DreameMopDockCleanManualTriggerCapability,
@@ -221,7 +222,7 @@ class DreameMovaS20UltraNoCloudRobot extends DreameGen4NoCloudRobot {
             robot: this,
             quirks: [
                 //quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.CAMERA_LIGHT),
-                quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.CARPET_DETECTION_AUTO_DEEP_CLEANING),
+                //quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.CARPET_DETECTION_AUTO_DEEP_CLEANING),
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.CARPET_MODE_SENSITIVITY),
                 //quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.CLEAN_ROUTE),
                 quirkFactory.getQuirk(DreameQuirkFactory.KNOWN_QUIRKS.DRAIN_INTERNAL_WATER_TANK),

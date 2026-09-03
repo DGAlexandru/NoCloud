@@ -945,7 +945,7 @@ class DreameQuirkFactory {
                         );
                     }
                 });
-            case DreameQuirkFactory.KNOWN_QUIRKS.CARPET_DETECTION_AUTO_DEEP_CLEANING:
+            /*case DreameQuirkFactory.KNOWN_QUIRKS.CARPET_DETECTION_AUTO_DEEP_CLEANING:
                 return new Quirk({
                     id: id,
                     title: "Deep carpet cleaning",
@@ -989,7 +989,7 @@ class DreameQuirkFactory {
                             })
                         );
                     }
-                });
+                });*/
             case DreameQuirkFactory.KNOWN_QUIRKS.MOP_DOCK_WATER_USAGE:
                 return new Quirk({
                     id: id,
@@ -1409,7 +1409,7 @@ class DreameQuirkFactory {
 
 DreameQuirkFactory.KNOWN_QUIRKS = {
     //CAMERA_LIGHT: "bba079c2-293b-4ad5-99b8-4102a1220b12",
-    CARPET_DETECTION_AUTO_DEEP_CLEANING: "9450a668-88d7-4ff3-9455-a78b485fb33b",
+    //CARPET_DETECTION_AUTO_DEEP_CLEANING: "9450a668-88d7-4ff3-9455-a78b485fb33b",
     CARPET_MODE_SENSITIVITY: "f8cb91ab-a47a-445f-b300-0aac0d4937c0",
     //CLEAN_ROUTE: "ce44b688-f8bc-43a4-b44d-6db0d003c859",
     //CLEAN_ROUTE_WITH_QUICK: "924c82a8-1c3f-4363-9303-e6158e0ca41c",
