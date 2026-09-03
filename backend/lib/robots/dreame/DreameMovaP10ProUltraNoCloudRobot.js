@@ -7,6 +7,7 @@ const DreameQuirkFactory = require("./DreameQuirkFactory");
 const entities = require("../../entities");
 const Logger = require("../../Logger");
 const MiioNoCloudRobot = require("../MiioNoCloudRobot");
+const NoCloudMapAnnotation = require("../../entities/core/NoCloudMapAnnotation");
 const NoCloudSelectionPreset = require("../../entities/core/NoCloudSelectionPreset");
 const QuirksCapability = require("../../core/capabilities/QuirksCapability");
 const {IMAGE_FILE_FORMAT} = require("../../utils/const");
@@ -192,6 +193,28 @@ class DreameMovaP10ProUltraNoCloudRobot extends DreameGen4NoCloudRobot {
             ]
         }));
 
+        this.registerCapability(new capabilities.DreameMapAnnotationsCapability({
+            robot: this,
+            supportedAnnotationTypes: [
+                NoCloudMapAnnotation.TYPE.CURTAIN,
+                NoCloudMapAnnotation.TYPE.RAMP,
+                NoCloudMapAnnotation.TYPE.THRESHOLD,
+            ],
+            miot_actions: {
+                map_edit: {
+                    siid: DreameGen2NoCloudRobot.MIOT_SERVICES.MAP.SIID,
+                    aiid: DreameGen2NoCloudRobot.MIOT_SERVICES.MAP.ACTIONS.EDIT.AIID
+                }
+            },
+            miot_properties: {
+                mapDetails: {
+                    piid: DreameGen2NoCloudRobot.MIOT_SERVICES.MAP.PROPERTIES.MAP_DETAILS.PIID
+                },
+                actionResult: {
+                    piid: DreameGen2NoCloudRobot.MIOT_SERVICES.MAP.PROPERTIES.ACTION_RESULT.PIID
+                }
+            }
+        }));
 
         [
             capabilities.DreameAICameraGoToLocationCapability,

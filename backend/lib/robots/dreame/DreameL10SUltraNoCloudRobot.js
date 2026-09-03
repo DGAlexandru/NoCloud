@@ -1,11 +1,13 @@
 const capabilities = require("./capabilities");
 const DreameGen2LidarNoCloudRobot = require("./DreameGen2LidarNoCloudRobot");
 const DreameGen2NoCloudRobot = require("./DreameGen2NoCloudRobot");
+
 const DreameNoCloudRobot = require("./DreameNoCloudRobot");
 const DreameQuirkFactory = require("./DreameQuirkFactory");
 const entities = require("../../entities");
 const fs = require("fs");
 const MiioNoCloudRobot = require("../MiioNoCloudRobot");
+const NoCloudMapAnnotation = require("../../entities/core/NoCloudMapAnnotation");
 const NoCloudSelectionPreset = require("../../entities/core/NoCloudSelectionPreset");
 const QuirksCapability = require("../../core/capabilities/QuirksCapability");
 const {IMAGE_FILE_FORMAT} = require("../../utils/const");
@@ -194,6 +196,27 @@ class DreameL10SUltraNoCloudRobot extends DreameGen2LidarNoCloudRobot {
                 capabilities.DreameMapSegmentMaterialControlCapability.MATERIAL.WOOD_VERTICAL,
                 capabilities.DreameMapSegmentMaterialControlCapability.MATERIAL.WOOD_HORIZONTAL,
             ]
+        }));
+
+        this.registerCapability(new capabilities.DreameMapAnnotationsCapability({
+            robot: this,
+            supportedAnnotationTypes: [
+                NoCloudMapAnnotation.TYPE.THRESHOLD,
+            ],
+            miot_actions: {
+                map_edit: {
+                    siid: DreameGen2NoCloudRobot.MIOT_SERVICES.MAP.SIID,
+                    aiid: DreameGen2NoCloudRobot.MIOT_SERVICES.MAP.ACTIONS.EDIT.AIID
+                }
+            },
+            miot_properties: {
+                mapDetails: {
+                    piid: DreameGen2NoCloudRobot.MIOT_SERVICES.MAP.PROPERTIES.MAP_DETAILS.PIID
+                },
+                actionResult: {
+                    piid: DreameGen2NoCloudRobot.MIOT_SERVICES.MAP.PROPERTIES.ACTION_RESULT.PIID
+                }
+            }
         }));
 
         [
