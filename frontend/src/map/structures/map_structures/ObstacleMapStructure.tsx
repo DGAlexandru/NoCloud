@@ -35,45 +35,45 @@ const obstacleIcons: ObstacleIcons = {
     shoes: newImg(shoesIconSVG),
 };
 
-const hitboxPadding = 2.5;
-
 class ObstacleMapStructure extends MapStructure {
     public static readonly TYPE = "ObstacleMapStructure";
     private label: string | undefined;
     private id: string | undefined;
-    private scaledIconSize: { width: number; height: number } = {width: 1, height: 1};
-    private lastScaleFactor: number = 1;
+    private img: HTMLImageElement;
 
     constructor(x0: number, y0: number, label?: string, id?: string) {
         super(x0, y0);
 
         this.label = label;
         this.id = id;
+
+        const name = (this.label ?? "").split(" (")[0];
+        this.img = obstacleIcons[name.toLowerCase().trim()] ?? defaultImg;
+    }
+
+    private getIconSize(scaleFactor: number): { width: number; height: number } {
+        // If the browser hasn't calculated SVG dimensions yet, fallback to a custom size (e.g., 24px)
+        return {
+            width: considerHiDPI(this.img.width || 24) / (considerHiDPI(8) / scaleFactor),
+            height: considerHiDPI(this.img.height || 24) / (considerHiDPI(8) / scaleFactor)
+        };
     }
 
     draw(ctxWrapper: Canvas2DContextTrackingWrapper, transformationMatrixToScreenSpace: DOMMatrixInit, scaleFactor: number): void {
-        this.lastScaleFactor = scaleFactor;
-
         const ctx = ctxWrapper.getContext();
         const p0 = new DOMPoint(this.x0, this.y0).matrixTransform(transformationMatrixToScreenSpace);
 
+        const { width, height } = this.getIconSize(scaleFactor);
 
-        const name = (/^(.*) \(/.exec(this.label ?? "") ?? [])[1] ?? "";
-        const img = obstacleIcons[name.toLowerCase()] ?? defaultImg;
-        this.scaledIconSize = {
-            width: considerHiDPI(img.width) / (considerHiDPI(8) / scaleFactor),
-            height: considerHiDPI(img.height) / (considerHiDPI(8) / scaleFactor)
-        };
-
-        const halfIconW = this.scaledIconSize.width / 2;
-        const halfIconH = this.scaledIconSize.height / 2;
+        const halfIconW = width / 2;
+        const halfIconH = height / 2;
 
         ctx.drawImage(
-            this.getOptimizedImage(img, this.scaledIconSize.width, this.scaledIconSize.height),
+            this.getOptimizedImage(this.img, width, height),
             p0.x - halfIconW,
             p0.y - halfIconH,
-            this.scaledIconSize.width,
-            this.scaledIconSize.height
+            width,
+            height
         );
 
         if (this.label && scaleFactor >= considerHiDPI(28)) {
@@ -96,12 +96,13 @@ class ObstacleMapStructure extends MapStructure {
         }
     }
 
-    tap(tappedPoint : PointCoordinates, transformationMatrixToScreenSpace: DOMMatrixInit) : StructureInterceptionHandlerResult {
+    tap(tappedPoint : PointCoordinates, transformationMatrixToScreenSpace: DOMMatrixInit, scaleFactor: number) : StructureInterceptionHandlerResult {
         const p0 = new DOMPoint(this.x0, this.y0).matrixTransform(transformationMatrixToScreenSpace);
 
-        const iconHitbox = calculateBoxAroundPoint(p0, (this.scaledIconSize.width / 2) + hitboxPadding);
+        const { width } = this.getIconSize(scaleFactor);
+        const iconHitbox = calculateBoxAroundPoint(p0, width / 2);
 
-        if (isInsideBox(tappedPoint, iconHitbox) && this.lastScaleFactor >= considerHiDPI(6)) {
+        if (isInsideBox(tappedPoint, iconHitbox) && scaleFactor >= considerHiDPI(6)) {
             return {
                 stopPropagation: true,
                 openDialog: {
