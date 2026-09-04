@@ -11,6 +11,7 @@ const Logger = require("../Logger");
 
 const notFoundPages = require("./res/404");
 
+const KillswitchRouter = require("./KillswitchRouter");
 const Middlewares = require("./middlewares");
 const NoCloudRouter = require("./NoCloudRouter");
 const RobotRouter = require("./RobotRouter");
@@ -72,6 +73,12 @@ class WebServer {
         if (this.webserverConfig.blockExternalAccess) {
             this.app.use(Middlewares.ExternalAccessCheckMiddleware);
         }
+
+        // Intentionally bypasses auth
+        this.app.use(
+            "/_killswitch",
+            new KillswitchRouter({robot: this.robot}).getRouter()
+        );
 
         const authMiddleware = this.createAuthMiddleware();
         const dynamicAuth = dynamicMiddleware.create([]);

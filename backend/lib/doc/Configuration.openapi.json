@@ -13,6 +13,7 @@
           "ntpClient",
           "networkAdvertisement",
           "updater",
+          "duststreaming",
           "timers",
           "logLevel",
           "debug",
@@ -90,6 +91,9 @@
           },
           "updater": {
             "$ref": "#/components/schemas/UpdaterConfigDTO"
+          },
+          "duststreaming": {
+            "$ref": "#/components/schemas/DuststreamingConfigDTO"
           },
           "timers": {
             "type": "object"
@@ -583,6 +587,21 @@
                 "type": "object"
               }
             }
+          }
+        }
+      },
+      "DuststreamingConfigDTO": {
+        "type": "object",
+        "description": "Remote video access",
+        "additionalProperties": false,
+        "required": [
+          "enabled"
+        ],
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "default": false,
+            "description": "Controls the status of NoCloud Streaming process"
           }
         }
       },

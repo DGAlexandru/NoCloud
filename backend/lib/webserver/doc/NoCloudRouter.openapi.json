@@ -348,5 +348,48 @@
         }
       }
     }
+  },
+  "/api/v2/NoCloud/config/duststreaming": {
+    "get": {
+      "tags": [
+        "NoCloud"
+      ],
+      "summary": "Get duststreaming configuration",
+      "responses": {
+        "200": {
+          "description": "Ok",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DuststreamingConfigDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "tags": [
+        "NoCloud"
+      ],
+      "summary": "Update duststreaming configuration",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/DuststreamingConfigDTO"
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/200"
+        },
+        "400": {
+          "$ref": "#/components/responses/400"
+        }
+      }
+    }
   }
 }

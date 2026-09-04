@@ -5,6 +5,7 @@ const CallbackAttributeSubscriber = require("../entities/CallbackAttributeSubscr
 const entities = require("../entities");
 const ErrorStateNoCloudEvent = require("../NoCloud_events/events/ErrorStateNoCloudEvent");
 const Logger = require("../Logger");
+const NoCloudBasedCapability = require("./capabilities/NoCloudBasedCapability");
 const NotImplementedError = require("./NotImplementedError");
 const Semaphore = require("semaphore");
 const Tools = require("../utils/Tools");
@@ -252,7 +253,11 @@ class NoCloudRobot {
 
 
     async shutdown() {
-        //intentional
+        for (const capability of Object.values(this.capabilities)) {
+            if (capability instanceof NoCloudBasedCapability) {
+                await capability.shutdown();
+            }
+        }
     }
 
     getManufacturer() {
