@@ -4,9 +4,10 @@ import {
     SystemUpdateAlt as UpdaterIcon,
     Badge as FriendlyNameIcon,
 } from "@mui/icons-material";
-import {ListMenu} from "../components/list_menu/ListMenu";
+import { ListMenu } from "../components/list_menu/ListMenu";
 import PaperContainer from "../components/PaperContainer";
 import {
+    Capability,
     UpdaterConfiguration,
     useRestoreDefaultConfigurationMutation,
     useUpdaterConfigurationMutation,
@@ -14,11 +15,12 @@ import {
     useNoCloudCustomizationsMutation,
     useNoCloudCustomizationsQuery
 } from "../api";
-import {ButtonListMenuItem} from "../components/list_menu/ButtonListMenuItem";
-import {SelectListMenuItem, SelectListMenuItemOption} from "../components/list_menu/SelectListMenuItem";
-import {SpacerListMenuItem} from "../components/list_menu/SpacerListMenuItem";
+import { ButtonListMenuItem } from "../components/list_menu/ButtonListMenuItem";
+import { DuststreamingListMenuItem } from "../components/list_menu/DuststreamingListMenuItem";
+import { SelectListMenuItem, SelectListMenuItemOption } from "../components/list_menu/SelectListMenuItem";
+import { SpacerListMenuItem } from "../components/list_menu/SpacerListMenuItem";
 import { TextEditModalListMenuItem } from "../components/list_menu/TextEditModalListMenuItem";
-
+import { useCapabilitiesSupported } from "../CapabilitiesProvider";
 
 const ConfigRestoreButtonListMenuItem = (): React.ReactElement => {
     const {
@@ -132,14 +134,26 @@ const UpdateProviderSelectListMenuItem = (): React.ReactElement => {
 };
 
 const NoCloudOptions = (): React.ReactElement => {
+    const [duststreamingCapabilitySupported] = useCapabilitiesSupported(
+        Capability.Duststreaming,
+    );
+
     const listItems = React.useMemo(() => {
-        return [
+        const items = [
             <ConfigRestoreButtonListMenuItem key={"configRestoreAction"}/>,
             <SpacerListMenuItem key={"spacer0"}/>,
             <FriendlyNameEditModalListMenuItem key={"friendlyName"}/>,
             <UpdateProviderSelectListMenuItem key={"updateProviderSelect"}/>,
         ];
-    }, []);
+
+        if (duststreamingCapabilitySupported) {
+            items.push(
+                <SpacerListMenuItem key={"spacer1"}/>,
+                <DuststreamingListMenuItem key={"duststreaming"}/>
+            );
+        }
+        return items;
+    }, [duststreamingCapabilitySupported]);
 
     return (
         <PaperContainer>

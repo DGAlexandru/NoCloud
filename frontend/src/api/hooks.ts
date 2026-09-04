@@ -30,6 +30,8 @@ import {
     fetchCurrentStatistics,
     fetchCurrentStatisticsProperties,
     fetchDoNotDisturbConfiguration,
+    fetchDuststreamingConfiguration,
+    fetchDuststreamingProperties,
     fetchHTTPBasicAuthConfiguration,
     fetchHighResolutionManualControlState,
     fetchMQTTConfiguration,
@@ -96,6 +98,7 @@ import {
     sendConsumableReset,
     sendDismissWelcomeDialogAction,
     sendDoNotDisturbConfiguration,
+    sendDuststreamingConfiguration,
     sendGoToCommand,
     sendHTTPBasicAuthConfiguration,
     sendHighResolutionManualControlInteraction,
@@ -156,6 +159,7 @@ import {
     CombinedVirtualRestrictionsUpdateRequestParameters,
     ConsumableId,
     DoNotDisturbConfiguration,
+    DuststreamingConfiguration,
     HighResolutionManualControlInteraction,
     HTTPBasicAuthConfiguration,
     ManualControlInteraction,
@@ -206,6 +210,8 @@ enum QueryKey {
     CurrentStatistics = "current_statistics",
     CurrentStatisticsProperties = "current_statistics_properties",
     DoNotDisturb = "do_not_disturb",
+    DuststreamingConfiguration = "duststreaming_configuration",
+    DuststreamingProperties = "duststreaming_properties",
     HTTPBasicAuth = "http_basic_auth",
     HighResolutionManualControl = "high_resolution_manual_control",
     Log = "log",
@@ -1272,6 +1278,44 @@ export const useDoNotDisturbConfigurationMutation = () => {
             return sendDoNotDisturbConfiguration(configuration).then(fetchDoNotDisturbConfiguration);
         },
         onError: useOnCommandError(Capability.DoNotDisturb)
+    });
+};
+
+export const useDuststreamingPropertiesQuery = () => {
+    return useQuery( {
+        queryKey: [QueryKey.DuststreamingProperties],
+        queryFn: fetchDuststreamingProperties,
+
+        staleTime: Infinity,
+    });
+};
+
+export const useDuststreamingConfigurationQuery = (options?: { enabled?: boolean }) => {
+    return useQuery( {
+        queryKey: [QueryKey.DuststreamingConfiguration],
+        queryFn: fetchDuststreamingConfiguration,
+
+        enabled: options?.enabled ?? true,
+        staleTime: Infinity,
+    });
+};
+
+export const useDuststreamingConfigurationMutation = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (configuration: DuststreamingConfiguration) => {
+            return sendDuststreamingConfiguration(configuration).then(fetchDuststreamingConfiguration).then((configuration) => {
+                queryClient.setQueryData<DuststreamingConfiguration>([QueryKey.DuststreamingConfiguration], configuration, {
+                    updatedAt: Date.now(),
+                });
+
+                queryClient.invalidateQueries({
+                    queryKey: [QueryKey.DuststreamingProperties]
+                });
+            });
+        },
+        onError: useOnSettingsChangeError("Camera Streaming")
     });
 };
 

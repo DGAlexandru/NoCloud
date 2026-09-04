@@ -32,11 +32,12 @@ import {
     SettingsRemote as SettingsRemoteIcon,
     SvgIconComponent,
     SystemUpdateAlt as UpdaterIcon,
+    Videocam as CameraIcon,
     Wysiwyg as SystemInformationIcon,
 } from "@mui/icons-material";
 import {Link, useLocation} from "react-router-dom";
 import NoCloudEvents from "./NoCloudEvents";
-import {Capability} from "../api";
+import {Capability, useDuststreamingConfigurationQuery} from "../api";
 import {useCapabilitiesSupported} from "../CapabilitiesProvider";
 import {
     NoCloudMonochromeIcon,
@@ -54,6 +55,7 @@ interface MenuEntry {
         capabilities: Capability[];
         type: "allof" | "anyof"
     };
+    requiredEnabledConfig?: string;
 }
 
 interface MenuSubEntry {
@@ -70,6 +72,7 @@ interface MenuSubheader {
         capabilities: Capability[];
         type: "allof" | "anyof"
     };
+    requiredEnabledConfig?: string;
 }
 //Note that order is important here
 const menuTree: Array<MenuEntry | MenuSubEntry | MenuSubheader> = [
@@ -86,8 +89,9 @@ const menuTree: Array<MenuEntry | MenuSubEntry | MenuSubheader> = [
         requiredCapabilities: {
             capabilities: [
                 Capability.ConsumableMonitoring,
-                Capability.ManualControl,
+                Capability.Duststreaming,
                 Capability.HighResolutionManualControl,
+                Capability.ManualControl,
                 Capability.TotalStatistics
             ],
             type: "anyof"
@@ -125,6 +129,18 @@ const menuTree: Array<MenuEntry | MenuSubEntry | MenuSubheader> = [
             capabilities: [Capability.TotalStatistics],
             type: "allof"
         }
+    },
+    {
+        kind: "MenuEntry",
+        route: "/robot/camera",
+        title: "Camera",
+        menuIcon: CameraIcon,
+        menuText: "Camera",
+        requiredCapabilities: {
+            capabilities: [Capability.Duststreaming],
+            type: "allof"
+        },
+        requiredEnabledConfig: "duststreaming"
     },
     {
         kind: "Subheader",
@@ -171,6 +187,12 @@ const menuTree: Array<MenuEntry | MenuSubEntry | MenuSubheader> = [
         kind: "MenuSubEntry",
         route: "/options/map_management/robot_coverage",
         title: "Robot Coverage Map",
+        parentRoute: "/options/map_management"
+    },
+    {
+        kind: "MenuSubEntry",
+        route: "/options/map_management/spectator",
+        title: "Spectator Map",
         parentRoute: "/options/map_management"
     },
     {
@@ -317,6 +339,14 @@ function hasRequiredCapabilities(
         indices.some(i => supported[i]);
 }
 
+function hasRequiredEnabledConfig(
+    item: {requiredEnabledConfig?: string},
+    enabledConfigs: Record<string, boolean>
+): boolean {
+    return item.requiredEnabledConfig === undefined ||
+        enabledConfigs[item.requiredEnabledConfig] === true;
+}
+
 const NoCloudAppBar: React.FunctionComponent<{ paletteMode: PaletteMode, setPaletteMode: (newMode: PaletteMode) => void }> = ({
     paletteMode,
     setPaletteMode
@@ -324,7 +354,16 @@ const NoCloudAppBar: React.FunctionComponent<{ paletteMode: PaletteMode, setPale
     const [drawerOpen, setDrawerOpen] = React.useState<boolean>(false);
     const currentLocation = useLocation()?.pathname;
     const robotCapabilities = useCapabilitiesSupported(...Object.values(Capability));
+    const {data: duststreamingConfiguration} = useDuststreamingConfigurationQuery();
     const capabilityList = React.useMemo(() => Object.values(Capability), []);
+
+    const enabledConfigs = React.useMemo(() => {
+        const map: Record<string, boolean> = {};
+        if (duststreamingConfiguration) {
+            map.duststreaming = duststreamingConfiguration.enabled === true;
+        }
+        return map;
+    }, [duststreamingConfiguration]);
 
     const currentMenuEntry = menuTree.find(item => hasRoute(item) && item.route === currentLocation) ?? menuTree[0];
 
@@ -347,9 +386,10 @@ const NoCloudAppBar: React.FunctionComponent<{ paletteMode: PaletteMode, setPale
     const visibleMenuItems = React.useMemo(() => {
         return menuTree.filter(item =>
             item.kind !== "MenuSubEntry" &&
-            hasRequiredCapabilities(item.requiredCapabilities, robotCapabilities, capabilityList)
+            hasRequiredCapabilities(item.requiredCapabilities, robotCapabilities, capabilityList) &&
+            hasRequiredEnabledConfig(item, enabledConfigs)
         );
-    }, [robotCapabilities, capabilityList]);
+    }, [robotCapabilities, capabilityList, enabledConfigs]);
 
     const drawerContent = React.useMemo(() => {
         return (

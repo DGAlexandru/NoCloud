@@ -16,6 +16,7 @@ export enum Capability {
     CurrentStatistics = "CurrentStatisticsCapability",
     DeepCarpetCleaningControl = "DeepCarpetCleaningControlCapability",
     DoNotDisturb = "DoNotDisturbCapability",
+    Duststreaming = "DuststreamingCapability",
     FanSpeedControl = "FanSpeedControlCapability",
     FanSpeedTurboControl = "FanSpeedTurboControlCapability",
     FloorMaterialDirectionAwareNavigationControl = "FloorMaterialDirectionAwareNavigationControlCapability",
@@ -525,6 +526,16 @@ export interface DoNotDisturbConfiguration {
     enabled: boolean;
     start: DoNotDisturbTime;
     end: DoNotDisturbTime;
+}
+
+export interface DuststreamingConfiguration {
+    enabled: boolean;
+}
+
+export interface DuststreamingProperties {
+    width: number,
+    height: number,
+    duststreamerInstalled: boolean
 }
 
 export interface WifiConfiguration {

@@ -1,4 +1,3 @@
-import Grid from "@mui/material/Grid2";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
     Box,
@@ -15,21 +14,23 @@ import {
     NoCloudManualMovementVector,
     sendManualControlInteraction,
     sendHighResolutionManualControlInteraction,
+    useDuststreamingConfigurationQuery,
+    useDuststreamingPropertiesQuery,
     useHighResolutionManualControlInteraction,
     useHighResolutionManualControlStateQuery,
     useManualControlInteraction,
     useManualControlPropertiesQuery,
     useManualControlStateQuery,
 } from "../api";
-import { useCapabilitiesSupported } from "../CapabilitiesProvider";
-import { FullHeightGrid } from "../components/FullHeightGrid";
-import { PaperContainer } from "../components/PaperContainer";
-import { VirtualControllerProvider, InputMode, MovementCommandSender, useVirtualController } from "./manual_control/VirtualController";
-import { MovementSampler } from "./manual_control/MovementSampler";
+import { ControllerVisual } from "./manual_control/ControllerVisual";
+import { DPadInput } from "./manual_control/DPadInput";
+import { DuststreamCanvas, DuststreamPlaceholder } from "./Duststream";
 import { InputModeToggle } from "./manual_control/InputModeToggle";
 import { KeyboardInput } from "./manual_control/KeyboardInput";
-import { DPadInput } from "./manual_control/DPadInput";
-import { ControllerVisual } from "./manual_control/ControllerVisual";
+import { MovementSampler } from "./manual_control/MovementSampler";
+import { PaperContainer } from "../components/PaperContainer";
+import { useCapabilitiesSupported } from "../CapabilitiesProvider";
+import { VirtualControllerProvider, InputMode, MovementCommandSender, useVirtualController } from "./manual_control/VirtualController";
 
 function ModeSwitchReset({ mode }: { mode: InputMode }) {
     const { resetState } = useVirtualController();
@@ -189,25 +190,19 @@ const HighResolutionManualControlInternal: React.FunctionComponent = (): React.R
     const { isPending: stateLoading, isError: stateError } = useHighResolutionManualControlStateQuery();
 
     return (
-        <FullHeightGrid container direction="column">
-            <Grid flexGrow={1}>
-                <Box>
-                    {
-                        stateLoading ? (
-                            <Skeleton height={"12rem"} />
-                        ) : (
-                            <>
-                                { stateError && <Typography color="error">Error loading manual controls</Typography> }
-                                <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
-                                    <HighResolutionControlToggle />
-                                </Box>
-                                <HighResolutionMovementControls />
-                            </>
-                        )
-                    }
-                </Box>
-            </Grid>
-        </FullHeightGrid>
+        <Box>
+            {stateLoading ? (
+                <Skeleton height={"12rem"} />
+            ) : (
+                <>
+                    {stateError && <Typography color="error">Error loading manual controls</Typography>}
+                    <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
+                        <HighResolutionControlToggle />
+                    </Box>
+                    <HighResolutionMovementControls />
+                </>
+            )}
+        </Box>
     );
 };
 
@@ -219,23 +214,19 @@ const ManualControlInternal: React.FunctionComponent = (): React.ReactElement =>
     const hasError = stateError || propertiesError;
 
     return (
-        <FullHeightGrid container direction="column">
-            <Grid flexGrow={1}>
-                <Box>
-                    {loading ? (
-                        <Skeleton height={"12rem"} />
-                    ) : (
-                        <>
-                            {hasError && <Typography color="error">Error loading manual controls</Typography>}
-                            <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
-                                <StandardControlToggle />
-                            </Box>
-                            <StandardMovementControls />
-                        </>
-                    )}
-                </Box>
-            </Grid>
-        </FullHeightGrid>
+        <Box>
+            {loading ? (
+                <Skeleton height={"12rem"} />
+            ) : (
+                <>
+                    {hasError && <Typography color="error">Error loading manual controls</Typography>}
+                    <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
+                        <StandardControlToggle />
+                    </Box>
+                    <StandardMovementControls />
+                </>
+            )}
+        </Box>
     );
 };
 
@@ -244,6 +235,11 @@ const ManualControl = (): React.ReactElement => {
         Capability.HighResolutionManualControl,
         Capability.ManualControl
     );
+
+    const {data: cameraProperties} = useDuststreamingPropertiesQuery();
+    const {data: cameraConfiguration} = useDuststreamingConfigurationQuery();
+
+    const cameraEnabled = cameraConfiguration?.enabled === true;
 
     let controlComponent;
     if (highResSupported) {
@@ -255,8 +251,44 @@ const ManualControl = (): React.ReactElement => {
     }
 
     return (
-        <PaperContainer paperStyle={{ userSelect: "none" } as React.CSSProperties}>
-            {controlComponent}
+        <PaperContainer
+            paperStyle={{userSelect: "none"} as React.CSSProperties}
+            containerSx={{
+                display: "flex",
+                flexDirection: "column",
+                flex: "0 1 auto",
+                maxHeight: "100%",
+                minHeight: 0,
+            }}
+            paperSx={{
+                display: "flex",
+                flexDirection: "column",
+                flex: "0 1 auto",
+                maxHeight: "100%",
+                minHeight: 0,
+                overflow: "hidden",
+            }}
+        >
+            {cameraEnabled && cameraProperties && (
+                <Box sx={{
+                    position: "relative",
+                    width: "100%",
+                    aspectRatio: `${cameraProperties.width} / ${cameraProperties.height}`,
+                    mx: "auto",
+                    mb: 2,
+                    flex: "0 1 auto",
+                    minHeight: 0,
+                }}>
+                    {cameraProperties.duststreamerInstalled ? (
+                        <DuststreamCanvas dimensions={cameraProperties}/>
+                    ) : (
+                        <DuststreamPlaceholder dimensions={cameraProperties}/>
+                    )}
+                </Box>
+            )}
+            <Box sx={{flexShrink: 0}}>
+                {controlComponent}
+            </Box>
         </PaperContainer>
     );
 };

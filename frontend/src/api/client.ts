@@ -21,6 +21,8 @@ import {
     ConsumableProperties,
     ConsumableState,
     DoNotDisturbConfiguration,
+    DuststreamingConfiguration,
+    DuststreamingProperties,
     HTTPBasicAuthConfiguration,
     HighResolutionManualControlInteraction,
     LogLevelResponse,
@@ -915,6 +917,32 @@ export const sendDoNotDisturbConfiguration = async (configuration: DoNotDisturbC
         .then(({ status }) => {
             if (status !== 200) {
                 throw new Error("Could not update DND configuration");
+            }
+        });
+};
+
+export const fetchDuststreamingProperties = async (): Promise<DuststreamingProperties> => {
+    return NoCloudAPI
+        .get<DuststreamingProperties>(`/robot/capabilities/${Capability.Duststreaming}/properties`)
+        .then(({ data }) => {
+            return data;
+        });
+};
+
+export const fetchDuststreamingConfiguration = async (): Promise<DuststreamingConfiguration> => {
+    return NoCloudAPI
+        .get<DuststreamingConfiguration>("/NoCloud/config/duststreaming")
+        .then(({ data }) => {
+            return data;
+        });
+};
+
+export const sendDuststreamingConfiguration = async (configuration: DuststreamingConfiguration): Promise<void> => {
+    return NoCloudAPI
+        .put("/NoCloud/config/duststreaming", configuration)
+        .then(({status}) => {
+            if (status !== 200) {
+                throw new Error("Could not update DustStreaming configuration");
             }
         });
 };

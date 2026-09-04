@@ -1,6 +1,7 @@
 import {useCapabilitiesSupported} from "../CapabilitiesProvider";
 import {
     Capability,
+    useDuststreamingConfigurationQuery,
     useMapResetMutation,
     useNoCloudInformationQuery,
     usePersistentMapMutation,
@@ -16,6 +17,7 @@ import {
     Layers as MappingPassIcon,
     LayersClear as MapResetIcon,
     Save as PersistentMapControlIcon,
+    Videocam as SpectatorIcon,
 } from "@mui/icons-material";
 import ConfirmationDialog from "../components/ConfirmationDialog";
 import PaperContainer from "../components/PaperContainer";
@@ -168,7 +170,9 @@ const MapManagement = (): React.ReactElement => {
         mapSegmentRenameCapabilitySupported,
 
         combinedVirtualRestrictionsCapabilitySupported,
-        mapAnnotationsCapabilitySupported
+        mapAnnotationsCapabilitySupported,
+
+        duststreamingCapabilitySupported,
     ] = useCapabilitiesSupported(
         Capability.PersistentMapControl,
         Capability.MappingPass,
@@ -178,8 +182,13 @@ const MapManagement = (): React.ReactElement => {
         Capability.MapSegmentRename,
 
         Capability.CombinedVirtualRestrictions,
-        Capability.MapAnnotations
+        Capability.MapAnnotations,
+
+        Capability.Duststreaming,
     );
+
+    const {data: duststreamingConfiguration} = useDuststreamingConfigurationQuery({enabled: duststreamingCapabilitySupported});
+    const duststreamingEnabled = duststreamingConfiguration?.enabled === true;
 
     const robotManagedListItems = React.useMemo(() => {
         const items = [];
@@ -265,17 +274,32 @@ const MapManagement = (): React.ReactElement => {
     ]);
 
     const utilityMapItems = React.useMemo(() => {
-        return [
+        const items = [
             <LinkListMenuItem
                 key="robotCoverageMap"
                 url="/options/map_management/robot_coverage"
                 primaryLabel="Robot Coverage Map"
                 secondaryLabel="Check the robots coverage"
                 icon={<CleanupCoverageIcon/>}
-            />,
-            <NoCloudMapDataExportButtonItem key="NoCloudMapDataExport" />
+            />
         ];
-    }, []);
+
+        if (duststreamingCapabilitySupported && duststreamingEnabled) {
+            items.push(
+                <LinkListMenuItem
+                    key="spectatorMap"
+                    url="/options/map_management/spectator"
+                    primaryLabel="Spectator Map"
+                    secondaryLabel="Watch how the robot navigates while it cleans"
+                    icon={<SpectatorIcon/>}
+                />
+            );
+        }
+
+        items.push(<NoCloudMapDataExportButtonItem key="NoCloudMapDataExport" />);
+
+        return items;
+    }, [duststreamingCapabilitySupported, duststreamingEnabled]);
 
     return (
         <PaperContainer>
