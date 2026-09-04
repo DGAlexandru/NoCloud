@@ -104,6 +104,11 @@ settings page.
      - [Battery state (`BatteryStateAttribute`)](#batterystatebatterystateattribute)
        - [Battery level (`level`)](#batterylevellevel)
        - [Battery status (`status`)](#batterystatusstatus)
+     - [Dock Component state (`DockComponentStateAttribute`)](#dockcomponentstatedockcomponentstateattribute)
+       - [Detergent (`detergent`)](#detergentdetergent)
+       - [Dustbag (`dustbag`)](#dustbagdustbag)
+       - [Freshwater (`water_tank_clean`)](#freshwaterwatertankclean)
+       - [Wastewater (`water_tank_dirty`)](#wastewaterwatertankdirty)
      - [Dock state (`DockStatusStateAttribute`)](#dockstatedockstatusstateattribute)
        - [Status (`status`)](#statusstatus)
      - [Vacuum status (`StatusStateAttribute`)](#vacuumstatusstatusstateattribute)
@@ -117,6 +122,7 @@ settings page.
 
 - [AttachmentStateAttribute](#attachmentstateattachmentstateattribute)
 - [BatteryStateAttribute](#batterystatebatterystateattribute)
+- [DockComponentStateAttribute](#dockcomponentstatedockcomponentstateattribute)
 - [DockStatusStateAttribute](#dockstatedockstatusstateattribute)
 - [PresetSelectionStateAttribute](#watercontrolwaterusagecontrolcapability)
 - [StatusStateAttribute](#vacuumstatusstatusstateattribute)
@@ -131,16 +137,19 @@ settings page.
 - [Consumable (percent) (`sensor.mqtt`)](#consumablepercentconsumable-percent)
 - [Current Statistics Area (`sensor.mqtt`)](#currentstatisticsareaarea)
 - [Current Statistics Time (`sensor.mqtt`)](#currentstatisticstimetime)
+- [Detergent Dock Component (`sensor.mqtt`)](#detergentdetergent)
 - [Dock Status (`sensor.mqtt`)](#statusstatus)
-- [Dust bin attachment (`binary_sensor.mqtt`)](#dustbindustbin)
+- [Dust bin Attachment (`binary_sensor.mqtt`)](#dustbindustbin)
+- [Dustbag Dock Component (`sensor.mqtt`)](#dustbagdustbag)
 - [Error (`sensor.mqtt`)](#vacuumstatusstatusstateattribute)
 - [Events (`sensor.mqtt`)](#eventsnocloudevents)
 - [Fan (`select.mqtt`)](#fanpreset)
+- [Freshwater Dock Component (`sensor.mqtt`)](#freshwaterwatertankclean)
 - [Lock Keys (`switch.mqtt`)](#lockkeysenabled)
 - [Map data (`camera.mqtt`)](#rawmapdataforhomeassistantmap-data-hass)
 - [Map segments (`sensor.mqtt`)](#mapsegmentssegments)
 - [Mode (`select.mqtt`)](#modepreset)
-- [Mop attachment (`binary_sensor.mqtt`)](#mopmop)
+- [Mop Attachment (`binary_sensor.mqtt`)](#mopmop)
 - [Obstacle Avoidance (`switch.mqtt`)](#obstacleavoidanceenabled)
 - [Pet Obstacle Avoidance (`switch.mqtt`)](#petobstacleavoidanceenabled)
 - [Play locate sound (`button.mqtt`)](#locatelocate)
@@ -153,8 +162,9 @@ settings page.
 - [Total Statistics Time (`sensor.mqtt`)](#totalstatisticstimetime)
 - [Trigger Auto Empty Dock (`button.mqtt`)](#autoemptydockmanualtriggertrigger)
 - [Vacuum (`vacuum.mqtt`)](#robot)
+- [Wastewater Dock Component (`sensor.mqtt`)](#wastewaterwatertankdirty)
 - [Water (`select.mqtt`)](#waterpreset)
-- [Water tank attachment (`binary_sensor.mqtt`)](#watertankwatertank)
+- [Water tank Attachment (`binary_sensor.mqtt`)](#watertankwatertank)
 - [Wi-Fi configuration (`sensor.mqtt`)](#wi-ficonfigurationwificonfigurationcapability)
 
 
@@ -795,7 +805,7 @@ Sample value:
 
 Sample value:
 ```json
--56
+-69
 ```
 
 
@@ -930,11 +940,11 @@ This property contains all raised and not yet processed NoCloudEvents.
 Sample value:
 ```json
 {
-  "73ed2ad5-0b50-405e-aee3-162652765a8b": {
+  "8caa5c98-6077-4b28-bbd9-e425c4420728": {
     "__class": "ErrorStateNoCloudEvent",
     "metaData": {},
-    "id": "73ed2ad5-0b50-405e-aee3-162652765a8b",
-    "timestamp": "2026-01-25T15:45:32.712Z",
+    "id": "8caa5c98-6077-4b28-bbd9-e425c4420728",
+    "timestamp": "2026-09-04T16:07:25.877Z",
     "processed": false,
     "message": "This is an error message"
   },
@@ -942,21 +952,21 @@ Sample value:
     "__class": "PendingMapChangeNoCloudEvent",
     "metaData": {},
     "id": "pending_map_change",
-    "timestamp": "2026-01-25T15:45:32.712Z",
+    "timestamp": "2026-09-04T16:07:25.876Z",
     "processed": false
   },
   "mop_attachment_reminder": {
     "__class": "MopAttachmentReminderNoCloudEvent",
     "metaData": {},
     "id": "mop_attachment_reminder",
-    "timestamp": "2026-01-25T15:45:32.712Z",
+    "timestamp": "2026-09-04T16:07:25.876Z",
     "processed": false
   },
-  "5f8811bd-bbf2-4587-abbb-b4b3313033e0": {
+  "9025d4ee-230a-4f72-bb62-9f10a20f094f": {
     "__class": "DustBinFullNoCloudEvent",
     "metaData": {},
-    "id": "5f8811bd-bbf2-4587-abbb-b4b3313033e0",
-    "timestamp": "2026-01-25T15:45:32.712Z",
+    "id": "9025d4ee-230a-4f72-bb62-9f10a20f094f",
+    "timestamp": "2026-09-04T16:07:25.876Z",
     "processed": false
   }
 }
@@ -1014,7 +1024,7 @@ true
 
 Home Assistant components controlled by this property:
 
-- Dust bin attachment ([`binary_sensor.mqtt`](https://www.home-assistant.io/integrations/binary_sensor.mqtt/))
+- Dust bin Attachment ([`binary_sensor.mqtt`](https://www.home-assistant.io/integrations/binary_sensor.mqtt/))
 
 
 ##### Mop (`mop`) <a id="mopmop" />
@@ -1033,7 +1043,7 @@ false
 
 Home Assistant components controlled by this property:
 
-- Mop attachment ([`binary_sensor.mqtt`](https://www.home-assistant.io/integrations/binary_sensor.mqtt/))
+- Mop Attachment ([`binary_sensor.mqtt`](https://www.home-assistant.io/integrations/binary_sensor.mqtt/))
 
 
 ##### Water tank (`watertank`) <a id="watertankwatertank" />
@@ -1052,7 +1062,7 @@ true
 
 Home Assistant components controlled by this property:
 
-- Water tank attachment ([`binary_sensor.mqtt`](https://www.home-assistant.io/integrations/binary_sensor.mqtt/))
+- Water tank Attachment ([`binary_sensor.mqtt`](https://www.home-assistant.io/integrations/binary_sensor.mqtt/))
 
 
 
@@ -1092,6 +1102,91 @@ Sample value:
 ```
 charging
 ```
+
+
+
+#### Dock Component state (`DockComponentStateAttribute`) <a id="dockcomponentstatedockcomponentstateattribute" />
+
+*Node*
+
+Status attributes managed by this node:
+
+- DockComponentStateAttribute
+
+##### Detergent (`detergent`) <a id="detergentdetergent" />
+
+*Property, readable, retained*
+
+This handle reports the state of the detergent Dock Component.
+
+- Read topic: `<TOPIC PREFIX>/<IDENTIFIER>/DockComponentStateAttribute/detergent`
+- Data type: [enum](https://homieiot.github.io/specification/#enum) (allowed payloads: `ok`, `missing`, `empty`, `full`, `unknown`)
+
+Sample value:
+```
+ok
+```
+
+Home Assistant components controlled by this property:
+
+- Detergent Dock Component ([`sensor.mqtt`](https://www.home-assistant.io/integrations/sensor.mqtt/))
+
+
+##### Dustbag (`dustbag`) <a id="dustbagdustbag" />
+
+*Property, readable, retained*
+
+This handle reports the state of the dustbag Dock Component.
+
+- Read topic: `<TOPIC PREFIX>/<IDENTIFIER>/DockComponentStateAttribute/dustbag`
+- Data type: [enum](https://homieiot.github.io/specification/#enum) (allowed payloads: `ok`, `missing`, `empty`, `full`, `unknown`)
+
+Sample value:
+```
+ok
+```
+
+Home Assistant components controlled by this property:
+
+- Dustbag Dock Component ([`sensor.mqtt`](https://www.home-assistant.io/integrations/sensor.mqtt/))
+
+
+##### Freshwater (`water_tank_clean`) <a id="freshwaterwatertankclean" />
+
+*Property, readable, retained*
+
+This handle reports the state of the freshwater Dock Component.
+
+- Read topic: `<TOPIC PREFIX>/<IDENTIFIER>/DockComponentStateAttribute/water_tank_clean`
+- Data type: [enum](https://homieiot.github.io/specification/#enum) (allowed payloads: `ok`, `missing`, `empty`, `full`, `unknown`)
+
+Sample value:
+```
+ok
+```
+
+Home Assistant components controlled by this property:
+
+- Freshwater Dock Component ([`sensor.mqtt`](https://www.home-assistant.io/integrations/sensor.mqtt/))
+
+
+##### Wastewater (`water_tank_dirty`) <a id="wastewaterwatertankdirty" />
+
+*Property, readable, retained*
+
+This handle reports the state of the wastewater Dock Component.
+
+- Read topic: `<TOPIC PREFIX>/<IDENTIFIER>/DockComponentStateAttribute/water_tank_dirty`
+- Data type: [enum](https://homieiot.github.io/specification/#enum) (allowed payloads: `ok`, `missing`, `empty`, `full`, `unknown`)
+
+Sample value:
+```
+ok
+```
+
+Home Assistant components controlled by this property:
+
+- Wastewater Dock Component ([`sensor.mqtt`](https://www.home-assistant.io/integrations/sensor.mqtt/))
 
 
 
