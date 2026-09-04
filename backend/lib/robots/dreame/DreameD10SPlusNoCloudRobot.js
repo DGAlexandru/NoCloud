@@ -1,10 +1,12 @@
 const capabilities = require("./capabilities");
 const DreameGen2LidarNoCloudRobot = require("./DreameGen2LidarNoCloudRobot");
 const DreameGen2NoCloudRobot = require("./DreameGen2NoCloudRobot");
+
 const DreameNoCloudRobot = require("./DreameNoCloudRobot");
 const DreameQuirkFactory = require("./DreameQuirkFactory");
 const entities = require("../../entities");
 const fs = require("fs");
+const LinuxDuststreamingCapability = require("../common/linuxCapabilities/LinuxDuststreamingCapability");
 const MiioNoCloudRobot = require("../MiioNoCloudRobot");
 const NoCloudSelectionPreset = require("../../entities/core/NoCloudSelectionPreset");
 const QuirksCapability = require("../../core/capabilities/QuirksCapability");
@@ -123,6 +125,16 @@ class DreameD10SPlusNoCloudRobot extends DreameGen2LidarNoCloudRobot {
             dimensions: {
                 width: 672,
                 height: 504
+            }
+        }));
+
+        this.registerCapability(new LinuxDuststreamingCapability({
+            robot: this,
+            platform: LinuxDuststreamingCapability.PLATFORM.DREAME_MR813,
+            device: "/dev/video0",
+            dimensions: {
+                width: 640,
+                height: 480
             }
         }));
 

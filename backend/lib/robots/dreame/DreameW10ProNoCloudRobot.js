@@ -1,9 +1,11 @@
 const capabilities = require("./capabilities");
 const DreameMiotServices = require("./DreameMiotServices");
 const DreameMopNoCloudRobot = require("./DreameMopNoCloudRobot");
+
 const DreameNoCloudRobot = require("./DreameNoCloudRobot");
 const DreameQuirkFactory = require("./DreameQuirkFactory");
 const fs = require("fs");
+const LinuxDuststreamingCapability = require("../common/linuxCapabilities/LinuxDuststreamingCapability");
 const MiioNoCloudRobot = require("../MiioNoCloudRobot");
 const NoCloudSelectionPreset = require("../../entities/core/NoCloudSelectionPreset");
 const QuirksCapability = require("../../core/capabilities/QuirksCapability");
@@ -39,6 +41,16 @@ class DreameW10ProNoCloudRobot extends DreameMopNoCloudRobot {
 
         this.registerCapability(new capabilities.DreameCarpetSensorModeControlCapability({
             robot: this
+        }));
+
+        this.registerCapability(new LinuxDuststreamingCapability({
+            robot: this,
+            platform: LinuxDuststreamingCapability.PLATFORM.DREAME_MR813,
+            device: "/dev/video0",
+            dimensions: {
+                width: 640,
+                height: 480
+            }
         }));
 
         [

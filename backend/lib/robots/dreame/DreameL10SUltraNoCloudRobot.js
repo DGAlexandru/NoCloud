@@ -6,6 +6,7 @@ const DreameNoCloudRobot = require("./DreameNoCloudRobot");
 const DreameQuirkFactory = require("./DreameQuirkFactory");
 const entities = require("../../entities");
 const fs = require("fs");
+const LinuxDuststreamingCapability = require("../common/linuxCapabilities/LinuxDuststreamingCapability");
 const MiioNoCloudRobot = require("../MiioNoCloudRobot");
 const NoCloudMapAnnotation = require("../../entities/core/NoCloudMapAnnotation");
 const NoCloudSelectionPreset = require("../../entities/core/NoCloudSelectionPreset");
@@ -216,6 +217,16 @@ class DreameL10SUltraNoCloudRobot extends DreameGen2LidarNoCloudRobot {
                 actionResult: {
                     piid: DreameGen2NoCloudRobot.MIOT_SERVICES.MAP.PROPERTIES.ACTION_RESULT.PIID
                 }
+            }
+        }));
+
+        this.registerCapability(new LinuxDuststreamingCapability({
+            robot: this,
+            platform: LinuxDuststreamingCapability.PLATFORM.DREAME_MR813,
+            device: "/dev/video0",
+            dimensions: {
+                width: 640,
+                height: 480
             }
         }));
 

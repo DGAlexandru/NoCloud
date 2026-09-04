@@ -5,6 +5,7 @@ const DreameGen4NoCloudRobot = require("./DreameGen4NoCloudRobot");
 const DreameNoCloudRobot = require("./DreameNoCloudRobot");
 const DreameQuirkFactory = require("./DreameQuirkFactory");
 const entities = require("../../entities");
+const LinuxDuststreamingCapability = require("../common/linuxCapabilities/LinuxDuststreamingCapability");
 const Logger = require("../../Logger");
 const MiioNoCloudRobot = require("../MiioNoCloudRobot");
 const NoCloudMapAnnotation = require("../../entities/core/NoCloudMapAnnotation");
@@ -219,6 +220,16 @@ class DreameMovaS20UltraNoCloudRobot extends DreameGen4NoCloudRobot {
         this.registerCapability(new capabilities.DreameCleanRouteControlCapability({
             robot: this,
             quickSupported: false
+        }));
+
+        this.registerCapability(new LinuxDuststreamingCapability({
+            robot: this,
+            platform: LinuxDuststreamingCapability.PLATFORM.DREAME_MR813,
+            device: "/dev/video0",
+            dimensions: {
+                width: 640,
+                height: 480
+            }
         }));
 
         [
