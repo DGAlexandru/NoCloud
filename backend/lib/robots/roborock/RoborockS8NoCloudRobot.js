@@ -1,6 +1,7 @@
 const capabilities = require("./capabilities");
 const entities = require("../../entities");
 const fs = require("fs");
+const LinuxDuststreamingCapability = require("../common/linuxCapabilities/LinuxDuststreamingCapability");
 const Logger = require("../../Logger");
 const MiioNoCloudRobot = require("../MiioNoCloudRobot");
 const NoCloudRestrictedZone = require("../../entities/core/NoCloudRestrictedZone");
@@ -48,6 +49,16 @@ class RoborockS8NoCloudRobot extends RoborockGen4NoCloudRobot {
         this.registerCapability(new capabilities.RoborockCarpetSensorModeControlCapability({
             robot: this,
             liftModeId: 3
+        }));
+
+        this.registerCapability(new LinuxDuststreamingCapability({
+            robot: this,
+            platform: LinuxDuststreamingCapability.PLATFORM.DREAME_MR813,
+            device: "/dev/video1",
+            dimensions: {
+                width: 640,
+                height: 480
+            }
         }));
 
         [
